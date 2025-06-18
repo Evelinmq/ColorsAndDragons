@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utez.edu.mx.demofigma.HelloController">
+    <children>
+        <Button layoutX="18.0" layoutY="69.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="145.0" text="Empleado" />
+        <Button layoutX="18.0" layoutY="118.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="145.0" text="Puesto" />
+        <Button layoutX="18.0" layoutY="167.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="145.0" text="Resguardo" />
+        <Button layoutX="18.0" layoutY="216.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="145.0" text="Bienes" />
+        <Button layoutX="18.0" layoutY="258.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="145.0" text="Espacio" />
+        <Button layoutX="18.0" layoutY="306.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="145.0" text="Unidad administrativa" />
+        <Button layoutX="14.0" layoutY="353.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="145.0" text="Edificio" />
+        <Button layoutX="199.0" layoutY="35.0" mnemonicParsing="false" text="+Agregar" />
+        <TextField layoutX="449.0" layoutY="35.0" prefHeight="25.0" prefWidth="121.0" text="Buscar" />
+        <SplitMenuButton layoutX="345.0" layoutY="35.0" mnemonicParsing="false" text="Ver más">
+            <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+                <MenuItem mnemonicParsing="false" text="Action 2" />
+            </items>
+        </SplitMenuButton>
+        <Button layoutX="484.0" layoutY="96.0" mnemonicParsing="false" text="Editar" />
+        <Button layoutX="544.0" layoutY="96.0" mnemonicParsing="false" text="Eliminar" />
+        <Button layoutX="407.0" layoutY="96.0" mnemonicParsing="false" text="Descargar" />
+        <Button layoutX="521.0" layoutY="2.0" mnemonicParsing="false" prefHeight="14.0" prefWidth="47.0" text="Salir" />
+    </children>
+</AnchorPane>

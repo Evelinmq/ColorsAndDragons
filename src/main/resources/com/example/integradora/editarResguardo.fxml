@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="336.0" prefWidth="432.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utez.edu.mx.demofigma.HelloController">
+   <children>
+      <Label layoutX="172.0" layoutY="27.0" text="Editar resguardo" />
+      <Label layoutX="36.0" layoutY="68.0" text="Fecha" />
+      <TextField layoutX="27.0" layoutY="85.0" />
+      <Label layoutX="36.0" layoutY="122.0" text="Empleado" />
+      <Label layoutX="34.0" layoutY="179.0" text="Puesto" />
+      <TextField layoutX="27.0" layoutY="196.0" />
+      <Label layoutX="43.0" layoutY="241.0" text="Espacio" />
+      <Label layoutX="257.0" layoutY="68.0" text="Tabla bienes" />
+      <TextField layoutX="239.0" layoutY="85.0" />
+      <TextField layoutX="239.0" layoutY="139.0" />
+      <TextField layoutX="239.0" layoutY="196.0" />
+      <TextField layoutX="239.0" layoutY="258.0" />
+      <Button layoutX="262.0" layoutY="297.0" mnemonicParsing="false" text="Guardar" />
+      <Button layoutX="324.0" layoutY="297.0" mnemonicParsing="false" text="Cancelar" />
+      <Label layoutX="257.0" layoutY="122.0" text="RFC" />
+      <Label layoutX="257.0" layoutY="179.0" text="Empleado" />
+      <Label layoutX="257.0" layoutY="241.0" text="Edificio" />
+      <MenuButton layoutX="28.0" layoutY="139.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Opciones">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Action 1" />
+          <MenuItem mnemonicParsing="false" text="Action 2" />
+        </items>
+      </MenuButton>
+      <MenuButton layoutX="28.0" layoutY="258.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Opciones">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Action 1" />
+          <MenuItem mnemonicParsing="false" text="Action 2" />
+        </items>
+      </MenuButton>
+   </children>
+</AnchorPane>
