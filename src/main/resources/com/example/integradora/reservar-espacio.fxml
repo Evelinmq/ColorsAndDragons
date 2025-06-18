@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.vistas.NuevoBien">
+   <children>
+      <TextField layoutX="120.0" layoutY="240.0" prefHeight="25.0" prefWidth="360.0" />
+      <Button layoutX="341.0" layoutY="334.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="90.0" text="Guardar" />
+      <Button layoutX="453.0" layoutY="334.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="90.0" text="Cancelar" />
+      <Label layoutX="121.0" layoutY="80.0" text="Selecciona el edificio" />
+      <Label layoutX="121.0" layoutY="207.0" text="Escribe el nombre del espacio" />
+      <Label layoutX="256.0" layoutY="27.0" text="RESERVAR ESPACIO" />
+      <MenuButton layoutX="121.0" layoutY="114.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="360.0" text="Edificio">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Action 1" />
+          <MenuItem mnemonicParsing="false" text="Action 2" />
+        </items>
+      </MenuButton>
+   </children>
+</AnchorPane>

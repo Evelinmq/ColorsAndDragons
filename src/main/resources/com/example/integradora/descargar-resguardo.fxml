@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.vistas.DescargarResguardo">
+   <children>
+      <Button layoutX="139.0" layoutY="221.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="113.0" text="Aceptar" />
+      <Button layoutX="331.0" layoutY="221.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="113.0" text="Cancelar" />
+      <Label layoutX="141.0" layoutY="94.0" prefHeight="61.0" prefWidth="318.0" text="¿Deseas descargar el resguardo?">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
