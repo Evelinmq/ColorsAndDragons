@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Button layoutX="18.0" layoutY="69.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="145.0" text="Empleado" />
+        <Button layoutX="18.0" layoutY="118.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="145.0" text="Puesto" />
+        <Button layoutX="18.0" layoutY="167.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="145.0" text="Resguardo" />
+        <Button layoutX="18.0" layoutY="216.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="145.0" text="Bienes" />
+        <Button layoutX="18.0" layoutY="258.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="145.0" text="Espacio" />
+        <Button layoutX="18.0" layoutY="306.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="145.0" text="Unidad administrativa" />
+        <Button layoutX="14.0" layoutY="353.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="145.0" text="Edificio" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="305.0" layoutY="155.0" pickOnBounds="true" preserveRatio="true" />
+      <Label layoutX="271.0" layoutY="154.0" text="Bienvenido al Sistema de Inventario">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+    </children>
+</AnchorPane>
