@@ -3,10 +3,10 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="300.0" prefWidth="372.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utez.edu.mx.demofigma.HelloController">
-   <children>
-      <Button layoutX="80.0" layoutY="176.0" mnemonicParsing="false" text="Aceptar" />
-      <Button layoutX="213.0" layoutY="176.0" mnemonicParsing="false" text="Cancelar" />
-      <Label layoutX="127.0" layoutY="85.0" text="¿Deseas cerrar sesión?" />
-   </children>
+<AnchorPane prefHeight="300.0" prefWidth="372.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Button layoutX="80.0" layoutY="176.0" mnemonicParsing="false" text="Aceptar" />
+        <Button layoutX="213.0" layoutY="176.0" mnemonicParsing="false" text="Cancelar" />
+        <Label layoutX="127.0" layoutY="85.0" text="¿Deseas cerrar sesión?" />
+    </children>
 </AnchorPane>

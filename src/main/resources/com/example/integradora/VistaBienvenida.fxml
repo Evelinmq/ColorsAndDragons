@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="400.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
     <children>
@@ -12,21 +14,11 @@
         <Button layoutX="18.0" layoutY="258.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="145.0" text="Espacio" />
         <Button layoutX="18.0" layoutY="306.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="145.0" text="Unidad administrativa" />
         <Button layoutX="14.0" layoutY="353.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="145.0" text="Edificio" />
-        <Button layoutX="199.0" layoutY="35.0" mnemonicParsing="false" text="+Agregar" />
-        <TextField layoutX="449.0" layoutY="35.0" prefHeight="25.0" prefWidth="121.0" text="Buscar" />
-        <SplitMenuButton layoutX="345.0" layoutY="35.0" mnemonicParsing="false" text="Ver más">
-            <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-                <MenuItem mnemonicParsing="false" text="Action 2" />
-            </items>
-        </SplitMenuButton>
-        <Button layoutX="484.0" layoutY="96.0" mnemonicParsing="false" text="Editar" />
-        <Button layoutX="544.0" layoutY="96.0" mnemonicParsing="false" text="Eliminar" />
-        <Button layoutX="407.0" layoutY="96.0" mnemonicParsing="false" text="Descargar" />
-        <Button layoutX="521.0" layoutY="2.0" mnemonicParsing="false" prefHeight="14.0" prefWidth="47.0" text="Salir" />
-      <Label layoutX="185.0" layoutY="74.0" text="Numero" />
-      <Label layoutX="251.0" layoutY="74.0" text="Fecha" />
-      <Label layoutX="296.0" layoutY="74.0" text="Empleado" />
-      <Label layoutX="351.0" layoutY="74.0" text="Espacio" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="305.0" layoutY="155.0" pickOnBounds="true" preserveRatio="true" />
+      <Label layoutX="271.0" layoutY="154.0" text="Bienvenido al Sistema de Inventario">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

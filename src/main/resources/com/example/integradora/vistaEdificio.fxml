@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utez.edu.mx.demofigma.HelloController">
+<AnchorPane prefHeight="400.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Button layoutX="18.0" layoutY="69.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="145.0" text="Empleado" />
         <Button layoutX="18.0" layoutY="118.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="145.0" text="Puesto" />
@@ -24,5 +24,7 @@
         <Button layoutX="544.0" layoutY="96.0" mnemonicParsing="false" text="Eliminar" />
         <Button layoutX="407.0" layoutY="96.0" mnemonicParsing="false" text="Descargar" />
         <Button layoutX="521.0" layoutY="2.0" mnemonicParsing="false" prefHeight="14.0" prefWidth="47.0" text="Salir" />
+      <Label layoutX="212.0" layoutY="74.0" text="Edificio" />
+      <Label layoutX="310.0" layoutY="74.0" text="Espacio" />
     </children>
 </AnchorPane>

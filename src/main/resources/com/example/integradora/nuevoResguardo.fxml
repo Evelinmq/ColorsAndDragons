@@ -2,10 +2,14 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="336.0" prefWidth="432.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utez.edu.mx.demofigma.HelloController">
+<AnchorPane prefHeight="336.0" prefWidth="432.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label layoutX="172.0" layoutY="27.0" text="Nuevo resguardo" />
+        <Label layoutX="172.0" layoutY="27.0" text="Nuevo resguardo">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Label>
         <Label layoutX="36.0" layoutY="68.0" text="Fecha" />
         <TextField layoutX="27.0" layoutY="85.0" />
         <Label layoutX="36.0" layoutY="122.0" text="Empleado" />
