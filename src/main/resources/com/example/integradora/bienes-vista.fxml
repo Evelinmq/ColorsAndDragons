@@ -23,7 +23,6 @@
             <TableColumn prefWidth="69.0" text="No. Serie" />
         </columns>
       </TableView>
-      <ScrollBar layoutX="532.0" layoutY="77.0" orientation="VERTICAL" prefHeight="311.0" prefWidth="14.0" />
       <TextField layoutX="397.0" layoutY="45.0" text="Buscar" />
       <MenuButton layoutX="313.0" layoutY="45.0" mnemonicParsing="false" text="Ver todos">
         <items>
