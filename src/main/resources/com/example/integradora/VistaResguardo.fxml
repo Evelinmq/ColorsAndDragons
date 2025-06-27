@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="427.0" prefWidth="689.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="400.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <HBox prefHeight="400.0" prefWidth="138.0">
             <children>
@@ -46,13 +46,21 @@
                 </VBox>
             </children>
         </HBox>
-        <Button layoutX="142.0" layoutY="45.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="92.0" text="Agregar +" />
-        <TextField layoutX="514.0" layoutY="45.0" text="Busqueda " />
-        <ComboBox layoutX="415.0" layoutY="45.0" prefHeight="25.0" prefWidth="92.0" promptText="Ver todos" />
-        <Button layoutX="645.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="32.0" text="Cerrar sesión" />
-        <Button layoutX="637.0" layoutY="112.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="20.0" text="Eliminar" />
-        <Button layoutX="599.0" layoutY="112.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="24.0" text="Editar" />
-        <Label layoutX="155.0" layoutY="142.0" text="DATID" />
-        <Label layoutX="155.0" layoutY="104.0" text="Unidad Administrativa" />
+        <Button layoutX="199.0" layoutY="35.0" mnemonicParsing="false" text="+Agregar" />
+        <TextField layoutX="449.0" layoutY="35.0" prefHeight="25.0" prefWidth="121.0" text="Buscar" />
+        <SplitMenuButton layoutX="345.0" layoutY="35.0" mnemonicParsing="false" text="Ver más">
+            <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+                <MenuItem mnemonicParsing="false" text="Action 2" />
+            </items>
+        </SplitMenuButton>
+        <Button layoutX="484.0" layoutY="96.0" mnemonicParsing="false" text="Editar" />
+        <Button layoutX="544.0" layoutY="96.0" mnemonicParsing="false" text="Eliminar" />
+        <Button layoutX="407.0" layoutY="96.0" mnemonicParsing="false" text="Descargar" />
+        <Button layoutX="521.0" layoutY="2.0" mnemonicParsing="false" prefHeight="14.0" prefWidth="47.0" text="Salir" />
+      <Label layoutX="185.0" layoutY="74.0" text="Numero" />
+      <Label layoutX="251.0" layoutY="74.0" text="Fecha" />
+      <Label layoutX="296.0" layoutY="74.0" text="Empleado" />
+      <Label layoutX="351.0" layoutY="74.0" text="Espacio" />
     </children>
-</Pane>
+</AnchorPane>

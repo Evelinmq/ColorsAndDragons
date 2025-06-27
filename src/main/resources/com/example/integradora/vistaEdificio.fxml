@@ -1,17 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <AnchorPane prefHeight="400.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Button layoutX="18.0" layoutY="69.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="145.0" text="Empleado" />
-        <Button layoutX="18.0" layoutY="118.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="145.0" text="Puesto" />
-        <Button layoutX="18.0" layoutY="167.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="145.0" text="Resguardo" />
-        <Button layoutX="18.0" layoutY="216.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="145.0" text="Bienes" />
-        <Button layoutX="18.0" layoutY="258.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="145.0" text="Espacio" />
-        <Button layoutX="18.0" layoutY="306.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="145.0" text="Unidad administrativa" />
-        <Button layoutX="14.0" layoutY="353.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="145.0" text="Edificio" />
+        <HBox prefHeight="400.0" prefWidth="138.0">
+            <children>
+                <VBox prefHeight="400.0" prefWidth="148.0">
+                    <children>
+                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Resguardo">
+                            <VBox.margin>
+                        <Insets left="10.0" top="77.0" />
+                            </VBox.margin></Button>
+                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Bienes">
+                            <VBox.margin>
+                                <Insets left="10.0" top="15.0" />
+                            </VBox.margin></Button>
+                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Empleados">
+                            <VBox.margin>
+                                <Insets left="10.0" top="15.0" />
+                            </VBox.margin></Button>
+                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Puesto">
+                            <VBox.margin>
+                                <Insets left="10.0" top="15.0" />
+                            </VBox.margin></Button>
+                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Espacio">
+                            <VBox.margin>
+                                <Insets left="10.0" top="15.0" />
+                            </VBox.margin></Button>
+                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="U. Administrativa">
+                            <VBox.margin>
+                                <Insets left="10.0" top="15.0" />
+                            </VBox.margin></Button>
+                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Edificio">
+                            <VBox.margin>
+                                <Insets left="10.0" top="15.0" />
+                            </VBox.margin></Button>
+                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="119.0" text="Usuario">
+                            <VBox.margin>
+                                <Insets left="10.0" top="15.0" />
+                            </VBox.margin></Button>
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
         <Button layoutX="199.0" layoutY="35.0" mnemonicParsing="false" text="+Agregar" />
         <TextField layoutX="449.0" layoutY="35.0" prefHeight="25.0" prefWidth="121.0" text="Buscar" />
         <SplitMenuButton layoutX="345.0" layoutY="35.0" mnemonicParsing="false" text="Ver más">

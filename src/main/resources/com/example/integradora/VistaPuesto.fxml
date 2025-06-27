@@ -1,17 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="427.0" prefWidth="689.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Button layoutX="14.0" layoutY="99.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="92.0" text="Empleados" />
-        <Button layoutX="14.0" layoutY="138.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="92.0" text="Puesto" />
-        <Button layoutX="14.0" layoutY="188.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="92.0" text="Resguardo" />
-        <Button layoutX="14.0" layoutY="236.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="92.0" text="Bienes" />
-        <Button layoutX="14.0" layoutY="324.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="92.0" text="Unidad Administrativa" />
-        <Button layoutX="14.0" layoutY="276.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="92.0" text="Espacio" />
-        <Button layoutX="14.0" layoutY="367.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="92.0" text="Edificio" />
+        <HBox prefHeight="400.0" prefWidth="138.0">
+            <children>
+                <VBox prefHeight="400.0" prefWidth="148.0">
+                    <children>
+                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Resguardo">
+                            <VBox.margin>
+                        <Insets left="10.0" top="77.0" />
+                            </VBox.margin></Button>
+                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Bienes">
+                            <VBox.margin>
+                                <Insets left="10.0" top="15.0" />
+                            </VBox.margin></Button>
+                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Empleados">
+                            <VBox.margin>
+                                <Insets left="10.0" top="15.0" />
+                            </VBox.margin></Button>
+                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Puesto">
+                            <VBox.margin>
+                                <Insets left="10.0" top="15.0" />
+                            </VBox.margin></Button>
+                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Espacio">
+                            <VBox.margin>
+                                <Insets left="10.0" top="15.0" />
+                            </VBox.margin></Button>
+                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="U. Administrativa">
+                            <VBox.margin>
+                                <Insets left="10.0" top="15.0" />
+                            </VBox.margin></Button>
+                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Edificio">
+                            <VBox.margin>
+                                <Insets left="10.0" top="15.0" />
+                            </VBox.margin></Button>
+                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="119.0" text="Usuario">
+                            <VBox.margin>
+                                <Insets left="10.0" top="15.0" />
+                            </VBox.margin></Button>
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
         <Button layoutX="142.0" layoutY="45.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="92.0" text="Agregar +" />
         <TextField layoutX="514.0" layoutY="45.0" text="Busqueda " />
         <ComboBox layoutX="415.0" layoutY="45.0" prefHeight="25.0" prefWidth="92.0" promptText="Ver todos" />
