@@ -2,74 +2,72 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="553.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <ButtonBar layoutY="44.0" prefHeight="40.0" prefWidth="155.0" />
-        <ToolBar layoutX="137.0" layoutY="37.0" prefHeight="40.0" prefWidth="84.0">
-            <items>
-                <Button mnemonicParsing="false" text="+Agregar" />
-            </items>
-        </ToolBar>
-        <TableView layoutX="137.0" layoutY="77.0" prefHeight="311.0" prefWidth="338.0">
-            <columns>
-                <TableColumn prefWidth="60.0" text="Número" />
-                <TableColumn prefWidth="90.0" text="Fecha" />
-            <TableColumn prefWidth="75.0" text="Empleado" />
-            <TableColumn prefWidth="75.0" text="Espacio" />
-            </columns>
-        </TableView>
-        <TextField layoutX="397.0" layoutY="45.0" text="Buscar" />
-        <MenuButton layoutX="313.0" layoutY="45.0" mnemonicParsing="false" text="Ver todos">
-            <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-                <MenuItem mnemonicParsing="false" text="Action 2" />
-            </items>
-        </MenuButton>
-        <HBox prefHeight="400.0" prefWidth="138.0">
+        <HBox layoutY="72.0" prefHeight="1008.0" prefWidth="1920.0" AnchorPane.topAnchor="90.0">
             <children>
-                <VBox prefHeight="400.0" prefWidth="148.0">
+                <VBox prefHeight="984.0" prefWidth="296.0">
                     <children>
-                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Resguardo">
+                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" text="Resguardo">
                             <VBox.margin>
-                                <Insets left="10.0" top="77.0" />
+                                <Insets left="40.0" top="215.0" />
                             </VBox.margin></Button>
-                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Bienes">
+                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" text="Descargar todo">
                             <VBox.margin>
-                                <Insets left="10.0" top="15.0" />
-                            </VBox.margin></Button>
-                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Empleados">
-                            <VBox.margin>
-                                <Insets left="10.0" top="15.0" />
-                            </VBox.margin></Button>
-                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Puesto">
-                            <VBox.margin>
-                                <Insets left="10.0" top="15.0" />
-                            </VBox.margin></Button>
-                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Espacio">
-                            <VBox.margin>
-                                <Insets left="10.0" top="15.0" />
-                            </VBox.margin></Button>
-                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="U. Administrativa">
-                            <VBox.margin>
-                                <Insets left="10.0" top="15.0" />
-                            </VBox.margin></Button>
-                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Edificio">
-                            <VBox.margin>
-                                <Insets left="10.0" top="15.0" />
-                            </VBox.margin></Button>
-                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="119.0" text="Usuario">
-                            <VBox.margin>
-                                <Insets left="10.0" top="15.0" />
+                                <Insets left="40.0" top="550.0" />
                             </VBox.margin></Button>
                     </children>
+                    <HBox.margin>
+                        <Insets right="40.0" />
+                    </HBox.margin>
                 </VBox>
+                <VBox prefHeight="1008.0" prefWidth="1588.0">
+                    <children>
+                        <HBox prefHeight="125.0" prefWidth="1586.0">
+                            <children>
+                                <Label prefHeight="17.0" prefWidth="255.0" text="Seleccione el informe a descargar">
+                                    <HBox.margin>
+                                        <Insets top="50.0" />
+                                    </HBox.margin></Label>
+                                <ComboBox prefHeight="56.0" prefWidth="164.0" promptText="Filtrar">
+                                    <HBox.margin>
+                                        <Insets left="800.0" right="40.0" top="35.0" />
+                                    </HBox.margin></ComboBox>
+                                <TextField prefHeight="56.0" prefWidth="360.0">
+                                    <HBox.margin>
+                                        <Insets right="40.0" top="35.0" />
+                                    </HBox.margin></TextField>
+                            </children></HBox>
+                        <TableView prefHeight="812.0" prefWidth="1586.0">
+                            <columns>
+                                <TableColumn prefWidth="90.0" text="Numero" />
+                                <TableColumn prefWidth="455.0" text="Fecha" />
+                                <TableColumn prefWidth="455.0" text="Empleado" />
+                                <TableColumn prefWidth="455.0" text="Espacio" />
+                                <TableColumn prefWidth="90.0" text="Descargar" />
+                            </columns>
+                            <VBox.margin>
+                                <Insets bottom="40.0" right="40.0" />
+                            </VBox.margin>
+                        </TableView>
+                    </children></VBox>
             </children>
         </HBox>
-        <Button layoutX="472.0" layoutY="14.0" mnemonicParsing="false" text="Salir" />
-        <Button layoutX="480.0" layoutY="103.0" mnemonicParsing="false" text="E" />
-        <Button layoutX="506.0" layoutY="103.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="23.0" text="T" />
-      <Button layoutX="516.0" layoutY="113.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="23.0" text="T" />
+        <HBox prefHeight="89.0" prefWidth="1920.0">
+            <children>
+                <ImageView fitHeight="89.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                <Label prefHeight="17.0" prefWidth="255.0" text="SISTEMA DE INVENTARIO">
+                    <HBox.margin>
+                        <Insets top="30.0" />
+                    </HBox.margin>
+                </Label>
+                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="140.0" text="Salir">
+                    <HBox.margin>
+                        <Insets left="1285.0" right="40.0" top="20.0" />
+                    </HBox.margin></Button>
+            </children></HBox>
     </children>
 </AnchorPane>
