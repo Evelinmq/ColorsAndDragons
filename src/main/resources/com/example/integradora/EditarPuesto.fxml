@@ -4,11 +4,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="375.0" prefWidth="479.0"  xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="375.0" prefWidth="479.0" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Label layoutX="176.0" layoutY="52.0" text="Editar Puesto">
             <font>
-                <Font size="22.0" />
+                <Font name="Poppins SemiBold" size="15.0" />
             </font>
         </Label>
         <TextField layoutX="116.0" layoutY="175.0" prefHeight="25.0" prefWidth="266.0" />

@@ -83,11 +83,15 @@
                </children></VBox>
             </children>
         </HBox>
-      <ImageView fitHeight="89.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@Images/rectangulo.png" />
-         </image>
-      </ImageView>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <ImageView fitHeight="89.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/rectangulo.png" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
       <HBox prefHeight="89.0" prefWidth="1920.0">
          <children>
             <ImageView fitHeight="52.38" fitWidth="52.38" pickOnBounds="true" preserveRatio="true">
