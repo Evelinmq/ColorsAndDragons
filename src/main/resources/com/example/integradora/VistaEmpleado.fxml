@@ -4,6 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -83,14 +84,28 @@
                </children></VBox>
          </children>
       </HBox>
+      <ImageView fitHeight="81.0" fitWidth="1960.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Images/rectangulo.png" />
+         </image>
+      </ImageView>
       <HBox prefHeight="89.0" prefWidth="1920.0">
          <children>
-            <ImageView fitHeight="89.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-            <Label prefHeight="17.0" prefWidth="255.0" text="SISTEMA DE INVENTARIO">
+            <ImageView fitHeight="52.38" fitWidth="52.38" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/Icono.png" />
+               </image>
                <HBox.margin>
-                  <Insets top="30.0" />
+                  <Insets left="36.81" top="15.0" />
                </HBox.margin>
-            </Label>
+            </ImageView>
+            <Label prefHeight="17.0" prefWidth="191.0" text="SISTEMA DE INVENTARIO" textFill="WHITE">
+               <font>
+                  <Font name="Corbel" size="16.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="20.0" top="25.0" />
+               </HBox.margin></Label>
             <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="140.0" text="Salir">
                <HBox.margin>
                   <Insets left="1285.0" right="40.0" top="20.0" />
