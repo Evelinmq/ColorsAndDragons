@@ -5,19 +5,22 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="415.0" layoutY="57.0" prefHeight="39.0" prefWidth="90.0" text="WELCOME">
+      <Label layoutX="1025.0" layoutY="133.0" prefHeight="39.0" prefWidth="90.0" text="WELCOME">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <ImageView fitHeight="400.0" fitWidth="311.0" pickOnBounds="true" preserveRatio="true" />
-      <Label layoutX="399.0" layoutY="118.0" text="Sign in to your account" />
-      <Label layoutX="379.0" layoutY="173.0" text="Email" />
-      <Label layoutX="374.0" layoutY="242.0" text="Password" />
-      <Button layoutX="369.0" layoutY="308.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="184.0" text="Sign in" />
-      <PasswordField layoutX="369.0" layoutY="267.0" prefHeight="25.0" prefWidth="184.0" />
-      <TextField layoutX="369.0" layoutY="200.0" prefHeight="25.0" prefWidth="184.0" />
+      <Label layoutX="1009.0" layoutY="194.0" text="Sign in to your account" />
+      <Label layoutX="989.0" layoutY="249.0" text="Email" />
+      <Label layoutX="984.0" layoutY="318.0" text="Password" />
+      <Button layoutX="979.0" layoutY="384.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="184.0" text="Sign in" />
+      <PasswordField layoutX="979.0" layoutY="343.0" prefHeight="25.0" prefWidth="184.0" />
+      <TextField layoutX="979.0" layoutY="276.0" prefHeight="25.0" prefWidth="184.0" />
+      <ImageView fitHeight="1080.0" fitWidth="966.0" layoutX="-7.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/loginimagen.png" />
+         </image></ImageView>
    </children>
 </AnchorPane>
