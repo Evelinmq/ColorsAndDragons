@@ -9,5 +9,9 @@
     font-family: 'Poppins';
     src: url('Fonts/Poppins-SemiBold.ttf');
     font-weight: 600;
-    font-style: normal;
+    font-style: bold;
+}
+
+* {
+    -fx-font-family: "Poppins";
 }
