@@ -8,7 +8,7 @@
     <children>
         <Label layoutX="172.0" layoutY="27.0" text="Nuevo resguardo">
          <font>
-            <Font name="System Bold" size="13.0" />
+            <Font name="Poppins SemiBold" size="13.0" />
          </font></Label>
         <Label layoutX="36.0" layoutY="68.0" text="Fecha" />
         <TextField layoutX="27.0" layoutY="85.0" />

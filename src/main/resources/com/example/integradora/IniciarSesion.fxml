@@ -1,33 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
 <AnchorPane fx:id="mainAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fx:id="leftImage" fitHeight="1080.0" fitWidth="966.0" layoutX="-7.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/loginimagen.png" />
-         </image>
-      </ImageView>
 
-      <VBox fx:id="loginFormVBox" layoutX="960.0" layoutY="0.0" prefHeight="1080.0" prefWidth="960.0" alignment="CENTER" spacing="30">
-         <Label text="Welcome" styleClass="welcome-text" />
-         <Label text="Sign in to your account" styleClass="subtitle-text" />
+      <VBox fx:id="loginFormVBox" alignment="CENTER" layoutX="960.0" layoutY="0.0" prefHeight="1080.0" prefWidth="960.0" spacing="30">
+         <Label styleClass="welcome-text" text="Welcome" />
+         <Label styleClass="subtitle-text" text="Sign in to your account" />
 
-         <VBox spacing="10" alignment="CENTER_LEFT" styleClass="input-group" maxWidth="400">
-            <Label text="Email" styleClass="input-label" />
+         <VBox alignment="CENTER_LEFT" maxWidth="400" spacing="10" styleClass="input-group">
+            <Label styleClass="input-label" text="Email" />
             <TextField fx:id="emailField" prefHeight="50.0" prefWidth="400.0" promptText="example@utez.edu.mx" styleClass="text-input" />
          </VBox>
 
-         <VBox spacing="10" alignment="CENTER_LEFT" styleClass="input-group" maxWidth="400">
-            <Label text="Password" styleClass="input-label" />
+         <VBox alignment="CENTER_LEFT" maxWidth="400" spacing="10" styleClass="input-group">
+            <Label styleClass="input-label" text="Password" />
             <PasswordField fx:id="passwordField" prefHeight="50.0" prefWidth="400.0" promptText="********" styleClass="text-input" />
          </VBox>
 
-         <Button fx:id="signInButton" text="Sign In" prefHeight="60.0" prefWidth="400.0" styleClass="sign-in-button" />
+         <Button fx:id="signInButton" prefHeight="60.0" prefWidth="400.0" styleClass="sign-in-button" text="Sign In" />
       </VBox>
    </children>
 </AnchorPane>
