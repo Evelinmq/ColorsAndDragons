@@ -12,7 +12,7 @@
             <children>
                 <VBox prefHeight="984.0" prefWidth="296.0">
                     <children>
-                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" text="Resguardo">
+                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" text="resguardo">
                             <VBox.margin>
                                 <Insets left="40.0" top="215.0" />
                             </VBox.margin></Button>
