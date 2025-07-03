@@ -8,7 +8,7 @@
     <children>
         <Label layoutX="204.0" layoutY="27.0" text="Editar empleados">
             <font>
-                <Font size="22.0" />
+                <Font name="Poppins Medium" size="22.0" />
             </font>
         </Label>
         <Label layoutX="167.0" layoutY="183.0" text="Apellido Materno" />
