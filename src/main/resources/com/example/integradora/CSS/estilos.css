@@ -1,13 +1,13 @@
 @font-face {
     font-family: 'Poppins';
-    src: url('fonts/Poppins-Medium.ttf');
+    src: url('../Fonts/Poppins-Medium.ttf');
     font-weight: 500;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Poppins';
-    src: url('fonts/Poppins-SemiBold.ttf');
+    src: url('../Fonts/Poppins-SemiBold.ttf');
     font-weight: 600;
     font-style: normal;
 }
