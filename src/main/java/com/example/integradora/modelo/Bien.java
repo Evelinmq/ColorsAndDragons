@@ -2,12 +2,42 @@ package com.example.integradora.modelo;
 
 public class Bien {
 
+    private int id;
     private String codigo;
     private String descripcion;
     private String marca;
     private String modelo;
     private String noSerie;
     private int estado;
+
+    public Bien(int id, String codigo, String descripcion, String marca, String modelo, String noSerie, int estado) {
+        this.id = id;
+        this.codigo = codigo;
+        this.descripcion = descripcion;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.noSerie = noSerie;
+        this.estado = estado;
+    }
+
+    public Bien() {
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getCodigo() {
         return codigo;
@@ -41,32 +71,12 @@ public class Bien {
         this.modelo = modelo;
     }
 
-    public int getEstado() {
-        return estado;
-    }
-
-    public void setEstado(int estado) {
-        this.estado = estado;
-    }
-
     public String getNoSerie() {
         return noSerie;
     }
 
     public void setNoSerie(String noSerie) {
         this.noSerie = noSerie;
-    }
-
-    public Bien() {
-    }
-
-    public Bien(String codigo, String descripcion, String marca, String modelo, String noSerie, int estado) {
-        this.codigo = codigo;
-        this.descripcion = descripcion;
-        this.marca = marca;
-        this.modelo = modelo;
-        this.noSerie = noSerie;
-        this.estado = estado;
     }
 
     @Override
