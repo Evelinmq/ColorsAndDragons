@@ -12,7 +12,7 @@
             <children>
                 <VBox prefHeight="984.0" prefWidth="296.0">
                     <children>
-                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" text="Resguardo">
+                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-radius: 30;" text="Resguardo">
                             <VBox.margin>
                                 <Insets left="40.0" top="215.0" />
                             </VBox.margin></Button>
@@ -66,9 +66,9 @@
                                         <Insets right="40.0" top="35.0" />
                                     </HBox.margin></ComboBox>
                             </children></HBox>
-                        <TableView prefHeight="812.0" prefWidth="1586.0">
+                        <TableView prefHeight="812.0" prefWidth="1586.0" style="-fx-background-radius: 0;">
                             <columns>
-                                <TableColumn prefWidth="683.0" text="Espacio" />
+                                <TableColumn prefWidth="683.0" style="-fx-background-radius: 100;" text="Espacio" />
                                 <TableColumn prefWidth="682.0" text="Docencia" />
                                 <TableColumn prefWidth="90.0" text="Editar" />
                                 <TableColumn prefWidth="90.0" text="Eliminar" />
@@ -103,7 +103,7 @@
                         <Insets left="20.0" top="25.0" />
                     </HBox.margin>
                <font>
-                  <Font size="16.0" />
+                  <Font name="Poppins" size="16.0" />
                </font>
                 </Label>
                 <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="140.0" text="Salir">

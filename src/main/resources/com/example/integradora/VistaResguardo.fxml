@@ -6,41 +6,41 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: ff;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <HBox layoutY="72.0" prefHeight="1008.0" prefWidth="1920.0" AnchorPane.topAnchor="90.0">
             <children>
                 <VBox prefHeight="984.0" prefWidth="296.0">
                     <children>
-                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" text="Resguardo">
+                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="Resguardo">
                             <VBox.margin>
                         <Insets left="40.0" top="215.0" />
                             </VBox.margin></Button>
-                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" text="Bienes">
+                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="Bienes">
                             <VBox.margin>
                                 <Insets left="40.0" top="20.0" />
                             </VBox.margin></Button>
-                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" text="Empleados">
+                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="Empleados">
                             <VBox.margin>
                                 <Insets left="40.0" top="20.0" />
                             </VBox.margin></Button>
-                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" text="Puesto">
+                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="Puesto">
                             <VBox.margin>
                                 <Insets left="40.0" top="20.0" />
                             </VBox.margin></Button>
-                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" text="Espacio">
+                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="Espacio">
                             <VBox.margin>
                                 <Insets left="40.0" top="20.0" />
                             </VBox.margin></Button>
-                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" text="U. Administrativa">
+                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="U. Administrativa">
                             <VBox.margin>
                                 <Insets left="40.0" top="20.0" />
                             </VBox.margin></Button>
-                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" text="Edificio">
+                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="Edificio">
                             <VBox.margin>
                                 <Insets left="40.0" top="20.0" />
                             </VBox.margin></Button>
-                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" text="Usuario">
+                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="Usuario">
                             <VBox.margin>
                                 <Insets left="40.0" top="20.0" />
                             </VBox.margin></Button>
