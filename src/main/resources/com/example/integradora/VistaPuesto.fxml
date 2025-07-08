@@ -12,38 +12,62 @@
             <children>
                 <VBox prefHeight="984.0" prefWidth="296.0">
                     <children>
-                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="Resguardo">
+                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="Resguardo" textFill="#404463">
                             <VBox.margin>
                                 <Insets left="40.0" top="215.0" />
-                            </VBox.margin></Button>
-                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA;" text="Bienes">
+                            </VBox.margin>
+                     <font>
+                        <Font name="Tahoma" size="20.0" />
+                     </font></Button>
+                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="Bienes" textFill="#404463">
                             <VBox.margin>
                                 <Insets left="40.0" top="20.0" />
-                            </VBox.margin></Button>
-                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA;" text="Empleados">
+                            </VBox.margin>
+                     <font>
+                        <Font name="Tahoma" size="20.0" />
+                     </font></Button>
+                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="Empleados" textFill="#404463">
                             <VBox.margin>
                                 <Insets left="40.0" top="20.0" />
-                            </VBox.margin></Button>
-                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA;" text="Puesto">
+                            </VBox.margin>
+                     <font>
+                        <Font name="Tahoma" size="20.0" />
+                     </font></Button>
+                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="Puesto" textFill="#404463">
                             <VBox.margin>
                                 <Insets left="40.0" top="20.0" />
-                            </VBox.margin></Button>
-                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA;" text="Espacio">
+                            </VBox.margin>
+                     <font>
+                        <Font name="Tahoma" size="20.0" />
+                     </font></Button>
+                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="Espacio" textFill="#404463">
                             <VBox.margin>
                                 <Insets left="40.0" top="20.0" />
-                            </VBox.margin></Button>
-                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" text="U. Administrativa">
+                            </VBox.margin>
+                     <font>
+                        <Font name="Tahoma" size="20.0" />
+                     </font></Button>
+                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="U. Administrativa" textFill="#404463">
                             <VBox.margin>
                                 <Insets left="40.0" top="20.0" />
-                            </VBox.margin></Button>
-                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" text="Edificio">
+                            </VBox.margin>
+                     <font>
+                        <Font name="Tahoma" size="20.0" />
+                     </font></Button>
+                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="Edificio" textFill="#404463">
                             <VBox.margin>
                                 <Insets left="40.0" top="20.0" />
-                            </VBox.margin></Button>
-                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" text="Usuario">
+                            </VBox.margin>
+                     <font>
+                        <Font name="Tahoma" size="20.0" />
+                     </font></Button>
+                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="Usuario" textFill="#404463">
                             <VBox.margin>
                                 <Insets left="40.0" top="20.0" />
-                            </VBox.margin></Button>
+                            </VBox.margin>
+                     <font>
+                        <Font name="Tahoma" size="20.0" />
+                     </font></Button>
                     </children>
                     <HBox.margin>
                         <Insets right="40.0" />
@@ -53,10 +77,13 @@
                     <children>
                         <HBox prefHeight="125.0" prefWidth="1586.0">
                             <children>
-                                <Button mnemonicParsing="false" prefHeight="75.0" prefWidth="256.0" text="+ Agregar">
+                                <Button mnemonicParsing="false" prefHeight="75.0" prefWidth="256.0" style="-fx-background-color: #3366FF; -fx-background-radius: 15;" text="+ Agregar" textFill="WHITE">
                                     <HBox.margin>
                                         <Insets top="25.0" />
-                                    </HBox.margin></Button>
+                                    </HBox.margin>
+                           <font>
+                              <Font name="Tahoma" size="20.0" />
+                           </font></Button>
                                 <ComboBox prefHeight="56.0" prefWidth="164.0" promptText="Filtrar">
                                     <HBox.margin>
                                         <Insets left="800.0" right="40.0" top="35.0" />
