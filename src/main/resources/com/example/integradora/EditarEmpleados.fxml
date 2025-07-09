@@ -1,29 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="463.0" prefWidth="644.0" style="-fx-background-color: EFEFF0; -fx-background-radius: 25;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.vistas.NuevoBien">
     <children>
-        <Label layoutX="204.0" layoutY="27.0" text="Editar empleados">
+        <HBox prefHeight="100.0" prefWidth="588.0">
+            <children>
+                <Label text="Editar empleado" textFill="#404463">
+                    <font>
+                        <Font name="Tahoma" size="22.0" />
+                    </font>
+                    <HBox.margin>
+                        <Insets left="250.0" top="15.0" />
+                    </HBox.margin>
+                </Label>
+            </children>
+        </HBox>
+        <Button layoutX="500.0" layoutY="420.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #013AE4; -fx-background-radius: 10;" text="Guardar" textFill="WHITE">
             <font>
-                <Font name="Poppins Medium" size="22.0" />
-            </font>
-        </Label>
-        <Label layoutX="167.0" layoutY="183.0" text="Apellido Materno" />
-        <Label layoutX="169.0" layoutY="225.0" text="RFC" />
-        <Label layoutX="171.0" layoutY="275.0" text="Puesto" />
-        <Label layoutX="169.0" layoutY="123.0" text="Apellido Paterno" />
-        <Label layoutX="170.0" layoutY="59.0" text="Nombre" />
-        <Label layoutX="170.0" layoutY="330.0" text="Unidad Administrativa" />
-        <ComboBox layoutX="167.0" layoutY="292.0" prefHeight="25.0" prefWidth="266.0" />
-        <ComboBox layoutX="171.0" layoutY="347.0" prefHeight="25.0" prefWidth="266.0" />
-        <TextField layoutX="167.0" layoutY="85.0" prefHeight="25.0" prefWidth="266.0" />
-        <TextField layoutX="167.0" layoutY="140.0" prefHeight="25.0" prefWidth="266.0" />
-        <TextField layoutX="167.0" layoutY="200.0" prefHeight="25.0" prefWidth="266.0" />
-        <TextField layoutX="167.0" layoutY="242.0" prefHeight="25.0" prefWidth="266.0" />
-        <Button layoutX="524.0" layoutY="360.0" mnemonicParsing="false" text="Cancelar" />
-        <Button layoutX="454.0" layoutY="360.0" mnemonicParsing="false" text="Aceptar" />
+                <Font name="Tahoma" size="12.0" />
+            </font></Button>
+        <Button layoutX="400.0" layoutY="420.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: B8B7C0; -fx-background-radius: 10;" text="Cancelar" textFill="#404463">
+            <font>
+                <Font name="Tahoma" size="12.0" />
+            </font></Button>
+        <VBox layoutX="180.0" layoutY="60.0" prefHeight="353.0" prefWidth="304.0">
+            <children>
+                <Label text="Nombre" textFill="#404463">
+                    <font>
+                        <Font name="Tahoma" size="11.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="5.0" />
+                    </VBox.margin></Label>
+                <TextField layoutX="200.0" prefHeight="30.0" style="-fx-background-color: fff; -fx-background-radius: 5;" />
+                <Label text="Apellido Paterno" textFill="#404463">
+                    <VBox.margin>
+                        <Insets top="5.0" />
+                    </VBox.margin>
+                    <font>
+                        <Font name="Tahoma" size="11.0" />
+                    </font>
+                    <padding>
+                        <Insets top="5.0" />
+                    </padding></Label>
+                <TextField prefHeight="30.0" style="-fx-background-color: fff; -fx-background-radius: 5;">
+                    <VBox.margin>
+
+                        <Insets bottom="5.0" />
+                    </VBox.margin></TextField>
+                <Label text="Apellido Materno" textFill="#404463">
+                    <padding>
+                        <Insets bottom="5.0" top="5.0" />
+                    </padding>
+                    <font>
+                        <Font name="Tahoma" size="11.0" />
+                    </font></Label>
+                <TextField prefHeight="30.0" style="-fx-background-color: fff; -fx-background-radius: 5;">
+                    <VBox.margin>
+                        <Insets bottom="5.0" />
+                    </VBox.margin></TextField>
+                <Label text="RFC" textFill="#404463">
+                    <padding>
+                        <Insets top="5.0" />
+                    </padding>
+                    <font>
+                        <Font name="Tahoma" size="11.0" />
+                    </font></Label>
+                <TextField prefHeight="30.0" style="-fx-background-color: fff; -fx-background-radius: 5;">
+                    <VBox.margin>
+                        <Insets bottom="5.0" />
+                    </VBox.margin></TextField>
+                <Label text="Puesto" textFill="#404463">
+                    <padding>
+                        <Insets top="5.0" />
+                    </padding>
+                    <font>
+                        <Font name="Tahoma" size="11.0" />
+                    </font></Label>
+                <MenuButton mnemonicParsing="false" prefHeight="30.0" prefWidth="360.0" style="-fx-background-color: fff; -fx-background-radius: 5;" textFill="#cccaca">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Action 1" />
+                        <MenuItem mnemonicParsing="false" text="Action 2" />
+                    </items>
+                    <VBox.margin>
+                        <Insets bottom="5.0" />
+                    </VBox.margin>
+                </MenuButton>
+                <Label text="Unidad Administrativa" textFill="#404463">
+                    <padding>
+                        <Insets top="5.0" />
+                    </padding>
+                    <font>
+                        <Font name="Tahoma" size="11.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets top="5.0" />
+                    </VBox.margin></Label>
+                <MenuButton mnemonicParsing="false" prefHeight="30.0" prefWidth="304.0" style="-fx-background-color: fff; -fx-background-radius: 5;">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Action 1" />
+                        <MenuItem mnemonicParsing="false" text="Action 2" />
+                    </items>
+                </MenuButton>
+            </children></VBox>
     </children>
-</Pane>
+</AnchorPane>

@@ -1,17 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.vistas.DescargarResguardo">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="281.0" prefWidth="432.0" style="-fx-background-color: #EFEFF0; -fx-background-radius: 25;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button layoutX="139.0" layoutY="221.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="113.0" text="Aceptar" />
-      <Button layoutX="331.0" layoutY="221.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="113.0" text="Cancelar" />
-      <Label layoutX="141.0" layoutY="94.0" prefHeight="61.0" prefWidth="318.0" text="¿Deseas descargar el resguardo?">
+      <Label layoutX="70.0" layoutY="96.0" text="¿Desea Descargar el Resguardo? " textFill="#404463">
          <font>
-            <Font size="20.0" />
+            <Font name="Tahoma" size="20.0" />
          </font>
       </Label>
+      <HBox layoutX="1.0" layoutY="138.0" prefHeight="100.0" prefWidth="405.0">
+         <children>
+            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: B8B7C0; -fx-background-radius: };" text="Cancelar" textFill="#404463">
+               <HBox.margin>
+                  <Insets left="110.0" top="40.0" />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #013AE4; -fx-background-radius: 5;" text="Aceptar" textFill="WHITE">
+               <HBox.margin>
+                  <Insets left="30.0" top="40.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
    </children>
-</AnchorPane>
+</Pane>

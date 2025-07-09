@@ -79,7 +79,8 @@
                         <TextField prefHeight="25.0" prefWidth="266.0" style="-fx-background-color: fff;">
                      <VBox.margin>
                         <Insets top="10.0" />
-                     </VBox.margin></TextField>
+
+                 </VBox.margin></TextField>
                         <Label text="Rol" textFill="#404463">
                             <font>
                                 <Font name="Tahoma" size="12.0" />

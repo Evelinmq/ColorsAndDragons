@@ -1,18 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="310.0" prefWidth="405.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="310.0" prefWidth="405.0" style="-fx-background-color: #EFEFF0; -fx-background-radius: 25;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button layoutX="101.0" layoutY="173.0" mnemonicParsing="false" text="Button" />
-      <Button layoutX="259.0" layoutY="173.0" mnemonicParsing="false" text="Button" />
-      <Label layoutX="115.0" layoutY="96.0" text="¿Desea Eliminar? ">
+      <Label layoutX="115.0" layoutY="96.0" text="¿Desea Eliminar? " textFill="#404463">
          <font>
-            <Font size="23.0" />
+            <Font name="Tahoma" size="23.0" />
          </font>
       </Label>
+      <HBox layoutX="1.0" layoutY="138.0" prefHeight="100.0" prefWidth="405.0">
+         <children>
+            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: B8B7C0; -fx-background-radius: };" text="Cancelar" textFill="#404463">
+               <HBox.margin>
+                  <Insets left="100.0" top="40.0" />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #013AE4; -fx-background-radius: 5;" text="Aceptar" textFill="WHITE">
+               <HBox.margin>
+                  <Insets left="30.0" top="40.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
    </children>
 </Pane>
