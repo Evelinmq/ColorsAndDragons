@@ -100,10 +100,9 @@
                             </children></HBox>
                         <TableView prefHeight="500.0" prefWidth="1000.0" style="-fx-background-color: EFEFF0; -fx-background-radius: 20;">
                             <columns>
-                                <TableColumn prefWidth="347.0" style="-fx-background-color: E0E1E1; -fx-background-radius: 5;" text="Edificio" />
-                                <TableColumn prefWidth="405.0" style="-fx-background-color: E0E1E1;" text="Espacio" />
-                                <TableColumn prefWidth="212.0" style="-fx-background-color: e0e1e1;" text="Editar" />
-                                <TableColumn prefWidth="175.0" style="-fx-background-color: e0e1e1;" text="Eliminar" />
+                                <TableColumn prefWidth="710.0" style="-fx-background-color: E0E1E1; -fx-background-radius: 5;" text="Edificio" />
+                                <TableColumn prefWidth="218.0" style="-fx-background-color: e0e1e1;" text="Editar" />
+                        <TableColumn prefWidth="211.0" text="Eliminar" />
                             </columns>
                             <VBox.margin>
                                 <Insets bottom="40.0" right="40.0" />
