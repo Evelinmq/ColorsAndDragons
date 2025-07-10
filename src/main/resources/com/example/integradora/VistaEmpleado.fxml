@@ -93,7 +93,7 @@
                               <Insets left="10.0" top="35.0" />
                            </HBox.margin>
                         </TextField>
-                        <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="66.0" style="-fx-background-color: C6CFE2;">
+                        <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="73.0" style="-fx-background-color: C6CFE2;" text="🔎">
                            <HBox.margin>
                               <Insets right="40.0" top="35.0" />
                            </HBox.margin></Button>
