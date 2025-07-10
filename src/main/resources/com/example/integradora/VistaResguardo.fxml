@@ -10,7 +10,7 @@
     <children>
         <HBox layoutY="72.0" prefHeight="667.0" prefWidth="1550.0" AnchorPane.topAnchor="90.0">
             <children>
-                <VBox prefHeight="400.0" prefWidth="296.0">
+                <VBox prefHeight="400.0" prefWidth="350.0">
                     <children>
                         <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="Resguardo" textFill="#404463">
                             <VBox.margin>
@@ -98,15 +98,15 @@
                               <Insets right="40.0" top="35.0" />
                            </HBox.margin></Button>
                      </children></HBox>
-                  <TableView prefHeight="500.0" prefWidth="1100.0" style="-fx-background-color: EFEFF0; -fx-background-radius: 20;">
+                  <TableView prefHeight="500.0" prefWidth="1000.0" style="-fx-background-color: EFEFF0; -fx-background-radius: 20;">
                     <columns>
                       <TableColumn prefWidth="150.0" style="-fx-background-color: E0E1E1; -fx-background-radius: 5;" text="Número" />
                       <TableColumn prefWidth="150.0" style="-fx-background-color: E0E1E1;" text="Fecha" />
-                        <TableColumn prefWidth="318.99993896484375" text="Empleado" />
-                        <TableColumn prefWidth="150.0" text="Espacio" />
-                        <TableColumn maxWidth="200.0" prefWidth="500.39990234375" text="Descargar" />
-                        <TableColumn prefWidth="90.0" text="Editar" />
-                        <TableColumn prefWidth="98.4000244140625" text="Eliminar" />
+                        <TableColumn prefWidth="318.99993896484375" style="-fx-background-color: e0e1e1;" text="Empleado" />
+                        <TableColumn prefWidth="150.0" style="-fx-background-color: e0e1e1;" text="Espacio" />
+                        <TableColumn maxWidth="200.0" prefWidth="500.39990234375" style="-fx-background-color: e0e1e1;" text="Descargar" />
+                        <TableColumn prefWidth="75.4000244140625" style="-fx-background-color: e0e1e1;" text="Editar" />
+                        <TableColumn prefWidth="92.800048828125" style="-fx-background-color: e0e1e1;" text="Eliminar" />
                     </columns>
                      <VBox.margin>
                         <Insets bottom="40.0" right="40.0" />
