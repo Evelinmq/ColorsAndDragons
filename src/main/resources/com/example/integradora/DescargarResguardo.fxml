@@ -5,18 +5,18 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="281.0" prefWidth="432.0" style="-fx-background-color: #EFEFF0; -fx-background-radius: 25;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="310.0" prefWidth="405.0" style="-fx-background-color: #EFEFF0; -fx-background-radius: 20;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="70.0" layoutY="96.0" text="¿Desea Descargar el Resguardo? " textFill="#404463">
+      <Label layoutX="54.0" layoutY="98.0" text="¿Deseas descargar el resguardo? " textFill="#404463">
          <font>
             <Font name="Tahoma" size="20.0" />
          </font>
       </Label>
-      <HBox layoutX="1.0" layoutY="138.0" prefHeight="100.0" prefWidth="405.0">
+      <HBox layoutY="155.0" prefHeight="100.0" prefWidth="405.0">
          <children>
             <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: B8B7C0; -fx-background-radius: };" text="Cancelar" textFill="#404463">
                <HBox.margin>
-                  <Insets left="110.0" top="40.0" />
+                  <Insets left="100.0" top="40.0" />
                </HBox.margin>
             </Button>
             <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #013AE4; -fx-background-radius: 5;" text="Aceptar" textFill="WHITE">
