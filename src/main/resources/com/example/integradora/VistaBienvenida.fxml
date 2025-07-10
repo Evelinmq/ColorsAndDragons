@@ -6,15 +6,15 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: fff;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="600.0" prefWidth="1550.0" style="-fx-background-color: ff;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <HBox layoutY="72.0" prefHeight="1008.0" prefWidth="1920.0" AnchorPane.topAnchor="90.0">
+        <HBox layoutY="72.0" prefHeight="667.0" prefWidth="1550.0" AnchorPane.topAnchor="90.0">
             <children>
-                <VBox prefHeight="984.0" prefWidth="296.0">
+                <VBox prefHeight="400.0" prefWidth="350.0">
                     <children>
                         <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="Resguardo" textFill="#404463">
                             <VBox.margin>
-                                <Insets left="40.0" top="215.0" />
+                                <Insets left="40.0" top="80.0" />
                             </VBox.margin>
                             <font>
                                 <Font name="Tahoma" size="20.0" />
@@ -63,7 +63,7 @@
                             </font></Button>
                         <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="Usuario" textFill="#404463">
                             <VBox.margin>
-                                <Insets left="40.0" top="20.0" />
+                                <Insets bottom="20.0" left="40.0" top="20.0" />
                             </VBox.margin>
                             <font>
                                 <Font name="Tahoma" size="20.0" />
@@ -73,39 +73,35 @@
                         <Insets right="40.0" />
                     </HBox.margin>
                 </VBox>
-                <VBox prefHeight="1008.0" prefWidth="1588.0">
-                </VBox>
+                <VBox prefHeight="667.0" prefWidth="1200.0" />
             </children>
         </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0">
-         <children>
-            <ImageView fitHeight="89.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@Images/rectangulo.png" />
-               </image>
-            </ImageView>
-         </children>
-      </HBox>
-        <HBox prefHeight="89.0" prefWidth="1920.0">
+        <HBox prefHeight="100.0" prefWidth="200.0">
             <children>
-                <ImageView fitHeight="52.38" fitWidth="52.38" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@Images/Icono.png" />
-               </image>
-               <HBox.margin>
-                  <Insets left="36.81" top="15.0" />
-               </HBox.margin></ImageView>
-                <Label prefHeight="17.0" prefWidth="255.0" text="SISTEMA DE INVENTARIO" textFill="WHITE">
+                <ImageView fitHeight="89.0" fitWidth="1567.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@Images/rectangulo.png" />
+                    </image>
+                </ImageView>
+            </children>
+        </HBox>
+        <HBox prefHeight="90.0" prefWidth="1550.0">
+            <children>
+                <ImageView fitHeight="39.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@Images/Icono.png" />
+                    </image>
+                    <HBox.margin>
+                        <Insets left="36.81" top="15.0" />
+                    </HBox.margin></ImageView>
+                <Label prefHeight="26.0" prefWidth="229.0" text="SISTEMA DE INVENTARIO" textFill="WHITE">
                     <HBox.margin>
                         <Insets left="20.0" top="25.0" />
                     </HBox.margin>
-               <font>
-                  <Font size="16.0" />
-               </font>
                 </Label>
-                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="140.0" text="Salir">
+                <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="65.0" text="Salir">
                     <HBox.margin>
-                        <Insets left="1285.0" right="40.0" top="20.0" />
+                        <Insets left="1100.0" right="40.0" top="20.0" />
                     </HBox.margin></Button>
             </children></HBox>
     </children>
