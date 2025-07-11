@@ -12,62 +12,119 @@
             <children>
                 <VBox prefHeight="400.0" prefWidth="350.0">
                     <children>
-                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="Resguardo" textFill="#404463">
+                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="         Resguardo" textFill="#404463">
                             <VBox.margin>
                                 <Insets left="40.0" top="80.0" />
                             </VBox.margin>
                             <font>
                                 <Font name="Tahoma" size="20.0" />
-                            </font></Button>
-                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="Bienes" textFill="#404463">
+                            </font>
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Images/Folder.png" />
+                           </image>
+                           <viewport>
+                              <Rectangle2D />
+                           </viewport></ImageView>
+                     </graphic>
+                     </Button>
+                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="          Bienes" textFill="#404463">
                             <VBox.margin>
                                 <Insets left="40.0" top="20.0" />
                             </VBox.margin>
                             <font>
                                 <Font name="Tahoma" size="20.0" />
-                            </font></Button>
-                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="Empleados" textFill="#404463">
+                            </font>
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Images/Bienes.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="           Empleados" textFill="#404463">
                             <VBox.margin>
                                 <Insets left="40.0" top="20.0" />
                             </VBox.margin>
                             <font>
                                 <Font name="Tahoma" size="20.0" />
-                            </font></Button>
-                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="Puesto" textFill="#404463">
+                            </font>
+                     <graphic>
+                        <ImageView fitHeight="27.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Images/Empleado.png" />
+                           </image></ImageView>
+                     </graphic></Button>
+                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="           Puesto" textFill="#404463">
                             <VBox.margin>
                                 <Insets left="40.0" top="20.0" />
                             </VBox.margin>
                             <font>
                                 <Font name="Tahoma" size="20.0" />
-                            </font></Button>
-                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="Espacio" textFill="#404463">
+                            </font>
+                     <graphic>
+                        <ImageView fitHeight="29.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Images/Puesto.png" />
+                           </image></ImageView>
+                     </graphic></Button>
+                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="          Espacio" textFill="#404463">
                             <VBox.margin>
                                 <Insets left="40.0" top="20.0" />
                             </VBox.margin>
                             <font>
                                 <Font name="Tahoma" size="20.0" />
-                            </font></Button>
-                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="U. Administrativa" textFill="#404463">
+                            </font>
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Images/Espacio.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="         U. Administrativa" textFill="#404463">
                             <VBox.margin>
                                 <Insets left="40.0" top="20.0" />
                             </VBox.margin>
                             <font>
                                 <Font name="Tahoma" size="20.0" />
-                            </font></Button>
-                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="Edificio" textFill="#404463">
+                            </font>
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Images/Unidad.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="           Edificio" textFill="#404463">
                             <VBox.margin>
                                 <Insets left="40.0" top="20.0" />
                             </VBox.margin>
                             <font>
                                 <Font name="Tahoma" size="20.0" />
-                            </font></Button>
-                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="Usuario" textFill="#404463">
+                            </font>
+                     <graphic>
+                        <ImageView fitHeight="34.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Images/Edificio.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="           Usuario" textFill="#404463">
                             <VBox.margin>
                                 <Insets bottom="20.0" left="40.0" top="20.0" />
                             </VBox.margin>
                             <font>
                                 <Font name="Tahoma" size="20.0" />
-                            </font></Button>
+                            </font>
+                     <graphic>
+                        <ImageView fitHeight="36.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Images/Usuario.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
                     </children>
                     <HBox.margin>
                         <Insets right="40.0" />

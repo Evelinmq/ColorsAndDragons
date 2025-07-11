@@ -18,7 +18,14 @@
                             </VBox.margin>
                             <font>
                                 <Font name="Tahoma" size="20.0" />
-                            </font></Button>
+                            </font>
+                     <graphic>
+                        <ImageView fitHeight="41.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Images/Folder.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
                         <Button mnemonicParsing="false" prefHeight="55.0" prefWidth="187.0" style="-fx-background-color: B2BCDB; -fx-background-radius: 15;" text="Descargar todo" textFill="#0033cc">
                             <VBox.margin>
 
