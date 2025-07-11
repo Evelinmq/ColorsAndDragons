@@ -93,16 +93,16 @@
                                         <Insets left="10.0" top="35.0" />
                                     </HBox.margin>
                                 </TextField>
-                                <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="66.0" style="-fx-background-color: C6CFE2;">
+                                <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="73.0" style="-fx-background-color: C6CFE2;" text="🔎">
                                     <HBox.margin>
                                         <Insets right="40.0" top="35.0" />
                                     </HBox.margin></Button>
                             </children></HBox>
                         <TableView prefHeight="500.0" prefWidth="1000.0" style="-fx-background-color: EFEFF0; -fx-background-radius: 20;">
                             <columns>
-                                <TableColumn prefWidth="958.0" style="-fx-background-color: E0E1E1; -fx-background-radius: 5;" text="Unidad Administrativa" />
-                                <TableColumn minWidth="0.0" prefWidth="96.0" style="-fx-background-color: e0e1e1;" text="Editar" />
-                                <TableColumn prefWidth="85.0" style="-fx-background-color: e0e1e1;" text="Eliminar" />
+                                <TableColumn prefWidth="907.7999633550644" style="-fx-background-color: E0E1E1; -fx-background-radius: 5;" text="Unidad Administrativa" />
+                                <TableColumn minWidth="0.0" prefWidth="121.800048828125" style="-fx-background-color: e0e1e1;" text="Editar" />
+                                <TableColumn prefWidth="111.60003662109375" style="-fx-background-color: e0e1e1;" text="Eliminar" />
                             </columns>
                             <VBox.margin>
                                 <Insets bottom="40.0" right="40.0" />
@@ -134,10 +134,17 @@
                         <Insets left="20.0" top="25.0" />
                     </HBox.margin>
                 </Label>
-                <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="65.0" text="Salir">
+                <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #0338D5;">
                     <HBox.margin>
                         <Insets left="1100.0" right="40.0" top="20.0" />
-                    </HBox.margin></Button>
+                    </HBox.margin>
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Images/Icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
             </children></HBox>
     </children>
 </AnchorPane>
