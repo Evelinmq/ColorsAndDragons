@@ -5,18 +5,18 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="mainAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: EFEFF0;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="mainAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="757.2" prefWidth="1567.2" style="-fx-background-color: EFEFF0;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
    <children>
 
-      <VBox fx:id="loginFormVBox" alignment="CENTER" layoutX="960.0" layoutY="0.0" prefHeight="1080.0" prefWidth="960.0" spacing="30">
-         <Label styleClass="Poppins-SemiBold" text="Welcome" textFill="#404463">
+      <VBox fx:id="loginFormVBox" alignment="CENTER" layoutX="676.0" layoutY="0.0" prefHeight="774.0" prefWidth="890.0" spacing="30">
+         <Label styleClass="Poppins-SemiBold" text="BIENVENIDO" textFill="#404463">
             <font>
                <Font name="Tahoma" size="49.0" />
             </font></Label>
-         <Label styleClass="subtitle-text" text="Sign in to your account" textFill="#404463" />
+         <Label styleClass="subtitle-text" text="Inicia sesión en tu cuenta" textFill="#404463" />
 
          <VBox alignment="CENTER_LEFT" maxWidth="400" spacing="10" styleClass="input-group">
-            <Label styleClass="input-label" text="Email" textFill="#404463">
+            <Label styleClass="input-label" text="Correo" textFill="#404463">
                <font>
                   <Font name="Tahoma" size="12.0" />
                </font></Label>
@@ -24,19 +24,19 @@
          </VBox>
 
          <VBox alignment="CENTER_LEFT" maxWidth="400" spacing="10" styleClass="input-group">
-            <Label styleClass="input-label" text="Password" textFill="#404463">
+            <Label styleClass="input-label" text="Contraseña" textFill="#404463">
                <font>
                   <Font name="Tahoma" size="12.0" />
                </font></Label>
             <PasswordField fx:id="passwordField" prefHeight="50.0" prefWidth="400.0" promptText="********" style="-fx-background-color: ffff;" styleClass="text-input" />
          </VBox>
 
-         <Button fx:id="signInButton" prefHeight="60.0" prefWidth="400.0" style="-fx-background-color: #013AE4; -fx-background-radius: 10;" styleClass="sign-in-button" text="Sign In" textFill="WHITE">
+         <Button fx:id="signInButton" prefHeight="60.0" prefWidth="400.0" style="-fx-background-color: #013AE4; -fx-background-radius: 10;" styleClass="sign-in-button" text="Iniciar sesión" textFill="WHITE">
             <font>
                <Font name="Tahoma" size="18.0" />
             </font></Button>
       </VBox>
-      <ImageView fitHeight="1706.0" fitWidth="960.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="757.0" fitWidth="711.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Images/loginimagen.png" />
          </image>

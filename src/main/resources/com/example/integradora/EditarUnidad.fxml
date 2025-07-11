@@ -39,12 +39,12 @@
                 <VBox prefHeight="400.0" prefWidth="147.0" />
                 <VBox prefHeight="400.0" prefWidth="305.0">
                     <children>
-                        <Label prefHeight="32.0" prefWidth="313.0" text="Editar unidad administrativa" textFill="#404463">
+                        <Label prefHeight="32.0" prefWidth="279.0" text="Editar unidad administrativa" textFill="#404463">
                             <font>
                                 <Font name="Tahoma" size="22.0" />
                             </font>
                             <VBox.margin>
-                                <Insets top="40.0" />
+                                <Insets left="15.0" top="40.0" />
                             </VBox.margin>
                         </Label>
                         <Label text="Escribe la nueva unidad administrativa:" textFill="#404463">

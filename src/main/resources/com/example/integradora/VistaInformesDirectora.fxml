@@ -36,7 +36,7 @@
                                     <HBox.margin>
                                         <Insets top="50.0" />
                                     </HBox.margin></Label>
-                                <ComboBox prefHeight="43.0" prefWidth="201.0" promptText="Filtrar">
+                                <ComboBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="43.0" prefWidth="201.0" promptText="  Filtrar" style="-fx-background-radius: 15; -fx-background-color: #ABBAE5;">
                                     <HBox.margin>
                                         <Insets left="800.0" right="40.0" top="35.0" />
                                     </HBox.margin></ComboBox>

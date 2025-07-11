@@ -73,7 +73,25 @@
                         <Insets right="40.0" />
                     </HBox.margin>
                 </VBox>
-                <VBox prefHeight="667.0" prefWidth="1200.0" />
+                <VBox prefHeight="667.0" prefWidth="1200.0">
+               <children>
+                  <Label prefHeight="78.0" prefWidth="571.0" text="Bienvenido al Sistema de Inventario" textFill="#404463">
+                     <font>
+                        <Font name="Tahoma" size="34.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="320.0" top="150.0" />
+                     </VBox.margin>
+                  </Label>
+                  <ImageView fitHeight="370.0" fitWidth="494.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Images/Bienvenida.png" />
+                     </image>
+                     <VBox.margin>
+                        <Insets left="400.0" />
+                     </VBox.margin>
+                  </ImageView>
+               </children></VBox>
             </children>
         </HBox>
         <HBox prefHeight="100.0" prefWidth="200.0">
