@@ -90,10 +90,17 @@
                   <Font size="16.0" />
                </font>
                 </Label>
-                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="140.0" text="Salir">
+                <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #0338D5;">
                     <HBox.margin>
-                        <Insets left="1285.0" right="40.0" top="20.0" />
-                    </HBox.margin></Button>
+                        <Insets left="1100.0" right="40.0" top="20.0" />
+                    </HBox.margin>
+                    <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@Images/Icon.png" />
+                            </image>
+                        </ImageView>
+                    </graphic></Button>
             </children></HBox>
     </children>
 </AnchorPane>
