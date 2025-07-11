@@ -6,56 +6,72 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: fff;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="600.0" prefWidth="1550.0" style="-fx-background-color: fff;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <HBox layoutY="72.0" prefHeight="1008.0" prefWidth="1920.0" AnchorPane.topAnchor="90.0">
+        <HBox layoutY="72.0" prefHeight="699.0" prefWidth="1550.0" AnchorPane.topAnchor="90.0">
             <children>
-                <VBox prefHeight="984.0" prefWidth="296.0">
+                <VBox prefHeight="699.0" prefWidth="227.0">
                     <children>
-                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="Resguardo" textFill="#404463">
+                        <Button mnemonicParsing="false" prefHeight="61.0" prefWidth="187.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="Resguardo" textFill="#404463">
                             <VBox.margin>
-                                <Insets left="40.0" top="215.0" />
+                                <Insets left="40.0" top="210.0" />
                             </VBox.margin>
-                     <font>
-                        <Font name="Tahoma" size="20.0" />
-                     </font></Button>
-                        <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="387.0" text="Descargar Todo">
+                            <font>
+                                <Font name="Tahoma" size="20.0" />
+                            </font></Button>
+                        <Button mnemonicParsing="false" prefHeight="55.0" prefWidth="187.0" style="-fx-background-color: B2BCDB; -fx-background-radius: 15;" text="Descargar todo" textFill="#0033cc">
                             <VBox.margin>
-                                <Insets left="40.0" top="550.0" />
-                            </VBox.margin></Button>
+
+                                <Insets bottom="20.0" left="40.0" top="350.0" />
+                            </VBox.margin>
+                            <font>
+                                <Font name="Tahoma" size="16.0" />
+                            </font>
+                            <graphic>
+                                <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@Images/Deacarga.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic></Button>
                     </children>
                     <HBox.margin>
                         <Insets right="40.0" />
                     </HBox.margin>
                 </VBox>
-                <VBox prefHeight="1008.0" prefWidth="1588.0">
+                <VBox prefHeight="699.0" prefWidth="1270.0">
                     <children>
                         <HBox prefHeight="125.0" prefWidth="1586.0">
                             <children>
-                                <Label prefHeight="17.0" prefWidth="255.0" text="Seleccione el informe a descargar">
+                                <Label prefHeight="30.0" prefWidth="381.0" text="Seleccione el informe a descargar">
                                     <HBox.margin>
                                         <Insets top="50.0" />
-                                    </HBox.margin></Label>
+                                    </HBox.margin>
+                                    <font>
+                                        <Font name="Tahoma" size="20.0" />
+                                    </font></Label>
                                 <ComboBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="43.0" prefWidth="201.0" promptText="  Filtrar" style="-fx-background-radius: 15; -fx-background-color: #ABBAE5;">
                                     <HBox.margin>
-                                        <Insets left="800.0" right="40.0" top="35.0" />
+                                        <Insets left="500.0" right="40.0" top="35.0" />
                                     </HBox.margin></ComboBox>
-                        <TextField prefHeight="43.0" prefWidth="162.0">
-                           <HBox.margin>
-                              <Insets left="40.0" top="35.0" />
-                           </HBox.margin></TextField>
-                        <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="30.0" style="-fx-background-color: C6CFE2;" text="🔎">
-                           <HBox.margin>
-                              <Insets right="40.0" top="35.0" />
-                           </HBox.margin></Button>
+                                <TextField prefHeight="43.0" prefWidth="162.0">
+                                    <HBox.margin>
+                                        <Insets left="10.0" top="35.0" />
+                                    </HBox.margin>
+                                </TextField>
+                                <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="73.0" style="-fx-background-color: C6CFE2;" text="🔎">
+                                    <HBox.margin>
+                                        <Insets right="40.0" top="35.0" />
+                                    </HBox.margin></Button>
+
                             </children></HBox>
-                        <TableView prefHeight="812.0" prefWidth="1586.0">
+                        <TableView prefHeight="521.0" prefWidth="1230.0" style="-fx-background-color: EFEFF0; -fx-background-radius: 20;">
                             <columns>
-                                <TableColumn prefWidth="365.0" text="Número" />
-                                <TableColumn prefWidth="365.0" text="Fecha" />
-                                <TableColumn prefWidth="365.0" text="Empleado" />
-                                <TableColumn prefWidth="365.0" text="Espacio" />
-                                <TableColumn prefWidth="90.0" text="Descargar" />
+                                <TableColumn prefWidth="90.0" style="-fx-background-color: E0E1E1; -fx-background-radius: 5;" text="Numero" />
+                                <TableColumn prefWidth="187.5999984741211" style="-fx-background-color: E0E1E1;" text="Fecha" />
+                                <TableColumn prefWidth="543.4000549316406" style="-fx-background-color: E0E1E1;" text="Empleado" />
+                                <TableColumn prefWidth="233.39996337890625" style="-fx-background-color: E0E1E1;" text="Espacio" />
+                                <TableColumn prefWidth="174.7999267578125" style="-fx-background-color: E0E1E1; -fx-background-radius: 5;" text="Descargar" />
                             </columns>
                             <VBox.margin>
                                 <Insets bottom="40.0" right="40.0" />
@@ -64,32 +80,31 @@
                     </children></VBox>
             </children>
         </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0">
-         <children>
-            <ImageView fitHeight="89.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@Images/rectangulo.png" />
-               </image>
-            </ImageView>
-         </children>
-      </HBox>
-        <HBox prefHeight="89.0" prefWidth="1920.0">
+        <HBox prefHeight="100.0" prefWidth="200.0">
             <children>
-                <ImageView fitHeight="52.38" fitWidth="52.38" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@Images/Icono.png" />
-               </image>
-               <HBox.margin>
-                  <Insets left="36.81" top="15.0" />
-               </HBox.margin></ImageView>
-                <Label prefHeight="17.0" prefWidth="255.0" text="SISTEMA DE INVENTARIO" textFill="WHITE">
+                <ImageView fitHeight="89.0" fitWidth="1550.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@Images/rectangulo.png" />
+                    </image>
+                </ImageView>
+            </children>
+        </HBox>
+        <HBox prefHeight="90.0" prefWidth="1550.0">
+            <children>
+                <ImageView fitHeight="45.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@Images/Icono.png" />
+                    </image>
                     <HBox.margin>
-                        <Insets left="20.0" top="25.0" />
+                        <Insets left="36.81" top="15.0" />
                     </HBox.margin>
-               <font>
-                  <Font size="16.0" />
-               </font>
-                </Label>
+                </ImageView>
+            <Label text="SISTEMA DE INVENTARIO" textFill="WHITE">
+               <HBox.margin>
+                  <Insets left="20.0" top="25.0" />
+               </HBox.margin></Label>
+
+
                 <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #0338D5;">
                     <HBox.margin>
                         <Insets left="1100.0" right="40.0" top="20.0" />
@@ -102,5 +117,6 @@
                         </ImageView>
                     </graphic></Button>
             </children></HBox>
+
     </children>
 </AnchorPane>
