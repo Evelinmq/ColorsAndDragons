@@ -10,10 +10,10 @@ public class Directora {
     private int idUnidad;
     private int idPuesto;
 
-    public Resguardo() {
+    public Directora() {
     }
 
-    public Resguardo(int idResguardo, String codigoBien, int idEspacio, int idEdificio, String rfcEmpleado, int idUnidad, int idPuesto) {
+    public Directora(int idResguardo, String codigoBien, int idEspacio, int idEdificio, String rfcEmpleado, int idUnidad, int idPuesto) {
         this.idResguardo = idResguardo;
         this.codigoBien = codigoBien;
         this.idEspacio = idEspacio;
