@@ -75,7 +75,7 @@
       </HBox>
         <HBox prefHeight="90.0" prefWidth="1550.0">
             <children>
-            <ImageView fitHeight="52.38" fitWidth="52.38" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Images/Icono.png" />
                </image>
