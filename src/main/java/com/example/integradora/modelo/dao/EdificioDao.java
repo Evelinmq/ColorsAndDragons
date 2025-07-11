@@ -14,7 +14,7 @@ public class EdificioDao {
     public boolean createEdificio(Edificio m){
         try{
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "Insert into EDIFICIO(id, nombre, estado) values(?,?,?)";
+            String query = "Insert into EDIFICIO(id_edificio, nombre, estado) values(?,?,?)";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setInt(1, m.getId());
             ps.setString(2, m.getNombre());
@@ -33,7 +33,7 @@ public class EdificioDao {
     public boolean updateEdificio(int idEdificioViejo, Edificio m){
         try{
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "UPDATE EDIFICIO SET id = ?, nombre = ?, estado = ? where id = ?";
+            String query = "UPDATE EDIFICIO SET id_edificio = ?, nombre = ?, estado = ? where id = ?";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setInt(1, m.getId());
             ps.setString(2, m.getNombre());
@@ -53,7 +53,7 @@ public class EdificioDao {
     public boolean deleteEdificio(int id){
         try{
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "DELETE FROM EDIFICIO WHERE id = ?";
+            String query = "DELETE FROM EDIFICIO WHERE id_edificio = ?";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setInt(1, id);
             if (ps.executeUpdate() > 0){
