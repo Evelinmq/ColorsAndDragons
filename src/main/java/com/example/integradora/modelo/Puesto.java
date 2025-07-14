@@ -38,4 +38,15 @@ public class Puesto {
     public void setEstado(int estado) {
         this.estado = estado;
     }
+
+    // Método toString para depuración
+    @Override
+    public String toString() {
+        return "PuestoOpcion{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", estado=" + estado +
+                '}';
+    }
+
 }

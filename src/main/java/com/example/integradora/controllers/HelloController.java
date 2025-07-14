@@ -1,4 +1,4 @@
-package com.example.integradora;
+package com.example.integradora.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
