@@ -130,7 +130,7 @@
                         <Insets right="40.0" />
                     </HBox.margin>
                 </VBox>
-                <VBox prefHeight="667.0" prefWidth="1200.0">
+                <VBox prefHeight="667.0" prefWidth="1204.0">
                     <children>
                         <HBox prefHeight="126.0" prefWidth="1214.0">
                             <children>
@@ -155,16 +155,13 @@
                                         <Insets right="40.0" top="35.0" />
                                     </HBox.margin></Button>
                             </children></HBox>
-                        <TableView prefHeight="500.0" prefWidth="1000.0" style="-fx-background-color: EFEFF0; -fx-background-radius: 20;">
+                        <TableView prefHeight="527.0" prefWidth="1032.0" style="-fx-background-color: EFEFF0; -fx-background-radius: 20;">
                             <columns>
-                                <TableColumn prefWidth="409.200018286705" style="-fx-background-color: E0E1E1; -fx-background-radius: 5;" text="Correo" />
-                        <TableColumn prefWidth="246.19998168945312" style="-fx-background-color: e0e1e1;" text="Contraseña" />
-                        <TableColumn prefWidth="228.60009765625"  style="-fx-background-color: e0e1e1;" text="Rol" />
-                                <TableColumn minWidth="0.0" prefWidth="117.7999267578125" style="-fx-background-color: e0e1e1;" text="Editar" />
-                                <TableColumn prefWidth="137.5999755859375" style="-fx-background-color: e0e1e1;" text="Eliminar" />
+                                <TableColumn prefWidth="332.0" style="-fx-background-color: E0E1E1; -fx-background-radius: 5;" text="Espacio" />
+                                <TableColumn prefWidth="386.0" style="-fx-background-color: E0E1E1;" text="Edificio" />
                             </columns>
                             <VBox.margin>
-                                <Insets bottom="40.0" right="40.0" />
+                                <Insets bottom="40.0" right="150.0" />
                             </VBox.margin>
                         </TableView>
                     </children></VBox>
@@ -205,5 +202,33 @@
                         </ImageView>
                     </graphic></Button>
             </children></HBox>
+        <VBox layoutX="1406.0" layoutY="218.0" prefHeight="438.0" prefWidth="158.0">
+            <children>
+                <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="34.0" style="-fx-background-color: FFA0A0;">
+                    <VBox.margin>
+                        <Insets left="60.0" top="100.0" />
+                    </VBox.margin>
+                    <graphic>
+                        <ImageView fitHeight="26.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@Images/basura.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="34.0" style="-fx-background-color: A8D095;">
+                    <VBox.margin>
+                        <Insets left="60.0" top="150.0" />
+                    </VBox.margin>
+                    <graphic>
+                        <ImageView fitHeight="26.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@Images/editar.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </children>
+        </VBox>
     </children>
 </AnchorPane>

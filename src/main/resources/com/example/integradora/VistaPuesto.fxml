@@ -155,11 +155,9 @@
                                         <Insets right="40.0" top="35.0" />
                                     </HBox.margin></Button>
                             </children></HBox>
-                        <TableView prefHeight="500.0" prefWidth="1000.0" style="-fx-background-color: EFEFF0; -fx-background-radius: 20;">
+                        <TableView prefHeight="500.0" prefWidth="1045.0" style="-fx-background-color: EFEFF0; -fx-background-radius: 20;">
                             <columns>
                                 <TableColumn prefWidth="710.0" style="-fx-background-color: E0E1E1; -fx-background-radius: 5;" text="Puesto" />
-                                <TableColumn prefWidth="218.0" style="-fx-background-color: e0e1e1;" text="Editar" />
-                                <TableColumn prefWidth="211.0" style="-fx-background-color: e0e1e1;" text="Eliminar" />
                             </columns>
                             <VBox.margin>
                                 <Insets bottom="40.0" right="40.0" />
@@ -203,5 +201,33 @@
                         </ImageView>
                     </graphic></Button>
             </children></HBox>
+        <VBox layoutX="1406.0" layoutY="218.0" prefHeight="438.0" prefWidth="158.0">
+            <children>
+                <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="34.0" style="-fx-background-color: FFA0A0;">
+                    <VBox.margin>
+                        <Insets left="60.0" top="100.0" />
+                    </VBox.margin>
+                    <graphic>
+                        <ImageView fitHeight="26.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@Images/basura.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="34.0" style="-fx-background-color: A8D095;">
+                    <VBox.margin>
+                        <Insets left="60.0" top="150.0" />
+                    </VBox.margin>
+                    <graphic>
+                        <ImageView fitHeight="26.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@Images/editar.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </children>
+        </VBox>
     </children>
 </AnchorPane>
