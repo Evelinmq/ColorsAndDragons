@@ -12,7 +12,7 @@
                 <Font name="Tahoma" size="12.0" />
             </font></Button>
 
-        <Button layoutX="320.0" layoutY="277.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #013AE4; -fx-background-radius: 10;" text="Guardar" textFill="WHITE">
+        <Button layoutX="320.0" layoutY="277.0" mnemonicParsing="false" onAction="#updateEdificio" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #013AE4; -fx-background-radius: 10;" text="Guardar" textFill="WHITE">
             <font>
                 <Font name="Tahoma" size="12.0" />
             </font></Button>
@@ -38,7 +38,7 @@
                             <VBox.margin>
                                 <Insets top="20.0" />
                             </VBox.margin></Label>
-                        <TextField prefHeight="34.0" prefWidth="385.0" style="-fx-background-color: fff; -fx-background-radius: 5;">
+                        <TextField fx:id="nombreEdificio" prefHeight="34.0" prefWidth="385.0" style="-fx-background-color: fff; -fx-background-radius: 5;">
                             <VBox.margin>
                                 <Insets top="5.0" />
                             </VBox.margin></TextField>

@@ -54,17 +54,17 @@ public class EspacioDao {
     }
 
     public boolean deleteEspacio(int id){
-        try{
+        try {
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "DELETE FROM ESPACIO WHERE id = ?";
-            PreparedStatement ps = conn.prepareStatement(query);
-            ps.setInt(1, id);
-            if (ps.executeUpdate() > 0){
-                conn.close(); // <---
+            String query = "UPDATE ESPACIO SET status=0 WHERE id=?"; //no olvidar el where
+            PreparedStatement ps = conn.prepareStatement(query);    //delete logico
+            ps.setInt(1,id);
+            if(ps.executeUpdate()>0){
+                conn.close();
                 return true;
             }
             conn.close();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;

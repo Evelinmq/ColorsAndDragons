@@ -19,8 +19,8 @@
                 </Label>
             </children>
         </HBox>
-        <TextField layoutX="120.0" layoutY="240.0" prefHeight="36.0" prefWidth="360.0" style="-fx-background-color: fff; -fx-background-radius: 5;" />
-        <Button layoutX="453.0" layoutY="334.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #013AE4; -fx-background-radius: 10;" text="Guardar" textFill="WHITE">
+        <TextField fx:id="editarEspacio" layoutX="120.0" layoutY="240.0" prefHeight="36.0" prefWidth="360.0" style="-fx-background-color: fff; -fx-background-radius: 5;" />
+        <Button layoutX="453.0" layoutY="334.0" mnemonicParsing="false" onAction="#updateEspacio" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #013AE4; -fx-background-radius: 10;" text="Guardar" textFill="WHITE">
             <font>
                 <Font name="Tahoma" size="12.0" />
             </font></Button>
@@ -36,7 +36,7 @@
             <font>
                 <Font name="Tahoma" size="12.0" />
             </font></Label>
-        <MenuButton layoutX="121.0" layoutY="114.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="360.0" style="-fx-background-color: fff; -fx-background-radius: 5;" text="Edificio" textFill="#cccaca">
+        <MenuButton fx:id="editarEdiEspacio" layoutX="121.0" layoutY="114.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="360.0" style="-fx-background-color: fff; -fx-background-radius: 5;" text="Edificio" textFill="#cccaca">
             <items>
                 <MenuItem mnemonicParsing="false" text="Action 1" />
                 <MenuItem mnemonicParsing="false" text="Action 2" />
