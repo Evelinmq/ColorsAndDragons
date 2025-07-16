@@ -38,4 +38,13 @@ public class UnidadAdministrativa {
     public void setEstado(int estado) {
         this.estado = estado;
     }
+
+    @Override
+    public String toString() {
+        return "UnidadAdministrativa{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", estado=" + estado +
+                '}';
+    }
 }

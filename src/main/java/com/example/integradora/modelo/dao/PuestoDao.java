@@ -15,14 +15,15 @@ public class PuestoDao {
     public boolean createPuesto(Puesto p) {
         try{
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "Insert into Tabla_Puesto(nombre, estado) values (?,?)";
+            String query = "Insert into Tabla_Puesto(nombre, estado) values (?,1)";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, p.getNombre());
-            ps.setInt(2, p.getEstado());
             if (ps.executeUpdate() > 0) {
+                System.out.println("El puesto se insertó correctamente");
                 conn.close();
                 return true;
             }
+            conn.close();
         }catch (SQLException e){
             e.printStackTrace();
             return false;
@@ -34,32 +35,52 @@ public class PuestoDao {
     public boolean updatePuesto(int idViejito, Puesto p) {
         try{
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "UPDATE Tabla_Puesto SET nombre = ?, estado = ? WHERE id = ?";
+            String query = "UPDATE Tabla_Puesto SET nombre = ? estado = ? WHERE id = ?";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, p.getNombre());
             ps.setInt(2, p.getEstado());
             ps.setInt(3, idViejito);
-            if(ps.executeUpdate() > 0) {
+            if(ps.executeUpdate() >= 1) {
+                System.out.println("El puesto se actualizó correctamente");
                 conn.close(); // <---
                 return true;
             }
+            conn.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
         return false;
     }
 
+    //Delete LÓGICO
     public boolean deletePuesto(int id) {
         try{
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "DELETE FROM Tabla_Puesto WHERE id = ?";
+            String query = "UPDATE Tabla_Puesto SET status = 0 WHERE id = ?"; // <--- No olvidar el WHERE
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setInt(1, id);
             if(ps.executeUpdate() > 0) {
-                conn.close();
+                //conn.close();
                 return true;
             }
-        }catch(Exception e){
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    //Recuperar Puesto
+    public boolean recoverPuesto(int id) {
+        try{
+            Connection conn = OracleDatabaseConnectionManager.getConnection();
+            String query = "UPDATE Tabla_Puesto SET status = 1 WHERE id = ?"; // <--- No olvidar el WHERE
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, id);
+            if(ps.executeUpdate() > 0) {
+                //conn.close();
+                return true;
+            }
+        }catch(SQLException e){
             e.printStackTrace();
         }
         return false;
@@ -75,9 +96,7 @@ public class PuestoDao {
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
                 Puesto p = new Puesto();
-                p.setId(rs.getInt("id"));
                 p.setNombre(rs.getString("nombre"));
-                p.setEstado(rs.getInt("estado"));
                 lista.add(p);
             }
             conn.close();
@@ -107,9 +126,9 @@ public class PuestoDao {
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
                 Puesto p = new Puesto();
-                p.setId(rs.getInt("id"));
+                //p.setId(rs.getInt("id"));
                 p.setNombre(rs.getString("nombre"));
-                p.setEstado(rs.getInt("estado"));
+               // p.setEstado(rs.getInt("estado"));
                 lista.add(p);
             }
             rs.close();

@@ -5,6 +5,7 @@ import com.example.integradora.modelo.dao.PuestoDao;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -14,44 +15,30 @@ import java.util.ResourceBundle;
 public class UpdatePuestoController implements Initializable {
 
     @FXML
-    private TextField nombrePuesto;
+    private TextField puesto;
+    @FXML
+    private Button actualizar;
 
     private Puesto p;
     private int idViejito;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        actualizar.setOnAction(( event) -> {
+            PuestoDao dao = new PuestoDao();
+            dao.updatePuesto(idViejito, new Puesto(null, puesto.getText()));
 
+            Stage ventana = (Stage) id.getScene().getWindow();
+            ventana.close();
+        });
     }
 
     public void setP(Puesto p) {
         this.p = p;
-        this.idViejito = p.getId();
+        //this.idViejito = p.getId();
 
-        nombrePuesto.setText(p.getNombre());
-
-    }
-
-    @FXML
-    public void updatePuesto(ActionEvent event) {
-        //Obtener información de los TextField
-        String puestoV = nombrePuesto.getText();
-
-        //Colocar nueva info
-        p.setId(idViejito);
-        p.setNombre(puestoV);
-        PuestoDao dao = new PuestoDao();
-
-        //Actualizar BD
-        if(dao.updatePuesto(idViejito/*.intValue()*/, p)){
-            System.out.println("Puesto Actualizado");
-        }
-
-        //Cerrar ventana
-        Stage ventana = (Stage) nombrePuesto.getScene().getWindow();
-        ventana.close();
+        puesto.setText(p.getNombre());
 
     }
-
 
 }

@@ -15,14 +15,15 @@ public class UnidadAdministrativaDao {
     public boolean createUnidadAdministrativa(UnidadAdministrativa ua) {
         try{
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "INSERT INTO Unidad_Administrativa(nombre, estado) values(?,?)";
+            String query = "INSERT INTO Unidad_Administrativa(nombre, estado) values(?,1)";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, ua.getNombre());
-            ps.setInt(2, ua.getEstado());
             if(ps.executeUpdate() > 0){
+                System.out.println("La Unidad Administrativa ha sido creada con exito");
                 conn.close(); // <---
                 return true;
             }
+            conn.close();
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -32,12 +33,12 @@ public class UnidadAdministrativaDao {
     public boolean updateUnidadAdministrativa(int idViejito, UnidadAdministrativa ua) {
         try{
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "UPDATE Unidad_Administrativa SET nombre = ?, estado = ? WHERE id = ?";
+            String query = "UPDATE Unidad_Administrativa SET nombre = ? WHERE id = ?";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, ua.getNombre());
-            ps.setInt(2, ua.getEstado());
-            ps.setInt(3, idViejito);
-            if(ps.executeUpdate() > 0){
+            ps.setInt(2, idViejito);
+            if(ps.executeUpdate() >= 1){
+                System.out.println("Se actualizó la Unidad Administrativa con exito");
                 conn.close();
                 return true;
             }
@@ -47,14 +48,32 @@ public class UnidadAdministrativaDao {
         return false;
     }
 
+    //Delete LÓGICO
     public boolean deleteUnidadAdministrativa(int id) {
         try{
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "DELETE FROM Unidad_Administrativa WHERE id = ?";
+            String query = "UPDATE Unidad_Administrativa SET status = 0 WHERE id = ?";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setInt(1, id);
             if(ps.executeUpdate() > 0){
-                conn.close(); // <---
+                //conn.close(); // <---
+                return true;
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    //Recuperar Unidad Administrativa borrada
+    public boolean recoverUnidadAdministrativa(int id) {
+        try{
+            Connection conn = OracleDatabaseConnectionManager.getConnection();
+            String query = "UPDATE Unidad_Administrativa SET status = 1 WHERE id = ?";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, id);
+            if(ps.executeUpdate() > 0){
+                //conn.close(); // <---
                 return true;
             }
         }catch(SQLException e){
@@ -72,9 +91,7 @@ public class UnidadAdministrativaDao {
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 UnidadAdministrativa u = new UnidadAdministrativa();
-                u.setId(rs.getInt("id"));
                 u.setNombre(rs.getString("nombre"));
-                u.setEstado(rs.getInt("estado"));
                 lista.add(u);
             }
             conn.close();
@@ -100,11 +117,13 @@ public class UnidadAdministrativaDao {
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 UnidadAdministrativa u = new UnidadAdministrativa();
-                u.setId(rs.getInt("id"));
+                //u.setId(rs.getInt("id"));
                 u.setNombre(rs.getString("nombre"));
-                u.setEstado(rs.getInt("estado"));
+                //u.setEstado(rs.getInt("estado"));
                 lista.add(u);
             }
+            rs.close();
+            conn.close();
         }catch(SQLException e){
             e.printStackTrace();
         }
