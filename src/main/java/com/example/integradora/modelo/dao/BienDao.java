@@ -14,7 +14,7 @@ public class BienDao {
 
     public boolean bienCreate(Bien b) {
 
-        String query = "INSERT INTO bien( bien_codigo, descripción, marca, modelo, noSerie, estado) VALUES (?,?,?,?,?,?)";
+        String query = "INSERT INTO bien( bien_codigo, descripción, marca, modelo, Serie, estado) VALUES (?,?,?,?,?,?)";
 
         try {
             Connection conn = OracleDatabaseConnectionManager.getConnection();
