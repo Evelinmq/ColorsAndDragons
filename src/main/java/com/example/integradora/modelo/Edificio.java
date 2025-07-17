@@ -11,6 +11,10 @@ public class Edificio {
         this.estado = estado;
         this.nombre = nombre;
     }
+    public Edificio(String nombre) {
+        this.nombre = nombre;
+        this.estado = 1; // activo por defecto
+    }
 
     public Edificio() {
     }

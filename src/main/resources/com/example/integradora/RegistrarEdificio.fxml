@@ -38,7 +38,7 @@
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin></Label>
-                    <TextField prefHeight="34.0" prefWidth="385.0" style="-fx-background-color: fff; -fx-background-radius: 5;">
+                    <TextField fx:id="nombreEdificio" prefHeight="34.0" prefWidth="385.0" style="-fx-background-color: fff; -fx-background-radius: 5;">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin></TextField>

@@ -20,9 +20,7 @@ public class UpdateEdificioController implements Initializable {
     private int idViejo;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-    }
+    public void initialize(URL location, ResourceBundle resources) {}
 
     public void setEdificio(Edificio edificio) {
         this.edificio = edificio;
@@ -32,22 +30,19 @@ public class UpdateEdificioController implements Initializable {
 
     @FXML
     public void updateEdificio(ActionEvent event) {
+        String nombreNuevo = nombreEdificio.getText().trim();
+        if (nombreNuevo.isEmpty()) return;
 
-        String nombreNuevo = nombreEdificio.getText();
-
-        // Actualizar objeto
-        edificio.setId(idViejo);
         edificio.setNombre(nombreNuevo);
+        edificio.setEstado(1); // aseguramos que siga activo
 
         EdificioDao dao = new EdificioDao();
-
-        // Actualizar en base de datos
         if (dao.updateEdificio(idViejo, edificio)) {
-            System.out.println("Edificio Actualizado");
+            System.out.println("Edificio actualizado");
         }
 
-        // Cerrar ventana
         Stage ventana = (Stage) nombreEdificio.getScene().getWindow();
         ventana.close();
     }
 }
+

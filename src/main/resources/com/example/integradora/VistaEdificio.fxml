@@ -145,7 +145,7 @@
                                     <HBox.margin>
                                         <Insets left="600.0" right="40.0" top="35.0" />
                                     </HBox.margin></ComboBox>
-                                <TextField prefHeight="43.0" prefWidth="162.0">
+                                <TextField fx:id="textoBusqueda" prefHeight="43.0" prefWidth="162.0">
                                     <HBox.margin>
                                         <Insets left="10.0" top="35.0" />
                                     </HBox.margin>
@@ -155,10 +155,9 @@
                                         <Insets right="40.0" top="35.0" />
                                     </HBox.margin></Button>
                             </children></HBox>
-                        <TableView prefHeight="527.0" prefWidth="1032.0" style="-fx-background-color: EFEFF0; -fx-background-radius: 20;">
+                        <TableView fx:id="tabla" prefHeight="527.0" prefWidth="1032.0" style="-fx-background-color: EFEFF0; -fx-background-radius: 20;">
                             <columns>
-                                <TableColumn prefWidth="332.0" style="-fx-background-color: E0E1E1; -fx-background-radius: 5;" text="Espacio" />
-                                <TableColumn prefWidth="386.0" style="-fx-background-color: E0E1E1;" text="Edificio" />
+                                <TableColumn fx:id="tablaEdificio" prefWidth="332.0" style="-fx-background-color: E0E1E1; -fx-background-radius: 5;" text="Edificio" />
                             </columns>
                             <VBox.margin>
                                 <Insets bottom="40.0" right="150.0" />
@@ -204,7 +203,7 @@
             </children></HBox>
         <VBox layoutX="1406.0" layoutY="218.0" prefHeight="438.0" prefWidth="158.0">
             <children>
-                <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="34.0" style="-fx-background-color: FFA0A0;">
+                <Button fx:id="eliminar" mnemonicParsing="false" onAction="#eliminar" prefHeight="31.0" prefWidth="34.0" style="-fx-background-color: FFA0A0;">
                     <VBox.margin>
                         <Insets left="60.0" top="100.0" />
                     </VBox.margin>
@@ -216,7 +215,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="34.0" style="-fx-background-color: A8D095;">
+                <Button fx:id="editar" mnemonicParsing="false" onAction="#editar" prefHeight="31.0" prefWidth="34.0" style="-fx-background-color: A8D095;">
                     <VBox.margin>
                         <Insets left="60.0" top="150.0" />
                     </VBox.margin>

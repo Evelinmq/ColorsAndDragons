@@ -155,10 +155,10 @@
                                         <Insets right="40.0" top="35.0" />
                                     </HBox.margin></Button>
                             </children></HBox>
-                        <TableView prefHeight="527.0" prefWidth="1032.0" style="-fx-background-color: EFEFF0; -fx-background-radius: 20;">
+                        <TableView fx:id="tabla" prefHeight="527.0" prefWidth="1032.0" style="-fx-background-color: EFEFF0; -fx-background-radius: 20;">
                             <columns>
-                                <TableColumn prefWidth="508.0" style="-fx-background-color: E0E1E1; -fx-background-radius: 5;" text="Espacio" />
-                                <TableColumn prefWidth="523.0" style="-fx-background-color: E0E1E1;" text="Edificio" />
+                                <TableColumn fx:id="espacio" prefWidth="508.0" style="-fx-background-color: E0E1E1; -fx-background-radius: 5;" text="Espacio" />
+                                <TableColumn fx:id="edificio" prefWidth="523.0" style="-fx-background-color: E0E1E1;" text="Edificio" />
                             </columns>
                             <VBox.margin>
                                 <Insets bottom="40.0" right="150.0" />

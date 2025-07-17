@@ -14,11 +14,10 @@ public class EdificioDao {
     public boolean createEdificio(Edificio m){
         try{
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "Insert into EDIFICIO(id_edificio, nombre, estado) values(?,?,?)";
+            String query = "INSERT INTO EDIFICIO(nombre, estado) VALUES(?, ?)";
             PreparedStatement ps = conn.prepareStatement(query);
-            ps.setInt(1, m.getId());
-            ps.setString(2, m.getNombre());
-            ps.setInt(3, m.getEstado());
+            ps.setString(1, m.getNombre());
+            ps.setInt(2, m.getEstado());
             if (ps.executeUpdate() > 0){
                 conn.close();
                 return true;
@@ -50,7 +49,7 @@ public class EdificioDao {
         return false;
     }
 
-    public boolean deleteEspacio(int id){
+    public boolean deleteEdificio(int id){
         try {
             Connection conn = OracleDatabaseConnectionManager.getConnection();
             String query = "UPDATE EDIFICIO SET status=0 WHERE id=?"; //no olvidar el where
