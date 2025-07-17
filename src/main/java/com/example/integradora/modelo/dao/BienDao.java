@@ -14,18 +14,17 @@ public class BienDao {
 
     public boolean bienCreate(Bien b) {
 
-        String query = "INSERT INTO bien(id, codigo, descripción, marca, modelo, noSerie, estado) VALUES (?,?,?,?,?,?,?)";
+        String query = "INSERT INTO bien( bien_codigo, descripción, marca, modelo, noSerie, estado) VALUES (?,?,?,?,?,?)";
 
         try {
             Connection conn = OracleDatabaseConnectionManager.getConnection();
             PreparedStatement ps = conn.prepareStatement(query);
-            ps.setInt(1, b.getId());
-            ps.setString(2, b.getCodigo());
-            ps.setString(3, b.getDescripcion());
-            ps.setString(4, b.getMarca());
-            ps.setString(5, b.getModelo());
-            ps.setString(6, b.getNoSerie());
-            ps.setInt(7, b.getEstado());
+            ps.setString(1, b.getCodigo());
+            ps.setString(2, b.getDescripcion());
+            ps.setString(3, b.getMarca());
+            ps.setString(4, b.getModelo());
+            ps.setString(5, b.getNoSerie());
+            ps.setInt(6, b.getEstado());
 
             if (ps.executeUpdate() > 0) {
                 System.out.println("Bien registrado");
@@ -42,7 +41,7 @@ public class BienDao {
 
     public List<Bien>  readBien(){
 
-        String query = "SELECT * FROM bien ORDER BY id ASC";
+        String query = "SELECT * FROM bien ORDER BY bien_codigo ASC";
         List<Bien> bienes = new ArrayList<Bien>();
 
         try{
@@ -52,12 +51,11 @@ public class BienDao {
 
             while(rs.next()){
                 Bien b = new Bien();
-                b.setId(rs.getInt("Id"));
-                b.setCodigo(rs.getString("Codigo"));
+                b.setCodigo(rs.getString("bien_codigo"));
                 b.setDescripcion(rs.getString("Descripcion"));
                 b.setMarca(rs.getString("Marca"));
                 b.setModelo(rs.getString("Modelo"));
-                b.setNoSerie(rs.getString("NoSerie"));
+                b.setNoSerie(rs.getString("Serie"));
                 b.setEstado(rs.getInt("Estado"));
                 bienes.add (b);
 
@@ -74,16 +72,15 @@ public class BienDao {
         try {
 
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "UPDATE  bien set id=?, Codigo=?, Descripcion=?, Marca=?, Modelo=?, NoSerie=?, Estado=? WHERE id=?";
+            String query = "UPDATE  bien set  bien_Codigo=?, Descripcion=?, Marca=?, Modelo=?, Serie=?, Estado=? WHERE id=?";
             PreparedStatement ps = conn.prepareStatement(query);
-            ps.setInt(1, b.getId());
-            ps.setString(2, b.getCodigo());
-            ps.setString(3, b.getDescripcion());
-            ps.setString(4, b.getMarca());
-            ps.setString(5, b.getModelo());
-            ps.setString(6, b.getNoSerie());
-            ps.setInt(7, b.getEstado());
-            ps.setInt(8, idViejo);
+            ps.setString(1, b.getCodigo());
+            ps.setString(2, b.getDescripcion());
+            ps.setString(3, b.getMarca());
+            ps.setString(4, b.getModelo());
+            ps.setString(5, b.getNoSerie());
+            ps.setInt(6, b.getEstado());
+            ps.setInt(7, idViejo);
             if (ps.executeUpdate() > 0) {
                 return true;
             }
@@ -98,7 +95,7 @@ public class BienDao {
     public boolean deleteBien(int id){
         try {
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "DELETE bien SET status = 0 WHERE id=? ";
+            String query = "DELETE bien SET status = 0 WHERE bien_codigo = ? ";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setInt(1, id);
             if(ps.executeUpdate()>0){

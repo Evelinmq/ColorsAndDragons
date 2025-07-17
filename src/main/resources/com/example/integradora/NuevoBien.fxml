@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #EFEFF0; -fx-background-radius: 25;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.vistas.NuevoBien">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #EFEFF0; -fx-background-radius: 25;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.integradora.controllers.RegistroBienController">
    <children>
       <HBox prefHeight="77.0" prefWidth="600.0">
          <children>
@@ -27,7 +27,7 @@
                <font>
                   <Font name="Tahoma" size="12.0" />
                </font></Label>
-            <TextField style="-fx-background-color: fff;">
+            <TextField fx:id="codigoBien" style="-fx-background-color: fff;">
                <VBox.margin>
                   <Insets bottom="10.0" left="20.0" />
                </VBox.margin>
@@ -41,7 +41,7 @@
                <font>
                   <Font name="Tahoma" size="12.0" />
                </font></Label>
-            <TextField prefHeight="48.0" prefWidth="270.0" style="-fx-background-color: fff;">
+            <TextField fx:id="descripcionBien" prefHeight="48.0" prefWidth="270.0" style="-fx-background-color: fff;">
                <VBox.margin>
                   <Insets bottom="10.0" left="20.0" />
                </VBox.margin>
@@ -55,7 +55,7 @@
             }               <font>
                <Font name="Tahoma" size="12.0" />
             </font></Label>
-            <TextField style="-fx-background-color: fff;">
+            <TextField fx:id="serieBien" style="-fx-background-color: fff;">
                <VBox.margin>
                   <Insets left="20.0" />
                </VBox.margin></TextField>
@@ -70,7 +70,7 @@
                   <Font name="Tahoma" size="12.0" />
                </font>
             </Label>
-            <TextField style="-fx-background-color: fff;">
+            <TextField fx:id="marcaBien" style="-fx-background-color: fff;">
                <VBox.margin>
                   <Insets left="20.0" right="20.0" />
                </VBox.margin>
@@ -84,7 +84,7 @@
                <font>
                   <Font name="Tahoma" size="12.0" />
                </font></Label>
-            <TextField style="-fx-background-color: fff;">
+            <TextField fx:id="modeloBien" style="-fx-background-color: fff;">
                <VBox.margin>
                   <Insets left="20.0" right="20.0" />
                </VBox.margin></TextField>

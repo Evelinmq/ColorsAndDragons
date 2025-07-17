@@ -157,11 +157,8 @@
                             </children></HBox>
                         <TableView prefHeight="527.0" prefWidth="1032.0" style="-fx-background-color: EFEFF0; -fx-background-radius: 20;">
                             <columns>
-                                <TableColumn prefWidth="162.0" style="-fx-background-color: E0E1E1; -fx-background-radius: 5;" text="Código" />
-                                <TableColumn prefWidth="202.0" style="-fx-background-color: E0E1E1;" text="Descripción" />
-                                <TableColumn prefWidth="183.0" style="-fx-background-color: E0E1E1;" text="Marca" />
-                                <TableColumn prefWidth="223.0" style="-fx-background-color: E0E1E1;" text="Modelo" />
-                                <TableColumn prefWidth="261.0" style="-fx-background-color: E0E1E1;" text="No.Serie" />
+                                <TableColumn prefWidth="332.0" style="-fx-background-color: E0E1E1; -fx-background-radius: 5;" text="Espacio" />
+                                <TableColumn prefWidth="386.0" style="-fx-background-color: E0E1E1;" text="Edificio" />
                             </columns>
                             <VBox.margin>
                                 <Insets bottom="40.0" right="150.0" />

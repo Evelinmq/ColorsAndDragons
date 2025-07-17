@@ -2,7 +2,6 @@ package com.example.integradora.modelo;
 
 public class Bien {
 
-    private int id;
     private String codigo;
     private String descripcion;
     private String marca;
@@ -10,8 +9,7 @@ public class Bien {
     private String noSerie;
     private int estado;
 
-    public Bien(int id, String codigo, String descripcion, String marca, String modelo, String noSerie, int estado) {
-        this.id = id;
+    public Bien(String codigo, String descripcion, String marca, String modelo, String noSerie, int estado) {
         this.codigo = codigo;
         this.descripcion = descripcion;
         this.marca = marca;
@@ -29,14 +27,6 @@ public class Bien {
 
     public void setEstado(int estado) {
         this.estado = estado;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getCodigo() {
