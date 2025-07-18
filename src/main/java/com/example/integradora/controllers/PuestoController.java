@@ -16,7 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import oracle.ucp.util.Task;
+import javafx.concurrent.Task;
 
 import java.io.IOException;
 import java.net.URL;
@@ -89,7 +89,7 @@ public class PuestoController implements Initializable {
             tablaPuesto.refresh();
         });
 
-        actualizarPuesto.setOnAction(this::registrarPuesto);
+        //actualizarPuesto.setOnAction(this::createPuesto);
     }
 
     private void abrirVentanaEdicionPuesto(Puesto p){
@@ -99,7 +99,7 @@ public class PuestoController implements Initializable {
             Parent root = loader.load();
             //Mandar Puesto a nueva vista
             UpdatePuestoController controller = loader.getController();
-            controller.setPuesto(p);
+            controller.setP(p);
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Editar Puesto");
@@ -115,21 +115,25 @@ public class PuestoController implements Initializable {
         }
     }
 
-    //Crear el método abrir ventana edición y crear nueva clase de java para esto
-    private void abrirVentanaAgregarPuesto(Puesto p){}
+    @FXML
+    private void abrirVentanaAgregarPuesto() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/integradora/RegistrarPuesto.fxml"));
+            Parent root = loader.load();
 
-    public void registrarPuesto(ActionEvent event){
-        //Obtener información de los textfield
-        String nombre = nombrePuesto.getText();
-        Puesto puesto = new Puesto(null, nombre, 1);
-        PuestoDao dao = new PuestoDao();
-        boolean exito = dao.createPuesto(puesto);
-        puestos.clear();
-        puestos.addAll(dao.readPuestos());
-        tablaPuesto.setItems(FXCollections.observableList(puestos));
-        tablaPuesto.refresh();
-        if(dao.createPuesto(puesto)){
-            System.out.println("Registro exitoso");
+            Stage stage = new Stage();
+            stage.setTitle("Agregar Puesto");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL); // Bloquea la ventana anterior hasta que se cierre esta
+            stage.showAndWait();
+
+            PuestoDao dao = new PuestoDao();
+            puestos.clear();
+            puestos.addAll(dao.readPuestos());
+            tablaPuesto.setItems(FXCollections.observableList(puestos));
+            tablaPuesto.refresh();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -164,7 +168,7 @@ public class PuestoController implements Initializable {
             spinner.setVisible(false);
             System.err.println("Algo falló " + cargarBusqueda.getException());
         });
-        cargarBusqueda.setOnSucceded(workerStateEvent -> {
+        cargarBusqueda.setOnSucceeded(workerStateEvent -> {
             botonBusquedaPuesto.setDisable(false);
             spinner.setVisible(false);
             List<Puesto> lista = cargarBusqueda.getValue();

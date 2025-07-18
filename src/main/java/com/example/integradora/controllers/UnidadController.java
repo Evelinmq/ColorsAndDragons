@@ -16,7 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import oracle.ucp.util.Task;
+import javafx.concurrent.Task;
 
 import java.io.IOException;
 import java.net.URL;
@@ -89,7 +89,6 @@ public class UnidadController implements Initializable {
             tablaUnidad.refresh();
         });
 
-        actualizarUnidad.setOnAction(this::registrarPuesto);
     }
 
     private void abrirVentanaEdicionPuesto(UnidadAdministrativa u){
@@ -116,20 +115,25 @@ public class UnidadController implements Initializable {
     }
 
     //Crear el método abrir ventana edición y crear nueva clase de java para esto
-    private void abrirVentanaAgregarPuesto(UnidadAdministrativa u){}
+    @FXML
+    private void abrirVentanaAgregarPuesto(UnidadAdministrativa unidadAdministrativa) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/integradora/RegistrarUnidad.fxml"));
+            Parent root = loader.load();
 
-    public void registrarPuesto(ActionEvent event){
-        //Obtener información de los textfield
-        String nombre = nombreUnidad.getText();
-        UnidadAdministrativa unidadAdministrativa = new UnidadAdministrativa(null, nombre, 1);
-        UnidadAdministrativaDao dao = new UnidadAdministrativaDao();
-        boolean exito = dao.createUnidadAdministrativa(unidadAdministrativa);
-        unidades.clear();
-        unidades.addAll(dao.readUnidadAdministrativa());
-        tablaUnidad.setItems(FXCollections.observableList(unidades));
-        tablaUnidad.refresh();
-        if(dao.createUnidadAdministrativa(unidadAdministrativa)){
-            System.out.println("Registro exitoso");
+            Stage stage = new Stage();
+            stage.setTitle("Agregar Unidad Administrativa");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL); // Bloquea la ventana anterior hasta que se cierre esta
+            stage.showAndWait();
+
+            UnidadAdministrativaDao dao = new UnidadAdministrativaDao();
+            unidades.clear();
+            unidades.addAll(dao.readUnidadAdministrativa());
+            tablaUnidad.setItems(FXCollections.observableList(unidades));
+            tablaUnidad.refresh();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -164,7 +168,7 @@ public class UnidadController implements Initializable {
             spinner.setVisible(false);
             System.err.println("Algo falló " + cargarBusqueda.getException());
         });
-        cargarBusqueda.setOnSucceded(workerStateEvent -> {
+        cargarBusqueda.setOnSucceeded(workerStateEvent -> {
             botonBusquedaUnidad.setDisable(false);
             spinner.setVisible(false);
             List<UnidadAdministrativa> lista = cargarBusqueda.getValue();

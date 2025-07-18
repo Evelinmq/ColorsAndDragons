@@ -11,7 +11,7 @@
             <children>
                 <HBox prefHeight="400.0" prefWidth="211.0">
                     <children>
-                        <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: B8B7C0; -fx-background-radius: 10;" text="Cancelar" textFill="#404463">
+                        <Button fx:id="unidadCancelar" mnemonicParsing="false" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: B8B7C0; -fx-background-radius: 10;" text="Cancelar" textFill="#404463">
                             <HBox.margin>
                                 <Insets left="15.0" top="350.0" />
                             </HBox.margin>
@@ -19,7 +19,7 @@
                                 <Font name="Tahoma" size="12.0" />
                             </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #013AE4; -fx-background-radius: 10;" text="Guardar" textFill="WHITE">
+                        <Button fx:id="unidadGuardar" mnemonicParsing="false" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #013AE4; -fx-background-radius: 10;" text="Guardar" textFill="WHITE">
                             <HBox.margin>
                                 <Insets left="20.0" top="350.0" />
                             </HBox.margin>
@@ -54,7 +54,7 @@
                             <VBox.margin>
                                 <Insets top="90.0" />
                             </VBox.margin></Label>
-                        <TextField prefHeight="30.0" prefWidth="266.0" style="-fx-background-color: fff;">
+                        <TextField fx:id="unidadNombre" prefHeight="30.0" prefWidth="266.0" style="-fx-background-color: fff;">
                             <VBox.margin>
                                 <Insets top="10.0" />
                             </VBox.margin></TextField>
