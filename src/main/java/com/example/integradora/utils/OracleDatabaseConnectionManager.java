@@ -15,7 +15,7 @@ public class OracleDatabaseConnectionManager {
     private static final String DB_USER = "ADMIN";
     private static final String DB_PASSWORD = "SOObin123+JACKSONGUAPO12";
     private static final String CONN_FACTORY_CLASS_NAME = "oracle.jdbc.pool.OracleDataSource";
-
+//jdbc:oracle:thin:@IntegradoraInventario_high?TNS_ADMIN=C:/Users/Noceq/Downloads/Wallet_IntegradoraInventario
 
     // Singleton: solo una instancia del Pool
     private static PoolDataSource dataSource;

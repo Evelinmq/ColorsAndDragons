@@ -99,7 +99,6 @@ public class PuestoController implements Initializable {
             Parent root = loader.load();
             //Mandar Puesto a nueva vista
             UpdatePuestoController controller = loader.getController();
-            controller.setP(p);
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Editar Puesto");

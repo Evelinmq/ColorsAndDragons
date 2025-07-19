@@ -132,7 +132,7 @@
                 </VBox>
                 <VBox prefHeight="667.0" prefWidth="1200.0">
                <children>
-                  <Label prefHeight="78.0" prefWidth="571.0" text="Bienvenido al Sistema de Inventario" textFill="#404463">
+                  <Label fx:id="Inicio" prefHeight="78.0" prefWidth="571.0" text="Bienvenido al Sistema de Inventario" textFill="#404463">
                      <font>
                         <Font name="Tahoma" size="34.0" />
                      </font>
