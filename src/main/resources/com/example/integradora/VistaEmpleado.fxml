@@ -208,9 +208,9 @@
          </children></HBox>
       <VBox layoutX="1406.0" layoutY="218.0" prefHeight="438.0" prefWidth="158.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="34.0" style="-fx-background-color: FFA0A0;">
+            <Button disable="true" mnemonicParsing="false" prefHeight="31.0" prefWidth="34.0" style="-fx-background-color: FFA0A0;">
                <VBox.margin>
-                  <Insets left="60.0" top="100.0" />
+                  <Insets left="60.0" top="80.0" />
                </VBox.margin>
                <graphic>
                   <ImageView fitHeight="26.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
@@ -220,9 +220,9 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="34.0" style="-fx-background-color: A8D095;">
+            <Button disable="true" mnemonicParsing="false" prefHeight="31.0" prefWidth="34.0" style="-fx-background-color: A8D095;">
                <VBox.margin>
-                  <Insets left="60.0" top="150.0" />
+                  <Insets left="60.0" top="110.0" />
                </VBox.margin>
                <graphic>
                   <ImageView fitHeight="26.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
@@ -231,6 +231,18 @@
                      </image>
                   </ImageView>
                </graphic>
+            </Button>
+            <Button disable="true" layoutX="70.0" layoutY="233.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="34.0" style="-fx-background-color: #2c55cf;">
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Images/Recuperar.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <VBox.margin>
+                  <Insets left="60.0" top="140.0" />
+               </VBox.margin>
             </Button>
          </children>
       </VBox>
