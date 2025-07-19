@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="mainAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1567.2" style="-fx-background-color: EFEFF0;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="mainAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1567.2" style="-fx-background-color: EFEFF0;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.integradora.controllers.HelloController">
    <children>
 
       <VBox fx:id="loginFormVBox" alignment="CENTER" layoutX="676.0" layoutY="0.0" prefHeight="774.0" prefWidth="890.0" spacing="30">
@@ -31,7 +31,7 @@
             <PasswordField fx:id="passwordField" prefHeight="50.0" prefWidth="400.0" promptText="********" style="-fx-background-color: ffff; -fx-background-radius: 10;" styleClass="text-input" />
          </VBox>
 
-         <Button fx:id="signInButton" prefHeight="60.0" prefWidth="400.0" style="-fx-background-color: #013AE4; -fx-background-radius: 10;" styleClass="sign-in-button" text="Iniciar sesión" textFill="WHITE">
+         <Button onAction="#IrBienvenido" prefHeight="60.0" prefWidth="400.0" style="-fx-background-color: #013AE4; -fx-background-radius: 10;" styleClass="sign-in-button" text="Iniciar sesión" textFill="WHITE">
             <font>
                <Font name="Tahoma" size="18.0" />
             </font></Button>

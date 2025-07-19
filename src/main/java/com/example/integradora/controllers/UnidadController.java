@@ -98,7 +98,6 @@ public class UnidadController implements Initializable {
             Parent root = loader.load();
             //Mandar Unidad a nueva vista
             UpdateUnidadController controller = loader.getController();
-            controller.setUnidad(u);
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Editar Unidad Administrativa");
