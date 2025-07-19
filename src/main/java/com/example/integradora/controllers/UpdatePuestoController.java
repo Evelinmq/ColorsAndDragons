@@ -19,13 +19,19 @@ import java.util.ResourceBundle;
 public class UpdatePuestoController implements Initializable {
 
     @FXML
-    private TextField puesto;
+    private TextField nombrePuesto;
     @FXML
     private MenuButton editarPuesto;
 
     private Puesto p;
     private int idViejito;
     private String nuevoNombrePuesto;
+
+    private Stage stage;
+
+    public void setDialogStage(Stage stage) {
+
+    }
 
     private ObservableList<String> opcionesPuesto = FXCollections.observableArrayList(
             "Opción 1", "Opción 2", "Opción 3"

@@ -27,6 +27,12 @@ public class UpdateUnidadController implements Initializable {
     private int idViejito;
     private String nuevoNombreUnidad;
 
+    private Stage stage;
+
+    public void setDialogStage(Stage stage) {
+
+    }
+
     private ObservableList<String> opcionesUnidad = FXCollections.observableArrayList(
             "Opción 1", "Opción 2", "Opción 3"
     );
@@ -69,5 +75,4 @@ public class UpdateUnidadController implements Initializable {
         Stage ventana = (Stage) editarUnidad.getScene().getWindow();
         ventana.close();
     }
-
 }

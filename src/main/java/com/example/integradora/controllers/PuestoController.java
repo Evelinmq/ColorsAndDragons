@@ -13,7 +13,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.concurrent.Task;
@@ -32,6 +34,10 @@ public class PuestoController implements Initializable {
     private TableView<Puesto> tablaPuesto;
     @FXML
     TableColumn<Puesto, String> tablaPuestoNombre;
+    @FXML
+    private AnchorPane padrePuesto;
+    @FXML
+    private Button resguardo, bienes, empleados, espacio, unidad, edificio, usuario;
 
     @FXML
     private TextField textoBusquedaPuesto;
@@ -43,6 +49,7 @@ public class PuestoController implements Initializable {
     private ComboBox<Puesto> filtroPuesto;
 
     private List<Puesto> puestos;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resourceBundle) {
@@ -96,14 +103,18 @@ public class PuestoController implements Initializable {
         //Cargar nueva vista
         try{
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/example/integradora/EditarPuesto.fxml"));
-            Parent root = loader.load();
+            Scene scene = new Scene(loader.load());
             //Mandar Puesto a nueva vista
             UpdatePuestoController controller = loader.getController();
+            //Sacar stage desde componente abierto
             Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Editar Puesto");
+            stage.setScene(scene);
             stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Editar Puesto");
+            BoxBlur blur = new BoxBlur(3, 3, 3);
+            padrePuesto.setEffect(blur);
             stage.showAndWait();
+            padrePuesto.setEffect(null);
             PuestoDao dao = new PuestoDao();
             puestos.clear();
             puestos.addAll(dao.readPuestos());
@@ -114,18 +125,23 @@ public class PuestoController implements Initializable {
         }
     }
 
+
+
     @FXML
-    private void abrirVentanaAgregarPuesto() {
+    protected void agregarPuesto() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/integradora/RegistrarPuesto.fxml"));
-            Parent root = loader.load();
-
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/example/integradora/RegistrarPuesto.fxml"));
+            Scene scene = new Scene(loader.load());
+            RegistrarPuestoController controller = loader.getController();
+            //Sacar el stage desde uno ya abierto
             Stage stage = new Stage();
-            stage.setTitle("Agregar Puesto");
-            stage.setScene(new Scene(root));
+            stage.setScene(scene);
             stage.initModality(Modality.APPLICATION_MODAL); // Bloquea la ventana anterior hasta que se cierre esta
+            stage.setTitle("Agregar Puesto");
+            BoxBlur blur = new BoxBlur(3, 3, 3);
+            padrePuesto.setEffect(blur);
             stage.showAndWait();
-
+            padrePuesto.setEffect(null);
             PuestoDao dao = new PuestoDao();
             puestos.clear();
             puestos.addAll(dao.readPuestos());
@@ -179,5 +195,102 @@ public class PuestoController implements Initializable {
         thread.start();
     }
 
+    @FXML
+    protected void irResguardo(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaResguardo.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            //Sacar la stage desde un componente visual ya abieto
+            Stage stage = (Stage) resguardo.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    protected void irBienes(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaBienes.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            //Sacar la stage desde un componente visual ya abieto
+            Stage stage = (Stage) bienes.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    protected void irEmpleados(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaEmpleado.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            //Sacar la stage desde un componente visual ya abieto
+            Stage stage = (Stage) empleados.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    protected void irEspacio(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaEspacio.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            //Sacar la stage desde un componente visual ya abieto
+            Stage stage = (Stage) espacio.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    protected void irUnidad(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaUnidadAdm.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            //Sacar la stage desde un componente visual ya abieto
+            Stage stage = (Stage) unidad.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    protected void irEdificio(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaEdificio.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            //Sacar la stage desde un componente visual ya abieto
+            Stage stage = (Stage) edificio.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    protected void irUsuario(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaUsuario.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            //Sacar la stage desde un componente visual ya abieto
+            Stage stage = (Stage) usuario.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
 
 }
