@@ -5,13 +5,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="546.0" style="-fx-background-color: EFEFF0; -fx-background-radius: 25;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="400.0" prefWidth="546.0" style="-fx-background-color: EFEFF0; -fx-background-radius: 25;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.integradora.controllers.RegistrarUnidadController">
     <children>
         <VBox prefHeight="400.0" prefWidth="600.0">
             <children>
                 <HBox prefHeight="400.0" prefWidth="211.0">
                     <children>
-                        <Button fx:id="cancelar" mnemonicParsing="false" onAction="#cancelarUnidad" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: B8B7C0; -fx-background-radius: 10;" text="Cancelar" textFill="#404463">
+                        <Button fx:id="cancelarUnidad" mnemonicParsing="false" onAction="#cerrarVentana" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: B8B7C0; -fx-background-radius: 10;" text="Cancelar" textFill="#404463">
                             <HBox.margin>
                                 <Insets left="15.0" top="350.0" />
                             </HBox.margin>
@@ -34,7 +34,7 @@
                 <Insets left="350.0" />
             </padding>
         </VBox>
-        <HBox fx:id="guardar" onDragDetected="#guardarUnidad" prefHeight="400.0" prefWidth="600.0">
+        <HBox prefHeight="400.0" prefWidth="600.0">
             <children>
                 <VBox prefHeight="400.0" prefWidth="147.0" />
                 <VBox prefHeight="400.0" prefWidth="305.0">
