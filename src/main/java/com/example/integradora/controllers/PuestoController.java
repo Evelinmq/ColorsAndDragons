@@ -51,7 +51,7 @@ public class PuestoController implements Initializable {
     @FXML
     private ComboBox<Puesto> filtroPuesto;
 
-    private List<Puesto> puestos;
+    private List<Puesto> puestos = new ArrayList<>();
 
     private PuestoDao dao = new PuestoDao();
 
@@ -60,6 +60,7 @@ public class PuestoController implements Initializable {
     public void initialize(URL location, ResourceBundle resourceBundle) {
         // 1. Acceder a la BD
         List<Puesto> lista = dao.readPuesto();
+
         //Configuración columa
         tablaPuestoNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
 
