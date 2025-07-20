@@ -1,7 +1,11 @@
 package com.example.integradora.controllers;
 
+
 import com.example.integradora.modelo.Puesto;
 import com.example.integradora.modelo.dao.PuestoDao;
+import com.example.integradora.controllers.PuestoController;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -9,7 +13,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class RegistrarPuestoController {
+import java.util.List;
+
+public class RegistrarPuestoController{
 
     @FXML
     private Button cancelarPuesto;
@@ -52,12 +58,17 @@ public class RegistrarPuestoController {
 
     @FXML
     public void registrarPuesto(ActionEvent actionEvent) {
-
-        String nombre = labelPuesto.getText();
+        // Obtenemos la info del campo de texto
+        String nombreV = labelPuesto.getText().trim();
+        if(nombreV.isEmpty() || nombreV == null) return;
 
         Puesto p = new Puesto();
+        p.setNombre(nombreV);
+        p.setEstado(1); // activo
 
         PuestoDao dao = new PuestoDao();
+
+
 
         boolean exito = dao.createPuesto(p);
         if (exito) {
@@ -71,6 +82,8 @@ public class RegistrarPuestoController {
 
         }
 
-    }
+        labelPuesto.setText("");
 
+    }
 }
+

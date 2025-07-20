@@ -12,37 +12,37 @@ import java.util.List;
 
 public class PuestoDao {
 
-    public boolean createPuesto(Puesto p) {
+    public boolean createPuesto(Puesto p){
         try{
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "Insert into Tabla_Puesto(nombre, estado) values (?,1)";
+            String query = "INSERT INTO PUESTO(nombre, estado) VALUES(?, 1)";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, p.getNombre());
-            if (ps.executeUpdate() > 0) {
-                System.out.println("El puesto se insertó correctamente");
+            //ps.setInt(2, p.getEstado());
+            if (ps.executeUpdate() > 0){
+                System.out.println("Puesto creado");
                 conn.close();
                 return true;
             }
             conn.close();
         }catch (SQLException e){
             e.printStackTrace();
-            return false;
         }
         return false;
     }
 
-
-    public boolean updatePuesto(int idViejito, Puesto p) {
+    public boolean updatePuesto(int idPuestoViejo, Puesto p){
         try{
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "UPDATE Tabla_Puesto SET nombre = ? estado = ? WHERE id = ?";
+            String query = "UPDATE PUESTO SET id_puesto = ?, nombre = ? where id = ?";
             PreparedStatement ps = conn.prepareStatement(query);
-            ps.setString(1, p.getNombre());
-            ps.setInt(2, p.getEstado());
-            ps.setInt(3, idViejito);
-            if(ps.executeUpdate() >= 1) {
-                System.out.println("El puesto se actualizó correctamente");
-                conn.close(); // <---
+            ps.setInt(1, p.getId());
+            ps.setString(2, p.getNombre());
+            //ps.setInt(3, p.getEstado());
+            ps.setInt(3, idPuestoViejo);
+            if (ps.executeUpdate() > 0){
+                System.out.println("Puesto actualizado");
+                conn.close();
                 return true;
             }
             conn.close();
@@ -52,83 +52,64 @@ public class PuestoDao {
         return false;
     }
 
-    //Delete LÓGICO
-    public boolean deletePuesto(int id) {
-        try{
+    public boolean deletePuesto(int id){
+        try {
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "UPDATE Tabla_Puesto SET status = 0 WHERE id = ?"; // <--- No olvidar el WHERE
-            PreparedStatement ps = conn.prepareStatement(query);
-            ps.setInt(1, id);
-            if(ps.executeUpdate() > 0) {
-                //conn.close();
+            String query = "UPDATE PUESTO SET status=0 WHERE id=?"; //no olvidar el where
+            PreparedStatement ps = conn.prepareStatement(query);    //delete logico
+            ps.setInt(1,id);
+            if(ps.executeUpdate()>0){
+                System.out.println("Puesto eliminado");
+                conn.close();
                 return true;
             }
-        }catch(SQLException e){
+            conn.close();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
     }
 
-    //Recuperar Puesto
-    public boolean recoverPuesto(int id) {
-        try{
-            Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "UPDATE Tabla_Puesto SET status = 1 WHERE id = ?"; // <--- No olvidar el WHERE
-            PreparedStatement ps = conn.prepareStatement(query);
-            ps.setInt(1, id);
-            if(ps.executeUpdate() > 0) {
-                //conn.close();
-                return true;
-            }
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-
-    public List<Puesto> readPuestos() {
+    public List<Puesto> readPuesto(){
         List<Puesto> lista = new ArrayList<>();
         try{
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "SELECT * FROM Tabla_Puesto ORDER BY id ASC";
+            String query = "SELECT * FROM PUESTO ORDER BY id ASC";
             PreparedStatement ps = conn.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()) {
+            while(rs.next()){
                 Puesto p = new Puesto();
+                p.setId(rs.getInt("id"));
                 p.setNombre(rs.getString("nombre"));
+                p.setEstado(rs.getInt("estado"));
                 lista.add(p);
             }
-            conn.close();
             rs.close();
+            conn.close();
         }catch(SQLException e){
             e.printStackTrace();
         }
         return lista;
     }
 
+    public List<Puesto> readPuestoEspecifico(String texto) {
 
-
-
-
-
-    public List<Puesto> readPuestoEspecifico(String texto){
         List<Puesto> lista = new ArrayList<>();
         try{
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "SELECT * FROM Tabla_Puesto WHERE puesto LIKE ? OR "+
-                   "estado LIKE ? OR +" +
-                    "id LIKE ? ORDER BY id ASC";
+            String query = "SELECT * FROM PUESTO WHERE id LIKE ? OR " +
+                    "nombre LIKE ? OR " +
+                    "estado LIKE ? ORDER BY id ASC";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, "%"+texto+"%");
             ps.setString(2, "%"+texto+"%");
             ps.setString(3, "%"+texto+"%");
             ResultSet rs = ps.executeQuery();
-            while(rs.next()) {
+            while(rs.next()){
                 Puesto p = new Puesto();
-                //p.setId(rs.getInt("id"));
+                p.setId(rs.getInt("id"));
                 p.setNombre(rs.getString("nombre"));
-               // p.setEstado(rs.getInt("estado"));
+                p.setEstado(rs.getInt("estado"));
                 lista.add(p);
             }
             rs.close();
@@ -137,6 +118,25 @@ public class PuestoDao {
             e.printStackTrace();
         }
         return lista;
+
+    }
+
+    public boolean recoverPuesto(int id){
+        try {
+            Connection conn = OracleDatabaseConnectionManager.getConnection();
+            String query = "UPDATE PUESTO SET status=1 WHERE id=?"; //no olvidar el where
+            PreparedStatement ps = conn.prepareStatement(query);    //delete logico
+            ps.setInt(1,id);
+            if(ps.executeUpdate()>0){
+                System.out.println("Puesto recuperado");
+                conn.close();
+                return true;
+            }
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }

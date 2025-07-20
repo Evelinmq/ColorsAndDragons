@@ -1,6 +1,7 @@
 package com.example.integradora.controllers;
 
 import com.example.integradora.Main;
+import com.example.integradora.modelo.Edificio;
 import com.example.integradora.modelo.Puesto;
 import com.example.integradora.modelo.dao.PuestoDao;
 import javafx.collections.FXCollections;
@@ -31,6 +32,8 @@ import java.util.ResourceBundle;
 public class PuestoController implements Initializable {
 
     @FXML
+    private TextField nombrePuesto;
+    @FXML
     private TableView<Puesto> tablaPuesto;
     @FXML
     TableColumn<Puesto, String> tablaPuestoNombre;
@@ -44,59 +47,59 @@ public class PuestoController implements Initializable {
     @FXML
     private ProgressIndicator spinner;
     @FXML
-    private Button botonBusquedaPuesto, eliminarPuesto, actualizarPuesto, agregarPuesto;
+    private Button botonBusquedaPuesto, eliminarPuesto, actualizarPuesto, agregar, recuperar;
     @FXML
     private ComboBox<Puesto> filtroPuesto;
 
     private List<Puesto> puestos;
 
+    private PuestoDao dao = new PuestoDao();
+
 
     @Override
     public void initialize(URL location, ResourceBundle resourceBundle) {
-        //Acceder BD
-        puestos = new ArrayList<>();
-        PuestoDao dao = new PuestoDao();
-        puestos = dao.readPuestos();
-
-        //Configuración de columnas
+        // 1. Acceder a la BD
+        List<Puesto> lista = dao.readPuesto();
+        //Configuración columa
         tablaPuestoNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+
         //Lista observable
-        tablaPuesto.setItems(FXCollections.observableList(puestos));
+        ObservableList<Puesto> listaObservable = FXCollections.observableList(lista);
+        tablaPuesto.setItems(listaObservable);
 
 
-
-        //Cambiar opciones de editar y eliminar a reaccionar con botones
+        // Botón eliminar
         eliminarPuesto.setOnAction(event -> {
             Puesto seleccionado = tablaPuesto.getSelectionModel().getSelectedItem();
-
-            if (seleccionado != null && !tablaPuesto.getSelectionModel().isEmpty()) {
-                int id = seleccionado.getId();
-
-                boolean exito = new PuestoDao().deletePuesto(id);
-
-                if (exito) {
-                    //eliminar de la lista observable o refrescar
-                    tablaPuesto.getItems().remove(seleccionado);
-                    //volver a cargar la lista desde la BD
-                    System.out.println("Eliminación lógica exitosa.");
-                } else {
-                    System.out.println("No se pudo eliminar el puesto.");
+            if (seleccionado != null) {
+                if (confirmarEliminar()) {
+                    if (dao.deletePuesto(seleccionado.getId())) {
+                        tablaPuesto.getItems().remove(seleccionado);
+                    }
                 }
             } else {
-                System.out.println("Selecciona un puesto primero.");
+                mostrarAlerta("Debes seleccionar un puesto para eliminar.");
             }
         });
 
-        actualizarPuesto.setOnAction(e -> {
-            Puesto seleccionado = (Puesto) tablaPuesto.getSelectionModel().getSelectedItem();
-
-            if (seleccionado != null && !tablaPuesto.getSelectionModel().isEmpty()) {
+        // Botón editar
+        actualizarPuesto.setOnAction(event -> {
+            Puesto seleccionado = tablaPuesto.getSelectionModel().getSelectedItem();
+            if (seleccionado != null) {
                 abrirVentanaEdicionPuesto(seleccionado);
+            } else {
+                mostrarAlerta("Debes seleccionar un puesto para editar.");
             }
-            tablaPuesto.refresh();
         });
 
-        //actualizarPuesto.setOnAction(this::createPuesto);
+    }
+
+    private void mostrarAlerta(String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Aviso");
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
     }
 
     private void abrirVentanaEdicionPuesto(Puesto p){
@@ -117,7 +120,7 @@ public class PuestoController implements Initializable {
             padrePuesto.setEffect(null);
             PuestoDao dao = new PuestoDao();
             puestos.clear();
-            puestos.addAll(dao.readPuestos());
+            puestos.addAll(dao.readPuesto());
             tablaPuesto.setItems(FXCollections.observableList(puestos));
             tablaPuesto.refresh();
         }catch (IOException e){
@@ -144,7 +147,7 @@ public class PuestoController implements Initializable {
             padrePuesto.setEffect(null);
             PuestoDao dao = new PuestoDao();
             puestos.clear();
-            puestos.addAll(dao.readPuestos());
+            puestos.addAll(dao.readPuesto());
             tablaPuesto.setItems(FXCollections.observableList(puestos));
             tablaPuesto.refresh();
         } catch (IOException e) {
@@ -162,39 +165,38 @@ public class PuestoController implements Initializable {
     }
 
 
-    public void buscarPuesto(ActionEvent event){
-
-        //deshabilitar boton para dar tiempo a realizar búsqueda
+    public void buscarPuesto(ActionEvent event) {
+        // Desactivar botón mientras busca
         botonBusquedaPuesto.setDisable(true);
-        spinner.setVisible(true);
-
         String texto = textoBusquedaPuesto.getText();
 
-        Task<List<Puesto>> cargarBusqueda = new Task<>(){
+        Task<List<Puesto>> cargarBusqueda = new Task<>() {
             @Override
-            protected List<Puesto> call() throws Exception{
-                PuestoDao dao = new PuestoDao();
-                List<Puesto> lista = dao.readPuestoEspecifico(texto);
-                return lista;
+            protected List<Puesto> call() {
+                return dao.readPuestoEspecifico(texto);
             }
         };
+
         cargarBusqueda.setOnFailed(workerStateEvent -> {
             botonBusquedaPuesto.setDisable(false);
-            spinner.setVisible(false);
-            System.err.println("Algo falló " + cargarBusqueda.getException());
+            System.err.println("Algo falló: " + cargarBusqueda.getException());
         });
+
         cargarBusqueda.setOnSucceeded(workerStateEvent -> {
             botonBusquedaPuesto.setDisable(false);
-            spinner.setVisible(false);
             List<Puesto> lista = cargarBusqueda.getValue();
             ObservableList<Puesto> listaObservable = FXCollections.observableList(lista);
             tablaPuesto.setItems(listaObservable);
             tablaPuesto.refresh();
         });
+
         Thread thread = new Thread(cargarBusqueda);
+        thread.setDaemon(true);
         thread.start();
     }
 
+
+    //Botones cambiar a vistas
     @FXML
     protected void irResguardo(){
         try{
