@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1550.0" style="-fx-background-color: ff;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="padreBien" prefHeight="600.0" prefWidth="1550.0" style="-fx-background-color: ffffff;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.integradora.controllers.UpdateBienController">
     <children>
         <HBox layoutY="72.0" prefHeight="667.0" prefWidth="1550.0" AnchorPane.topAnchor="90.0">
             <children>
@@ -134,7 +134,7 @@
                     <children>
                         <HBox prefHeight="126.0" prefWidth="1214.0">
                             <children>
-                                <Button mnemonicParsing="false" prefHeight="67.0" prefWidth="233.0" style="-fx-background-color: #3366FF; -fx-background-radius: 15;" text="+ Agregar" textFill="WHITE">
+                                <Button fx:id="abrirVentanaRegistro" mnemonicParsing="false" onAction="#abrirVentanaRegistro" prefHeight="67.0" prefWidth="233.0" style="-fx-background-color: #3366FF; -fx-background-radius: 15;" text="+ Agregar" textFill="WHITE">
                                     <HBox.margin>
                                         <Insets top="25.0" />
                                     </HBox.margin>

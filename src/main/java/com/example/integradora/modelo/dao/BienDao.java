@@ -14,16 +14,16 @@ public class BienDao {
 
     public boolean bienCreate(Bien b) {
 
-        String query = "INSERT INTO bien( bien_codigo, descripción, marca, modelo, Serie, estado) VALUES (?,?,?,?,?,?)";
+        String query = "INSERT INTO bien( bien_codigo, descripcion, marca, modelo, Serie, estado) VALUES (?,?,?,?,?,?)";
 
         try {
             Connection conn = OracleDatabaseConnectionManager.getConnection();
             PreparedStatement ps = conn.prepareStatement(query);
-            ps.setString(1, b.getCodigo());
+            ps.setString(1, b.getBien_codigo());
             ps.setString(2, b.getDescripcion());
             ps.setString(3, b.getMarca());
             ps.setString(4, b.getModelo());
-            ps.setString(5, b.getNoSerie());
+            ps.setString(5, b.getSerie());
             ps.setInt(6, b.getEstado());
 
             if (ps.executeUpdate() > 0) {
@@ -51,11 +51,11 @@ public class BienDao {
 
             while(rs.next()){
                 Bien b = new Bien();
-                b.setCodigo(rs.getString("bien_codigo"));
+                b.setBien_codigo(rs.getString("bien_codigo"));
                 b.setDescripcion(rs.getString("Descripcion"));
                 b.setMarca(rs.getString("Marca"));
                 b.setModelo(rs.getString("Modelo"));
-                b.setNoSerie(rs.getString("Serie"));
+                b.setSerie(rs.getString("Serie"));
                 b.setEstado(rs.getInt("Estado"));
                 bienes.add (b);
 
@@ -74,11 +74,11 @@ public class BienDao {
             Connection conn = OracleDatabaseConnectionManager.getConnection();
             String query = "UPDATE  bien set  bien_Codigo=?, Descripcion=?, Marca=?, Modelo=?, Serie=?, Estado=? WHERE id=?";
             PreparedStatement ps = conn.prepareStatement(query);
-            ps.setString(1, b.getCodigo());
+            ps.setString(1, b.getBien_codigo());
             ps.setString(2, b.getDescripcion());
             ps.setString(3, b.getMarca());
             ps.setString(4, b.getModelo());
-            ps.setString(5, b.getNoSerie());
+            ps.setString(5, b.getSerie());
             ps.setInt(6, b.getEstado());
             ps.setInt(7, idViejo);
             if (ps.executeUpdate() > 0) {

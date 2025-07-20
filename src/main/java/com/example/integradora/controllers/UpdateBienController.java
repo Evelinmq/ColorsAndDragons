@@ -4,7 +4,6 @@ import com.example.integradora.modelo.Bien;
 import com.example.integradora.modelo.dao.BienDao;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,6 +11,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.BoxBlur;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -30,6 +31,11 @@ public class UpdateBienController implements Initializable {
     @FXML
     private TableColumn<Bien, String> tablaCodigo, tablaDescripcion, tablaMarca, tablaModelo, tablaSerie;
 
+    @FXML
+    private AnchorPane padreBien;
+
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -39,10 +45,10 @@ public class UpdateBienController implements Initializable {
         List<Bien> datos = dao.readBien();
 
         for (Bien a : datos) {
-            System.out.println(a.getCodigo());
+            System.out.println(a.getBien_codigo());
         }
 
-        tablaCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
+        tablaCodigo.setCellValueFactory(new PropertyValueFactory<>("bien_codigo"));
         tablaDescripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
         tablaMarca.setCellValueFactory(new PropertyValueFactory<>("marca"));
         tablaModelo.setCellValueFactory(new PropertyValueFactory<>("modelo"));
@@ -60,20 +66,20 @@ public class UpdateBienController implements Initializable {
     }
 
     @FXML
-        private void abrirVentanaRegistro(ActionEvent event){
+        protected void abrirVentanaRegistro(){
 
             try{
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("NuevoBien.fxml"));
-                Parent root = loader.load();
-                RegistroBienController controller = loader.getController();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/integradora/NuevoBien.fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
                 Stage stage = new Stage();
-                stage.setScene(new Scene(root));
+                stage.setScene(scene);
                 stage.setTitle("Registro Bien");
                 stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setTitle("Agregar Bien");
+                BoxBlur blur = new BoxBlur(3, 3, 3);
+                padreBien.setEffect(blur);
                 stage.showAndWait();
-                controller.setDialogStage(stage);
-
-                tablaBien.refresh();
+                padreBien.setEffect(null);
             }catch(IOException e){
                 e.printStackTrace();
             }
@@ -81,3 +87,5 @@ public class UpdateBienController implements Initializable {
         }
 
     }
+
+
