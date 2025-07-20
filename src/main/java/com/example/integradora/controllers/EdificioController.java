@@ -14,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.BoxBlur;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -23,31 +24,23 @@ import java.util.*;
 
 public class EdificioController implements Initializable {
 
-    @FXML
-    private TextField nombreEdificio;
-    @FXML
-    private TableView<Edificio> tabla;
-    @FXML
-    private TableColumn<Edificio, String> tablaEdificio;
-    @FXML
-    private TextField textoBusqueda;
-    @FXML
-    private Button botonBusqueda;
-    @FXML
-    private Button editar;
-    @FXML
-    private Button eliminar;
+    @FXML private TextField nombreEdificio;
+    @FXML private TableView<Edificio> tabla;
+    @FXML private TableColumn<Edificio, String> tablaEdificio;
+    @FXML private TextField textoBusqueda;
+    @FXML private Button botonBusqueda;
+    @FXML private Button editar;
+    @FXML private Button eliminar;
+    @FXML private Button agregar;
+
 
     private EdificioDao dao = new EdificioDao();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // 1. Acceder a la BD
-        List<Edificio> lista = dao.readEdificio();
+        // Cargar datos iniciales en la tabla
         tablaEdificio.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-
-        ObservableList<Edificio> listaObservable = FXCollections.observableList(lista);
-        tabla.setItems(listaObservable);
+        recargarTabla();
 
         // Botón editar
         editar.setOnAction(event -> {
@@ -59,20 +52,22 @@ public class EdificioController implements Initializable {
             }
         });
 
-
         // Botón eliminar
         eliminar.setOnAction(event -> {
             Edificio seleccionado = tabla.getSelectionModel().getSelectedItem();
             if (seleccionado != null) {
                 if (confirmarEliminar()) {
                     if (dao.deleteEdificio(seleccionado.getId())) {
-                        tabla.getItems().remove(seleccionado);
+                        recargarTabla();
                     }
                 }
             } else {
                 mostrarAlerta("Debes seleccionar un edificio para eliminar.");
             }
         });
+
+        // Botón agregar
+        agregar.setOnAction(event -> abrirVentanaRegistro());
     }
 
     private void mostrarAlerta(String mensaje) {
@@ -81,6 +76,15 @@ public class EdificioController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
         alert.showAndWait();
+    }
+
+    private boolean confirmarEliminar() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmar eliminación");
+        alert.setHeaderText(null);
+        alert.setContentText("¿Estás segura de que deseas eliminar este edificio?");
+        Optional<ButtonType> resultado = alert.showAndWait();
+        return resultado.isPresent() && resultado.get() == ButtonType.OK;
     }
 
     private void abrirVentanaEdicion(Edificio m) {
@@ -103,6 +107,51 @@ public class EdificioController implements Initializable {
         }
     }
 
+    private void abrirVentanaRegistro() {
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("RegistrarEdificio.fxml"));
+            Parent root = loader.load();
+
+            RegistrarEdificioController controller = loader.getController();
+
+            // Efecto blur al fondo
+            Scene escenaPrincipal = agregar.getScene();
+            Parent fondo = escenaPrincipal.getRoot();
+            fondo.setEffect(new BoxBlur(10, 10, 3));
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Registrar Edificio");
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(escenaPrincipal.getWindow());
+
+            controller.btnGuardar.setOnAction(e -> {
+                String nombre = controller.nombreEdificio.getText().trim();
+                if (!nombre.isEmpty()) {
+                    Edificio nuevo = new Edificio(nombre);
+                    if (dao.createEdificio(nuevo)) {
+                        recargarTabla();
+                    }
+                    stage.close();
+                    fondo.setEffect(null);
+                } else {
+                    new Alert(Alert.AlertType.WARNING, "Debes ingresar un nombre.").showAndWait();
+                }
+            });
+
+            controller.btnCancelar.setOnAction(e -> {
+                stage.close();
+                fondo.setEffect(null);
+            });
+
+            stage.show();
+            stage.setOnHidden(e -> fondo.setEffect(null));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void registrarEdificio(ActionEvent event) {
         // Obtenemos la info del campo de texto
         String edificioV = nombreEdificio.getText().trim();
@@ -120,17 +169,8 @@ public class EdificioController implements Initializable {
         recargarTabla();
     }
 
-    private boolean confirmarEliminar() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmar eliminación");
-        alert.setHeaderText(null);
-        alert.setContentText("¿Estás ABSOLUTAMENTE segura que deseas borrar el edificio?");
-        Optional<ButtonType> resultado = alert.showAndWait();
-        return resultado.isPresent() && resultado.get() == ButtonType.OK;
-    }
 
     public void buscar(ActionEvent event) {
-        // Desactivar botón mientras busca
         botonBusqueda.setDisable(true);
         String texto = textoBusqueda.getText();
 
@@ -143,7 +183,7 @@ public class EdificioController implements Initializable {
 
         cargarBusqueda.setOnFailed(workerStateEvent -> {
             botonBusqueda.setDisable(false);
-            System.err.println("Algo falló: " + cargarBusqueda.getException());
+            System.err.println("Error: " + cargarBusqueda.getException());
         });
 
         cargarBusqueda.setOnSucceeded(workerStateEvent -> {
@@ -166,4 +206,6 @@ public class EdificioController implements Initializable {
         tabla.refresh();
     }
 }
+
+
 

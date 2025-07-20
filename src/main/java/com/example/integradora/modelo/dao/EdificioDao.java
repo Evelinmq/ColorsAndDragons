@@ -52,7 +52,7 @@ public class EdificioDao {
     public boolean deleteEdificio(int id){
         try {
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "UPDATE EDIFICIO SET status=0 WHERE id=?"; //no olvidar el where
+            String query = "UPDATE EDIFICIO SET status=0 WHERE id_edificio=?"; //no olvidar el where
             PreparedStatement ps = conn.prepareStatement(query);    //delete logico
             ps.setInt(1,id);
             if(ps.executeUpdate()>0){
@@ -70,12 +70,12 @@ public class EdificioDao {
         List<Edificio> lista = new ArrayList<>();
         try{
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "SELECT * FROM EDIFICIO ORDER BY id ASC";
+            String query = "SELECT * FROM EDIFICIO ORDER BY id_edificio ASC";
             PreparedStatement ps = conn.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 Edificio m = new Edificio();
-                m.setId(rs.getInt("id"));
+                m.setId(rs.getInt("id_edificio")); // nombre correcto
                 m.setNombre(rs.getString("nombre"));
                 m.setEstado(rs.getInt("estado"));
                 lista.add(m);
@@ -95,7 +95,7 @@ public class EdificioDao {
             Connection conn = OracleDatabaseConnectionManager.getConnection();
             String query = "SELECT * FROM EDIFICIO WHERE id LIKE ? OR " +
                     "nombre LIKE ? OR " +
-                    "estado LIKE ? ORDER BY id ASC";
+                    "estado LIKE ? ORDER BY id_edificio ASC";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, "%"+texto+"%");
             ps.setString(2, "%"+texto+"%");
@@ -103,7 +103,7 @@ public class EdificioDao {
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 Edificio m = new Edificio();
-                m.setId(rs.getInt("id"));
+                m.setId(rs.getInt("id_edificio"));
                 m.setNombre(rs.getString("nombre"));
                 m.setEstado(rs.getInt("estado"));
                 lista.add(m);
