@@ -17,12 +17,11 @@ import java.util.List;
 
 public class RegistrarPuestoController{
 
-    @FXML
-    private Button cancelarPuesto;
-    @FXML
-    private TextField labelPuesto;
-    @FXML
-    private Button guardar;
+    @FXML public TextField labelPuesto;
+    @FXML public Button btnCancelar;
+    @FXML public Button btnGuardar;
+    //@FXML private TextField labelPuesto;
+
 
     private Stage stage;
 

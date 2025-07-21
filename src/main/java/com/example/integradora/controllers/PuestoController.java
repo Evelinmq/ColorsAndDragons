@@ -15,7 +15,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.BoxBlur;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -63,6 +62,7 @@ public class PuestoController implements Initializable {
 
         //Configuración columa
         tablaPuestoNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        recargarTabla();
 
         //Lista observable
         ObservableList<Puesto> listaObservable = FXCollections.observableList(lista);
@@ -76,12 +76,15 @@ public class PuestoController implements Initializable {
                 if (confirmarEliminar()) {
                     if (dao.deletePuesto(seleccionado.getId())) {
                         tablaPuesto.getItems().remove(seleccionado);
+                        recargarTabla();
                     }
                 }
             } else {
                 mostrarAlerta("Debes seleccionar un puesto para eliminar.");
             }
         });
+
+
 
         // Botón editar
         actualizarPuesto.setOnAction(event -> {
@@ -92,6 +95,9 @@ public class PuestoController implements Initializable {
                 mostrarAlerta("Debes seleccionar un puesto para editar.");
             }
         });
+
+        // Botón agregar
+        agregar.setOnAction(event -> abrirVentanaRegistro());
 
     }
 
@@ -114,47 +120,84 @@ public class PuestoController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
             stage.setTitle("Editar Puesto");
             BoxBlur blur = new BoxBlur(3, 3, 3);
             padrePuesto.setEffect(blur);
-            stage.showAndWait();
             padrePuesto.setEffect(null);
             PuestoDao dao = new PuestoDao();
             puestos.clear();
             puestos.addAll(dao.readPuesto());
             tablaPuesto.setItems(FXCollections.observableList(puestos));
             tablaPuesto.refresh();
+            recargarTabla();
         }catch (IOException e){
             e.printStackTrace();
         }
     }
 
-
-
-    @FXML
-    protected void agregarPuesto() {
+    private void abrirVentanaRegistro() {
         try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/example/integradora/RegistrarPuesto.fxml"));
-            Scene scene = new Scene(loader.load());
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("RegistrarPuesto.fxml"));
+            Parent root = loader.load();
+
             RegistrarPuestoController controller = loader.getController();
-            //Sacar el stage desde uno ya abierto
+
+            // Efecto blur al fondo
+            Scene escenaPrincipal = agregar.getScene();
+            Parent fondo = escenaPrincipal.getRoot();
+            fondo.setEffect(new BoxBlur(10, 10, 3));
+
             Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.initModality(Modality.APPLICATION_MODAL); // Bloquea la ventana anterior hasta que se cierre esta
-            stage.setTitle("Agregar Puesto");
-            BoxBlur blur = new BoxBlur(3, 3, 3);
-            padrePuesto.setEffect(blur);
-            stage.showAndWait();
-            padrePuesto.setEffect(null);
-            PuestoDao dao = new PuestoDao();
-            puestos.clear();
-            puestos.addAll(dao.readPuesto());
-            tablaPuesto.setItems(FXCollections.observableList(puestos));
-            tablaPuesto.refresh();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Registrar Puesto");
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(escenaPrincipal.getWindow());
+
+            controller.btnGuardar.setOnAction(e -> {
+                String nombre = controller.labelPuesto.getText().trim();
+                if (!nombre.isEmpty()) {
+                    Puesto nuevo = new Puesto();
+                    if (dao.createPuesto(nuevo)) {
+                        recargarTabla();
+                    }
+                    stage.close();
+                    fondo.setEffect(null);
+                } else {
+                    new Alert(Alert.AlertType.WARNING, "Debes ingresar un nombre.").showAndWait();
+                }
+            });
+
+            controller.btnCancelar.setOnAction(e -> {
+                stage.close();
+                fondo.setEffect(null);
+            });
+
+            stage.show();
+            stage.setOnHidden(e -> fondo.setEffect(null));
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    public void registrarPuesto(ActionEvent event) {
+        // Obtenemos la info del campo de texto
+        String puestoV = nombrePuesto.getText().trim();
+        if (puestoV.isEmpty()) return;
+
+        Puesto nuevo = new Puesto();
+        nuevo.setNombre(puestoV);
+        nuevo.setEstado(1); // activo
+
+        if (dao.createPuesto(nuevo)) {
+            System.out.println("Se insertó con éxito");
+        }
+
+        nombrePuesto.setText("");
+        recargarTabla();
+    }
+
 
     private boolean confirmarEliminar(){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -166,8 +209,7 @@ public class PuestoController implements Initializable {
     }
 
 
-    public void buscarPuesto(ActionEvent event) {
-        // Desactivar botón mientras busca
+    public void buscar(ActionEvent event) {
         botonBusquedaPuesto.setDisable(true);
         String texto = textoBusquedaPuesto.getText();
 
@@ -180,7 +222,7 @@ public class PuestoController implements Initializable {
 
         cargarBusqueda.setOnFailed(workerStateEvent -> {
             botonBusquedaPuesto.setDisable(false);
-            System.err.println("Algo falló: " + cargarBusqueda.getException());
+            System.err.println("Error: " + cargarBusqueda.getException());
         });
 
         cargarBusqueda.setOnSucceeded(workerStateEvent -> {
@@ -194,8 +236,15 @@ public class PuestoController implements Initializable {
         Thread thread = new Thread(cargarBusqueda);
         thread.setDaemon(true);
         thread.start();
-    }
+    };
 
+
+    private void recargarTabla() {
+        List<Puesto> lista = dao.readPuesto();
+        ObservableList<Puesto> listaObservable = FXCollections.observableList(lista);
+        tablaPuesto.setItems(listaObservable);
+        tablaPuesto.refresh();
+    }
 
     //Botones cambiar a vistas
     @FXML

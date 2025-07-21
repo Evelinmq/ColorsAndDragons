@@ -15,9 +15,10 @@ public class PuestoDao {
     public boolean createPuesto(Puesto p){
         try{
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "INSERT INTO PUESTO(nombre, estado) VALUES(?, 1)";
+            String query = "INSERT INTO PUESTO(nombre, estado) VALUES(?, ?)";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, p.getNombre());
+            ps.setInt(2, p.getEstado());
             //ps.setInt(2, p.getEstado());
             if (ps.executeUpdate() > 0){
                 System.out.println("Puesto creado");
@@ -34,12 +35,12 @@ public class PuestoDao {
     public boolean updatePuesto(int idPuestoViejo, Puesto p){
         try{
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "UPDATE PUESTO SET id_puesto = ?, nombre = ? where id = ?";
+            String query = "UPDATE PUESTO SET id_puesto = ?, nombre = ?, estado = ? where id = ?";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setInt(1, p.getId());
             ps.setString(2, p.getNombre());
-            //ps.setInt(3, p.getEstado());
-            ps.setInt(3, idPuestoViejo);
+            ps.setInt(3, p.getEstado());
+            ps.setInt(4, idPuestoViejo);
             if (ps.executeUpdate() > 0){
                 System.out.println("Puesto actualizado");
                 conn.close();
@@ -55,7 +56,7 @@ public class PuestoDao {
     public boolean deletePuesto(int id){
         try {
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "UPDATE PUESTO SET status=0 WHERE id=?"; //no olvidar el where
+            String query = "UPDATE PUESTO SET status=0 WHERE id_puesto=?"; //no olvidar el where
             PreparedStatement ps = conn.prepareStatement(query);    //delete logico
             ps.setInt(1,id);
             if(ps.executeUpdate()>0){
@@ -74,12 +75,12 @@ public class PuestoDao {
         List<Puesto> lista = new ArrayList<>();
         try{
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "SELECT * FROM PUESTO ORDER BY id ASC";
+            String query = "SELECT * FROM PUESTO ORDER BY id_puesto ASC";
             PreparedStatement ps = conn.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 Puesto p = new Puesto();
-                p.setId(rs.getInt("id"));
+                p.setId(rs.getInt("id_puesto"));
                 p.setNombre(rs.getString("nombre"));
                 p.setEstado(rs.getInt("estado"));
                 lista.add(p);
@@ -107,7 +108,7 @@ public class PuestoDao {
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 Puesto p = new Puesto();
-                p.setId(rs.getInt("id"));
+                p.setId(rs.getInt("id_puesto"));
                 p.setNombre(rs.getString("nombre"));
                 p.setEstado(rs.getInt("estado"));
                 lista.add(p);

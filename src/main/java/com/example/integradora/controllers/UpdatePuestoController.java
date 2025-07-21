@@ -20,18 +20,12 @@ public class UpdatePuestoController implements Initializable {
 
     @FXML
     private TextField nombrePuesto;
-    @FXML
-    private Button editarPuesto;
 
     private Puesto puesto;
     private int idViejito;
     private String nuevoNombrePuesto;
 
     private Stage stage;
-
-    public void setDialogStage(Stage stage) {
-
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {}
@@ -42,18 +36,10 @@ public class UpdatePuestoController implements Initializable {
         nombrePuesto.setText(puesto.getNombre());
     }
 
-    public void setEspacio(Puesto p) {
-        this.puesto = p;
-        this.idViejito = p.getId();
-
-        editarPuesto.setText(nuevoNombrePuesto);
-        editarPuesto.setText(p.getNombre());
-    }
-
     @FXML
     public void updatePuesto(ActionEvent event) {
         String nombreNuevo = nombrePuesto.getText().trim();
-        if (nuevoNombrePuesto.isEmpty()) return;
+        if (nombreNuevo.isEmpty()) return;
 
         puesto.setNombre(nombreNuevo);
         puesto.setEstado(1); // aseguramos que siga activo
