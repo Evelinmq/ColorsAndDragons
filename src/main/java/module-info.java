@@ -5,6 +5,7 @@ module com.example.integradora {
     requires ucp;
     requires ojdbc8;
     requires java.desktop;
+    requires net.sf.jasperreports.core;
 
     opens com.example.integradora to javafx.fxml;
     exports com.example.integradora;
