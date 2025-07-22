@@ -2,7 +2,6 @@ package com.example.integradora.controllers;
 
 import com.example.integradora.Main;
 import com.example.integradora.modelo.Bien;
-import com.example.integradora.modelo.Puesto;
 import com.example.integradora.modelo.dao.BienDao;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
