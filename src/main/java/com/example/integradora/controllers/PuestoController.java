@@ -148,6 +148,7 @@ public class PuestoController implements Initializable {
 
             Stage stage = new Stage();
             stage.initModality(Modality.WINDOW_MODAL);
+            stage.setOnHidden(e -> recargarTabla());
             stage.setScene(new Scene(root));
             stage.setTitle("Registrar Puesto");
             stage.initOwner(escenaPrincipal.getWindow());
