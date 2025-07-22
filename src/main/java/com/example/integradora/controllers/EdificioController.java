@@ -32,15 +32,24 @@ public class EdificioController implements Initializable {
     @FXML private Button editar;
     @FXML private Button eliminar;
     @FXML private Button agregar;
+    @FXML public TextField nombreEdi;
+    @FXML public Button cancelar;
+    @FXML public Button guardar;
 
 
     private EdificioDao dao = new EdificioDao();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Cargar datos iniciales en la tabla
         tablaEdificio.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         recargarTabla();
+
+        // Activar botones cuando se selecciona un elemento
+        tabla.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            boolean haySeleccion = newSelection != null;
+            editar.setDisable(!haySeleccion);
+            eliminar.setDisable(!haySeleccion);
+        });
 
         // Botón editar
         editar.setOnAction(event -> {
@@ -51,6 +60,7 @@ public class EdificioController implements Initializable {
                 mostrarAlerta("Debes seleccionar un edificio para editar.");
             }
         });
+
 
         // Botón eliminar
         eliminar.setOnAction(event -> {
@@ -70,38 +80,32 @@ public class EdificioController implements Initializable {
         agregar.setOnAction(event -> abrirVentanaRegistro());
     }
 
-    private void mostrarAlerta(String mensaje) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Aviso");
-        alert.setHeaderText(null);
-        alert.setContentText(mensaje);
-        alert.showAndWait();
-    }
-
-    private boolean confirmarEliminar() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmar eliminación");
-        alert.setHeaderText(null);
-        alert.setContentText("¿Estás segura de que deseas eliminar este edificio?");
-        Optional<ButtonType> resultado = alert.showAndWait();
-        return resultado.isPresent() && resultado.get() == ButtonType.OK;
-    }
-
-    private void abrirVentanaEdicion(Edificio m) {
+    private void abrirVentanaEdicion(Edificio edificio) {
         try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("VistaEdificio.fxml"));
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("EditarEdificio.fxml"));
             Parent root = loader.load();
 
             UpdateEdificioController controller = loader.getController();
-            controller.setEdificio(m);
+            controller.setEdificio(edificio); // Cargar datos del edificio seleccionado
+
+            Scene escenaPrincipal = editar.getScene();
+            Parent fondo = escenaPrincipal.getRoot();
+            fondo.setEffect(new BoxBlur(10, 10, 3));
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
-            stage.setTitle("Editar edificio");
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.showAndWait();
+            stage.setTitle("Editar Edificio");
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(escenaPrincipal.getWindow());
 
-            recargarTabla();
+            // Actualiza tabla al cerrar
+            stage.setOnHidden(e -> {
+                fondo.setEffect(null);
+                recargarTabla();
+            });
+
+            stage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -151,24 +155,22 @@ public class EdificioController implements Initializable {
             e.printStackTrace();
         }
     }
-
-    public void registrarEdificio(ActionEvent event) {
-        // Obtenemos la info del campo de texto
-        String edificioV = nombreEdificio.getText().trim();
-        if (edificioV.isEmpty()) return;
-
-        Edificio nuevo = new Edificio();
-        nuevo.setNombre(edificioV);
-        nuevo.setEstado(1); // activo
-
-        if (dao.createEdificio(nuevo)) {
-            System.out.println("Se insertó con éxito");
-        }
-
-        nombreEdificio.setText("");
-        recargarTabla();
+    private void mostrarAlerta(String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Aviso");
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
     }
 
+    private boolean confirmarEliminar() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmar eliminación");
+        alert.setHeaderText(null);
+        alert.setContentText("¿Estás segura de que deseas eliminar este edificio?");
+        Optional<ButtonType> resultado = alert.showAndWait();
+        return resultado.isPresent() && resultado.get() == ButtonType.OK;
+    }
 
     public void buscar(ActionEvent event) {
         botonBusqueda.setDisable(true);

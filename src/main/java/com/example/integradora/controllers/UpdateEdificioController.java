@@ -5,6 +5,7 @@ import com.example.integradora.modelo.dao.EdificioDao;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -13,8 +14,9 @@ import java.util.ResourceBundle;
 
 public class UpdateEdificioController implements Initializable {
 
-    @FXML
-    private TextField nombreEdificio;
+    @FXML public TextField nombreEdi;
+    @FXML public Button cancelar;
+    @FXML public Button guardar;
 
     private Edificio edificio;
     private int idViejo;
@@ -25,12 +27,12 @@ public class UpdateEdificioController implements Initializable {
     public void setEdificio(Edificio edificio) {
         this.edificio = edificio;
         this.idViejo = edificio.getId();
-        nombreEdificio.setText(edificio.getNombre());
+        nombreEdi.setText(edificio.getNombre());
     }
 
     @FXML
     public void updateEdificio(ActionEvent event) {
-        String nombreNuevo = nombreEdificio.getText().trim();
+        String nombreNuevo = nombreEdi.getText().trim();
         if (nombreNuevo.isEmpty()) return;
 
         edificio.setNombre(nombreNuevo);
@@ -41,7 +43,7 @@ public class UpdateEdificioController implements Initializable {
             System.out.println("Edificio actualizado");
         }
 
-        Stage ventana = (Stage) nombreEdificio.getScene().getWindow();
+        Stage ventana = (Stage) nombreEdi.getScene().getWindow();
         ventana.close();
     }
 }

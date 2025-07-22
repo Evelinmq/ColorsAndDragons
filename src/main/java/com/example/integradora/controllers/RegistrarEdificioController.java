@@ -8,4 +8,7 @@ public class RegistrarEdificioController {
     @FXML public TextField nombreEdificio;
     @FXML public Button btnCancelar;
     @FXML public Button btnGuardar;
+
+
+
 }

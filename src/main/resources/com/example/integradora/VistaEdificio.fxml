@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1550.0" style="-fx-background-color: ff;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.integradora.controllers.EdificioController">
+<AnchorPane prefHeight="550.0" prefWidth="1400.0" style="-fx-background-color: ffff;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.integradora.controllers.EdificioController">
     <children>
-        <HBox layoutY="72.0" prefHeight="667.0" prefWidth="1550.0" AnchorPane.topAnchor="90.0">
+        <HBox layoutY="72.0" prefHeight="550.0" prefWidth="1300.0" AnchorPane.topAnchor="80.0">
             <children>
                 <VBox prefHeight="400.0" prefWidth="350.0">
                     <children>
@@ -130,43 +130,43 @@
                         <Insets right="40.0" />
                     </HBox.margin>
                 </VBox>
-                <VBox prefHeight="667.0" prefWidth="1204.0">
+                <VBox prefHeight="550.0" HBox.hgrow="ALWAYS">
                     <children>
-                        <HBox prefHeight="126.0" prefWidth="1214.0">
+                        <HBox prefHeight="90.0" prefWidth="950.0">
                             <children>
                                 <Button fx:id="agregar" mnemonicParsing="false" prefHeight="67.0" prefWidth="233.0" style="-fx-background-color: #3366FF; -fx-background-radius: 15;" text="+ Agregar" textFill="WHITE">
                                     <HBox.margin>
-                                        <Insets top="25.0" />
+                                        <Insets top="5.0" />
                                     </HBox.margin>
                                     <font>
                                         <Font name="Tahoma" size="20.0" />
                                     </font></Button>
-                                <ComboBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="43.0" prefWidth="201.0" promptText="  Filtrar" style="-fx-background-radius: 15; -fx-background-color: #ABBAE5;">
+                                <ComboBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="35.0" prefWidth="160.0" promptText=" Filtrar" style="-fx-background-radius: 15; -fx-background-color: #ABBAE5;">
                                     <HBox.margin>
-                                        <Insets left="600.0" right="40.0" top="35.0" />
+                                        <Insets left="300.0" right="20.0" top="25.0" />
                                     </HBox.margin></ComboBox>
-                                <TextField fx:id="textoBusqueda" prefHeight="43.0" prefWidth="162.0">
+                                <TextField fx:id="textoBusqueda" prefHeight="35.0" prefWidth="130.0">
                                     <HBox.margin>
-                                        <Insets left="10.0" top="35.0" />
+                                        <Insets left="10.0" top="25.0" />
                                     </HBox.margin>
                                 </TextField>
-                                <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="73.0" style="-fx-background-color: C6CFE2;" text="🔎">
+                                <Button fx:id="botonBusqueda" mnemonicParsing="false" onAction="#buscar" prefHeight="35.0" prefWidth="50.0" style="-fx-background-color: C6CFE2;" text="🔎">
                                     <HBox.margin>
-                                        <Insets right="40.0" top="35.0" />
+                                        <Insets right="20.0" top="25.0" />
                                     </HBox.margin></Button>
                             </children></HBox>
-                        <TableView fx:id="tabla" prefHeight="527.0" prefWidth="1032.0" style="-fx-background-color: EFEFF0; -fx-background-radius: 20;">
+                        <TableView fx:id="tabla" prefHeight="400.0" prefWidth="850.0" style="-fx-background-color: EFEFF0; -fx-background-radius: 20;">
                             <columns>
-                                <TableColumn fx:id="tablaEdificio" prefWidth="332.0" style="-fx-background-color: E0E1E1; -fx-background-radius: 5;" text="Edificio" />
+                                <TableColumn fx:id="tablaEdificio" prefWidth="250.0" style="-fx-background-color: E0E1E1; -fx-background-radius: 5;" text="Edificio" />
                             </columns>
                             <VBox.margin>
-                                <Insets bottom="40.0" right="150.0" />
+                                <Insets bottom="30.0" right="100.0" />
                             </VBox.margin>
                         </TableView>
                     </children></VBox>
             </children>
         </HBox>
-        <HBox prefHeight="100.0" prefWidth="200.0">
+        <HBox prefHeight="80.0" prefWidth="1400.0">
             <children>
                 <ImageView fitHeight="89.0" fitWidth="1567.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -175,23 +175,23 @@
                 </ImageView>
             </children>
         </HBox>
-        <HBox prefHeight="90.0" prefWidth="1550.0">
+        <HBox layoutY="3.0" prefHeight="70.0" prefWidth="1400.0">
             <children>
                 <ImageView fitHeight="39.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@Images/Icono.png" />
                     </image>
                     <HBox.margin>
-                        <Insets left="36.81" top="15.0" />
+                        <Insets left="36.81" top="5.0" />
                     </HBox.margin></ImageView>
                 <Label prefHeight="26.0" prefWidth="229.0" text="SISTEMA DE INVENTARIO" textFill="WHITE">
                     <HBox.margin>
-                        <Insets left="20.0" top="25.0" />
+                        <Insets left="20.0" top="15.0" />
                     </HBox.margin>
                 </Label>
                 <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #0338D5;">
                     <HBox.margin>
-                        <Insets left="1100.0" right="40.0" top="20.0" />
+                        <Insets left="800.0" right="40.0" top="10.0" />
                     </HBox.margin>
                     <graphic>
                         <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
@@ -201,7 +201,7 @@
                         </ImageView>
                     </graphic></Button>
             </children></HBox>
-        <VBox layoutX="1406.0" layoutY="218.0" prefHeight="438.0" prefWidth="158.0">
+        <VBox layoutX="1190.0" layoutY="180.0" prefHeight="350.0" prefWidth="110.0">
             <children>
                 <Button fx:id="eliminar" disable="true" mnemonicParsing="false" prefHeight="31.0" prefWidth="34.0" style="-fx-background-color: FFA0A0;">
                     <VBox.margin>

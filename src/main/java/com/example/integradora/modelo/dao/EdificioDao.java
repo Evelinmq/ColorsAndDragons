@@ -32,30 +32,30 @@ public class EdificioDao {
     public boolean updateEdificio(int idEdificioViejo, Edificio m){
         try{
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "UPDATE EDIFICIO SET id_edificio = ?, nombre = ?, estado = ? where id = ?";
+            String query = "UPDATE EDIFICIO SET nombre = ?, estado = ? WHERE id_edificio = ?";
             PreparedStatement ps = conn.prepareStatement(query);
-            ps.setInt(1, m.getId());
-            ps.setString(2, m.getNombre());
-            ps.setInt(3, m.getEstado());
-            ps.setInt(4, idEdificioViejo);
+            ps.setString(1, m.getNombre());
+            ps.setInt(2, m.getEstado());
+            ps.setInt(3, idEdificioViejo);
             if (ps.executeUpdate() > 0){
                 conn.close();
                 return true;
             }
             conn.close();
-        }catch (SQLException e){
+        } catch (SQLException e){
             e.printStackTrace();
         }
         return false;
     }
 
+
     public boolean deleteEdificio(int id){
         try {
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "UPDATE EDIFICIO SET status=0 WHERE id_edificio=?"; //no olvidar el where
-            PreparedStatement ps = conn.prepareStatement(query);    //delete logico
-            ps.setInt(1,id);
-            if(ps.executeUpdate()>0){
+            String query = "UPDATE EDIFICIO SET estado = 0 WHERE id_edificio = ?"; // delete lógico correcto
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, id);
+            if(ps.executeUpdate() > 0){
                 conn.close();
                 return true;
             }
@@ -66,16 +66,17 @@ public class EdificioDao {
         return false;
     }
 
+
     public List<Edificio> readEdificio(){
         List<Edificio> lista = new ArrayList<>();
         try{
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "SELECT * FROM EDIFICIO ORDER BY id_edificio ASC";
+            String query = "SELECT * FROM EDIFICIO WHERE estado = 1 ORDER BY id_edificio ASC"; // <--- importante
             PreparedStatement ps = conn.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 Edificio m = new Edificio();
-                m.setId(rs.getInt("id_edificio")); // nombre correcto
+                m.setId(rs.getInt("id_edificio"));
                 m.setNombre(rs.getString("nombre"));
                 m.setEstado(rs.getInt("estado"));
                 lista.add(m);
@@ -88,12 +89,13 @@ public class EdificioDao {
         return lista;
     }
 
+
     public List<Edificio> readEdificioEspecifico(String texto) {
 
         List<Edificio> lista = new ArrayList<>();
         try{
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "SELECT * FROM EDIFICIO WHERE id LIKE ? OR " +
+            String query = "SELECT * FROM EDIFICIO WHERE id_edificio LIKE ? OR " +
                     "nombre LIKE ? OR " +
                     "estado LIKE ? ORDER BY id_edificio ASC";
             PreparedStatement ps = conn.prepareStatement(query);
