@@ -49,6 +49,8 @@ public class BienController implements Initializable {
     @FXML
     private TextField textoBusqueda;
 
+    @FXML private ComboBox<String> filtroEstado;
+
 
     private Stage dialogStage;
 
@@ -124,6 +126,7 @@ public class BienController implements Initializable {
             }
         });
 
+        //Regresar bien a estado 1
         regresoBien.setOnAction(event -> {
             Bien seleccionado = tablaBien.getSelectionModel().getSelectedItem();
             if (seleccionado != null) {
@@ -141,6 +144,27 @@ public class BienController implements Initializable {
                 alert.showAndWait();
                 cargarBienes();
             }
+        });
+
+        List<Bien> todosLosBienes = BienDao.readTodosBienes();
+
+        listaBienesObservable = FXCollections.observableArrayList(todosLosBienes);
+        tablaBien.setItems(listaBienesObservable);
+
+        // 4. Configurar el ComboBox
+        ObservableList<String> estados = FXCollections.observableArrayList("Activos", "Inactivos", "VerTodos");
+        filtroEstado.setItems(estados);
+
+        filtroEstado.setOnAction(click -> {
+            String estadoSeleccionado = filtroEstado.getSelectionModel().getSelectedItem();
+
+            if ("Inactivos".equals(estadoSeleccionado)) {
+                tablaBien.setItems(listaBienesObservable.filtered(bien -> bien.getEstado() == 0));
+            } else if ("Activos".equals(estadoSeleccionado)) {
+                tablaBien.setItems(listaBienesObservable.filtered(bien -> bien.getEstado() == 1));
+            } else if ("VerTodos".equals(estadoSeleccionado)) {
+            tablaBien.setItems(listaBienesObservable);
+        }
         });
 
     }
@@ -367,6 +391,8 @@ public class BienController implements Initializable {
         thread.start();
 
     }
+
+
 
 
 
