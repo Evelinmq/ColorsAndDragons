@@ -167,9 +167,9 @@
                             <columns>
                                 <TableColumn fx:id="tablaCodigo" prefWidth="268.99998170137405" style="-fx-background-color: E0E1E1; -fx-background-radius: 0;" text="Codigo" />
                                 <TableColumn fx:id="tablaDescripcion" prefWidth="220.60003662109375" style="-fx-background-color: E0E1E1;" text="Descripción" />
-                        <TableColumn fx:id="tablaMarca" prefWidth="174.199951171875" text="Marca" />
-                        <TableColumn fx:id="tablaModelo" prefWidth="193.79998779296875" text="Modelo" />
-                        <TableColumn fx:id="tablaSerie" prefWidth="174.99993896484375" text="No.Serie" />
+                        <TableColumn fx:id="tablaMarca" prefWidth="174.199951171875" style="-fx-background-color: E0E1E1;" text="Marca" />
+                        <TableColumn fx:id="tablaModelo" prefWidth="193.79998779296875" style="-fx-background-color: E0E1E1;" text="Modelo" />
+                        <TableColumn fx:id="tablaSerie" prefWidth="174.99993896484375" style="-fx-background-color: E0E1E1;" text="No.Serie" />
                             </columns>
                             <VBox.margin>
                                 <Insets bottom="40.0" right="150.0" />
