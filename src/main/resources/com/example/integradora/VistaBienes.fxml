@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="padreBien" prefHeight="600.0" prefWidth="1550.0" style="-fx-background-color: ffffff;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.integradora.controllers.UpdateBienController">
+<AnchorPane fx:id="padreBien" prefHeight="600.0" prefWidth="1550.0" style="-fx-background-color: ffffff;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.integradora.controllers.BienController">
     <children>
         <HBox layoutY="72.0" prefHeight="667.0" prefWidth="1550.0" AnchorPane.topAnchor="90.0">
             <children>
@@ -207,7 +207,7 @@
             </children></HBox>
         <VBox layoutX="1406.0" layoutY="218.0" prefHeight="438.0" prefWidth="158.0">
             <children>
-                <Button disable="true" mnemonicParsing="false" prefHeight="31.0" prefWidth="34.0" style="-fx-background-color: FFA0A0;">
+                <Button fx:id="borrarBien" disable="true" mnemonicParsing="false" prefHeight="31.0" prefWidth="34.0" style="-fx-background-color: FFA0A0;">
                     <VBox.margin>
                         <Insets left="60.0" top="80.0" />
                     </VBox.margin>
@@ -219,7 +219,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button disable="true" mnemonicParsing="false" prefHeight="31.0" prefWidth="34.0" style="-fx-background-color: A8D095;">
+                <Button fx:id="editarBien" disable="true" mnemonicParsing="false" prefHeight="31.0" prefWidth="34.0" style="-fx-background-color: A8D095;">
                     <VBox.margin>
                         <Insets left="60.0" top="110.0" />
                     </VBox.margin>

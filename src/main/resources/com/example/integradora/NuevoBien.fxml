@@ -90,7 +90,7 @@
                </VBox.margin></TextField>
             <HBox prefHeight="174.0" prefWidth="300.0">
                <children>
-                  <Button fx:id="cancelarBien" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: B8B7C0; -fx-background-radius: 10;" text="Cancelar" textFill="#404463">
+                  <Button mnemonicParsing="false" onAction="#cancelarBien" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: B8B7C0; -fx-background-radius: 10;" text="Cancelar" textFill="#404463">
                      <HBox.margin>
                         <Insets left="70.0" right="10.0" top="140.0" />
                      </HBox.margin>

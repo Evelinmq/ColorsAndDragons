@@ -41,7 +41,7 @@ public class BienDao {
 
     public List<Bien>  readBien(){
 
-        String query = "SELECT * FROM bien ORDER BY bien_codigo ASC";
+        String query = "SELECT * FROM BIEN ORDER BY bien_codigo ASC";
         List<Bien> bienes = new ArrayList<Bien>();
 
         try{
@@ -68,11 +68,11 @@ public class BienDao {
         return bienes;
     }
 
-    public boolean updateBien(int idViejo, Bien b) {
+    public boolean updateBien(String codigoViejo, Bien b) {
         try {
 
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "UPDATE  bien set  bien_Codigo=?, Descripcion=?, Marca=?, Modelo=?, Serie=?, Estado=? WHERE id=?";
+            String query = "UPDATE  bien set  bien_Codigo=?, Descripcion=?, Marca=?, Modelo=?, Serie=?, Estado=? WHERE bien_codigo=?";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, b.getBien_codigo());
             ps.setString(2, b.getDescripcion());
@@ -80,7 +80,7 @@ public class BienDao {
             ps.setString(4, b.getModelo());
             ps.setString(5, b.getSerie());
             ps.setInt(6, b.getEstado());
-            ps.setInt(7, idViejo);
+            ps.setString(7, codigoViejo);
             if (ps.executeUpdate() > 0) {
                 return true;
             }
@@ -92,12 +92,12 @@ public class BienDao {
     return false;
     }
 
-    public boolean deleteBien(int id){
+    public static boolean deleteBien(String Bien_codigo) {
         try {
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "DELETE bien SET status = 0 WHERE bien_codigo = ? ";
+            String query = "UPDATE bien SET estado = 0 WHERE bien_codigo = ?";
             PreparedStatement ps = conn.prepareStatement(query);
-            ps.setInt(1, id);
+            ps.setString(1, Bien_codigo);
             if(ps.executeUpdate()>0){
                 return true;
             }

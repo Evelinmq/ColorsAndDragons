@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #EFEFF0; -fx-background-radius: 25;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.vistas.NuevoBien">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #EFEFF0; -fx-background-radius: 25;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.integradora.controllers.UpdateBienController">
    <children>
       <HBox prefHeight="77.0" prefWidth="600.0">
          <children>
@@ -27,7 +27,7 @@
                <font>
                   <Font name="Tahoma" size="12.0" />
                </font></Label>
-            <TextField style="-fx-background-color: fff;">
+            <TextField fx:id="editarCodigo" style="-fx-background-color: fff;">
                <VBox.margin>
                   <Insets bottom="10.0" left="20.0" />
                </VBox.margin>
@@ -41,7 +41,7 @@
                <font>
                   <Font name="Tahoma" size="12.0" />
                </font></Label>
-            <TextField prefHeight="48.0" prefWidth="270.0" style="-fx-background-color: fff;">
+            <TextField fx:id="editarDescripcion" prefHeight="48.0" prefWidth="270.0" style="-fx-background-color: fff;">
                <VBox.margin>
                   <Insets bottom="10.0" left="20.0" />
                </VBox.margin>
@@ -55,7 +55,7 @@
                }               <font>
                <Font name="Tahoma" size="12.0" />
             </font></Label>
-            <TextField style="-fx-background-color: fff;">
+            <TextField fx:id="editarSerie" style="-fx-background-color: fff;">
                <VBox.margin>
                   <Insets left="20.0" />
                </VBox.margin></TextField>
@@ -70,7 +70,7 @@
                   <Font name="Tahoma" size="12.0" />
                </font>
             </Label>
-            <TextField style="-fx-background-color: fff;">
+            <TextField fx:id="editarMarca" style="-fx-background-color: fff;">
                <VBox.margin>
                   <Insets left="20.0" right="20.0" />
                </VBox.margin>
@@ -84,13 +84,13 @@
                <font>
                   <Font name="Tahoma" size="12.0" />
                </font></Label>
-            <TextField style="-fx-background-color: fff;">
+            <TextField fx:id="editarModelo" style="-fx-background-color: fff;">
                <VBox.margin>
                   <Insets left="20.0" right="20.0" />
                </VBox.margin></TextField>
             <HBox prefHeight="174.0" prefWidth="300.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: B8B7C0; -fx-background-radius: 10;" text="Cancelar" textFill="#404463">
+                  <Button mnemonicParsing="false" onAction="#cancelarEdicion" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: B8B7C0; -fx-background-radius: 10;" text="Cancelar" textFill="#404463">
                      <HBox.margin>
                         <Insets left="70.0" right="10.0" top="140.0" />
                      </HBox.margin>
@@ -98,7 +98,7 @@
                         <Font name="Tahoma" size="12.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #013AE4; -fx-background-radius: 10;" text="Guardar" textFill="WHITE">
+                  <Button mnemonicParsing="false" onAction="#editarBien" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #013AE4; -fx-background-radius: 10;" text="Guardar" textFill="WHITE">
                      <HBox.margin>
                         <Insets top="140.0" />
                      </HBox.margin>

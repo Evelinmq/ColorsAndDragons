@@ -2,106 +2,94 @@ package com.example.integradora.controllers;
 
 import com.example.integradora.modelo.Bien;
 import com.example.integradora.modelo.dao.BienDao;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.effect.BoxBlur;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
-
-public class UpdateBienController implements Initializable {
+public class UpdateBienController {
 
     @FXML
-    private Button Registrar;
-    @FXML
-    private TableView<Bien> tablaBien;
-    @FXML
-    private TableColumn<Bien, String> tablaCodigo, tablaDescripcion, tablaMarca, tablaModelo, tablaSerie;
+    private Button editarBien;
 
     @FXML
-    private AnchorPane padreBien;
+    private TextField editarCodigo, editarDescripcion, editarMarca, editarModelo, editarSerie;
 
-    private ObservableList<Bien> listaBienesObservable;
+    private Bien bien;
+    private String Bien_Codigo, Descripcion, Marca, Modelo, Serie;
+    private String codigoViejo;
 
+    private Stage dialogStage;
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        listaBienesObservable = FXCollections.observableArrayList();
-
-        tablaCodigo.setCellValueFactory(new PropertyValueFactory<>("bien_codigo"));
-        tablaDescripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
-        tablaMarca.setCellValueFactory(new PropertyValueFactory<>("marca"));
-        tablaModelo.setCellValueFactory(new PropertyValueFactory<>("modelo"));
-        tablaSerie.setCellValueFactory(new PropertyValueFactory<>("serie"));
+    public void setDialogStage(Stage dialogStage) {
+        this.dialogStage = dialogStage;
+    }
 
 
-        tablaBien.setItems(listaBienesObservable);
+    //EDITAR EL BIEN
 
 
-        cargarBienes();
+    public void setBien(Bien bien) {
+        this.bien= bien;
+        this.Bien_Codigo = bien.getBien_codigo();
+        this.Descripcion = bien.getDescripcion();
+        this.Marca = bien.getMarca();
+        this.Modelo = bien.getModelo();
+        this.Serie = bien.getSerie();
+        this.codigoViejo = bien.getBien_codigo();
+
+        editarCodigo.setText(bien.getBien_codigo());
+        editarDescripcion.setText(bien.getDescripcion());
+        editarMarca.setText(bien.getMarca());
+        editarModelo.setText(bien.getModelo());
+        editarSerie.setText(bien.getSerie());
+
+
     }
 
     @FXML
-    protected void abrirVentanaRegistro() {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/integradora/NuevoBien.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.setTitle("Registro Bien");
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.initOwner(tablaBien.getScene().getWindow());
+    public void editarBien(ActionEvent event) {
+        String codigoNuevo = editarCodigo.getText().trim();
+        String descripcionNuevo = editarDescripcion.getText().trim();
+        String marcaNuevo = editarMarca.getText().trim();
+        String modeloNuevo = editarModelo.getText().trim();
+        String serieNuevo = editarSerie.getText().trim();
 
-            RegistroBienController registroController = fxmlLoader.getController();
-            registroController.setDialogStage(stage);
+        bien.setBien_codigo(codigoNuevo);
+        bien.setDescripcion(descripcionNuevo);
+        bien.setMarca(marcaNuevo);
+        bien.setModelo(modeloNuevo);
+        bien.setSerie(serieNuevo);
+        bien.setEstado(1);
 
-            BoxBlur blur = new BoxBlur(3, 3, 3);
-            padreBien.setEffect(blur);
-
-            stage.showAndWait();
-            padreBien.setEffect(null);
-
-
-            cargarBienes();
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        BienDao dao = new BienDao();
+        if (dao.updateBien(codigoViejo, bien)) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("SE ACTUALIZO!");
+            alert.setContentText("Actualizado con exito");
+            alert.showAndWait();
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error de Apertura");
-            alert.setHeaderText("No se pudo abrir la ventana de registro de bienes.");
-            alert.setContentText("Verifica la ruta del FXML o el controlador.");
+            alert.setTitle("Error de actualizar");
+            alert.setContentText("No se logro actualizar con exito");
             alert.showAndWait();
         }
-    }
 
-
-    private void cargarBienes() {
-        BienDao dao = new BienDao();
-        List<Bien> datosDesdeBD = dao.readBien();
-        if (listaBienesObservable != null) {
-            listaBienesObservable.clear();
+        if (dialogStage != null) {
+            dialogStage.close();
         } else {
-
-            listaBienesObservable = FXCollections.observableArrayList();
-            tablaBien.setItems(listaBienesObservable);
+            Stage ventana = (Stage) editarCodigo.getScene().getWindow();
+            ventana.close();
         }
-
-        if (datosDesdeBD != null) {
-            listaBienesObservable.addAll(datosDesdeBD);
-        }
-
-        tablaBien.refresh();
     }
+
+    @FXML
+    public void cancelarEdicion(ActionEvent event) {
+        if (dialogStage != null) {
+            dialogStage.close();
+        }
+    }
+
+
+
 }
