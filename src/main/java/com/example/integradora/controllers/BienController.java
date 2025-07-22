@@ -1,5 +1,6 @@
 package com.example.integradora.controllers;
 
+import com.example.integradora.Main;
 import com.example.integradora.modelo.Bien;
 import com.example.integradora.modelo.Puesto;
 import com.example.integradora.modelo.dao.BienDao;
@@ -28,7 +29,7 @@ public class BienController implements Initializable {
     private AnchorPane padreBien;
 
     @FXML
-    private Button editarBien, borrarBien;
+    private Button editarBien, borrarBien, regresoBien;
 
     @FXML
     private TableColumn<Bien, String> tablaCodigo, tablaDescripcion, tablaMarca, tablaModelo, tablaSerie;
@@ -36,6 +37,9 @@ public class BienController implements Initializable {
     private ObservableList<Bien> listaBienesObservable;
     @FXML
     private TableView<Bien> tablaBien;
+
+    @FXML
+    private Button resguardo, puesto, empleados, espacio, unidad, edificio, usuario;
 
 
     private Stage dialogStage;
@@ -99,6 +103,33 @@ public class BienController implements Initializable {
                 alert.setTitle("Aviso");
                 alert.setHeaderText(null);
                 alert.setContentText("Debes seleccionar un bien para eliminar");
+                alert.showAndWait();
+                cargarBienes();
+            }
+        });
+
+        tablaBien.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null && newValue.getEstado() == 0) {
+                regresoBien.setDisable(false);
+            } else {
+                regresoBien.setDisable(true);
+            }
+        });
+
+        regresoBien.setOnAction(event -> {
+            Bien seleccionado = tablaBien.getSelectionModel().getSelectedItem();
+            if (seleccionado != null) {
+                if (confirmarRegresar()) {
+                    if (BienDao.regresoBien(seleccionado.getBien_codigo())) {
+                        tablaBien.getItems().remove(seleccionado);
+                        cargarBienes();
+                    }
+                }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Aviso");
+                alert.setHeaderText(null);
+                alert.setContentText("Debes seleccionar un bien");
                 alert.showAndWait();
                 cargarBienes();
             }
@@ -185,6 +216,108 @@ public class BienController implements Initializable {
         alert.setContentText("¿Deseas eliminar el registro?");
         Optional<ButtonType> resultado = alert.showAndWait();
         return resultado.isPresent() && resultado.get() == ButtonType.OK;
+    }
+    private boolean confirmarRegresar(){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmar regresar");
+        alert.setHeaderText(null);
+        alert.setContentText("¿Deseas regresar el bien?");
+        Optional<ButtonType> resultado = alert.showAndWait();
+        return resultado.isPresent() && resultado.get() == ButtonType.OK;
+    }
+
+    @FXML
+    protected void irResguardo(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaResguardo.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            Stage stage = (Stage) resguardo.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    protected void irEmpleados(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaEmpleado.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            Stage stage = (Stage) empleados.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    protected void irEdificio(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaEdificio.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            Stage stage = (Stage) edificio.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    protected void irUsuario(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaUsuario.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            //Sacar la stage desde un componente visual ya abieto
+            Stage stage = (Stage) usuario.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    protected void irUnidad(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaUnidadAdm.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            Stage stage = (Stage) unidad.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    protected void irPuesto(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaPuesto.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            //Sacar la stage desde un componente visual ya abieto
+            Stage stage = (Stage) puesto.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    protected void irEspacio(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaEspacio.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            //Sacar la stage desde un componente visual ya abieto
+            Stage stage = (Stage) espacio.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 
 

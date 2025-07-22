@@ -108,4 +108,20 @@ public class BienDao {
         return false;
     }
 
+    public static boolean regresoBien(String Bien_codigo) {
+        try {
+            Connection conn = OracleDatabaseConnectionManager.getConnection();
+            String query = "UPDATE bien SET estado = 1 WHERE bien_codigo = ? AND estado = 0";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, Bien_codigo);
+            if(ps.executeUpdate()>0){
+                return true;
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }
