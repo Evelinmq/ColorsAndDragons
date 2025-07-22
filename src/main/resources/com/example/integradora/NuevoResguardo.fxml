@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="779.0" prefWidth="1388.0" style="-fx-background-color: E7E7EE; -fx-background-radius: 25;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="779.0" prefWidth="1388.0" style="-fx-background-color: E7E7EE; -fx-background-radius: 25;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.integradora.controllers.RegistrarResguardo">
     <children>
       <HBox prefHeight="659.0" prefWidth="562.0">
          <children>
@@ -95,15 +95,15 @@
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <ComboBox prefHeight="26.0" prefWidth="232.0" style="-fx-background-color: fff; -fx-background-radius: 5;">
+                  <ComboBox fx:id="comboBoxBusqueda" prefHeight="26.0" prefWidth="232.0" style="-fx-background-color: fff; -fx-background-radius: 5;">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin></ComboBox>
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="89.0" style="-fx-background-color: fff; -fx-background-radius: 5;" text="Buscar 🔎" textFill="#404463">
+                  <Button fx:id="boton" mnemonicParsing="false" onAction="#getSeleccion" prefHeight="26.0" prefWidth="89.0" style="-fx-background-color: fff; -fx-background-radius: 5;" text="Buscar 🔎" textFill="#404463">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin></Button>
-                  <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="37.0" style="-fx-background-color: FFA0A0;" text="🗑" textAlignment="CENTER" textFill="WHITE">
+                  <Button fx:id="botonEliminar" disable="true" mnemonicParsing="false" onAction="#eliminarSeleccion" prefHeight="29.0" prefWidth="37.0" style="-fx-background-color: FFA0A0;" text="🗑" textAlignment="CENTER" textFill="WHITE">
                      <HBox.margin>
                         <Insets left="400.0" />
                      </HBox.margin>
@@ -116,10 +116,13 @@
                   <Insets />
                </VBox.margin>
             </HBox>
-            <TableView prefHeight="410.0" prefWidth="720.0">
+            <TableView fx:id="tabla" prefHeight="410.0" prefWidth="720.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
+                <TableColumn fx:id="codigo" prefWidth="102.20001220703125" text="Codigo" />
+                <TableColumn fx:id="descripcion" prefWidth="211.4000244140625" text="Descripción" />
+                  <TableColumn fx:id="marca" prefWidth="183.39996337890625" text="Marca" />
+                  <TableColumn fx:id="modelo" prefWidth="155.4000244140625" text="Modelo" />
+                  <TableColumn fx:id="serie" prefWidth="135.39996337890625" text="No.Serie" />
               </columns>
             </TableView>
          </children></VBox>
