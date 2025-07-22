@@ -20,8 +20,6 @@ public class RegistrarPuestoController{
     @FXML public TextField labelPuesto;
     @FXML public Button btnCancelar;
     @FXML public Button btnGuardar;
-    //@FXML private TextField labelPuesto;
-
 
     private Stage stage;
 
@@ -34,28 +32,55 @@ public class RegistrarPuestoController{
     }
 
     @FXML
-    private void cerrarVentana() {
-        if(stage != null) {
-            stage.close();
-        }
-    }
+    private void guardarPuesto (ActionEvent event) {
+        System.out.println("Guardando Puesto");
+        String nombrePuesto = labelPuesto.getText().trim();
 
-    @FXML
-    private void guardarPuesto() {
-        String nombrePuesto = labelPuesto.getText();
-
-        if(nombrePuesto.isEmpty() || nombrePuesto == null) {
+        if (nombrePuesto == null || nombrePuesto.isEmpty()) {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
             alerta.setTitle("Error");
             alerta.setHeaderText(null);
-            alerta.setContentText("EL campo no puede ir vacío");
+            alerta.setContentText("El campo no puede ir vacío");
             alerta.showAndWait();
             return;
+        }
+
+        PuestoDao dao = new PuestoDao();
+        Puesto nuevo = new Puesto();
+        nuevo.setNombre(nombrePuesto);
+        nuevo.setEstado(1);
+
+        boolean exito = dao.createPuesto(nuevo);
+
+        if (exito) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Registro exitoso");
+            alert.setHeaderText(null);
+            alert.setContentText("Se ha creado un nuevo puesto");
+            alert.showAndWait();
+            cerrarVentana(event); // cerrar si fue exitoso
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("No se pudo registrar el puesto.");
+            alert.showAndWait();
+        }
+    }
+
+    @FXML
+    private void cerrarVentana(ActionEvent event) {
+        if (stage != null) {
+            stage.close();
+        } else {
+            // cerrar por el nodo raíz si no hay stage asignado
+            Stage currentStage = (Stage) labelPuesto.getScene().getWindow();
+            currentStage.close();
         }
     }
 
 
-    @FXML
+   /* @FXML
     public void registrarPuesto(ActionEvent actionEvent) {
         // Obtenemos la info del campo de texto
         String nombreV = labelPuesto.getText().trim();
@@ -83,6 +108,6 @@ public class RegistrarPuestoController{
 
         labelPuesto.setText("");
 
-    }
+    }*/
 }
 
