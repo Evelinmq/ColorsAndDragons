@@ -124,4 +124,31 @@ public class BienDao {
         return false;
     }
 
+    public List<Bien> readBienEspecifico(String texto) {
+        List<Bien> lista = new ArrayList<>();
+        try{
+            Connection conn = OracleDatabaseConnectionManager.getConnection();
+            String query = "SELECT * FROM bien WHERE BIEN_CODIGO LIKE ? ORDER BY BIEN_CODIGO ASC";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1,"%"+texto+"%");
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                Bien b = new Bien();
+                b.setBien_codigo(rs.getString("bien_codigo"));
+                b.setDescripcion(rs.getString("descripcion"));
+                b.setMarca(rs.getString("marca"));
+                b.setModelo(rs.getString("modelo"));
+                b.setSerie(rs.getString("serie"));
+                b.setEstado(rs.getInt("estado"));
+                lista.add(b);
+            }
+            rs.close();
+            conn.close();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return lista;
+
+    }
+
 }

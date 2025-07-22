@@ -147,18 +147,18 @@
                                     </HBox.margin></ComboBox>
                         <VBox prefHeight="200.0" prefWidth="68.0">
                            <children>
-                              <ProgressIndicator progress="0.0">
+                              <ProgressIndicator fx:id="spinner" progress="0.0" visible="false">
                                  <VBox.margin>
                                     <Insets top="35.0" />
                                  </VBox.margin>
                               </ProgressIndicator>
                            </children></VBox>
-                                <TextField prefHeight="43.0" prefWidth="120.0">
+                                <TextField fx:id="textoBusqueda" prefHeight="43.0" prefWidth="120.0">
                                     <HBox.margin>
                                         <Insets left="10.0" top="35.0" />
                                     </HBox.margin>
                                 </TextField>
-                                <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="68.0" style="-fx-background-color: C6CFE2;" text="🔎">
+                                <Button fx:id="botonBusqueda" mnemonicParsing="false" onAction="#Buscar" prefHeight="42.0" prefWidth="68.0" style="-fx-background-color: C6CFE2;" text="🔎">
                                     <HBox.margin>
                                         <Insets right="40.0" top="35.0" />
                                     </HBox.margin></Button>
