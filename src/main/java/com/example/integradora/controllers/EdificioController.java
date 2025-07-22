@@ -32,17 +32,31 @@ public class EdificioController implements Initializable {
     @FXML private Button editar;
     @FXML private Button eliminar;
     @FXML private Button agregar;
+    @FXML private Button regresoEdificio;
+    @FXML private ComboBox<String> comboEstado;
 
-
-    private EdificioDao dao = new EdificioDao();
+    private final EdificioDao dao = new EdificioDao();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Cargar datos iniciales en la tabla
         tablaEdificio.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        recargarTabla();
 
-        // Botón editar
+        comboEstado.getItems().addAll("Activos", "Inactivos", "Todos");
+        comboEstado.setValue("Activos");
+        comboEstado.setOnAction(e -> filtrarPorEstado());
+
+        filtrarPorEstado();
+
+        tabla.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            boolean haySeleccion = newSelection != null;
+            editar.setDisable(!haySeleccion);
+            eliminar.setDisable(!haySeleccion);
+
+
+            String estadoSeleccionado = comboEstado.getValue();
+            regresoEdificio.setDisable(!haySeleccion || !"Inactivos".equals(estadoSeleccionado));
+        });
+
         editar.setOnAction(event -> {
             Edificio seleccionado = tabla.getSelectionModel().getSelectedItem();
             if (seleccionado != null) {
@@ -52,13 +66,12 @@ public class EdificioController implements Initializable {
             }
         });
 
-        // Botón eliminar
         eliminar.setOnAction(event -> {
             Edificio seleccionado = tabla.getSelectionModel().getSelectedItem();
             if (seleccionado != null) {
                 if (confirmarEliminar()) {
                     if (dao.deleteEdificio(seleccionado.getId())) {
-                        recargarTabla();
+                        filtrarPorEstado();
                     }
                 }
             } else {
@@ -66,12 +79,83 @@ public class EdificioController implements Initializable {
             }
         });
 
-        // Botón agregar
+        regresoEdificio.setOnAction(event -> {
+            Edificio seleccionado = tabla.getSelectionModel().getSelectedItem();
+            if (seleccionado != null) {
+                if (confirmarRecuperar()) {
+                    if (dao.restaurarEdificio(seleccionado.getId())) {
+                        mostrarAlerta("Edificio restaurado correctamente.");
+                        filtrarPorEstado();
+                    } else {
+                        mostrarAlerta("Error al restaurar el edificio.");
+                    }
+                }
+            } else {
+                mostrarAlerta("Debes seleccionar un edificio para restaurar.");
+            }
+        });
+
         agregar.setOnAction(event -> abrirVentanaRegistro());
+
+        botonBusqueda.setOnAction(this::buscar);
+    }
+
+    private void abrirVentanaEdicion(Edificio edificio) {
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("EditarEdificio.fxml"));
+            Parent root = loader.load();
+            UpdateEdificioController controller = loader.getController();
+            controller.setEdificio(edificio);
+
+            Scene escenaPrincipal = editar.getScene();
+            Parent fondo = escenaPrincipal.getRoot();
+            fondo.setEffect(new BoxBlur(10, 10, 3));
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Editar Edificio");
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(escenaPrincipal.getWindow());
+
+            stage.setOnHidden(e -> {
+                fondo.setEffect(null);
+                filtrarPorEstado();
+            });
+
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void abrirVentanaRegistro() {
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("RegistrarEdificio.fxml"));
+            Parent root = loader.load();
+
+            Scene escenaPrincipal = agregar.getScene();
+            Parent fondo = escenaPrincipal.getRoot();
+            fondo.setEffect(new BoxBlur(10, 10, 3));
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Registrar Edificio");
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(escenaPrincipal.getWindow());
+
+            stage.setOnHidden(e -> {
+                fondo.setEffect(null);
+                filtrarPorEstado();
+            });
+
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void mostrarAlerta(String mensaje) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Aviso");
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
@@ -87,92 +171,18 @@ public class EdificioController implements Initializable {
         return resultado.isPresent() && resultado.get() == ButtonType.OK;
     }
 
-    private void abrirVentanaEdicion(Edificio m) {
-        try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("VistaEdificio.fxml"));
-            Parent root = loader.load();
-
-            UpdateEdificioController controller = loader.getController();
-            controller.setEdificio(m);
-
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Editar edificio");
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.showAndWait();
-
-            recargarTabla();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private boolean confirmarRecuperar() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmar restauración");
+        alert.setHeaderText(null);
+        alert.setContentText("¿Deseas restaurar este edificio?");
+        Optional<ButtonType> resultado = alert.showAndWait();
+        return resultado.isPresent() && resultado.get() == ButtonType.OK;
     }
-
-    private void abrirVentanaRegistro() {
-        try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("RegistrarEdificio.fxml"));
-            Parent root = loader.load();
-
-            RegistrarEdificioController controller = loader.getController();
-
-            // Efecto blur al fondo
-            Scene escenaPrincipal = agregar.getScene();
-            Parent fondo = escenaPrincipal.getRoot();
-            fondo.setEffect(new BoxBlur(10, 10, 3));
-
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Registrar Edificio");
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.initOwner(escenaPrincipal.getWindow());
-
-            controller.btnGuardar.setOnAction(e -> {
-                String nombre = controller.nombreEdificio.getText().trim();
-                if (!nombre.isEmpty()) {
-                    Edificio nuevo = new Edificio(nombre);
-                    if (dao.createEdificio(nuevo)) {
-                        recargarTabla();
-                    }
-                    stage.close();
-                    fondo.setEffect(null);
-                } else {
-                    new Alert(Alert.AlertType.WARNING, "Debes ingresar un nombre.").showAndWait();
-                }
-            });
-
-            controller.btnCancelar.setOnAction(e -> {
-                stage.close();
-                fondo.setEffect(null);
-            });
-
-            stage.show();
-            stage.setOnHidden(e -> fondo.setEffect(null));
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void registrarEdificio(ActionEvent event) {
-        // Obtenemos la info del campo de texto
-        String edificioV = nombreEdificio.getText().trim();
-        if (edificioV.isEmpty()) return;
-
-        Edificio nuevo = new Edificio();
-        nuevo.setNombre(edificioV);
-        nuevo.setEstado(1); // activo
-
-        if (dao.createEdificio(nuevo)) {
-            System.out.println("Se insertó con éxito");
-        }
-
-        nombreEdificio.setText("");
-        recargarTabla();
-    }
-
 
     public void buscar(ActionEvent event) {
         botonBusqueda.setDisable(true);
-        String texto = textoBusqueda.getText();
+        String texto = textoBusqueda.getText().trim();
 
         Task<List<Edificio>> cargarBusqueda = new Task<>() {
             @Override
@@ -199,13 +209,33 @@ public class EdificioController implements Initializable {
         thread.start();
     }
 
-    private void recargarTabla() {
-        List<Edificio> lista = dao.readEdificio();
-        ObservableList<Edificio> listaObservable = FXCollections.observableList(lista);
-        tabla.setItems(listaObservable);
+    @FXML
+    private void filtrarPorEstado() {
+        String opcion = comboEstado.getValue();
+        List<Edificio> lista = new ArrayList<>();
+
+        switch (opcion) {
+            case "Activos":
+                lista = dao.readEdificioPorEstado(1);
+                break;
+            case "Inactivos":
+                lista = dao.readEdificioPorEstado(0);
+                break;
+            case "Todos":
+                lista = dao.readTodosEdificios();
+                break;
+        }
+
+        tabla.setItems(FXCollections.observableList(lista));
         tabla.refresh();
+
+        // Deshabilitar botón de restaurar al cambiar el filtro
+        regresoEdificio.setDisable(true);
     }
 }
+
+
+
 
 
 
