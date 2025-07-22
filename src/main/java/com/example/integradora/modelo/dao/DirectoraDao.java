@@ -12,9 +12,9 @@ import java.util.List;
 
 public class DirectoraDao {
 
-    public List<Directora> readDirectora(){
-         String query = "SELECT * FROM directora ORDER BY ASC";
 
+    public List<Directora> readDirectora() {
+        String query = "SELECT * FROM RESGUARDO ORDER BY ID_RESGUARDO ASC";
 
         List<Directora> directoras = new ArrayList<Directora>();
         try {
@@ -22,22 +22,20 @@ public class DirectoraDao {
             PreparedStatement ps = conn.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
 
-            while(rs.next()){
+            while (rs.next()) {
                 Directora d = new Directora();
-                d.setIdResguardo(rs.getInt("IdResguardo"));
-                d.setCodigoBien(rs.getString("CodigoBien"));
-                d.setIdEspacio(rs.getInt("Espacio"));
-                d.setIdEdificio(rs.getInt("Edificio"));
-                d.setRfcEmpleado(rs.getString("RFCEmpleado"));
-                d.setIdUnidad(rs.getInt("IDUnidad"));
-                d.setIdPuesto(rs.getInt("IDPuesto"));
+                d.setIdResguardo(rs.getInt("ID_RESGUARDO"));
+                d.setCodigoBien(rs.getString("FECHA"));
+                d.setIdEspacio(rs.getInt("ESPACIO_ID"));
+                d.setRfcEmpleado(rs.getString("RFC_EMPLEADO"));
                 directoras.add(d);
             }
             rs.close();
             conn.close();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return directoras;
     }
 }
+

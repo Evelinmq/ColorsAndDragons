@@ -2,10 +2,11 @@ package com.example.integradora.controllers;
 
 import com.example.integradora.Main;
 import com.example.integradora.modelo.Bien;
-import com.example.integradora.modelo.Puesto;
 import com.example.integradora.modelo.dao.BienDao;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -40,6 +41,13 @@ public class BienController implements Initializable {
 
     @FXML
     private Button resguardo, puesto, empleados, espacio, unidad, edificio, usuario;
+
+    @FXML
+    private ProgressIndicator spinner;
+    @FXML
+    private Button botonBusqueda;
+    @FXML
+    private TextField textoBusqueda;
 
 
     private Stage dialogStage;
@@ -318,6 +326,46 @@ public class BienController implements Initializable {
         }catch(IOException e){
             e.printStackTrace();
         }
+    }
+
+    public void Buscar (ActionEvent event){
+
+
+        botonBusqueda.setDisable(true);//deshabilitar el boton al recibir un click
+        //para darle chance a java que haga la busqueda
+        spinner.setVisible(true);//busca
+
+        String texto = textoBusqueda.getText();
+
+        Task<List<Bien>> cargarBusqueda = new Task<>(){
+
+            @Override
+            protected List<Bien> call() throws Exception {
+                BienDao dao = new BienDao();
+                List<Bien> lista= dao.readBienEspecifico(texto);
+                return lista;
+            }
+        };
+
+        cargarBusqueda.setOnFailed(workerStateEvent -> {
+            botonBusqueda.setDisable(false);
+            spinner.setVisible(false);
+            System.err.println("Algo fallo" +  cargarBusqueda.getException());
+        });
+
+        cargarBusqueda.setOnSucceeded(workerStateEvent -> {
+            botonBusqueda.setDisable(false);
+            spinner.setVisible(false);
+            List<Bien> lista = cargarBusqueda.getValue();
+            ObservableList<Bien> listaObservable = FXCollections.observableList(lista);
+            tablaBien.setItems(listaObservable);
+            tablaBien.refresh();
+        });
+
+
+        Thread thread = new Thread(cargarBusqueda);
+        thread.start();
+
     }
 
 
