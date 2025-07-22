@@ -141,7 +141,7 @@
                                     <font>
                                         <Font name="Tahoma" size="20.0" />
                                     </font></Button>
-                                <ComboBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="43.0" prefWidth="201.0" promptText="  Filtrar" style="-fx-background-radius: 15; -fx-background-color: #ABBAE5;">
+                                <ComboBox fx:id="filtroEstado" nodeOrientation="LEFT_TO_RIGHT" prefHeight="43.0" prefWidth="201.0" promptText="  Filtrar" style="-fx-background-radius: 15; -fx-background-color: #ABBAE5;">
                                     <HBox.margin>
                                         <Insets left="600.0" right="35.0" top="35.0" />
                                     </HBox.margin></ComboBox>
