@@ -23,7 +23,7 @@
                         <Insets left="20.0" top="10.0" />
                     </HBox.margin>
                 </Label>
-                <Region prefHeight="50.0" prefWidth="1170.0" HBox.hgrow="ALWAYS" />
+                <Region prefHeight="78.0" prefWidth="1170.0" HBox.hgrow="ALWAYS" />
                 <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #0338D5;">
                     <HBox.margin>
                         <Insets right="40.0" top="10.0" />
@@ -38,15 +38,14 @@
                 </Button>
             </children>
         </HBox>
-
-        <HBox layoutY="24.0" prefHeight="2319.0" prefWidth="1426.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="24.0">
+        <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="90.0">
             <children>
-                <VBox alignment="TOP_CENTER" prefHeight="899.0" prefWidth="350.0" spacing="20.0">
+                <VBox alignment="TOP_CENTER" prefWidth="350.0" spacing="20.0">
                     <padding>
-                        <Insets bottom="20.0" left="40.0" right="40.0" top="80.0" />
+                        <Insets bottom="20.0" left="40.0" right="40.0" top="60.0" />
                     </padding>
                     <children>
-                        <Button fx:id="resguardo" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#irResguardo" prefHeight="54.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="         Resguardo" textFill="#404463">
+                        <Button fx:id="resguardo" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#irResguardo" prefHeight="54.0" prefWidth="270.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="         Resguardo" textFill="#404463">
                             <font>
                                 <Font name="Tahoma" size="20.0" />
                             </font>
@@ -148,7 +147,7 @@
                                 </ImageView>
                             </graphic>
                         </Button>
-                        <Button fx:id="usuario" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#irUsuario" prefHeight="54.0" prefWidth="270.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="           Usuario" textFill="#404463">
+                        <Button fx:id="usuario" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#irUsuario" prefHeight="54.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="           Usuario" textFill="#404463">
                             <VBox.margin>
                                 <Insets bottom="20.0" top="20.0" />
                             </VBox.margin>
@@ -165,14 +164,14 @@
                         </Button>
                     </children>
                 </VBox>
-                <VBox alignment="TOP_LEFT" prefHeight="2231.0" prefWidth="954.0" spacing="20.0" HBox.hgrow="ALWAYS">
+                <VBox alignment="TOP_LEFT" prefHeight="540.0" prefWidth="1074.0" spacing="20.0" HBox.hgrow="ALWAYS">
                     <padding>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="25.0" />
                     </padding>
                     <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="193.0" prefWidth="1036.0" spacing="10.0">
+                        <HBox alignment="CENTER_LEFT" prefHeight="120.0" prefWidth="1034.0" spacing="10.0">
                             <children>
-                                <Button fx:id="abrirVentanaRegistro" mnemonicParsing="false" onAction="#abrirVentanaRegistro" prefHeight="70.0" prefWidth="234.0" style="-fx-background-color: #3366FF; -fx-background-radius: 15;" text="+ Agregar" textFill="WHITE">
+                                <Button fx:id="abrirVentanaRegistro" mnemonicParsing="false" onAction="#abrirVentanaRegistro" prefHeight="67.0" prefWidth="233.0" style="-fx-background-color: #3366FF; -fx-background-radius: 15;" text="+ Agregar" textFill="WHITE">
                                     <HBox.margin>
                                         <Insets top="25.0" />
                                     </HBox.margin>
@@ -203,7 +202,7 @@
                                 </Button>
                             </children>
                         </HBox>
-                        <TableView fx:id="tablaBien" prefHeight="711.0" prefWidth="1034.0" style="-fx-background-color: EFEFF0; -fx-background-radius: 20;" VBox.vgrow="ALWAYS">
+                        <TableView fx:id="tablaBien" style="-fx-background-color: EFEFF0; -fx-background-radius: 20;" VBox.vgrow="ALWAYS">
                             <columns>
                                 <TableColumn fx:id="tablaCodigo" prefWidth="268.99998170137405" style="-fx-background-color: E0E1E1; -fx-background-radius: 0;" text="Codigo" />
                                 <TableColumn fx:id="tablaDescripcion" prefWidth="220.60003662109375" style="-fx-background-color: E0E1E1;" text="Descripción" />
@@ -216,8 +215,7 @@
                 </VBox>
             </children>
         </HBox>
-
-        <VBox alignment="TOP_CENTER" layoutY="865.0" prefHeight="1486.0" prefWidth="150.0" spacing="20.0" AnchorPane.bottomAnchor="38.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="865.0">
+        <VBox alignment="TOP_CENTER" prefWidth="150.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="90.0">
             <padding>
                 <Insets bottom="20.0" top="80.0" />
             </padding>
