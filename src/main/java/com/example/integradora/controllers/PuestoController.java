@@ -138,10 +138,8 @@ public class PuestoController implements Initializable {
 
     private void abrirVentanaRegistro() {
         try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("RegistrarPuesto.fxml"));
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/example/integradora/RegistrarPuesto.fxml"));
             Parent root = loader.load();
-
-            RegistrarPuestoController controller = loader.getController();
 
             // Efecto blur al fondo
             Scene escenaPrincipal = agregar.getScene();
@@ -149,31 +147,17 @@ public class PuestoController implements Initializable {
             fondo.setEffect(new BoxBlur(10, 10, 3));
 
             Stage stage = new Stage();
+            stage.initModality(Modality.WINDOW_MODAL);
             stage.setScene(new Scene(root));
             stage.setTitle("Registrar Puesto");
-            stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(escenaPrincipal.getWindow());
-
-            controller.btnGuardar.setOnAction(e -> {
-                String nombre = controller.labelPuesto.getText().trim();
-                if (!nombre.isEmpty()) {
-                    Puesto nuevo = new Puesto();
-                    if (dao.createPuesto(nuevo)) {
-                        recargarTabla();
-                    }
-                    stage.close();
-                    fondo.setEffect(null);
-                } else {
-                    new Alert(Alert.AlertType.WARNING, "Debes ingresar un nombre.").showAndWait();
-                }
-            });
-
-            controller.btnCancelar.setOnAction(e -> {
-                stage.close();
-                fondo.setEffect(null);
-            });
-
             stage.show();
+
+
+            RegistrarPuestoController controller = loader.getController();
+            controller.setStage(stage);
+
+
             stage.setOnHidden(e -> fondo.setEffect(null));
 
         } catch (IOException e) {
