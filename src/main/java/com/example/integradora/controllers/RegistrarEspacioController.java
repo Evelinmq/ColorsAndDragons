@@ -5,54 +5,40 @@ import com.example.integradora.modelo.Espacio;
 import com.example.integradora.modelo.dao.EdificioDao;
 import com.example.integradora.modelo.dao.EspacioDao;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-import java.net.URL;
 import java.util.List;
-import java.util.ResourceBundle;
 
-public class UpdateEspacioController implements Initializable {
+public class RegistrarEspacioController {
 
     @FXML private TextField nombreEspacio;
     @FXML private ComboBox<Edificio> comboEdificio;
-    @FXML private Button cancelar;
-    @FXML private Button guardar;
-
-    private Espacio espacio;
-    private int idViejo;
+    @FXML private Button btnCancelar;
+    @FXML private Button btnGuardar;
 
     private final EspacioDao espacioDao = new EspacioDao();
     private final EdificioDao edificioDao = new EdificioDao();
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        guardar.setOnAction(this::updateEspacio);
-        cancelar.setOnAction(e -> cerrarVentana());
+    @FXML
+    public void initialize() {
         cargarEdificios();
+
+        btnGuardar.setOnAction(e -> guardar());
+        btnCancelar.setOnAction(e -> cerrarVentana());
     }
 
     private void cargarEdificios() {
-        List<Edificio> edificios = edificioDao.readEdificiosActivos();
+        List<Edificio> edificios = edificioDao.readEdificiosActivos(); // usa solo edificios activos
         comboEdificio.setItems(FXCollections.observableArrayList(edificios));
     }
 
-    public void setEspacio(Espacio espacio) {
-        this.espacio = espacio;
-        this.idViejo = espacio.getId();
-        nombreEspacio.setText(espacio.getNombre());
-        comboEdificio.setValue(espacio.getEdificio());
-    }
-
-    @FXML
-    public void updateEspacio(ActionEvent event) {
-        String nuevoNombre = nombreEspacio.getText().trim();
+    private void guardar() {
+        String nombre = nombreEspacio.getText().trim();
         Edificio edificioSeleccionado = comboEdificio.getValue();
 
-        if (nuevoNombre.isEmpty()) {
+        if (nombre.isEmpty()) {
             mostrarAlerta(Alert.AlertType.WARNING, "Debes ingresar un nombre.");
             return;
         }
@@ -62,14 +48,15 @@ public class UpdateEspacioController implements Initializable {
             return;
         }
 
-        espacio.setNombre(nuevoNombre);
-        espacio.setEdificio(edificioSeleccionado);
-        espacio.setEstado(1); // se mantiene activo al actualizar
+        Espacio nuevo = new Espacio();
+        nuevo.setNombre(nombre);
+        nuevo.setEdificio(edificioSeleccionado);  // usa objeto Edificio, no ID
+        nuevo.setEstado(1); // activo por defecto
 
-        if (espacioDao.updateEspacio(idViejo, espacio)) {
+        if (espacioDao.createEspacio(nuevo)) {
             cerrarVentana();
         } else {
-            mostrarAlerta(Alert.AlertType.ERROR, "No se pudo actualizar el espacio.");
+            mostrarAlerta(Alert.AlertType.ERROR, "No se pudo registrar el espacio.");
         }
     }
 
@@ -86,7 +73,4 @@ public class UpdateEspacioController implements Initializable {
         alert.showAndWait();
     }
 }
-
-
-
 

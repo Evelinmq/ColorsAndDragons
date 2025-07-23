@@ -49,12 +49,22 @@ public class EdificioController implements Initializable {
 
         tabla.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             boolean haySeleccion = newSelection != null;
-            editar.setDisable(!haySeleccion);
-            eliminar.setDisable(!haySeleccion);
 
-
-            String estadoSeleccionado = comboEstado.getValue();
-            regresoEdificio.setDisable(!haySeleccion || !"Inactivos".equals(estadoSeleccionado));
+            if (haySeleccion) {
+                if (newSelection.getEstado() == 1) {
+                    editar.setDisable(false);
+                    eliminar.setDisable(false);
+                    regresoEdificio.setDisable(true);
+                } else {
+                    editar.setDisable(true);
+                    eliminar.setDisable(true);
+                    regresoEdificio.setDisable(false);
+                }
+            } else {
+                editar.setDisable(true);
+                eliminar.setDisable(true);
+                regresoEdificio.setDisable(true);
+            }
         });
 
         editar.setOnAction(event -> {

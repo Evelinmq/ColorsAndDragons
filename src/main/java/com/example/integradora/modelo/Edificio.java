@@ -42,4 +42,10 @@ public class Edificio {
     public void setEstado(int estado) {
         this.estado = estado;
     }
+
+    @Override
+    public String toString() {
+        return nombre; // Muestra el nombre del edificio en el ComboBox
+    }
+
 }

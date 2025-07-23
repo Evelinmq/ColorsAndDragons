@@ -110,6 +110,28 @@ public class EdificioDao {
         return lista;
     }
 
+    public List<Edificio> readEdificiosActivos() {
+        List<Edificio> lista = new ArrayList<>();
+
+        try (Connection conn = OracleDatabaseConnectionManager.getConnection();
+             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM EDIFICIO WHERE ESTADO = 1");
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Edificio e = new Edificio();
+                e.setId(rs.getInt("ID_EDIFICIO"));
+                e.setNombre(rs.getString("NOMBRE"));
+                e.setEstado(rs.getInt("ESTADO"));
+                lista.add(e);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+
     public List<Edificio> readEdificio(){
         List<Edificio> lista = new ArrayList<>();
         try{

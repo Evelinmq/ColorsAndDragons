@@ -4,14 +4,13 @@ public class Espacio {
 
     private int id;
     private String nombre;
-    private int idEdificio;
+    private Edificio edificio;
     private int estado;
 
-
-    public Espacio(int id, String nombre, int idEdificio, int estado) {
+    public Espacio(int id, String nombre, Edificio edificio, int estado) {
         this.id = id;
         this.nombre = nombre;
-        this.idEdificio = idEdificio;
+        this.edificio = edificio;
         this.estado = estado;
     }
 
@@ -34,12 +33,12 @@ public class Espacio {
         this.nombre = nombre;
     }
 
-    public int getIdEdificio() {
-        return idEdificio;
+    public Edificio getEdificio() {
+        return edificio;
     }
 
-    public void setIdEdificio(int idEdificio) {
-        this.idEdificio = idEdificio;
+    public void setEdificio(Edificio edificio) {
+        this.edificio = edificio;
     }
 
     public int getEstado() {
@@ -50,3 +49,4 @@ public class Espacio {
         this.estado = estado;
     }
 }
+
