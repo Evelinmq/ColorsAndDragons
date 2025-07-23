@@ -1,16 +1,12 @@
 package com.example.integradora.controllers;
 
 import com.example.integradora.modelo.Puesto;
-import com.example.integradora.modelo.dao.EdificioDao;
 import com.example.integradora.modelo.dao.PuestoDao;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -21,6 +17,9 @@ public class UpdatePuestoController implements Initializable {
 
     @FXML
     private TextField nombrePuesto;
+
+    @FXML
+    private Button cerrarVentana, guardarPuesto;
 
     private Puesto puesto;
     private int idViejito;
@@ -44,7 +43,11 @@ public class UpdatePuestoController implements Initializable {
 
         PuestoDao dao = new PuestoDao();
         if (dao.updatePuesto(idViejito, puesto)) {
-            System.out.println("Puesto actualizado");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Puesto actualizado");
+            alert.showAndWait();
+        }else{
+            Alert alert = new Alert(Alert.AlertType.ERROR, "No se pudo actualizar el puesto");
+            alert.showAndWait();
         }
 
         Stage ventana = (Stage) nombrePuesto.getScene().getWindow();
@@ -58,44 +61,5 @@ public class UpdatePuestoController implements Initializable {
         stage.close();
     }
 
-    /*
-    @FXML
-    private void guardarPuesto(ActionEvent event) {
-        System.out.println("Guardando Puesto");
-        nuevoNombrePuesto = nombrePuesto.getText().trim();
-
-        if (nombrePuesto == null) {
-            Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Error");
-            alerta.setHeaderText(null);
-            alerta.setContentText("El campo no puede ir vacío");
-            alerta.showAndWait();
-            return;
-        }
-
-        PuestoDao dao = new PuestoDao();
-        Puesto nuevo = new Puesto();
-        nuevo.setNombre(nuevoNombrePuesto);
-        nuevo.setEstado(1);
-
-        boolean exito = dao.createPuesto(nuevo);
-
-        if (exito) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Actualización exitosa");
-            alert.setHeaderText(null);
-            alert.setContentText("Se ha actualizado el Puesto");
-            alert.showAndWait();
-            cerrarVentana(event); // cerrar si fue exitoso
-        } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("No se pudo registrar el puesto.");
-            alert.showAndWait();
-        }*/
-        // Después de guardar, probablemente quieras cerrar la ventana
-        // Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-        // stage.close();
 }
 

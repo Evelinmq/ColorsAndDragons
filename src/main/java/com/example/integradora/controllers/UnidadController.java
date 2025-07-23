@@ -1,9 +1,7 @@
 package com.example.integradora.controllers;
 
 import com.example.integradora.Main;
-import com.example.integradora.modelo.Puesto;
 import com.example.integradora.modelo.UnidadAdministrativa;
-import com.example.integradora.modelo.dao.PuestoDao;
 import com.example.integradora.modelo.dao.UnidadAdministrativaDao;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,121 +31,300 @@ import java.util.ResourceBundle;
 public class UnidadController implements Initializable {
 
     @FXML
+    private TextField nombreUnidad;
+    @FXML
     private TableView<UnidadAdministrativa> tablaUnidad;
     @FXML
-    TableColumn<UnidadAdministrativa, String> tablaUnidadNombre;
+    TableColumn<UnidadController, String> tablaUnidadNombre;
     @FXML
     private AnchorPane padreUnidad;
     @FXML
-    private Button resguardo, bienes, empleados, puesto, espacio, edificio, usuario;
+    private Button resguardo, bienes, empleados, espacio, puesto, edificio, usuario;
 
     @FXML
     private TextField textoBusquedaUnidad;
     @FXML
     private ProgressIndicator spinner;
-    @FXML
-    private Button botonBusquedaUnidad, eliminarUnidad, actualizarUnidad, agregarUnidad;
-    @FXML
-    private ComboBox<UnidadAdministrativa> filtroUnidad;
 
-    private List<UnidadAdministrativa> unidades;
+    @FXML
+    private Button botonBusquedaUnidad, eliminarUnidad, actualizarUnidad, agregar, recuperar;
+    @FXML
+    private ComboBox<String> filtroEstado;
+
+    private List<UnidadAdministrativa> unidades = new ArrayList<>();
+
+    private UnidadAdministrativaDao dao = new UnidadAdministrativaDao();
+
+    ObservableList<UnidadAdministrativa> opcionesTabla;
+
+    private Stage dialogStage;
+
+    public void setDialogStage(Stage dialogStage) {
+        this.dialogStage = dialogStage;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resourceBundle) {
-        //Acceder BD
-        unidades = new ArrayList<>();
-        UnidadAdministrativaDao dao = new UnidadAdministrativaDao();
-        unidades = dao.readUnidadAdministrativa();
+        // 1. Acceder a la BD
+        List<UnidadAdministrativa> lista = dao.readUnidad();
 
-        //Configuración de columnas
+
+        //Configuración columa
         tablaUnidadNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        //tablaPuesto.setItems(FXCollections.observableList(lista));
+        recargarTabla();
+
         //Lista observable
-        tablaUnidad.setItems(FXCollections.observableList(unidades));
+        ObservableList<UnidadAdministrativa> listaObservable = FXCollections.observableList(lista);
+        tablaUnidad.setItems(listaObservable);
 
 
+        //Habilitar botón eliminar, editar, actualizar
+        tablaUnidad.setOnMouseClicked(click -> {
+            if(tablaUnidad.getSelectionModel().getSelectedItem() != null) {
+                //Activa botón
+                eliminarUnidad.setDisable(false);
 
-        //Cambiar opciones de editar y eliminar a reaccionar con botones
+            }else{
+                eliminarUnidad.setDisable(true);
+            }
+        });
+
+        tablaUnidad.setOnMouseClicked(click -> {
+            if(tablaUnidad.getSelectionModel().getSelectedItem() != null) {
+                recuperar.setDisable(false);
+            }else{
+                recuperar.setDisable(true);
+            }
+        });
+
+        opcionesTabla = FXCollections.observableArrayList(unidades);
+        tablaUnidad.setItems(opcionesTabla);
+
+        // Botón editar
+        actualizarUnidad.setDisable(true);
+
+        tablaUnidad.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            actualizarUnidad.setDisable(newValue == null);
+        });
+
+        //selecionar unidad para editar
+        actualizarUnidad.setOnAction(event -> {
+            UnidadAdministrativa seleccion = tablaUnidad.getSelectionModel().getSelectedItem();
+            if (seleccion != null) {
+                abrirVentanaEdicionUnidad(seleccion);
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Debes seleccionar una unidad administrativa para editar");
+                alert.showAndWait();
+            }
+        });
+
+        tablaUnidad.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            eliminarUnidad.setDisable(newValue == null);
+        });
+
+
+        //SELECCIONAR PARA ELIMINAR
         eliminarUnidad.setOnAction(event -> {
             UnidadAdministrativa seleccionado = tablaUnidad.getSelectionModel().getSelectedItem();
+            if (seleccionado != null) {
+                if (confirmarEliminar()) {
+                    if (UnidadAdministrativaDao.deleteUnidad(seleccionado.getId())) {
+                        recargarTabla();
 
-            if (seleccionado != null && !tablaUnidad.getSelectionModel().isEmpty()) {
-                int id = seleccionado.getId();
-
-                boolean exito = new UnidadAdministrativaDao().deleteUnidadAdministrativa(id);
-
-                if (exito) {
-                    //eliminar de la lista observable o refrescar
-                    tablaUnidad.getItems().remove(seleccionado);
-                    //volver a cargar la lista desde la BD
-                    System.out.println("Eliminación lógica exitosa.");
-                } else {
-                    System.out.println("No se pudo eliminar el puesto.");
+                        Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                        successAlert.setTitle("Éxito");
+                        successAlert.setHeaderText(null);
+                        successAlert.setContentText("La unidad administrativa ha sido eliminada correctamente.");
+                        successAlert.showAndWait();
+                    }
                 }
             } else {
-                System.out.println("Selecciona un puesto primero.");
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Aviso");
+                alert.setHeaderText(null);
+                alert.setContentText("Debes seleccionar una unidad administrativa para eliminar");
+                alert.showAndWait();
+                recargarTabla();
             }
         });
 
-        actualizarUnidad.setOnAction(e -> {
-            UnidadAdministrativa seleccionado = (UnidadAdministrativa) tablaUnidad.getSelectionModel().getSelectedItem();
-
-            if (seleccionado != null && !tablaUnidad.getSelectionModel().isEmpty()) {
-                abrirVentanaEdicionUnidad(seleccionado);
+        tablaUnidad.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null && newValue.getEstado() == 0) {
+                recuperar.setDisable(false);
+            } else {
+                recuperar.setDisable(true);
             }
-            tablaUnidad.refresh();
         });
 
-    }
+        //Regresar unidad a estado 1
+        recuperar.setOnAction(event -> {
+            UnidadAdministrativa seleccionado = tablaUnidad.getSelectionModel().getSelectedItem();
+            if (seleccionado != null) {
+                if (confirmarRegresar()) {
+                    if (UnidadAdministrativaDao.regresoUnidad(seleccionado.getId())) {
+                        recargarTabla();
+                    }
+                }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Aviso");
+                alert.setHeaderText(null);
+                alert.setContentText("Debes seleccionar una unidad administrativa para eliminar");
+                alert.showAndWait();
+                recargarTabla();
+            }
+        });
 
-    private void abrirVentanaEdicionUnidad(UnidadAdministrativa unidad) {
-        //Cargar nueva vista
-        try{
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/example/integradora/EditarUnidad.fxml"));
-            Scene scene = new Scene(loader.load());
-            //Mandar Unidad a nueva vista
-            UpdateUnidadController controller = loader.getController();
-            //Sacar stage desde componente abierto
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setTitle("Editar Unidad");
-            BoxBlur blur = new BoxBlur(3, 3, 3);
-            padreUnidad.setEffect(blur);
-            stage.showAndWait();
-            padreUnidad.setEffect(null);
-            UnidadAdministrativaDao dao = new UnidadAdministrativaDao();
-            unidades.clear();
-            unidades.addAll(dao.readUnidadAdministrativa());
-            tablaUnidad.setItems(FXCollections.observableList(unidades));
-            tablaUnidad.refresh();
-        }catch (IOException e){
-            e.printStackTrace();
-        }
+
+        unidades = FXCollections.observableArrayList(opcionesTabla);
+        tablaUnidad.setItems(listaObservable);
+
+        // 4. Configurar el ComboBox
+        ObservableList<String> estados = FXCollections.observableArrayList("Activos", "Inactivos", "VerTodos");
+        filtroEstado.setItems(estados);
+
+        filtroEstado.setOnAction(click -> {
+            String estadoSeleccionado = filtroEstado.getSelectionModel().getSelectedItem();
+
+            if ("Inactivos".equals(estadoSeleccionado)) {
+                tablaUnidad.setItems(listaObservable.filtered(unidadAdministrativa -> unidadAdministrativa.getEstado() == 0));
+            } else if ("Activos".equals(estadoSeleccionado)) {
+                tablaUnidad.setItems(listaObservable.filtered(unidadAdministrativa -> unidadAdministrativa.getEstado() == 1));
+            } else if ("VerTodos".equals(estadoSeleccionado)) {
+                tablaUnidad.setItems(listaObservable);
+            }
+        });
+
+
+        // Botón agregar
+        agregar.setOnAction(event -> abrirVentanaRegistro());
+
+
+        textoBusquedaUnidad.textProperty().addListener((obs, old, newValue) -> {
+            if (newValue.trim().isEmpty()) {
+                recargarTabla(); // Usa el metodo que respeta el filtro
+            }
+        });
+
     }
 
     @FXML
-    protected void agregarUnidad() {
+    public void eliminarSeleccion() {
+        if(tablaUnidad.getSelectionModel().getSelectedItem() != null) {
+            UnidadAdministrativa seleccionado = tablaUnidad.getSelectionModel().getSelectedItem();
+            tablaUnidad.getItems().remove(seleccionado);
+        }
+        tablaUnidad.getSelectionModel().clearSelection();
+        eliminarUnidad.setDisable(true);
+    }
+
+    private void mostrarAlerta(String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Aviso");
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
+    }
+
+    private void abrirVentanaEdicionUnidad(UnidadAdministrativa u){
+        //Cargar nueva vista
+        try{
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/example/integradora/EditarUnidad.fxml"));
+            Parent root = loader.load();
+            UpdateUnidadController controller = loader.getController();
+
+            if (u != null) {
+                controller.setUnidadAdministrativa(u); // Llama al setUnidadAdministrativa del controlador de edición
+            }
+
+            // Efecto blur al fondo
+            Scene escenaPrincipal = agregar.getScene();
+            Parent fondo = escenaPrincipal.getRoot();
+            fondo.setEffect(new BoxBlur(10, 10, 3));
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.setScene(new Scene(root));
+            stage.setTitle("Editar Unidad Administrativa");
+            stage.initOwner(escenaPrincipal.getWindow());
+            //stage.show();
+
+            stage.setOnHidden(e -> {
+                fondo.setEffect(null); // Quita el blur
+                recargarTabla();      // Recarga la tabla
+            });
+
+            stage.show();
+            //stage.setOnHidden(e -> fondo.setEffect(null));
+        }catch (IOException e){
+            e.printStackTrace();
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setTitle("Error al abrir ventana");
+            errorAlert.setHeaderText(null);
+            errorAlert.setContentText("No se pudo abrir la ventana de edición. Por favor, inténtalo de nuevo.");
+            errorAlert.showAndWait();
+        }
+    }
+
+    private void abrirVentanaRegistro() {
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/example/integradora/RegistrarUnidad.fxml"));
-            Scene scene = new Scene(loader.load());
-            RegistrarUnidadController controller = loader.getController();
-            //Sacar el stage desde uno ya abierto
+            Parent root = loader.load();
+
+            // Efecto blur al fondo
+            Scene escenaPrincipal = agregar.getScene();
+            Parent fondo = escenaPrincipal.getRoot();
+            fondo.setEffect(new BoxBlur(10, 10, 3));
+
             Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.initModality(Modality.APPLICATION_MODAL); // Bloquea la ventana anterior hasta que se cierre esta
-            stage.setTitle("Agregar Unidad");
-            BoxBlur blur = new BoxBlur(3, 3, 3);
-            padreUnidad.setEffect(blur);
-            stage.showAndWait();
-            padreUnidad.setEffect(null);
-            UnidadAdministrativaDao dao = new UnidadAdministrativaDao();
-            unidades.clear();
-            unidades.addAll(dao.readUnidadAdministrativa());
-            tablaUnidad.setItems(FXCollections.observableList(unidades));
-            tablaUnidad.refresh();
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.setOnHidden(e -> recargarTabla());
+            stage.setScene(new Scene(root));
+            stage.setTitle("Registrar Unidad Administrativa");
+            stage.initOwner(escenaPrincipal.getWindow());
+            stage.show();
+
+
+            RegistrarUnidadController controller = loader.getController();
+            controller.setStage(stage);
+            controller.setOnUnidadCreado(() -> {
+                recargarTabla();
+            });
+
+
+            stage.setOnHidden(e -> fondo.setEffect(null));
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void registrarUnidad(ActionEvent event) {
+        // Obtenemos la info del campo de texto
+        String unidadV = nombreUnidad.getText().trim();
+        if (unidadV.isEmpty()) return;
+
+        UnidadAdministrativa nuevo = new UnidadAdministrativa();
+        nuevo.setNombre(unidadV);
+        nuevo.setEstado(1); // activo
+
+        if (dao.createUnidad(nuevo)) {
+            System.out.println("Se insertó con éxito");
+        }
+
+        nombreUnidad.setText("");
+        recargarTabla();
+    }
+
+    private boolean confirmarRegresar(){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmar regresar");
+        alert.setHeaderText(null);
+        alert.setContentText("¿Deseas regresar la unidad administrativa?");
+        Optional<ButtonType> resultado = alert.showAndWait();
+        return resultado.isPresent() && resultado.get() == ButtonType.OK;
     }
 
     private boolean confirmarEliminar(){
@@ -159,42 +336,118 @@ public class UnidadController implements Initializable {
         return resultado.isPresent() && resultado.get() == ButtonType.OK;
     }
 
+    @FXML
+    private void filtrarPorEstado() {
+        String opcion = filtroEstado.getValue();
+        List<UnidadAdministrativa> lista = new ArrayList<>();
 
-    public void buscarPuesto(ActionEvent event){
+        switch (opcion) {
+            case "Activos":
+                lista = dao.readUnidadPorEstado(1);
+                break;
+            case "Inactivos":
+                lista = dao.readUnidadPorEstado(0);
+                break;
+            case "VerTodos":
+                lista = dao.readTodosUnidades();
+                break;
+        }
 
-        //deshabilitar boton para dar tiempo a realizar búsqueda
+        tablaUnidad.setItems(FXCollections.observableList(lista));
+        tablaUnidad.refresh();
+
+        // Deshabilitar botón de restaurar al cambiar el filtro
+        recuperar.setDisable(true);
+    }
+
+
+    @FXML
+    private void buscarUnidad(ActionEvent event) {
+        // Desactiva el botón y muestra el spinner
         botonBusquedaUnidad.setDisable(true);
         spinner.setVisible(true);
 
-        String texto = textoBusquedaUnidad.getText();
+        // Captura texto de búsqueda
+        String texto = textoBusquedaUnidad.getText().trim().toLowerCase();
+        String filtro = filtroEstado.getSelectionModel().getSelectedItem();
 
-        Task<List<UnidadAdministrativa>> cargarBusqueda = new Task<>(){
+        // Simula búsqueda en segundo plano
+        Task<List<UnidadAdministrativa>> tareaBusqueda = new Task<>() {
             @Override
-            protected List<UnidadAdministrativa> call() throws Exception{
-                UnidadAdministrativaDao dao = new UnidadAdministrativaDao();
-                List<UnidadAdministrativa> lista = dao.readUnidadAdministrativaEspecifico(texto);
-                return lista;
+            protected List<UnidadAdministrativa> call() {
+                List<UnidadAdministrativa> lista = dao.readUnidad(); // Carga todas las unidades
+                return lista.stream()
+                        .filter(u -> {
+                            boolean coincideTexto = u.getNombre().toLowerCase().contains(texto);
+                            boolean coincideEstado = true;
+
+                            if (filtro != null) {
+                                switch (filtro) {
+                                    case "Activos": coincideEstado = u.getEstado() == 1; break;
+                                    case "Inactivos": coincideEstado = u.getEstado() == 0; break;
+                                    case "VerTodos": coincideEstado = true; break;
+                                }
+                            }
+
+                            return coincideTexto && coincideEstado;
+                        })
+                        .toList();
+            }
+
+            @Override
+            protected void succeeded() {
+                List<UnidadAdministrativa> resultado = getValue();
+                tablaUnidad.setItems(FXCollections.observableArrayList(resultado));
+                tablaUnidad.refresh();
+
+                spinner.setVisible(false);
+                botonBusquedaUnidad.setDisable(false);
+            }
+
+            @Override
+            protected void failed() {
+                spinner.setVisible(false);
+                botonBusquedaUnidad.setDisable(false);
             }
         };
-        cargarBusqueda.setOnFailed(workerStateEvent -> {
-            botonBusquedaUnidad.setDisable(false);
-            spinner.setVisible(false);
-            System.err.println("Algo falló " + cargarBusqueda.getException());
-        });
-        cargarBusqueda.setOnSucceeded(workerStateEvent -> {
-            botonBusquedaUnidad.setDisable(false);
-            spinner.setVisible(false);
-            List<UnidadAdministrativa> lista = cargarBusqueda.getValue();
-            ObservableList<UnidadAdministrativa> listaObservable = FXCollections.observableList(lista);
-            tablaUnidad.setItems(listaObservable);
-            tablaUnidad.refresh();
-        });
-        Thread thread = new Thread(cargarBusqueda);
-        thread.start();
+
+        Thread hilo = new Thread(tareaBusqueda);
+        hilo.setDaemon(true);
+        hilo.start();
     }
 
+
+    private void recargarTabla() {
+        List<UnidadAdministrativa> lista = dao.readUnidad();
+        ObservableList<UnidadAdministrativa> listaObservable = FXCollections.observableArrayList(lista);
+
+        String filtro = filtroEstado.getSelectionModel().getSelectedItem();
+
+        if (filtro != null) {
+            switch (filtro) {
+                case "Activos":
+                    tablaUnidad.setItems(listaObservable.filtered(u -> u.getEstado() == 1));
+                    break;
+                case "Inactivos":
+                    tablaUnidad.setItems(listaObservable.filtered(u -> u.getEstado() == 0));
+                    break;
+                case "VerTodos":
+                    tablaUnidad.setItems(listaObservable);
+                    break;
+                default:
+                    tablaUnidad.setItems(listaObservable); // fallback
+            }
+        } else {
+            tablaUnidad.setItems(listaObservable); // si no hay filtro seleccionado aún
+        }
+
+        tablaUnidad.refresh();
+    }
+
+
+    //Botones cambiar a vistas
     @FXML
-    protected void irResguardo (){
+    protected void irResguardo(){
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaResguardo.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
@@ -235,21 +488,6 @@ public class UnidadController implements Initializable {
         }
     }
 
-
-    @FXML
-    protected void irPuesto(){
-        try{
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaPuesto.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
-            //Sacar la stage desde un componente visual ya abieto
-            Stage stage = (Stage) puesto.getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-    }
-
     @FXML
     protected void irEspacio(){
         try{
@@ -264,6 +502,19 @@ public class UnidadController implements Initializable {
         }
     }
 
+    @FXML
+    protected void irPuesto(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/Vistapuesto.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            //Sacar la stage desde un componente visual ya abieto
+            Stage stage = (Stage) puesto.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     protected void irEdificio(){

@@ -3,132 +3,177 @@ package com.example.integradora.modelo.dao;
 import com.example.integradora.modelo.UnidadAdministrativa;
 import com.example.integradora.utils.OracleDatabaseConnectionManager;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UnidadAdministrativaDao {
-
-    public boolean createUnidadAdministrativa(UnidadAdministrativa ua) {
+    public boolean createUnidad(UnidadAdministrativa u){
         try{
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "INSERT INTO Unidad_Administrativa(nombre, estado) values(?,1)";
+            String query = "INSERT INTO UNIDAD_ADMINISTRATIVA(nombre, estado) VALUES(?, ?)";
             PreparedStatement ps = conn.prepareStatement(query);
-            ps.setString(1, ua.getNombre());
-            if(ps.executeUpdate() > 0){
-                System.out.println("La Unidad Administrativa ha sido creada con exito");
-                conn.close(); // <---
-                return true;
-            }
-            conn.close();
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    public boolean updateUnidadAdministrativa(int idViejito, UnidadAdministrativa ua) {
-        try{
-            Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "UPDATE Unidad_Administrativa SET nombre = ? WHERE id = ?";
-            PreparedStatement ps = conn.prepareStatement(query);
-            ps.setString(1, ua.getNombre());
-            ps.setInt(2, idViejito);
-            if(ps.executeUpdate() >= 1){
-                System.out.println("Se actualizó la Unidad Administrativa con exito");
+            ps.setString(1, u.getNombre());
+            ps.setInt(2, u.getEstado());
+            if (ps.executeUpdate() > 0){
+                System.out.println("Unidad Administrativa creada");
                 conn.close();
                 return true;
             }
-        }catch(SQLException e){
+            conn.close();
+        }catch (SQLException e){
             e.printStackTrace();
         }
         return false;
     }
 
-    //Delete LÓGICO
-    public boolean deleteUnidadAdministrativa(int id) {
+    public boolean updateUnidad(int idUnidadViejo, UnidadAdministrativa u){
         try{
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "UPDATE Unidad_Administrativa SET status = 0 WHERE id = ?";
+            String query = "UPDATE UNIDAD_ADMINISTRATIVA SET nombre = ?, estado = ? where id_unidad = ?";
             PreparedStatement ps = conn.prepareStatement(query);
-            ps.setInt(1, id);
-            if(ps.executeUpdate() > 0){
-                //conn.close(); // <---
+            ps.setString(1, u.getNombre());
+            ps.setInt(2, u.getEstado());
+            ps.setInt(3, idUnidadViejo);
+            if (ps.executeUpdate() > 0){
+                System.out.println("Unidad Administrativa actualizada");
+                conn.close();
                 return true;
             }
-        }catch(SQLException e){
+            conn.close();
+        }catch (SQLException e){
             e.printStackTrace();
         }
         return false;
     }
 
-    //Recuperar Unidad Administrativa borrada
-    public boolean recoverUnidadAdministrativa(int id) {
-        try{
-            Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "UPDATE Unidad_Administrativa SET status = 1 WHERE id = ?";
-            PreparedStatement ps = conn.prepareStatement(query);
-            ps.setInt(1, id);
-            if(ps.executeUpdate() > 0){
-                //conn.close(); // <---
-                return true;
-            }
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    public List<UnidadAdministrativa> readUnidadAdministrativa() {
-        List<UnidadAdministrativa> lista = new ArrayList<>();
+    public static boolean deleteUnidad(int id){
         try {
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "SELECT *FROM Unidad_Administrativa ORDER BY id ASC";
+            String query = "UPDATE UNIDAD_ADMINISTRATIVA SET estado=0 WHERE id_UNIDAD=?"; //no olvidar el where
+            PreparedStatement ps = conn.prepareStatement(query);    //delete logico
+            ps.setInt(1,id);
+            if(ps.executeUpdate()>0){
+                System.out.println("Unidad Administrativa eliminada");
+                conn.close();
+                return true;
+            }
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public List<UnidadAdministrativa> readUnidad(){
+        List<UnidadAdministrativa> lista = new ArrayList<>();
+        try{
+            Connection conn = OracleDatabaseConnectionManager.getConnection();
+            String query = "SELECT * FROM UNIDAD_ADMINISTRATIVA ORDER BY id_UNIDAD ASC";
             PreparedStatement ps = conn.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 UnidadAdministrativa u = new UnidadAdministrativa();
+                u.setId(rs.getInt("id_UNIDAD"));
                 u.setNombre(rs.getString("nombre"));
+                u.setEstado(rs.getInt("estado"));
                 lista.add(u);
             }
-            conn.close();
             rs.close();
+            conn.close();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return lista;
+    }
+
+    public List<UnidadAdministrativa> readUnidadEspecifico(String texto) {
+
+        List<UnidadAdministrativa> lista = new ArrayList<>();
+        try{
+            Connection conn = OracleDatabaseConnectionManager.getConnection();
+            String query = "SELECT * FROM UNIDAD_ADMINISTRATIVA WHERE id_UNIDAD LIKE ? ORDER BY ID_UNIDAD ASC";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, "%" + texto + "%");
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                UnidadAdministrativa u = new UnidadAdministrativa();
+                u.setId(rs.getInt("id_UNIDAD"));
+                u.setNombre(rs.getString("nombre"));
+                u.setEstado(rs.getInt("estado"));
+                lista.add(u);
+            }
+            rs.close();
+            conn.close();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return lista;
+
+    }
+
+    public static List<UnidadAdministrativa> readTodosUnidades() {
+        List<UnidadAdministrativa> unidades = new ArrayList<>();
+
+        String query = "SELECT ID_UNIDAD, NOMBRE, ESTADO FROM UNIDAD_ADMINISTRATIVA ORDER BY ID_UNIDAD ASC";
+
+        try (Connection conn = OracleDatabaseConnectionManager.getConnection();
+             Statement stmt = conn.createStatement(); // Usamos Statement porque NO hay parámetros
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            while (rs.next()) {
+                UnidadAdministrativa u = new UnidadAdministrativa();
+                u.setId(rs.getInt("ID_UNIDAD"));
+                u.setNombre(rs.getString("nombre"));
+                u.setEstado(rs.getInt("estado"));
+                unidades.add(u);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al leer todas las unidades de la base de datos:");
+            e.printStackTrace();
+        }
+        return unidades;
+    }
+
+    public static boolean regresoUnidad(int id){
+        try {
+            Connection conn = OracleDatabaseConnectionManager.getConnection();
+            String query = "UPDATE UNIDAD_ADMINISTRATIVA SET estado=1 WHERE id_UNIDAD=? AND estado = 0"; //no olvidar el where
+            PreparedStatement ps = conn.prepareStatement(query);    //delete logico
+            ps.setInt(1,id);
+            if(ps.executeUpdate()>0){
+                System.out.println("Unidad Administrativa recuperada");
+                conn.close();
+                return true;
+            }
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public List<UnidadAdministrativa> readUnidadPorEstado(int estado) {
+        List<UnidadAdministrativa> lista = new ArrayList<>();
+        try {
+            Connection conn = OracleDatabaseConnectionManager.getConnection();
+            String query = "SELECT * FROM UNIDAD_ADMINISTRATIVA WHERE estado = ? ORDER BY id_UNIDAD ASC";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, estado);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                UnidadAdministrativa u = new UnidadAdministrativa();
+                u.setId(rs.getInt("id_UNIDAD"));
+                u.setNombre(rs.getString("nombre"));
+                u.setEstado(rs.getInt("estado"));
+                lista.add(u);
+            }
+            rs.close();
+            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return lista;
     }
-
-    public List<UnidadAdministrativa> readUnidadAdministrativaEspecifico(String texto) {
-
-        List<UnidadAdministrativa> lista = new ArrayList<>();
-        try{
-            Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "SELECT * FROM Unidad_Adminsitrativa WHERE nombre LIKE ? OR estado LIKE ? OR " +
-                 "estado LIKE ? OR +" +
-                 "id LIKE ? ORDER BY id ASC";
-            PreparedStatement ps = conn.prepareStatement(query);
-            ps.setString(1, "%"+texto+"%");
-            ps.setString(2, "%"+texto+"%");
-            ps.setString(3, "%"+texto+"%");
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                UnidadAdministrativa u = new UnidadAdministrativa();
-                //u.setId(rs.getInt("id"));
-                u.setNombre(rs.getString("nombre"));
-                //u.setEstado(rs.getInt("estado"));
-                lista.add(u);
-            }
-            rs.close();
-            conn.close();
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-        return lista;
-    }
-
 
 }
