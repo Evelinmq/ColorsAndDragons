@@ -1,12 +1,10 @@
 package com.example.integradora.modelo.dao;
 
+import com.example.integradora.modelo.Edificio;
 import com.example.integradora.modelo.Puesto;
 import com.example.integradora.utils.OracleDatabaseConnectionManager;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,12 +33,11 @@ public class PuestoDao {
     public boolean updatePuesto(int idPuestoViejo, Puesto p){
         try{
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "UPDATE PUESTO SET id_puesto = ?, nombre = ?, estado = ? where id = ?";
+            String query = "UPDATE PUESTO SET nombre = ?, estado = ? where id_puesto = ?";
             PreparedStatement ps = conn.prepareStatement(query);
-            ps.setInt(1, p.getId());
-            ps.setString(2, p.getNombre());
-            ps.setInt(3, p.getEstado());
-            ps.setInt(4, idPuestoViejo);
+            ps.setString(1, p.getNombre());
+            ps.setInt(2, p.getEstado());
+            ps.setInt(3, idPuestoViejo);
             if (ps.executeUpdate() > 0){
                 System.out.println("Puesto actualizado");
                 conn.close();
@@ -53,10 +50,10 @@ public class PuestoDao {
         return false;
     }
 
-    public boolean deletePuesto(int id){
+    public static boolean deletePuesto(int id){
         try {
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "UPDATE PUESTO SET status=0 WHERE id_puesto=?"; //no olvidar el where
+            String query = "UPDATE PUESTO SET estado=0 WHERE id_puesto=?"; //no olvidar el where
             PreparedStatement ps = conn.prepareStatement(query);    //delete logico
             ps.setInt(1,id);
             if(ps.executeUpdate()>0){
@@ -98,13 +95,9 @@ public class PuestoDao {
         List<Puesto> lista = new ArrayList<>();
         try{
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "SELECT * FROM PUESTO WHERE id LIKE ? OR " +
-                    "nombre LIKE ? OR " +
-                    "estado LIKE ? ORDER BY id ASC";
+            String query = "SELECT * FROM PUESTO WHERE id_puesto LIKE ? ORDER BY ID_PUESTO ASC";
             PreparedStatement ps = conn.prepareStatement(query);
-            ps.setString(1, "%"+texto+"%");
-            ps.setString(2, "%"+texto+"%");
-            ps.setString(3, "%"+texto+"%");
+            ps.setString(1, "%" + texto + "%");
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 Puesto p = new Puesto();
@@ -122,10 +115,33 @@ public class PuestoDao {
 
     }
 
-    public boolean recoverPuesto(int id){
+    public static List<Puesto> readTodosPuestos() {
+        List<Puesto> puestos = new ArrayList<>();
+
+        String query = "SELECT ID_PUESTO, NOMBRE, ESTADO FROM PUESTO ORDER BY ID_PUESTO ASC";
+
+        try (Connection conn = OracleDatabaseConnectionManager.getConnection();
+             Statement stmt = conn.createStatement(); // Usamos Statement porque NO hay parámetros
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            while (rs.next()) {
+                Puesto p = new Puesto();
+                p.setId(rs.getInt("ID_PUESTO"));
+                p.setNombre(rs.getString("nombre"));
+                p.setEstado(rs.getInt("estado"));
+                puestos.add(p);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al leer todos los puestos de la base de datos:");
+            e.printStackTrace();
+        }
+        return puestos;
+    }
+
+    public static boolean regresoPuesto(int id){
         try {
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "UPDATE PUESTO SET status=1 WHERE id=?"; //no olvidar el where
+            String query = "UPDATE PUESTO SET estado=1 WHERE id_puesto=? AND estado = 0"; //no olvidar el where
             PreparedStatement ps = conn.prepareStatement(query);    //delete logico
             ps.setInt(1,id);
             if(ps.executeUpdate()>0){
@@ -138,6 +154,29 @@ public class PuestoDao {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public List<Puesto> readPuestoPorEstado(int estado) {
+        List<Puesto> lista = new ArrayList<>();
+        try {
+            Connection conn = OracleDatabaseConnectionManager.getConnection();
+            String query = "SELECT * FROM PUESTO WHERE estado = ? ORDER BY id_puesto ASC";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, estado);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Puesto p = new Puesto();
+                p.setId(rs.getInt("id_puesto"));
+                p.setNombre(rs.getString("nombre"));
+                p.setEstado(rs.getInt("estado"));
+                lista.add(p);
+            }
+            rs.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
     }
 
 }

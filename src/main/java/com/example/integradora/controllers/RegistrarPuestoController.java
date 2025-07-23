@@ -31,6 +31,12 @@ public class RegistrarPuestoController{
         this.stage = stage;
     }
 
+    private Runnable onPuestoCreado;
+
+    public void setOnPuestoCreado(Runnable onPuestoCreado) {
+        this.onPuestoCreado = onPuestoCreado;
+    }
+
     @FXML
     private void guardarPuesto (ActionEvent event) {
         System.out.println("Guardando Puesto");
@@ -58,6 +64,9 @@ public class RegistrarPuestoController{
             alert.setHeaderText(null);
             alert.setContentText("Se ha creado un nuevo puesto");
             alert.showAndWait();
+            if (onPuestoCreado != null) {
+                onPuestoCreado.run();
+            }
             cerrarVentana(event); // cerrar si fue exitoso
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -74,11 +83,12 @@ public class RegistrarPuestoController{
             stage.close();
         } else {
             // cerrar por el nodo raíz si no hay stage asignado
-            Stage currentStage = (Stage) labelPuesto.getScene().getWindow();
-            currentStage.close();
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+            stage.close();
         }
     }
 
+}
 
    /* @FXML
     public void registrarPuesto(ActionEvent actionEvent) {
@@ -109,5 +119,4 @@ public class RegistrarPuestoController{
         labelPuesto.setText("");
 
     }*/
-}
 

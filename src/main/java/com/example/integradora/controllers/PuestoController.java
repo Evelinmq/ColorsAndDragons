@@ -1,7 +1,6 @@
 package com.example.integradora.controllers;
 
 import com.example.integradora.Main;
-import com.example.integradora.modelo.Edificio;
 import com.example.integradora.modelo.Puesto;
 import com.example.integradora.modelo.dao.PuestoDao;
 import javafx.collections.FXCollections;
@@ -45,23 +44,33 @@ public class PuestoController implements Initializable {
     private TextField textoBusquedaPuesto;
     @FXML
     private ProgressIndicator spinner;
+
     @FXML
     private Button botonBusquedaPuesto, eliminarPuesto, actualizarPuesto, agregar, recuperar;
     @FXML
-    private ComboBox<Puesto> filtroPuesto;
+    private ComboBox<String> filtroEstado;
 
     private List<Puesto> puestos = new ArrayList<>();
 
     private PuestoDao dao = new PuestoDao();
 
+    ObservableList<Puesto> opcionesTabla;
+
+    private Stage dialogStage;
+
+    public void setDialogStage(Stage dialogStage) {
+        this.dialogStage = dialogStage;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resourceBundle) {
         // 1. Acceder a la BD
         List<Puesto> lista = dao.readPuesto();
 
+
         //Configuración columa
         tablaPuestoNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        //tablaPuesto.setItems(FXCollections.observableList(lista));
         recargarTabla();
 
         //Lista observable
@@ -69,36 +78,148 @@ public class PuestoController implements Initializable {
         tablaPuesto.setItems(listaObservable);
 
 
-        // Botón eliminar
+        //Habilitar botón eliminar, editar, actualizar
+        tablaPuesto.setOnMouseClicked(click -> {
+            if(tablaPuesto.getSelectionModel().getSelectedItem() != null) {
+                //Activa botón
+                eliminarPuesto.setDisable(false);
+
+            }else{
+                eliminarPuesto.setDisable(true);
+            }
+        });
+
+        tablaPuesto.setOnMouseClicked(click -> {
+            if(tablaPuesto.getSelectionModel().getSelectedItem() != null) {
+                recuperar.setDisable(false);
+            }else{
+                recuperar.setDisable(true);
+            }
+        });
+
+        //Comienza código búsqueda
+        opcionesTabla = FXCollections.observableArrayList(puestos);
+        tablaPuesto.setItems(opcionesTabla);
+
+        //Finaliza código búsqueda
+
+        // Botón editar
+        actualizarPuesto.setDisable(true);
+
+        tablaPuesto.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            actualizarPuesto.setDisable(newValue == null);
+        });
+
+        //selecionar puesto para editar
+        actualizarPuesto.setOnAction(event -> {
+            Puesto seleccion = tablaPuesto.getSelectionModel().getSelectedItem();
+            if (seleccion != null) {
+                abrirVentanaEdicionPuesto(seleccion);
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Debes seleccionar un puesto para editar");
+                alert.showAndWait();
+            }
+        });
+
+        tablaPuesto.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            eliminarPuesto.setDisable(newValue == null);
+        });
+
+
+        //SELECCIONAR PARA ELIMINAR
         eliminarPuesto.setOnAction(event -> {
             Puesto seleccionado = tablaPuesto.getSelectionModel().getSelectedItem();
             if (seleccionado != null) {
                 if (confirmarEliminar()) {
-                    if (dao.deletePuesto(seleccionado.getId())) {
-                        tablaPuesto.getItems().remove(seleccionado);
+                    if (PuestoDao.deletePuesto(seleccionado.getId())) {
+                        recargarTabla();
+
+                        Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                        successAlert.setTitle("Éxito");
+                        successAlert.setHeaderText(null);
+                        successAlert.setContentText("El puesto ha sido eliminado correctamente.");
+                        successAlert.showAndWait();
+                    }
+                }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Aviso");
+                alert.setHeaderText(null);
+                alert.setContentText("Debes seleccionar un puesto para eliminar");
+                alert.showAndWait();
+                recargarTabla();
+            }
+        });
+
+        tablaPuesto.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null && newValue.getEstado() == 0) {
+                recuperar.setDisable(false);
+            } else {
+                recuperar.setDisable(true);
+            }
+        });
+
+        //Regresar puesto a estado 1
+        recuperar.setOnAction(event -> {
+            Puesto seleccionado = tablaPuesto.getSelectionModel().getSelectedItem();
+            if (seleccionado != null) {
+                if (confirmarRegresar()) {
+                    if (PuestoDao.regresoPuesto(seleccionado.getId())) {
                         recargarTabla();
                     }
                 }
             } else {
-                mostrarAlerta("Debes seleccionar un puesto para eliminar.");
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Aviso");
+                alert.setHeaderText(null);
+                alert.setContentText("Debes seleccionar un puesto");
+                alert.showAndWait();
+                recargarTabla();
             }
         });
 
 
+        puestos = FXCollections.observableArrayList(opcionesTabla);
+        tablaPuesto.setItems(listaObservable);
 
-        // Botón editar
-        actualizarPuesto.setOnAction(event -> {
-            Puesto seleccionado = tablaPuesto.getSelectionModel().getSelectedItem();
-            if (seleccionado != null) {
-                abrirVentanaEdicionPuesto(seleccionado);
-            } else {
-                mostrarAlerta("Debes seleccionar un puesto para editar.");
+        // 4. Configurar el ComboBox
+        ObservableList<String> estados = FXCollections.observableArrayList("Activos", "Inactivos", "VerTodos");
+        filtroEstado.setItems(estados);
+
+        filtroEstado.setOnAction(click -> {
+            String estadoSeleccionado = filtroEstado.getSelectionModel().getSelectedItem();
+
+            if ("Inactivos".equals(estadoSeleccionado)) {
+                tablaPuesto.setItems(listaObservable.filtered(puesto -> puesto.getEstado() == 0));
+            } else if ("Activos".equals(estadoSeleccionado)) {
+                tablaPuesto.setItems(listaObservable.filtered(puesto -> puesto.getEstado() == 1));
+            } else if ("VerTodos".equals(estadoSeleccionado)) {
+                tablaPuesto.setItems(listaObservable);
             }
         });
 
-        // Botón agregar
+
+    // Botón agregar
         agregar.setOnAction(event -> abrirVentanaRegistro());
 
+
+        textoBusquedaPuesto.textProperty().addListener((obs, old, newValue) -> {
+            if (newValue.trim().isEmpty()) {
+                recargarTabla(); // Usa el metodo que respeta el filtro
+            }
+        });
+
+    }
+
+    @FXML
+    public void eliminarSeleccion() {
+        if(tablaPuesto.getSelectionModel().getSelectedItem() != null) {
+            Puesto seleccionado = tablaPuesto.getSelectionModel().getSelectedItem();
+            tablaPuesto.getItems().remove(seleccionado);
+        }
+        tablaPuesto.getSelectionModel().clearSelection();
+        eliminarPuesto.setDisable(true);
     }
 
     private void mostrarAlerta(String mensaje) {
@@ -113,26 +234,39 @@ public class PuestoController implements Initializable {
         //Cargar nueva vista
         try{
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/example/integradora/EditarPuesto.fxml"));
-            Scene scene = new Scene(loader.load());
-            //Mandar Puesto a nueva vista
+            Parent root = loader.load();
             UpdatePuestoController controller = loader.getController();
-            //Sacar stage desde componente abierto
+
+            if (p != null) {
+                controller.setPuesto(p); // Llama al setPuesto del controlador de edición
+            }
+
+            // Efecto blur al fondo
+            Scene escenaPrincipal = agregar.getScene();
+            Parent fondo = escenaPrincipal.getRoot();
+            fondo.setEffect(new BoxBlur(10, 10, 3));
+
             Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.showAndWait();
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.setScene(new Scene(root));
             stage.setTitle("Editar Puesto");
-            BoxBlur blur = new BoxBlur(3, 3, 3);
-            padrePuesto.setEffect(blur);
-            padrePuesto.setEffect(null);
-            PuestoDao dao = new PuestoDao();
-            puestos.clear();
-            puestos.addAll(dao.readPuesto());
-            tablaPuesto.setItems(FXCollections.observableList(puestos));
-            tablaPuesto.refresh();
-            recargarTabla();
+            stage.initOwner(escenaPrincipal.getWindow());
+            //stage.show();
+
+            stage.setOnHidden(e -> {
+                fondo.setEffect(null); // Quita el blur
+                recargarTabla();      // Recarga la tabla
+            });
+
+            stage.show();
+            //stage.setOnHidden(e -> fondo.setEffect(null));
         }catch (IOException e){
             e.printStackTrace();
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setTitle("Error al abrir ventana");
+            errorAlert.setHeaderText(null);
+            errorAlert.setContentText("No se pudo abrir la ventana de edición. Por favor, inténtalo de nuevo.");
+            errorAlert.showAndWait();
         }
     }
 
@@ -157,6 +291,9 @@ public class PuestoController implements Initializable {
 
             RegistrarPuestoController controller = loader.getController();
             controller.setStage(stage);
+            controller.setOnPuestoCreado(() -> {
+                recargarTabla();
+            });
 
 
             stage.setOnHidden(e -> fondo.setEffect(null));
@@ -183,6 +320,14 @@ public class PuestoController implements Initializable {
         recargarTabla();
     }
 
+    private boolean confirmarRegresar(){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmar regresar");
+        alert.setHeaderText(null);
+        alert.setContentText("¿Deseas regresar el puesto?");
+        Optional<ButtonType> resultado = alert.showAndWait();
+        return resultado.isPresent() && resultado.get() == ButtonType.OK;
+    }
 
     private boolean confirmarEliminar(){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -193,43 +338,114 @@ public class PuestoController implements Initializable {
         return resultado.isPresent() && resultado.get() == ButtonType.OK;
     }
 
+    @FXML
+    private void filtrarPorEstado() {
+        String opcion = filtroEstado.getValue();
+        List<Puesto> lista = new ArrayList<>();
 
-    public void buscar(ActionEvent event) {
+        switch (opcion) {
+            case "Activos":
+                lista = dao.readPuestoPorEstado(1);
+                break;
+            case "Inactivos":
+                lista = dao.readPuestoPorEstado(0);
+                break;
+            case "VerTodos":
+                lista = dao.readTodosPuestos();
+                break;
+        }
+
+        tablaPuesto.setItems(FXCollections.observableList(lista));
+        tablaPuesto.refresh();
+
+        // Deshabilitar botón de restaurar al cambiar el filtro
+        recuperar.setDisable(true);
+    }
+
+
+    @FXML
+    private void buscarPuesto(ActionEvent event) {
+        // Desactiva el botón y muestra el spinner
         botonBusquedaPuesto.setDisable(true);
-        String texto = textoBusquedaPuesto.getText();
+        spinner.setVisible(true);
 
-        Task<List<Puesto>> cargarBusqueda = new Task<>() {
+        // Captura texto de búsqueda
+        String texto = textoBusquedaPuesto.getText().trim().toLowerCase();
+        String filtro = filtroEstado.getSelectionModel().getSelectedItem();
+
+        // Simula búsqueda en segundo plano
+        Task<List<Puesto>> tareaBusqueda = new Task<>() {
             @Override
             protected List<Puesto> call() {
-                return dao.readPuestoEspecifico(texto);
+                List<Puesto> lista = dao.readPuesto(); // Carga todos los puestos
+                return lista.stream()
+                        .filter(p -> {
+                            boolean coincideTexto = p.getNombre().toLowerCase().contains(texto);
+                            boolean coincideEstado = true;
+
+                            if (filtro != null) {
+                                switch (filtro) {
+                                    case "Activos": coincideEstado = p.getEstado() == 1; break;
+                                    case "Inactivos": coincideEstado = p.getEstado() == 0; break;
+                                    case "VerTodos": coincideEstado = true; break;
+                                }
+                            }
+
+                            return coincideTexto && coincideEstado;
+                        })
+                        .toList();
+            }
+
+            @Override
+            protected void succeeded() {
+                List<Puesto> resultado = getValue();
+                tablaPuesto.setItems(FXCollections.observableArrayList(resultado));
+                tablaPuesto.refresh();
+
+                spinner.setVisible(false);
+                botonBusquedaPuesto.setDisable(false);
+            }
+
+            @Override
+            protected void failed() {
+                spinner.setVisible(false);
+                botonBusquedaPuesto.setDisable(false);
             }
         };
 
-        cargarBusqueda.setOnFailed(workerStateEvent -> {
-            botonBusquedaPuesto.setDisable(false);
-            System.err.println("Error: " + cargarBusqueda.getException());
-        });
-
-        cargarBusqueda.setOnSucceeded(workerStateEvent -> {
-            botonBusquedaPuesto.setDisable(false);
-            List<Puesto> lista = cargarBusqueda.getValue();
-            ObservableList<Puesto> listaObservable = FXCollections.observableList(lista);
-            tablaPuesto.setItems(listaObservable);
-            tablaPuesto.refresh();
-        });
-
-        Thread thread = new Thread(cargarBusqueda);
-        thread.setDaemon(true);
-        thread.start();
-    };
+        Thread hilo = new Thread(tareaBusqueda);
+        hilo.setDaemon(true);
+        hilo.start();
+    }
 
 
     private void recargarTabla() {
         List<Puesto> lista = dao.readPuesto();
-        ObservableList<Puesto> listaObservable = FXCollections.observableList(lista);
-        tablaPuesto.setItems(listaObservable);
+        ObservableList<Puesto> listaObservable = FXCollections.observableArrayList(lista);
+
+        String filtro = filtroEstado.getSelectionModel().getSelectedItem();
+
+        if (filtro != null) {
+            switch (filtro) {
+                case "Activos":
+                    tablaPuesto.setItems(listaObservable.filtered(p -> p.getEstado() == 1));
+                    break;
+                case "Inactivos":
+                    tablaPuesto.setItems(listaObservable.filtered(p -> p.getEstado() == 0));
+                    break;
+                case "VerTodos":
+                    tablaPuesto.setItems(listaObservable);
+                    break;
+                default:
+                    tablaPuesto.setItems(listaObservable); // fallback
+            }
+        } else {
+            tablaPuesto.setItems(listaObservable); // si no hay filtro seleccionado aún
+        }
+
         tablaPuesto.refresh();
     }
+
 
     //Botones cambiar a vistas
     @FXML

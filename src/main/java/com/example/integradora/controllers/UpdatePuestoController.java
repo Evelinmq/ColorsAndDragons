@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
@@ -23,9 +24,6 @@ public class UpdatePuestoController implements Initializable {
 
     private Puesto puesto;
     private int idViejito;
-    private String nuevoNombrePuesto;
-
-    private Stage stage;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {}
@@ -37,12 +35,12 @@ public class UpdatePuestoController implements Initializable {
     }
 
     @FXML
-    public void updatePuesto(ActionEvent event) {
+    public void guardarPuesto(ActionEvent event) {
         String nombreNuevo = nombrePuesto.getText().trim();
         if (nombreNuevo.isEmpty()) return;
 
-        puesto.setNombre(nombreNuevo);
-        puesto.setEstado(1); // aseguramos que siga activo
+        this.puesto.setNombre(nombreNuevo);
+        this.puesto.setEstado(1); // aseguramos que siga activo
 
         PuestoDao dao = new PuestoDao();
         if (dao.updatePuesto(idViejito, puesto)) {
@@ -52,4 +50,52 @@ public class UpdatePuestoController implements Initializable {
         Stage ventana = (Stage) nombrePuesto.getScene().getWindow();
         ventana.close();
     }
+
+    @FXML
+    private void cerrarVentana(ActionEvent event) {
+        // Aquí va la lógica para cerrar la ventana
+        Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+        stage.close();
+    }
+
+    /*
+    @FXML
+    private void guardarPuesto(ActionEvent event) {
+        System.out.println("Guardando Puesto");
+        nuevoNombrePuesto = nombrePuesto.getText().trim();
+
+        if (nombrePuesto == null) {
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Error");
+            alerta.setHeaderText(null);
+            alerta.setContentText("El campo no puede ir vacío");
+            alerta.showAndWait();
+            return;
+        }
+
+        PuestoDao dao = new PuestoDao();
+        Puesto nuevo = new Puesto();
+        nuevo.setNombre(nuevoNombrePuesto);
+        nuevo.setEstado(1);
+
+        boolean exito = dao.createPuesto(nuevo);
+
+        if (exito) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Actualización exitosa");
+            alert.setHeaderText(null);
+            alert.setContentText("Se ha actualizado el Puesto");
+            alert.showAndWait();
+            cerrarVentana(event); // cerrar si fue exitoso
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("No se pudo registrar el puesto.");
+            alert.showAndWait();
+        }*/
+        // Después de guardar, probablemente quieras cerrar la ventana
+        // Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+        // stage.close();
 }
+
