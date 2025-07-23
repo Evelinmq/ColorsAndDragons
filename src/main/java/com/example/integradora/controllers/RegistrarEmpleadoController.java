@@ -1,4 +1,4 @@
 package com.example.integradora.controllers;
 
-public class RegistarEmpleadoController {
+public class RegistrarEmpleadoController {
 }
