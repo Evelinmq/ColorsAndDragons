@@ -69,7 +69,6 @@ public class RegistrarUsuarioController {
         Usuario nuevo = new Usuario();
         nuevo.setCorreo(correo);
         nuevo.setContrasena(contrasenia);
-        nuevo.setRol(rol);
         nuevo.setEstado(1); // activo por defecto
 
         UsuarioDao dao = new UsuarioDao();

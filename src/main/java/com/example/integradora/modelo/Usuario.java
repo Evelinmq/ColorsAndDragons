@@ -8,14 +8,16 @@ public class Usuario {
     private int idUnidad;
     private int idPuesto;
     private int estado;
+    private String Rol;
 
-    public Usuario(String correo, String contrasena, String rfcEmpleado, int idUnidad, int idPuesto, int estado) {
+    public Usuario(String correo, String contrasena, String rfcEmpleado, int idUnidad, int idPuesto, int estado, String Rol) {
         this.correo = correo;
         this.contrasena = contrasena;
         this.rfcEmpleado = rfcEmpleado;
         this.idUnidad = idUnidad;
         this.idPuesto = idPuesto;
         this.estado = estado;
+        this.Rol = Rol;
     }
 
     public Usuario() {
@@ -69,6 +71,11 @@ public class Usuario {
         this.estado = estado;
     }
 
-    public void setRol(int rol) {
+    public String getRol() {
+        return Rol;
+    }
+
+    public void setRol(String rol) {
+        Rol = rol;
     }
 }

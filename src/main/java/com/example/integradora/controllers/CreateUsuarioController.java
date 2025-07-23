@@ -43,7 +43,7 @@ public class CreateUsuarioController {
         Usuario nuevo = new Usuario();
         nuevo.setCorreo(correo);
         nuevo.setContrasena(contrasena);
-        nuevo.setRol(Integer.parseInt(rol));
+        nuevo.setRol(rol);
 
         boolean creado = usuarioDAO.createUsuario(nuevo);
 
