@@ -1,9 +1,7 @@
 package com.example.integradora.controllers;
 
 import com.example.integradora.modelo.Empleado;
-import com.example.integradora.modelo.Usuario;
 import com.example.integradora.modelo.dao.EmpleadoDao;
-import com.example.integradora.modelo.dao.UsuarioDao;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -12,7 +10,7 @@ import javafx.scene.control.TextField;
 
 import java.util.Optional;
 
-public class CreateEmpleadoController {
+public class EmpleadoController {
     @FXML
     private TextField nombreEmpleado;
     @FXML
