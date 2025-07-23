@@ -122,11 +122,13 @@ public class EdificioController implements Initializable {
                 filtrarPorEstado();
             });
 
+            stage.centerOnScreen();
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     private void abrirVentanaRegistro() {
         try {
@@ -148,11 +150,13 @@ public class EdificioController implements Initializable {
                 filtrarPorEstado();
             });
 
+            stage.centerOnScreen();
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     private void mostrarAlerta(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
