@@ -1,5 +1,4 @@
 package com.example.integradora.controllers;
-
 import com.example.integradora.modelo.Empleado;
 import com.example.integradora.modelo.dao.EmpleadoDao;
 import javafx.event.ActionEvent;
@@ -17,7 +16,6 @@ public class UpdateEmpleadoController implements Initializable {
 
     @FXML
     private TextField rfc;
-
     private Empleado empleado;
     private String rfcViejo;
 
@@ -40,16 +38,13 @@ public class UpdateEmpleadoController implements Initializable {
         String nuevoNombre = nombre.getText();
         String nuevoRfc = rfc.getText();
 
-
         empleado.setNombre(nuevoNombre);
         empleado.setRfc(nuevoRfc);
-
 
         EmpleadoDao dao = new EmpleadoDao();
         if (dao.updateEmpleado(rfcViejo, empleado)) {
             System.out.println("Empleado actualizado correctamente.");
         }
-
 
         Stage ventana = (Stage) nombre.getScene().getWindow();
         ventana.close();
