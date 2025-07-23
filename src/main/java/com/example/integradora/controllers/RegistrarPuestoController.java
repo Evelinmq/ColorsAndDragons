@@ -72,7 +72,7 @@ public class RegistrarPuestoController{
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
-            alert.setContentText("No se pudo registrar el puesto.");
+            alert.setContentText("No se pudo registrar el puesto");
             alert.showAndWait();
         }
     }
@@ -89,34 +89,4 @@ public class RegistrarPuestoController{
     }
 
 }
-
-   /* @FXML
-    public void registrarPuesto(ActionEvent actionEvent) {
-        // Obtenemos la info del campo de texto
-        String nombreV = labelPuesto.getText().trim();
-        if(nombreV.isEmpty() || nombreV == null) return;
-
-        Puesto p = new Puesto();
-        p.setNombre(nombreV);
-        p.setEstado(1); // activo
-
-        PuestoDao dao = new PuestoDao();
-
-
-
-        boolean exito = dao.createPuesto(p);
-        if (exito) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Exito registro");
-            alert.setHeaderText("Se ha creado un nuevo puesto");
-        } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error en el registro");
-            alert.setHeaderText("No se pudo registrar");
-
-        }
-
-        labelPuesto.setText("");
-
-    }*/
 

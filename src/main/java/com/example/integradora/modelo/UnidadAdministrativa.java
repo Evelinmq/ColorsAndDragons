@@ -43,8 +43,6 @@ public class UnidadAdministrativa {
     public String toString() {
         return "UnidadAdministrativa{" +
                 "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", estado=" + estado +
                 '}';
     }
 }

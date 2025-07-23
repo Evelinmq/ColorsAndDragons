@@ -7,10 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -19,60 +16,46 @@ import java.util.ResourceBundle;
 public class UpdateUnidadController implements Initializable {
 
     @FXML
-    private TextField unidad;
-    @FXML
-    private MenuButton editarUnidad;
+    private TextField nombreUnidad;
 
-    private UnidadAdministrativa u;
+    private UnidadAdministrativa unidad;
     private int idViejito;
-    private String nuevoNombreUnidad;
-
-    private Stage stage;
-
-    public void setDialogStage(Stage stage) {
-
-    }
-
-    private ObservableList<String> opcionesUnidad = FXCollections.observableArrayList(
-            "Opción 1", "Opción 2", "Opción 3"
-    );
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        for (String opcion : opcionesUnidad) {
-            MenuItem item = new MenuItem(opcion);
-            item.setOnAction(e -> {
-                nuevoNombreUnidad = opcion;
-                editarUnidad.setText(opcion);
-            });
-            editarUnidad.getItems().add(item);
-        }
-    }
+    public void initialize(URL location, ResourceBundle resources) {}
 
-    public void setEspacio(UnidadAdministrativa u) {
-        this.u = u;
-        this.idViejito = u.getId();
-
-        editarUnidad.setText(nuevoNombreUnidad);
-        editarUnidad.setText(u.getNombre());
+    public void setUnidadAdministrativa(UnidadAdministrativa unidad) {
+        this.unidad = unidad;
+        this.idViejito = unidad.getId();
+        nombreUnidad.setText(unidad.getNombre());
     }
 
     @FXML
-    public void updateUnidad(ActionEvent event) {
-        String ediUnidad = editarUnidad.getText();
+    public void guardarUnidad(ActionEvent event) {
+        String nombreNuevo = nombreUnidad.getText().trim();
+        if (nombreNuevo.isEmpty()) return;
 
-        u.setId(idViejito);
-        u.setNombre(ediUnidad);
+        this.unidad.setNombre(nombreNuevo);
+        this.unidad.setEstado(1); // aseguramos que siga activo
 
         UnidadAdministrativaDao dao = new UnidadAdministrativaDao();
-
-        if (dao.updateUnidadAdministrativa(idViejito, u)) {
-            System.out.println("Unidad Administrativa editada correctamente");
-        } else {
-            System.out.println("Error al actualizar la Unidad Administrativa");
+        if (dao.updateUnidad(idViejito, unidad)) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Unidad actualizada");
+            alert.showAndWait();
+        }else{
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Error al editar unidad");
+            alert.showAndWait();
         }
 
-        Stage ventana = (Stage) editarUnidad.getScene().getWindow();
+        Stage ventana = (Stage) nombreUnidad.getScene().getWindow();
         ventana.close();
     }
+
+    @FXML
+    private void cerrarVentana(ActionEvent event) {
+        // Aquí va la lógica para cerrar la ventana
+        Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+        stage.close();
+    }
+
 }
