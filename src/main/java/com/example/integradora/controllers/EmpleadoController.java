@@ -1,28 +1,41 @@
 package com.example.integradora.controllers;
 
 import com.example.integradora.modelo.Empleado;
+import com.example.integradora.modelo.Usuario;
 import com.example.integradora.modelo.dao.EmpleadoDao;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class EmpleadoController {
     @FXML
-    private TextField nombreEmpleado;
+    private TableView<Usuario> tablaEmpleado;
     @FXML
-    private TextField apellidoPaterno;
+    TableColumn <Empleado,String> tablaEmpleadoNombre;
     @FXML
-    private TextField apellidoMaterno;
+    TableColumn <Empleado,String> tablaEmpleadoApellidoPaterno;
     @FXML
-    private TextField rfc;
+    TableColumn <Empleado,String> tablaEmpleadoApellidoMaterno;
     @FXML
-    private Button guardarEmpleado;
+    TableColumn <Empleado,String> tablaEmpleadoRFC;
     @FXML
-    private Button cancelarEmpleado;
+    TableColumn <Empleado,String> tablaEmpleadoPuesto;
+    @FXML
+    TableColumn <Empleado,String> tablaEmpleadoUnidadAdministrativa;
+    @FXML
+    private Button resguardo, bienes, empleados, espacio, unidad, edificio, usuario;
+    @FXML
+    private TextField botonBusquedaEmpleado, eliminarEmpleado, actualizarEmpleado, agregar, recuperar;
+    @FXML
+    private TextField textoBusquedaEmpleado;
+    @FXML
+    private ProgressIndicator spinner;
+    @FXML
+    private ComboBox<String> filtroEstado;
+    private List<Usuario> Empleados = new ArrayList<>();
 
     private EmpleadoDao empleadoDAO = new EmpleadoDao();
 

@@ -3,23 +3,32 @@ package com.example.integradora.controllers;
 import com.example.integradora.modelo.Usuario;
 import com.example.integradora.modelo.dao.UsuarioDao;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class UsuarioController {
     @FXML
-    private TextField correoUsuario;
+    private TableView <Usuario> tablaUsuario;
     @FXML
-    private TextField contraseniaUsuario;
+    TableColumn <Usuario,String> tablaUsuarioCorreo;
     @FXML
-    private TextField rolUsuario;
+    TableColumn <Usuario,String> tablaUsuarioContrasena;
     @FXML
-    private Button guardarUsuario;
+    TableColumn <Usuario,String> tablaUsuarioRol;
     @FXML
-    private Button cancelarUsuario;
+    private Button resguardo, bienes, empleados, espacio, unidad, edificio, usuario;
+    @FXML
+    private TextField botonBusquedaUsuario, eliminarUsuario, actualizarUsuario, agregar, recuperar;
+    @FXML
+    private TextField textoBusquedaUsuario;
+    @FXML
+    private ProgressIndicator spinner;
+    @FXML
+    private ComboBox<String> filtroEstado;
+    private List<Usuario> Usuarios = new ArrayList<>();
 
     private UsuarioDao usuarioDAO = new UsuarioDao();
 
