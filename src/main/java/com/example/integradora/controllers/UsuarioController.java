@@ -83,6 +83,7 @@ public class UsuarioController implements Initializable {
             }
         });
 
+
         opcionesTabla = FXCollections.observableArrayList(usuarios);
         tablaUsuario.setItems(opcionesTabla);
 
