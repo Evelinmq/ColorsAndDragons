@@ -3,6 +3,8 @@ package com.example.integradora.controllers;
 import com.example.integradora.modelo.Empleado;
 import com.example.integradora.modelo.Usuario;
 import com.example.integradora.modelo.dao.EmpleadoDao;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -11,30 +13,42 @@ import java.util.List;
 import java.util.Optional;
 
 public class EmpleadoController {
+
     @FXML
     private TableView<Usuario> tablaEmpleado;
     @FXML
-    TableColumn <Empleado,String> tablaEmpleadoNombre;
+    TableColumn<Empleado, String> tablaEmpleadoNombre;
     @FXML
-    TableColumn <Empleado,String> tablaEmpleadoApellidoPaterno;
+    TableColumn<Empleado, String> tablaEmpleadoApellidoPaterno;
     @FXML
-    TableColumn <Empleado,String> tablaEmpleadoApellidoMaterno;
+    TableColumn<Empleado, String> tablaEmpleadoApellidoMaterno;
     @FXML
-    TableColumn <Empleado,String> tablaEmpleadoRFC;
+    TableColumn<Empleado, String> tablaEmpleadoRFC;
     @FXML
-    TableColumn <Empleado,String> tablaEmpleadoPuesto;
+    TableColumn<Empleado, String> tablaEmpleadoPuesto;
     @FXML
-    TableColumn <Empleado,String> tablaEmpleadoUnidadAdministrativa;
+    TableColumn<Empleado, String> tablaEmpleadoUnidadAdministrativa;
+
     @FXML
     private Button resguardo, bienes, empleados, espacio, unidad, edificio, usuario;
     @FXML
-    private TextField botonBusquedaEmpleado, eliminarEmpleado, actualizarEmpleado, agregar, recuperar;
+    private Button botonBusquedaEmpleado, eliminarEmpleado, actualizarEmpleado, agregar, recuperar;
+
     @FXML
     private TextField textoBusquedaEmpleado;
+
     @FXML
     private ProgressIndicator spinner;
+
     @FXML
     private ComboBox<String> filtroEstado;
+
+    @FXML
+    private TextField nombreEmpleado, apellidoPaterno, apellidoMaterno, rfc;
+
+    @FXML
+    private Button guardarEmpleado;
+
     private List<Usuario> Empleados = new ArrayList<>();
 
     private EmpleadoDao empleadoDAO = new EmpleadoDao();
