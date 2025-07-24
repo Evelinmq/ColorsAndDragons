@@ -1,23 +1,14 @@
 package com.example.integradora.controllers;
 
-import com.example.integradora.modelo.Empleado;
-import com.example.integradora.modelo.Puesto;
 import com.example.integradora.modelo.Usuario;
-import com.example.integradora.modelo.dao.EmpleadoDao;
-import com.example.integradora.modelo.dao.PuestoDao;
-import com.example.integradora.controllers.PuestoController;
 import com.example.integradora.modelo.dao.UsuarioDao;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import java.util.List;
-
+import javafx.event.ActionEvent;
 
 public class RegistrarUsuarioController {
 
@@ -35,6 +26,12 @@ public class RegistrarUsuarioController {
 
     public void setStage(Stage stage) {
         this.stage = stage;
+    }
+
+    private Runnable onUsuarioCreado;
+
+    public void setOnUsuarioCreado(Runnable onUsuarioCreado) {
+        this.onUsuarioCreado = onUsuarioCreado;
     }
 
     @FXML
@@ -69,6 +66,7 @@ public class RegistrarUsuarioController {
         Usuario nuevo = new Usuario();
         nuevo.setCorreo(correo);
         nuevo.setContrasena(contrasenia);
+        nuevo.setRol(String.valueOf(rol));
         nuevo.setEstado(1); // activo por defecto
 
         UsuarioDao dao = new UsuarioDao();
@@ -80,6 +78,9 @@ public class RegistrarUsuarioController {
             alert.setHeaderText(null);
             alert.setContentText("Se ha registrado un nuevo usuario.");
             alert.showAndWait();
+            if (onUsuarioCreado != null) {
+                onUsuarioCreado.run();
+            }
             cerrarVentana(event);
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
