@@ -5,6 +5,7 @@ import com.example.integradora.modelo.dao.UsuarioDao;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -14,7 +15,7 @@ public class RegistrarUsuarioController {
 
     @FXML private TextField txtCorreo;
     @FXML private PasswordField txtContrasenia;
-    @FXML private TextField txtRol;
+    @FXML private ComboBox<String> txtRol;  // Cambiado de TextField a ComboBox
     @FXML private Button btnGuardar;
     @FXML private Button btnCancelar;
 
@@ -40,9 +41,9 @@ public class RegistrarUsuarioController {
 
         String correo = txtCorreo.getText().trim();
         String contrasenia = txtContrasenia.getText().trim();
-        String rolTexto = txtRol.getText().trim();
+        String rolSeleccionado = txtRol.getValue();
 
-        if (correo.isEmpty() || contrasenia.isEmpty() || rolTexto.isEmpty()) {
+        if (correo.isEmpty() || contrasenia.isEmpty() || rolSeleccionado == null || rolSeleccionado.isEmpty()) {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
             alerta.setTitle("Campos Vacíos");
             alerta.setHeaderText(null);
@@ -53,12 +54,12 @@ public class RegistrarUsuarioController {
 
         int rol;
         try {
-            rol = Integer.parseInt(rolTexto);
+            rol = Integer.parseInt(rolSeleccionado); // Suponiendo que en combo tienes valores numéricos como "1", "2"...
         } catch (NumberFormatException e) {
             Alert alerta = new Alert(Alert.AlertType.ERROR);
             alerta.setTitle("Error de formato");
             alerta.setHeaderText(null);
-            alerta.setContentText("El rol debe ser un número.");
+            alerta.setContentText("El rol debe ser un número válido.");
             alerta.showAndWait();
             return;
         }
