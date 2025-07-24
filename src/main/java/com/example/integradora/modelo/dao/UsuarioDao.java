@@ -73,7 +73,7 @@ public class UsuarioDao {
         return false;
     }
 
-    public List<Usuario> readUsuarios() {
+    public List<Usuario> readUsuario() {
         List<Usuario> lista = new ArrayList<>();
         try {
             Connection conn = OracleDatabaseConnectionManager.getConnection();
