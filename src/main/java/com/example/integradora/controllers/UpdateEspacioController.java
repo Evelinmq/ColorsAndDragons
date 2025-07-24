@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
 
 public class UpdateEspacioController implements Initializable {
 
-    @FXML private TextField nombreEspacio;
+    @FXML private TextField nombreEsp;
     @FXML private ComboBox<Edificio> comboEdificio;
     @FXML private Button cancelar;
     @FXML private Button guardar;
@@ -43,13 +43,13 @@ public class UpdateEspacioController implements Initializable {
     public void setEspacio(Espacio espacio) {
         this.espacio = espacio;
         this.idViejo = espacio.getId();
-        nombreEspacio.setText(espacio.getNombre());
+        nombreEsp.setText(espacio.getNombre());
         comboEdificio.setValue(espacio.getEdificio());
     }
 
     @FXML
     public void updateEspacio(ActionEvent event) {
-        String nuevoNombre = nombreEspacio.getText().trim();
+        String nuevoNombre = nombreEsp.getText().trim();
         Edificio edificioSeleccionado = comboEdificio.getValue();
 
         if (nuevoNombre.isEmpty()) {
@@ -74,7 +74,7 @@ public class UpdateEspacioController implements Initializable {
     }
 
     private void cerrarVentana() {
-        Stage ventana = (Stage) nombreEspacio.getScene().getWindow();
+        Stage ventana = (Stage) nombreEsp.getScene().getWindow();
         ventana.close();
     }
 

@@ -160,14 +160,12 @@ public class EspacioDao {
             Connection conn = OracleDatabaseConnectionManager.getConnection();
             String query = "SELECT e.ID_ESPACIO, e.NOMBRE, e.ESTADO, ed.ID_EDIFICIO, ed.NOMBRE AS nombre_edificio, ed.ESTADO AS estado_edificio " +
                     "FROM ESPACIO e JOIN EDIFICIO ed ON e.ID_EDIFICIO = ed.ID_EDIFICIO " +
-                    "WHERE e.ID_ESPACIO LIKE ? OR e.NOMBRE LIKE ? OR e.ESTADO LIKE ? OR ed.ID_EDIFICIO LIKE ? " +
+                    "WHERE LOWER(e.NOMBRE) LIKE ? OR LOWER(ed.NOMBRE) LIKE ? " +
                     "ORDER BY e.ID_ESPACIO ASC";
             PreparedStatement ps = conn.prepareStatement(query);
-            String search = "%" + texto + "%";
+            String search = "%" + texto.toLowerCase() + "%";
             ps.setString(1, search);
             ps.setString(2, search);
-            ps.setString(3, search);
-            ps.setString(4, search);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Edificio edificio = new Edificio();
@@ -190,6 +188,7 @@ public class EspacioDao {
         }
         return lista;
     }
+
 }
 
 

@@ -45,7 +45,7 @@ public class Edificio {
 
     @Override
     public String toString() {
-        return nombre; // Muestra el nombre del edificio en el ComboBox
+        return nombre;
     }
 
 }

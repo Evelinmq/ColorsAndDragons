@@ -183,8 +183,8 @@
                         </HBox>
                         <TableView fx:id="tabla" style="-fx-background-color: EFEFF0; -fx-background-radius: 20;" VBox.vgrow="ALWAYS">
                             <columns>
-                                <TableColumn fx:id="tablaEspacio" prefWidth="568.0" style="-fx-background-color: E0E1E1;" text="Espacio" />
-                        <TableColumn fx:id="tablaEdificio" prefWidth="539.0" text="Edificio" />
+                                <TableColumn fx:id="tablaEspacio" prefWidth="516.5" style="-fx-background-color: E0E1E1;" text="Espacio" />
+                        <TableColumn fx:id="tablaEdificio" prefWidth="516.5" style="-fx-background-color: E0E1E1;" text="Edificio         " />
                             </columns>
                         </TableView>
                     </children>
