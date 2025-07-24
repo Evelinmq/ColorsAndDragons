@@ -15,7 +15,7 @@ public class UsuarioDao {
     public boolean createUsuario(Usuario u) {
         try {
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "INSERT INTO usuarios (correo, contrasena, rfc_empleado, id_unidad, id_puesto, estado) VALUES (?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO usuarios(correo, contrasena, rfc_empleado, id_unidad, id_puesto, estado) VALUES(?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, u.getCorreo());
             ps.setString(2, u.getContrasena());
@@ -24,6 +24,7 @@ public class UsuarioDao {
             ps.setInt(5, u.getIdPuesto());
             ps.setInt(6, u.getEstado());
             if (ps.executeUpdate() > 0) {
+                System.out.println("Usuario creado");
                 conn.close();
                 return true;
             }
@@ -46,6 +47,7 @@ public class UsuarioDao {
             ps.setInt(5, u.getEstado());
             ps.setString(6, correoViejo);
             if (ps.executeUpdate() > 0) {
+                System.out.println("Usuario actualizado");
                 conn.close();
                 return true;
             }
@@ -63,6 +65,7 @@ public class UsuarioDao {
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, correo);
             if (ps.executeUpdate() > 0) {
+                System.out.println("Usuario eliminado");
                 conn.close();
                 return true;
             }
