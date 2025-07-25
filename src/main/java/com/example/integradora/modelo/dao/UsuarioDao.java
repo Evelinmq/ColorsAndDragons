@@ -15,7 +15,7 @@ public class UsuarioDao {
     public boolean createUsuario(Usuario u) {
         try {
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "INSERT INTO usuarios(correo, contrasena, rfc_empleado, id_unidad, id_puesto, estado) VALUES(?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO usuario(correo, contrasena, rfc_empleado, id_unidad, id_puesto, estado) VALUES(?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, u.getCorreo());
             ps.setString(2, u.getContrasena());
@@ -38,7 +38,7 @@ public class UsuarioDao {
     public boolean updateUsuario(String correoViejo, Usuario u) {
         try {
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "UPDATE usuarios SET contrasena = ?, rfc_empleado = ?, id_unidad = ?, id_puesto = ?, estado = ? WHERE correo = ?";
+            String query = "UPDATE usuario SET contrasena = ?, rfc_empleado = ?, id_unidad = ?, id_puesto = ?, estado = ? WHERE correo = ?";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, u.getContrasena());
             ps.setString(2, u.getRfcEmpleado());
@@ -61,7 +61,7 @@ public class UsuarioDao {
     public boolean deleteUsuario(String correo) {
         try {
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "DELETE FROM usuarios WHERE correo = ?";
+            String query = "DELETE FROM usuario WHERE correo = ?";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, correo);
             if (ps.executeUpdate() > 0) {
@@ -80,7 +80,7 @@ public class UsuarioDao {
         List<Usuario> lista = new ArrayList<>();
         try {
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "SELECT * FROM usuarios ORDER BY correo ASC";
+            String query = "SELECT * FROM usuario ORDER BY correo ASC";
             PreparedStatement ps = conn.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

@@ -1,6 +1,7 @@
 package com.example.integradora.controllers;
 
 import com.example.integradora.Main;
+import com.example.integradora.modelo.Puesto;
 import com.example.integradora.modelo.Usuario;
 import com.example.integradora.modelo.dao.UsuarioDao;
 import javafx.collections.FXCollections;
@@ -41,7 +42,7 @@ public class UsuarioController implements Initializable {
     @FXML
     private TableColumn<Usuario, String> tablaUsuarioRol;
     @FXML
-    private TableColumn<Usuario, String> tablaUsuariocontrasena;
+    private TableColumn<Usuario, String> tablaUsuarioContrasena;
     @FXML
     private Button resguardo, bienes, empleados, espacio, unidad, edificio, usuario;
 
@@ -61,7 +62,7 @@ public class UsuarioController implements Initializable {
 
         tablaUsuarioCorreo.setCellValueFactory(new PropertyValueFactory<>("correo"));
         tablaUsuarioRol.setCellValueFactory(new PropertyValueFactory<>("rolDescripcion"));
-        tablaUsuariocontrasena.setCellValueFactory(new PropertyValueFactory<>("contrasenia"));
+        tablaUsuarioContrasena.setCellValueFactory(new PropertyValueFactory<>("CONTRASENIA"));
         recargarTabla();
 
         ObservableList<Usuario> listaObservable = FXCollections.observableList(lista);
@@ -88,8 +89,8 @@ public class UsuarioController implements Initializable {
         tablaUsuario.setItems(opcionesTabla);
 
         actualizarUsuario.setDisable(true);
-        tablaUsuario.getSelectionModel().selectedItemProperty().addListener((obs, old, nuevo) -> {
-            actualizarUsuario.setDisable(nuevo == null);
+        tablaUsuario.getSelectionModel().selectedItemProperty().addListener((obserable, oldValue, newValue) -> {
+            actualizarUsuario.setDisable(newValue == null); //aquí cambie nuevo por newValue
         });
 
         actualizarUsuario.setOnAction(event -> {
@@ -103,8 +104,8 @@ public class UsuarioController implements Initializable {
             }
         });
 
-        tablaUsuario.getSelectionModel().selectedItemProperty().addListener((obs, old, nuevo) -> {
-            eliminarUsuario.setDisable(nuevo == null);
+        tablaUsuario.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            eliminarUsuario.setDisable(newValue == null);
         });
 
         eliminarUsuario.setOnAction(event -> {
@@ -130,8 +131,8 @@ public class UsuarioController implements Initializable {
             }
         });
 
-        tablaUsuario.getSelectionModel().selectedItemProperty().addListener((obs, old, nuevo) -> {
-            if (nuevo != null && nuevo.getEstado() == 0) {
+        tablaUsuario.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null && newValue.getEstado() == 0) {
                 recuperar.setDisable(false);
             } else {
                 recuperar.setDisable(true);
@@ -175,12 +176,30 @@ public class UsuarioController implements Initializable {
 
         agregar.setOnAction(event -> abrirVentanaRegistro());
 
-        textoBusquedaUsuario.textProperty().addListener((obs, old, nuevo) -> {
-            if (nuevo.trim().isEmpty()) {
+        textoBusquedaUsuario.textProperty().addListener((obs, old, newValue) -> {
+            if (newValue.trim().isEmpty()) {
                 recargarTabla();
             }
         });
     }
+
+    @FXML
+    public void eliminarSeleccion() {
+        if(tablaUsuario.getSelectionModel().getSelectedItem() != null) {
+            Usuario seleccionado = tablaUsuario.getSelectionModel().getSelectedItem();
+            tablaUsuario.getItems().remove(seleccionado);
+        }
+        tablaUsuario.getSelectionModel().clearSelection();
+        eliminarUsuario.setDisable(true);
+    }
+    private void mostrarAlerta(String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Aviso");
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
+    }
+
 
     private void abrirVentanaEdicionUsuario(Usuario u) {
         try {
@@ -262,6 +281,7 @@ public class UsuarioController implements Initializable {
         Optional<ButtonType> resultado = alert.showAndWait();
         return resultado.isPresent() && resultado.get() == ButtonType.OK;
     }
+
 
     @FXML
     private void buscarUsuario(ActionEvent event) {
