@@ -1,6 +1,8 @@
 package com.example.integradora.controllers;
 
-public class ResguardoController{
+import javafx.fxml.Initializable;
+
+public class ResguardoController {
 
 
 

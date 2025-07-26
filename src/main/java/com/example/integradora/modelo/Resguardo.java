@@ -1,80 +1,66 @@
 package com.example.integradora.modelo;
 
+
+
+//No sé cuál de los dos import para la Fecha sea el correcto, así que puse los dos
+import java.sql.Date;
+//import java.util.Date;
+
 public class Resguardo {
-    private int idResguardo;
-    private String codigoBien;
-    private int idEspacio;
-    private int idEdificio;
-    private String rfcEmpleado;
-    private int idUnidad;
-    private int idPuesto;
+    private int id;
+    private Date fecha;
+    private int estado;
+    private Empleado empleado;
+    private Espacio espacio;
 
     public Resguardo() {
     }
 
-    public Resguardo(int idResguardo, String codigoBien, int idEspacio, int idEdificio, String rfcEmpleado, int idUnidad, int idPuesto) {
-        this.idResguardo = idResguardo;
-        this.codigoBien = codigoBien;
-        this.idEspacio = idEspacio;
-        this.idEdificio = idEdificio;
-        this.rfcEmpleado = rfcEmpleado;
-        this.idUnidad = idUnidad;
-        this.idPuesto = idPuesto;
+    public Resguardo(int id, Date fecha, int estado, Empleado empleado, Espacio espacio) {
+        this.id = id;
+        this.fecha = fecha;
+        this.estado = estado;
+        this.empleado = empleado;
+        this.espacio = espacio;
     }
 
-    public int getIdResguardo() {
-        return idResguardo;
+    public int getId() {
+        return id;
     }
 
-    public void setIdResguardo(int idResguardo) {
-        this.idResguardo = idResguardo;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getCodigoBien() {
-        return codigoBien;
+    public Date getFecha() {
+        return fecha;
     }
 
-    public void setCodigoBien(String codigoBien) {
-        this.codigoBien = codigoBien;
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
-    public int getIdEspacio() {
-        return idEspacio;
+    public int getEstado() {
+        return estado;
     }
 
-    public void setIdEspacio(int idEspacio) {
-        this.idEspacio = idEspacio;
+    public void setEstado(int estado) {
+        this.estado = estado;
     }
 
-    public int getIdEdificio() {
-        return idEdificio;
+    public Empleado getEmpleado() {
+        return empleado;
     }
 
-    public void setIdEdificio(int idEdificio) {
-        this.idEdificio = idEdificio;
+    public void setEmpleado(Empleado empleado) {
+        this.empleado = empleado;
     }
 
-    public String getRfcEmpleado() {
-        return rfcEmpleado;
+    public Espacio getEspacio() {
+        return espacio;
     }
 
-    public void setRfcEmpleado(String rfcEmpleado) {
-        this.rfcEmpleado = rfcEmpleado;
-    }
-
-    public int getIdUnidad() {
-        return idUnidad;
-    }
-
-    public void setIdUnidad(int idUnidad) {
-        this.idUnidad = idUnidad;
-    }
-
-    public int getIdPuesto() {
-        return idPuesto;
-    }
-
-    public void setIdPuesto(int idPuesto) {
-        this.idPuesto = idPuesto;
+    public void setEspacio(Espacio espacio) {
+        this.espacio = espacio;
     }
 }
