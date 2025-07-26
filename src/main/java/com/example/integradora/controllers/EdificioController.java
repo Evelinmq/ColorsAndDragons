@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.BoxBlur;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -26,6 +27,8 @@ public class EdificioController implements Initializable {
 
     @FXML private TextField nombreEdificio;
     @FXML private TableView<Edificio> tabla;
+    @FXML
+    private AnchorPane padreEdificio;
     @FXML private TableColumn<Edificio, String> tablaEdificio;
     @FXML private TextField textoBusqueda;
     @FXML private Button botonBusqueda;
@@ -33,6 +36,10 @@ public class EdificioController implements Initializable {
     @FXML private Button eliminar;
     @FXML private Button agregar;
     @FXML private Button regresoEdificio;
+    @FXML
+    private Button bienes,resguardo, puesto, empleados, espacio, unidad, usuario;
+    @FXML
+    private ProgressIndicator spinner;
     @FXML private ComboBox<String> comboEstado;
 
     private final EdificioDao dao = new EdificioDao();
@@ -180,7 +187,7 @@ public class EdificioController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmar eliminación");
         alert.setHeaderText(null);
-        alert.setContentText("¿Estás segura de que deseas eliminar este edificio?");
+        alert.setContentText("¿Estás seguro de que deseas eliminar este edificio?");
         Optional<ButtonType> resultado = alert.showAndWait();
         return resultado.isPresent() && resultado.get() == ButtonType.OK;
     }
@@ -193,9 +200,103 @@ public class EdificioController implements Initializable {
         Optional<ButtonType> resultado = alert.showAndWait();
         return resultado.isPresent() && resultado.get() == ButtonType.OK;
     }
+    @FXML
+    protected void irResguardo(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaResguardo.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            Stage stage = (Stage) resguardo.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    protected void irBienes(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaBienes.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            Stage stage = (Stage) bienes.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    protected void irEmpleados(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaEmpleado.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            Stage stage = (Stage) empleados.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    protected void irUsuario(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaUsuario.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            //Sacar la stage desde un componente visual ya abieto
+            Stage stage = (Stage) usuario.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    protected void irUnidad(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaUnidadAdm.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            Stage stage = (Stage) unidad.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    protected void irPuesto(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaPuesto.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            //Sacar la stage desde un componente visual ya abieto
+            Stage stage = (Stage) puesto.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    protected void irEspacio(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaEspacio.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            //Sacar la stage desde un componente visual ya abieto
+            Stage stage = (Stage) espacio.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
 
     public void buscar(ActionEvent event) {
         botonBusqueda.setDisable(true);
+        spinner.setVisible(true); // Mostrar spinner
         String texto = textoBusqueda.getText().trim();
 
         Task<List<Edificio>> cargarBusqueda = new Task<>() {
@@ -207,21 +308,22 @@ public class EdificioController implements Initializable {
 
         cargarBusqueda.setOnFailed(workerStateEvent -> {
             botonBusqueda.setDisable(false);
+            spinner.setVisible(false);
             System.err.println("Error: " + cargarBusqueda.getException());
         });
 
         cargarBusqueda.setOnSucceeded(workerStateEvent -> {
             botonBusqueda.setDisable(false);
+            spinner.setVisible(false);
             List<Edificio> lista = cargarBusqueda.getValue();
             ObservableList<Edificio> listaObservable = FXCollections.observableList(lista);
             tabla.setItems(listaObservable);
             tabla.refresh();
         });
 
-        Thread thread = new Thread(cargarBusqueda);
-        thread.setDaemon(true);
-        thread.start();
+        new Thread(cargarBusqueda).start();
     }
+
 
     @FXML
     private void filtrarPorEstado() {
