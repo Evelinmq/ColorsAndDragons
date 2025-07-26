@@ -1,13 +1,7 @@
 package com.example.integradora.controllers;
 
-
 import com.example.integradora.modelo.Empleado;
-import com.example.integradora.modelo.Puesto;
 import com.example.integradora.modelo.dao.EmpleadoDao;
-import com.example.integradora.modelo.dao.PuestoDao;
-import com.example.integradora.controllers.PuestoController;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -15,16 +9,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.util.List;
-
 public class RegistrarEmpleadoController {
 
-    @FXML private TextField txtNombre;
-    @FXML private TextField txtApellidoPaterno;
-    @FXML private TextField txtApellidoMaterno;
-    @FXML private TextField txtRfc;
-    @FXML private Button btnCancelar;
-    @FXML private Button btnGuardar;
+    @FXML public TextField txtNombre;
+    @FXML public TextField txtApellidoPaterno;
+    @FXML public TextField txtApellidoMaterno;
+    @FXML public TextField txtRfc;
+    @FXML public Button btnCancelar;
+    @FXML public Button btnGuardar;
 
     private Stage stage;
 
@@ -34,6 +26,12 @@ public class RegistrarEmpleadoController {
 
     public void setStage(Stage stage) {
         this.stage = stage;
+    }
+
+    private Runnable onEmpleadoCreado;
+
+    public void setOnEmpleadoCreado(Runnable onEmpleadoCreado) {
+        this.onEmpleadoCreado = onEmpleadoCreado;
     }
 
     @FXML
@@ -59,7 +57,7 @@ public class RegistrarEmpleadoController {
         nuevo.setApellidoPaterno(apellidoP);
         nuevo.setApellidoMaterno(apellidoM);
         nuevo.setRfc(rfc);
-        nuevo.setEstado(1); // activo por defecto
+        nuevo.setEstado(1); // Activo por defecto
 
         EmpleadoDao dao = new EmpleadoDao();
         boolean exito = dao.createEmpleado(nuevo);
@@ -70,7 +68,12 @@ public class RegistrarEmpleadoController {
             alert.setHeaderText(null);
             alert.setContentText("Se ha registrado un nuevo empleado.");
             alert.showAndWait();
-            cerrarVentana(event);
+
+            if (onEmpleadoCreado != null) {
+                onEmpleadoCreado.run();
+            }
+
+            cerrarVentana(event); // cerrar si fue exitoso
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -85,7 +88,7 @@ public class RegistrarEmpleadoController {
         if (stage != null) {
             stage.close();
         } else {
-            Stage currentStage = (Stage) txtNombre.getScene().getWindow();
+            Stage currentStage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
             currentStage.close();
         }
     }

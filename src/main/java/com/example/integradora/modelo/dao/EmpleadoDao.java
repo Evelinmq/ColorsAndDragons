@@ -15,7 +15,7 @@ public class EmpleadoDao {
     public boolean createEmpleado(Empleado e) {
         try {
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "INSERT INTO empleados (rfc, nombre, apellido_paterno, apellido_materno, id_puesto, id_unidad_administrativa, estado) " +
+            String query = "INSERT INTO empleado (rfc, nombre, apellido_paterno, apellido_materno, id_puesto, id_unidad_administrativa, estado) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, e.getRfc());
@@ -39,7 +39,7 @@ public class EmpleadoDao {
     public boolean updateEmpleado(String rfcViejo, Empleado e) {
         try {
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "UPDATE empleados SET nombre = ?, apellido_paterno = ?, apellido_materno = ?, " +
+            String query = "UPDATE empleado SET nombre = ?, apellido_paterno = ?, apellido_materno = ?, " +
                     "id_puesto = ?, id_unidad_administrativa = ?, estado = ? WHERE rfc = ?";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, e.getNombre());
@@ -60,10 +60,10 @@ public class EmpleadoDao {
         return false;
     }
 
-    public boolean deleteEmpleado(String rfc) {
+    public static boolean deleteEmpleado(String rfc) {
         try {
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "DELETE FROM empleados WHERE rfc = ?";
+            String query = "DELETE FROM empleado WHERE rfc = ?";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, rfc);
             if (ps.executeUpdate() > 0) {
@@ -81,7 +81,7 @@ public class EmpleadoDao {
         List<Empleado> lista = new ArrayList<>();
         try {
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "SELECT * FROM empleados ORDER BY rfc ASC";
+            String query = "SELECT * FROM empleado ORDER BY rfc ASC";
             PreparedStatement ps = conn.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
