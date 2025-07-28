@@ -9,7 +9,24 @@ public class Empleado {
     private int idPuesto;
     private int idUnidadAdministrativa;
     private int estado;
+    private Puesto puesto;
+    private UnidadAdministrativa unidad;
 
+    public Puesto getPuesto() {
+        return puesto;
+    }
+
+    public void setPuesto(Puesto puesto) {
+        this.puesto = puesto;
+    }
+
+    public UnidadAdministrativa getUnidad() {
+        return unidad;
+    }
+
+    public void setUnidad(UnidadAdministrativa unidad) {
+        this.unidad = unidad;
+    }
 
     public Empleado(String rfc, String nombre, String apellidoPaterno, String apellidoMaterno, int idPuesto, int idUnidadAdministrativa, int estado) {
         this.rfc = rfc;
