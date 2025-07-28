@@ -1,8 +1,6 @@
 package com.example.integradora.modelo.dao;
 
-import com.example.integradora.modelo.Empleado;
-import com.example.integradora.modelo.Espacio;
-import com.example.integradora.modelo.Resguardo;
+import com.example.integradora.modelo.*;
 import com.example.integradora.utils.OracleDatabaseConnectionManager;
 
 import java.sql.Connection;
@@ -37,15 +35,14 @@ public class ResguardoDao {
     public boolean updateResguardo(int idResguardoViejo, Espacio m, Empleado e) {
         try {
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "UPDATE ESPACIO SET ID_ESPACIO = ?, NOMBRE = ?, ESTADO = ?, ID_EDIFICIO = ? WHERE ID_ESPACIO = ?";
-            String queryDos = "UPDATE EMPLEADO NOMBRE = ?, APELLIDO_PATERNO = ?, APELLIDO_MATERNO = ?, ID_PUESTO = ?, ID_UNIDAD = ?, ESTADO = 1  WHERE RFC = ? ";
+            String query = "UPDATE ESPACIO SET NOMBRE = ?, ESTADO = ?, ID_EDIFICIO = ? WHERE ID_ESPACIO = ?";
+            String queryDos = "UPDATE EMPLEADO SET NOMBRE = ?, APELLIDO_PATERNO = ?, APELLIDO_MATERNO = ?, ID_PUESTO = ?, ID_UNIDAD = ?, ESTADO = 1  WHERE RFC = ? ";
             PreparedStatement ps = conn.prepareStatement(query);
             PreparedStatement psdos = conn.prepareStatement(queryDos);
-            ps.setInt(1, m.getId());
-            ps.setString(2, m.getNombre());
-            ps.setInt(3, m.getEstado());
-            ps.setInt(4, m.getEdificio().getId());
-            ps.setInt(5, idResguardoViejo);
+            ps.setString(1, m.getNombre());
+            ps.setInt(2, m.getEstado());
+            ps.setInt(3, m.getEdificio().getId());
+            ps.setInt(4, idResguardoViejo);
             psdos.setString(1, e.getNombre());
             psdos.setString(2, e.getApellidoPaterno());
             psdos.setString(3, e.getApellidoMaterno());
@@ -79,6 +76,277 @@ public class ResguardoDao {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public List<Resguardo> readResguardoPorEstado(int estado) {
+        List<Resguardo> lista = new ArrayList<>();
+        try{
+            Connection conn = OracleDatabaseConnectionManager.getConnection();
+
+            String query = "SELECT " +
+                    "r.ID_RESGUARDO, r.FECHA, r.ESTADO AS estado_resguardo, " +
+
+                    "es.ID_ESPACIO, es.NOMBRE AS nombre_espacio, es.ESTADO AS estado_espacio, " +
+                    "ed.ID_EDIFICIO, ed.NOMBRE AS nombre_edificio, ed.ESTADO AS estado_edificio, " +
+
+                    "em.RFC, em.NOMBRE AS nombre_empleado, em.APELLIDO_PATERNO, em.APELLIDO_MATERNO, em.ESTADO AS estado_empleado, " +
+                    "pu.ID_PUESTO, pu.NOMBRE AS nombre_puesto, pu.ESTADO AS estado_puesto, " +
+                    "ua.ID_UNIDAD, ua.NOMBRE AS nombre_unidad, ua.ESTADO AS estado_unidad " +
+
+                    "FROM RESGUARDO r " +
+                    "JOIN ESPACIO es ON r.ID_ESPACIO = es.ID_ESPACIO " +
+                    "JOIN EDIFICIO ed ON es.ID_EDIFICIO = ed.ID_EDIFICIO " +
+                    "JOIN EMPLEADO em ON r.ID_EMPLEADO = em.RFC " +
+                    "JOIN PUESTO pu ON em.ID_PUESTO = pu.ID_PUESTO " +
+                    "JOIN UNIDAD_ADMINISTRATIVA ua ON em.ID_UNIDAD = ua.ID_UNIDAD " +
+                    "WHERE r.ESTADO = ? " +
+                    "ORDER BY r.ID_RESGUARDO ASC";
+
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, estado);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                // Crear edificio
+                Edificio edificio = new Edificio();
+                edificio.setId(rs.getInt("ID_EDIFICIO"));
+                edificio.setNombre(rs.getString("nombre_edificio"));
+                edificio.setEstado(rs.getInt("estado_edificio"));
+
+                // Crear espacio
+                Espacio espacio = new Espacio();
+                espacio.setId(rs.getInt("ID_ESPACIO"));
+                espacio.setNombre(rs.getString("nombre_espacio"));
+                espacio.setEstado(rs.getInt("estado_espacio"));
+                espacio.setEdificio(edificio);
+
+                // Crear puesto
+                Puesto puesto = new Puesto();
+                puesto.setId(rs.getInt("ID_PUESTO"));
+                puesto.setNombre(rs.getString("nombre_puesto"));
+                puesto.setEstado(rs.getInt("estado_puesto"));
+
+                // Crear unidad
+                UnidadAdministrativa unidad = new UnidadAdministrativa();
+                unidad.setId(rs.getInt("ID_UNIDAD"));
+                unidad.setNombre(rs.getString("nombre_unidad"));
+                unidad.setEstado(rs.getInt("estado_unidad"));
+
+                // Crear empleado
+                Empleado empleado = new Empleado();
+                empleado.setRfc(rs.getString("RFC"));
+                empleado.setNombre(rs.getString("nombre_empleado"));
+                empleado.setApellidoPaterno(rs.getString("APELLIDO_PATERNO"));
+                empleado.setApellidoMaterno(rs.getString("APELLIDO_MATERNO"));
+                empleado.setEstado(rs.getInt("estado_empleado"));
+                empleado.setPuesto(puesto);
+                empleado.setUnidad(unidad);
+
+                // Crear resguardo
+                Resguardo resguardo = new Resguardo();
+                resguardo.setId(rs.getInt("ID_RESGUARDO"));
+                resguardo.setFecha(rs.getDate("FECHA").toLocalDate());
+                resguardo.setEstado(rs.getInt("estado_resguardo"));
+                resguardo.setEspacio(espacio);
+                resguardo.setEmpleado(empleado);
+
+                lista.add(resguardo);
+            }
+            rs.close();
+            conn.close();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return lista;
+    }
+
+    public List<Resguardo> readTodosResguardos() {
+        List<Resguardo> lista = new ArrayList<>();
+        try {
+            Connection conn = OracleDatabaseConnectionManager.getConnection();
+            String query = "SELECT " +
+                    "r.ID_RESGUARDO, r.FECHA, r.ESTADO AS estado_resguardo, " +
+
+                    "es.ID_ESPACIO, es.NOMBRE AS nombre_espacio, es.ESTADO AS estado_espacio, " +
+                    "ed.ID_EDIFICIO, ed.NOMBRE AS nombre_edificio, ed.ESTADO AS estado_edificio, " +
+
+                    "em.RFC, em.NOMBRE AS nombre_empleado, em.APELLIDO_PATERNO, em.APELLIDO_MATERNO, em.ESTADO AS estado_empleado, " +
+                    "pu.ID_PUESTO, pu.NOMBRE AS nombre_puesto, pu.ESTADO AS estado_puesto, " +
+                    "ua.ID_UNIDAD, ua.NOMBRE AS nombre_unidad, ua.ESTADO AS estado_unidad " +
+
+                    "FROM RESGUARDO r " +
+                    "JOIN ESPACIO es ON r.ID_ESPACIO = es.ID_ESPACIO " +
+                    "JOIN EDIFICIO ed ON es.ID_EDIFICIO = ed.ID_EDIFICIO " +
+                    "JOIN EMPLEADO em ON r.ID_EMPLEADO = em.RFC " +
+                    "JOIN PUESTO pu ON em.ID_PUESTO = pu.ID_PUESTO " +
+                    "JOIN UNIDAD_ADMINISTRATIVA ua ON em.ID_UNIDAD = ua.ID_UNIDAD " +
+                    "ORDER BY r.ID_RESGUARDO ASC";
+
+            PreparedStatement ps = conn.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                // Edificio
+                Edificio edificio = new Edificio();
+                edificio.setId(rs.getInt("ID_EDIFICIO"));
+                edificio.setNombre(rs.getString("nombre_edificio"));
+                edificio.setEstado(rs.getInt("estado_edificio"));
+
+                // Espacio
+                Espacio espacio = new Espacio();
+                espacio.setId(rs.getInt("ID_ESPACIO"));
+                espacio.setNombre(rs.getString("nombre_espacio"));
+                espacio.setEstado(rs.getInt("estado_espacio"));
+                espacio.setEdificio(edificio);
+
+                // Puesto
+                Puesto puesto = new Puesto();
+                puesto.setId(rs.getInt("ID_PUESTO"));
+                puesto.setNombre(rs.getString("nombre_puesto"));
+                puesto.setEstado(rs.getInt("estado_puesto"));
+
+                // Unidad
+                UnidadAdministrativa unidad = new UnidadAdministrativa();
+                unidad.setId(rs.getInt("ID_UNIDAD"));
+                unidad.setNombre(rs.getString("nombre_unidad"));
+                unidad.setEstado(rs.getInt("estado_unidad"));
+
+                // Empleado
+                Empleado empleado = new Empleado();
+                empleado.setRfc(rs.getString("RFC"));
+                empleado.setNombre(rs.getString("nombre_empleado"));
+                empleado.setApellidoPaterno(rs.getString("APELLIDO_PATERNO"));
+                empleado.setApellidoMaterno(rs.getString("APELLIDO_MATERNO"));
+                empleado.setEstado(rs.getInt("estado_empleado"));
+                empleado.setPuesto(puesto);
+                empleado.setUnidad(unidad);
+
+                // Resguardo
+                Resguardo resguardo = new Resguardo();
+                resguardo.setId(rs.getInt("ID_RESGUARDO"));
+                resguardo.setFecha(rs.getDate("FECHA").toLocalDate());
+                resguardo.setEstado(rs.getInt("estado_resguardo"));
+                resguardo.setEspacio(espacio);
+                resguardo.setEmpleado(empleado);
+
+                lista.add(resguardo);
+            }
+            rs.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
+
+    public List<Resguardo> readResguardo() {
+        return readResguardoPorEstado(1);
+    }
+
+    public boolean restaurarResguardo(int id) {
+        try {
+            Connection conn = OracleDatabaseConnectionManager.getConnection();
+            String query = "UPDATE RESGUARDO SET ESTADO = 1 WHERE ID_RESGUARDO = ?";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, id);
+            if (ps.executeUpdate() > 0) {
+                conn.close();
+                return true;
+            }
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public List<Resguardo> readResguardoEspecifico(String texto) {
+        List<Resguardo> lista = new ArrayList<>();
+        try {
+            Connection conn = OracleDatabaseConnectionManager.getConnection();
+            String query = "SELECT " +
+                    "r.ID_RESGUARDO, r.FECHA, r.ESTADO AS estado_resguardo, " +
+
+                    "es.ID_ESPACIO, es.NOMBRE AS nombre_espacio, es.ESTADO AS estado_espacio, " +
+                    "ed.ID_EDIFICIO, ed.NOMBRE AS nombre_edificio, ed.ESTADO AS estado_edificio, " +
+
+                    "em.RFC, em.NOMBRE AS nombre_empleado, em.APELLIDO_PATERNO, em.APELLIDO_MATERNO, em.ESTADO AS estado_empleado, " +
+                    "pu.ID_PUESTO, pu.NOMBRE AS nombre_puesto, pu.ESTADO AS estado_puesto, " +
+                    "ua.ID_UNIDAD, ua.NOMBRE AS nombre_unidad, ua.ESTADO AS estado_unidad " +
+
+                    "FROM RESGUARDO r " +
+                    "JOIN ESPACIO es ON r.ID_ESPACIO = es.ID_ESPACIO " +
+                    "JOIN EDIFICIO ed ON es.ID_EDIFICIO = ed.ID_EDIFICIO " +
+                    "JOIN EMPLEADO em ON r.ID_EMPLEADO = em.RFC " +
+                    "JOIN PUESTO pu ON em.ID_PUESTO = pu.ID_PUESTO " +
+                    "JOIN UNIDAD_ADMINISTRATIVA ua ON em.ID_UNIDAD = ua.ID_UNIDAD " +
+                    "WHERE LOWER(es.NOMBRE) LIKE ? " +
+                    "   OR LOWER(ed.NOMBRE) LIKE ? " +
+                    "   OR LOWER(em.NOMBRE) LIKE ? " +
+                    "   OR LOWER(em.APELLIDO_PATERNO) LIKE ? " +
+                    "   OR LOWER(em.APELLIDO_MATERNO) LIKE ? " +
+                    "ORDER BY r.ID_RESGUARDO ASC";
+
+            PreparedStatement ps = conn.prepareStatement(query);
+            String search = "%" + texto.toLowerCase() + "%";
+            for (int i = 1; i <= 5; i++) {
+                ps.setString(i, search);
+            }
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                // Edificio
+                Edificio edificio = new Edificio();
+                edificio.setId(rs.getInt("ID_EDIFICIO"));
+                edificio.setNombre(rs.getString("nombre_edificio"));
+                edificio.setEstado(rs.getInt("estado_edificio"));
+
+                // Espacio
+                Espacio espacio = new Espacio();
+                espacio.setId(rs.getInt("ID_ESPACIO"));
+                espacio.setNombre(rs.getString("nombre_espacio"));
+                espacio.setEstado(rs.getInt("estado_espacio"));
+                espacio.setEdificio(edificio);
+
+                // Puesto
+                Puesto puesto = new Puesto();
+                puesto.setId(rs.getInt("ID_PUESTO"));
+                puesto.setNombre(rs.getString("nombre_puesto"));
+                puesto.setEstado(rs.getInt("estado_puesto"));
+
+                // Unidad
+                UnidadAdministrativa unidad = new UnidadAdministrativa();
+                unidad.setId(rs.getInt("ID_UNIDAD"));
+                unidad.setNombre(rs.getString("nombre_unidad"));
+                unidad.setEstado(rs.getInt("estado_unidad"));
+
+                // Empleado
+                Empleado empleado = new Empleado();
+                empleado.setRfc(rs.getString("RFC"));
+                empleado.setNombre(rs.getString("nombre_empleado"));
+                empleado.setApellidoPaterno(rs.getString("APELLIDO_PATERNO"));
+                empleado.setApellidoMaterno(rs.getString("APELLIDO_MATERNO"));
+                empleado.setEstado(rs.getInt("estado_empleado"));
+                empleado.setPuesto(puesto);
+                empleado.setUnidad(unidad);
+
+                // Resguardo
+                Resguardo resguardo = new Resguardo();
+                resguardo.setId(rs.getInt("ID_RESGUARDO"));
+                resguardo.setFecha(rs.getDate("FECHA").toLocalDate());
+                resguardo.setEstado(rs.getInt("estado_resguardo"));
+                resguardo.setEspacio(espacio);
+                resguardo.setEmpleado(empleado);
+
+                lista.add(resguardo);
+            }
+            rs.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
     }
 
 

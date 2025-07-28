@@ -9,12 +9,11 @@ public class ResguardoBien {
     private Empleado empleado;
     private UnidadAdministrativa unidad;
     private Puesto puesto;
-    private int estado;
 
     public ResguardoBien() {
     }
 
-    public ResguardoBien(int id, Resguardo resguardo, Bien bien, Espacio espacio, Edificio edificio, Empleado empleado, UnidadAdministrativa unidad, Puesto puesto, int estado) {
+    public ResguardoBien(int id, Resguardo resguardo, Bien bien, Espacio espacio, Edificio edificio, Empleado empleado, UnidadAdministrativa unidad, Puesto puesto) {
         this.id = id;
         this.resguardo = resguardo;
         this.bien = bien;
@@ -23,7 +22,6 @@ public class ResguardoBien {
         this.empleado = empleado;
         this.unidad = unidad;
         this.puesto = puesto;
-        this.estado = estado;
     }
 
     public int getId() {
@@ -90,11 +88,4 @@ public class ResguardoBien {
         this.puesto = puesto;
     }
 
-    public int getEstado() {
-        return estado;
-    }
-
-    public void setEstado(int estado) {
-        this.estado = estado;
-    }
 }

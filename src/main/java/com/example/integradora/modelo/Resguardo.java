@@ -1,14 +1,10 @@
 package com.example.integradora.modelo;
 
-
-
-//No sé cuál de los dos import para la Fecha sea el correcto, así que puse los dos
-import java.sql.Date;
-//import java.util.Date;
+import java.time.LocalDate;
 
 public class Resguardo {
     private int id;
-    private Date fecha;
+    private LocalDate fecha;
     private int estado;
     private Empleado empleado;
     private Espacio espacio;
@@ -16,7 +12,7 @@ public class Resguardo {
     public Resguardo() {
     }
 
-    public Resguardo(int id, Date fecha, int estado, Empleado empleado, Espacio espacio) {
+    public Resguardo(int id, LocalDate fecha, int estado, Empleado empleado, Espacio espacio) {
         this.id = id;
         this.fecha = fecha;
         this.estado = estado;
@@ -32,11 +28,11 @@ public class Resguardo {
         this.id = id;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
