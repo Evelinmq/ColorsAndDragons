@@ -2,126 +2,116 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="779.0" prefWidth="1388.0" style="-fx-background-color: E7E7EE;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #EFEFF0;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.integradora.controllers.RegistroResguardoController">
     <children>
-        <HBox prefHeight="659.0" prefWidth="562.0">
+        <HBox prefHeight="66.0" prefWidth="600.0">
             <children>
-                <VBox prefHeight="200.0" prefWidth="438.0">
-                    <children>
-                        <Label text="Fecha" textFill="#404463">
-                            <VBox.margin>
-                                <Insets bottom="5.0" />
-                            </VBox.margin>
-                            <font>
-                                <Font name="Tahoma" size="12.0" />
-                            </font>
-                        </Label>
-                        <TextField prefHeight="30.0" prefWidth="524.0" style="-fx-background-color: fff;">
-                            <VBox.margin>
-                                <Insets bottom="15.0" />
-                            </VBox.margin>
-                        </TextField>
-                        <Label text="Empleado" textFill="#404463">
-                            <VBox.margin>
-                                <Insets bottom="5.0" />
-                            </VBox.margin>
-                            <font>
-                                <Font name="Tahoma" size="12.0" />
-                            </font>
-                        </Label>
-                        <MenuButton mnemonicParsing="false" prefHeight="30.0" prefWidth="438.0" style="-fx-background-color: fff;" text="Opciones" textFill="#c7c4c4">
-                            <items>
-                                <MenuItem mnemonicParsing="false" text="Action 1" />
-                                <MenuItem mnemonicParsing="false" text="Action 2" />
-                            </items>
-                            <VBox.margin>
-                                <Insets bottom="15.0" />
-                            </VBox.margin>
-                        </MenuButton>
-                        <Label text="Espacio" textFill="#404463">
-                            <VBox.margin>
-                                <Insets bottom="5.0" />
-                            </VBox.margin>
-                            <font>
-                                <Font name="Tahoma" size="12.0" />
-                            </font>
-                        </Label>
-                        <MenuButton mnemonicParsing="false" prefHeight="30.0" prefWidth="442.0" style="-fx-background-color: fff;" text="Opciones" textFill="#b9b8b8">
-                            <items>
-                                <MenuItem mnemonicParsing="false" text="Action 1" />
-                                <MenuItem mnemonicParsing="false" text="Action 2" />
-                            </items>
-                        </MenuButton>
-                    </children>
-                    <opaqueInsets>
-                        <Insets />
-                    </opaqueInsets>
-                    <HBox.margin>
-                        <Insets left="60.0" top="300.0" />
-                    </HBox.margin>
-                </VBox>
-            </children></HBox>
-        <HBox layoutX="2.0" prefHeight="133.0" prefWidth="1388.0">
-            <children>
-                <Label text="Editar resguardo" textFill="#404463">
+                <Label text="Editar Resguardo" textFill="#404463">
                     <font>
-                        <Font name="Tahoma" size="30.0" />
+                        <Font name="Tahoma" size="22.0" />
                     </font>
                     <HBox.margin>
-                        <Insets left="600.0" top="50.0" />
-                    </HBox.margin>
-                </Label>
+                        <Insets left="220.0" top="20.0" />
+                    </HBox.margin></Label>
             </children>
         </HBox>
-        <VBox layoutX="1114.0" layoutY="258.0" prefHeight="522.0" prefWidth="278.0">
+        <VBox layoutY="55.0" prefHeight="347.0" prefWidth="224.0">
             <children>
-                <HBox prefHeight="100.0" prefWidth="200.0">
+                <Label text="Fecha" textFill="#404463">
+                    <VBox.margin>
+                        <Insets bottom="5.0" left="20.0" top="50.0" />
+                    </VBox.margin>
+                    <font>
+                        <Font name="Tahoma" size="12.0" />
+                    </font></Label>
+                <DatePicker fx:id="fecha" prefHeight="25.0" prefWidth="275.0">
+                    <VBox.margin>
+                        <Insets bottom="10.0" left="20.0" />
+                    </VBox.margin>
+                </DatePicker>
+                <Label text="Empelado" textFill="#404463">
+                    <VBox.margin>
+                        <Insets bottom="5.0" left="20.0" />
+                    </VBox.margin>
+                    <font>
+                        <Font name="Tahoma" size="12.0" />
+                    </font></Label>
+                <ComboBox fx:id="empleado" prefHeight="25.0" prefWidth="288.0" style="-fx-background-color: FFFFFF;">
+                    <VBox.margin>
+                        <Insets bottom="10.0" left="20.0" />
+                    </VBox.margin>
+                </ComboBox>
+                <Label text="Espacio" textFill="#404463">
+                    <VBox.margin>
+                        <Insets bottom="5.0" left="20.0" />
+                    </VBox.margin>
+                    }               <font>
+                    <Font name="Tahoma" size="12.0" />
+                </font></Label>
+                <ComboBox fx:id="espacio" prefHeight="25.0" prefWidth="291.0" style="-fx-background-color: FFFFFF;">
+                    <VBox.margin>
+                        <Insets bottom="10.0" left="20.0" />
+                    </VBox.margin>
+                </ComboBox>
+            </children></VBox>
+        <VBox layoutX="226.0" layoutY="71.0" prefHeight="331.0" prefWidth="374.0">
+            <children>
+                <HBox>
                     <children>
-                        <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: B8B7C0; -fx-background-radius: 10;" text="Cancelar" textFill="#404463" />
-                        <Button layoutX="600.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #013AE4; -fx-background-radius: 10;" text="Guardar" textFill="WHITE">
+                        <ComboBox fx:id="comboBoxBusqueda" prefHeight="25.0" prefWidth="181.0" style="-fx-background-color: FFFFFF;">
                             <HBox.margin>
                                 <Insets left="10.0" />
-                            </HBox.margin></Button>
-                    </children>
-                </HBox>
-            </children>
-            <padding>
-                <Insets left="10.0" top="480.0" />
-            </padding></VBox>
-        <VBox layoutX="563.0" layoutY="220.0" prefHeight="452.0" prefWidth="791.0">
-            <children>
-                <HBox prefHeight="100.0" prefWidth="200.0">
-                    <children>
-                        <ComboBox prefHeight="26.0" prefWidth="232.0" style="-fx-background-color: fff; -fx-background-radius: 5;">
-                            <HBox.margin>
-                                <Insets />
                             </HBox.margin></ComboBox>
-                        <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="89.0" style="-fx-background-color: fff; -fx-background-radius: 5;" text="Buscar 🔎" textFill="#404463">
+                        <Button fx:id="buscar" mnemonicParsing="false" onAction="#getSeleccion" prefHeight="25.0" prefWidth="97.0" style="-fx-background-color: FFFFFF;" text="Buscar">
                             <HBox.margin>
                                 <Insets left="20.0" />
-                            </HBox.margin></Button>
-                        <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="37.0" style="-fx-background-color: FFA0A0;" text="🗑" textAlignment="CENTER" textFill="WHITE">
-                            <HBox.margin>
-                                <Insets left="400.0" />
                             </HBox.margin>
-                            <font>
-                                <Font size="15.0" />
-                            </font>
+                        </Button>
+                        <Button fx:id="botonEliminar" disable="true" mnemonicParsing="false" onAction="#eliminarSeleccion" style="-fx-background-color: FFA0A0; -fx-background-radius: 10;">
+                            <HBox.margin>
+                                <Insets left="10.0" right="10.0" />
+                            </HBox.margin>
+                            <graphic>
+                                <ImageView fitHeight="10.0" fitWidth="10.0" pickOnBounds="true" preserveRatio="true" />
+                            </graphic>
                         </Button>
                     </children>
-                    <VBox.margin>
-                        <Insets />
-                    </VBox.margin>
                 </HBox>
-                <TableView prefHeight="410.0" prefWidth="720.0">
+                <TableView fx:id="tabla" prefHeight="228.0" prefWidth="354.0">
                     <columns>
-                        <TableColumn prefWidth="75.0" text="C1" />
-                        <TableColumn prefWidth="75.0" text="C2" />
+                        <TableColumn fx:id="codigo" prefWidth="75.0" style="-fx-backgrounf-color: E0E1E1;" text="Código" />
+                        <TableColumn fx:id="descripcion" prefWidth="94.0" text="Descripción" />
+                        <TableColumn fx:id="marca" prefWidth="55.0" text="Marca" />
+                        <TableColumn fx:id="modelo" prefWidth="70.0" text="Modelo" />
+                        <TableColumn fx:id="serie" prefWidth="59.0" text="No. Serie" />
                     </columns>
+                    <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="15.0" />
+                    </VBox.margin>
                 </TableView>
-            </children></VBox>
+                <HBox prefHeight="54.0" prefWidth="374.0">
+                    <children>
+                        <Button fx:id="cancelar" mnemonicParsing="false" onAction="#cancelarResguardo" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: B8B7C0; -fx-background-radius: 10;" text="Cancelar" textFill="#404463">
+                            <HBox.margin>
+                                <Insets bottom="10.0" left="170.0" right="10.0" top="10.0" />
+                            </HBox.margin>
+                            <font>
+                                <Font name="Tahoma" size="12.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="guardar" mnemonicParsing="false" onAction="#registrarResguardo" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #013AE4; -fx-background-radius: 10;" text="Guardar" textFill="WHITE">
+                            <HBox.margin>
+                                <Insets bottom="10.0" top="10.0" />
+                            </HBox.margin>
+                            <font>
+                                <Font name="Tahoma" size="12.0" />
+                            </font></Button>
+                    </children></HBox>
+            </children>
+        </VBox>
     </children>
 </AnchorPane>
