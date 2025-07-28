@@ -77,7 +77,7 @@ public class EmpleadoDao {
         return false;
     }
 
-    public List<Empleado> readEmpleados() {
+    public static List<Empleado> readEmpleados() {
         List<Empleado> lista = new ArrayList<>();
         try {
             Connection conn = OracleDatabaseConnectionManager.getConnection();

@@ -103,7 +103,7 @@ public class EspacioDao {
         return lista;
     }
 
-    public List<Espacio> readTodosEspacios() {
+    public static List<Espacio> readTodosEspacios() {
         List<Espacio> lista = new ArrayList<>();
         try {
             Connection conn = OracleDatabaseConnectionManager.getConnection();
