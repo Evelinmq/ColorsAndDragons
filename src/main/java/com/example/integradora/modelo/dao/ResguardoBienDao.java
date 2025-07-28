@@ -194,6 +194,56 @@ public class ResguardoBienDao {
         return resguardo;
     }
 
+    public static List<Bien> obtenerBienesPorResguardo(int idResguardo) {
+        List<Bien> lista = new ArrayList<>();
+        try {
+            Connection conn = OracleDatabaseConnectionManager.getConnection();
+            String query = "SELECT b.BIEN_CODIGO, b.DESCRIPCION, b.MARCA, b.MODELO, b.SERIE " +
+                    "FROM RESGUARDO_BIEN rb " +
+                    "JOIN BIEN b ON rb.BIEN_CODIGO = b.BIEN_CODIGO " +
+                    "WHERE rb.ID_RESGUARDO = ?";
 
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, idResguardo);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Bien bien = new Bien();
+                bien.setBien_codigo(rs.getString("BIEN_CODIGO"));
+                bien.setDescripcion(rs.getString("DESCRIPCION"));
+                bien.setMarca(rs.getString("MARCA"));
+                bien.setModelo(rs.getString("MODELO"));
+                bien.setSerie(rs.getString("SERIE"));
+                lista.add(bien);
+            }
+
+            rs.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
+
+
+    public static boolean insertarResguardoBien(int idResguardo, String codigoBien) {
+        boolean exito = false;
+
+        String query = "INSERT INTO RESGUARDO_BIEN (RESBIEN_RESGUID, RESBIEN_CODBIEN) VALUES (?, ?)";
+
+        try (Connection conn = OracleDatabaseConnectionManager.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setInt(1, idResguardo);
+            ps.setString(2, codigoBien);
+
+            exito = ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return exito;
+    }
 
 }

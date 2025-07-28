@@ -3,10 +3,7 @@ package com.example.integradora.modelo.dao;
 import com.example.integradora.modelo.*;
 import com.example.integradora.utils.OracleDatabaseConnectionManager;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,7 +77,7 @@ public class ResguardoDao {
 
     public List<Resguardo> readResguardoPorEstado(int estado) {
         List<Resguardo> lista = new ArrayList<>();
-        try{
+        try {
             Connection conn = OracleDatabaseConnectionManager.getConnection();
 
             String query = "SELECT " +
@@ -154,7 +151,7 @@ public class ResguardoDao {
             }
             rs.close();
             conn.close();
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return lista;
@@ -275,7 +272,7 @@ public class ResguardoDao {
                     "ua.ID_UNIDAD, ua.NOMBRE AS nombre_unidad, ua.ESTADO AS estado_unidad " +
 
                     "FROM RESGUARDO r " +
-                    "JOIN ESPACIO es ON r.ID_ESPACIO = es.ID_ESPACIO " +
+                    "JOIN ESPACIO es ON r.ESPACIO_ID = es.ID_ESPACIO " +
                     "JOIN EDIFICIO ed ON es.ID_EDIFICIO = ed.ID_EDIFICIO " +
                     "JOIN EMPLEADO em ON r.ID_EMPLEADO = em.RFC " +
                     "JOIN PUESTO pu ON em.ID_PUESTO = pu.ID_PUESTO " +
@@ -348,6 +345,120 @@ public class ResguardoDao {
         }
         return lista;
     }
+
+
+    //OBTENER LA INFORMACIÓN BÁSICA DEL RESGUARDO: FECHA, EMPLEADO, ESPACIO
+    public static Resguardo obtenerPorId(int idResguardo) {
+        Resguardo resguardo = null;
+        try {
+            Connection conn = OracleDatabaseConnectionManager.getConnection();
+            String query = "SELECT r.ID_RESGUARDO, r.FECHA, r.EMPLEADO_RFC, r.ESPACIO_ID, " +
+                    "e.NOMBRE AS nombre_espacio, e.ESTADO AS estado_espacio, " +
+                    "ed.ID_EDIFICIO, ed.NOMBRE AS nombre_edificio, ed.ESTADO AS estado_edificio, " +
+                    "em.NOMBRE AS nombre_empleado, em.APELLIDO_PATERNO, em.APELLIDO_MATERNO " +
+                    "FROM RESGUARDO r " +
+                    "JOIN EMPLEADO em ON r.EMPLEADO_RFC = em.RFC " +
+                    "JOIN ESPACIO e ON r.ID_ESPACIO = e.ID_ESPACIO " +
+                    "JOIN EDIFICIO ed ON e.ID_EDIFICIO = ed.ID_EDIFICIO " +
+                    "WHERE r.ID_RESGUARDO = ?";
+
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, idResguardo);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                resguardo = new Resguardo();
+                resguardo.setId(rs.getInt("ID_RESGUARDO"));
+                resguardo.setFecha(rs.getDate("FECHA").toLocalDate());
+
+                // Empleado
+                Empleado empleado = new Empleado();
+                empleado.setRfc(rs.getString("EMPLEADO_RFC"));
+                empleado.setNombre(rs.getString("nombre_empleado"));
+                empleado.setApellidoPaterno(rs.getString("APELLIDO_PATERNO"));
+                empleado.setApellidoMaterno(rs.getString("APELLIDO_MATERNO"));
+                resguardo.setEmpleado(empleado);
+
+                // Edificio
+                Edificio edificio = new Edificio();
+                edificio.setId(rs.getInt("ID_EDIFICIO"));
+                edificio.setNombre(rs.getString("nombre_edificio"));
+                edificio.setEstado(rs.getInt("estado_edificio"));
+
+                // Espacio
+                Espacio espacio = new Espacio();
+                espacio.setId(rs.getInt("ID_ESPACIO"));
+                espacio.setNombre(rs.getString("nombre_espacio"));
+                espacio.setEstado(rs.getInt("estado_espacio"));
+                espacio.setEdificio(edificio);
+                resguardo.setEspacio(espacio);
+            }
+
+            rs.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resguardo;
+    }
+
+    public static int insertarResguardo(Resguardo resguardo) {
+        int idGenerado = -1;
+        try (Connection conn = OracleDatabaseConnectionManager.getConnection()) {
+            String sql = "INSERT INTO RESGUARDO (FECHA, RFC, ESPACIO_ID, ESTADO) VALUES (?, ?, ?, ?)";
+            PreparedStatement ps = conn.prepareStatement(sql, new String[] { "ID_RESGUARDO" });
+
+            ps.setDate(1, Date.valueOf(resguardo.getFecha()));
+            ps.setString(2, resguardo.getEmpleado().getRfc());
+            ps.setInt(3, resguardo.getEspacio().getId());
+            ps.setInt(4, resguardo.getEstado());
+
+            int filas = ps.executeUpdate();
+
+            if (filas > 0) {
+                ResultSet rs = ps.getGeneratedKeys();
+                if (rs.next()) {
+                    idGenerado = rs.getInt(1); // ID_RESGUARDO generado
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return idGenerado;
+    }
+
+    public int insertResguardo(Resguardo resguardo) {
+        int idGenerado = -1;
+
+        String query = "INSERT INTO RESGUARDO (FECHA, RFC_EMPLEADO, ESPACIO_ID, ESTADO) VALUES (?, ?, ?, ?)";
+
+        try (Connection conn = OracleDatabaseConnectionManager.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query, new String[] { "ID_RESGUARDO" })) {
+
+            ps.setDate(1, Date.valueOf(resguardo.getFecha())); // java.sql.Date
+            ps.setString(2, resguardo.getEmpleado().getRfc());
+            ps.setInt(3, resguardo.getEspacio().getId());
+            ps.setInt(4, resguardo.getEstado());
+
+            int rowsInserted = ps.executeUpdate();
+
+            if (rowsInserted > 0) {
+                ResultSet rs = ps.getGeneratedKeys();
+                if (rs.next()) {
+                    idGenerado = rs.getInt(1); // Obtener ID generado por la secuencia
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return idGenerado;
+    }
+
+
 
 
 }

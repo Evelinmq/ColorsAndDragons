@@ -3,6 +3,11 @@ package com.example.integradora.controllers;
 import com.example.integradora.modelo.Bien;
 import com.example.integradora.modelo.Empleado;
 import com.example.integradora.modelo.Espacio;
+import com.example.integradora.modelo.Resguardo;
+import com.example.integradora.modelo.dao.ResguardoDao;
+import com.example.integradora.modelo.dao.ResguardoBienDao;
+import com.example.integradora.modelo.dao.EmpleadoDao;
+import com.example.integradora.modelo.dao.EspacioDao;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,6 +18,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.StringConverter;
 
 import java.net.URL;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -95,7 +102,7 @@ public class RegistroResguardoController  implements Initializable {
             }
         });
 
-
+        cargarCombos();
 
     }
 
@@ -140,10 +147,92 @@ public class RegistroResguardoController  implements Initializable {
         botonEliminar.setDisable(true);
     }
 
+    //CARGAR EMPLEADO Y ESPACIO
+    private void cargarCombos() {
+        List<Empleado> empleados = EmpleadoDao.readEmpleados();
+        List<Espacio> espacios = EspacioDao.readTodosEspacios();
 
-    //CONFIGURAR EL DATEPICKER PARA LA FECHA
+        empleado.setItems(FXCollections.observableArrayList(empleados));
+        espacio.setItems(FXCollections.observableArrayList(espacios));
 
-    //CONFIGURAR EL COMBOBOX PARA EMPLEADO
+        empleado.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(Empleado object) {
+                return (object == null) ? "" : object.getNombre();
+            }
 
-    //CONFIGURAR EL COMBOBOX PARA ESPACIO
+            @Override
+            public Empleado fromString(String string) {
+                return empleado.getItems().stream()
+                        .filter(e -> e.getNombre().equals(string))
+                        .findFirst().orElse(null);
+            }
+        });
+
+        espacio.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(Espacio object) {
+                return (object == null) ? "" : object.getNombre();
+            }
+
+            @Override
+            public Espacio fromString(String string) {
+                return espacio.getItems().stream()
+                        .filter(e -> e.getNombre().equals(string))
+                        .findFirst().orElse(null);
+            }
+        });
+    }
+
+    //GUARDA EL RESGUARDO CON SUS RESPECTIVOS BIENES
+    @FXML
+    public void guardarResguardo(ActionEvent event) {
+        LocalDate fechaSeleccionada = fecha.getValue();
+        Empleado emp = empleado.getValue();
+        Espacio esp = espacio.getValue();
+
+        if (fechaSeleccionada == null || emp == null || esp == null || lista.isEmpty()) {
+            mostrarAlerta(Alert.AlertType.WARNING,"ERROR", "Debes completar todos los campos y agregar al menos un bien");
+            return;
+        }
+
+        Resguardo nuevo = new Resguardo();
+        nuevo.setFecha(Date.valueOf(fechaSeleccionada).toLocalDate());
+        nuevo.setEmpleado(emp);
+        nuevo.setEspacio(esp);
+        nuevo.setEstado(1); // Está activo
+
+        int idGenerado = ResguardoDao.insertarResguardo(nuevo); // regresa ID generado
+
+        if (idGenerado > 0) {
+            for (Bien bien : lista) {
+                ResguardoBienDao.insertarResguardoBien(idGenerado, bien.getBien_codigo());
+            }
+            mostrarAlerta(Alert.AlertType.INFORMATION,"Éxito", "Resguardo registrado correctamente.");
+            limpiarFormulario();
+        } else {
+            mostrarAlerta(Alert.AlertType.ERROR,"ERROR", "No se pudo registrar el resguardo.");
+        }
+    }
+
+
+    //ALERTA
+    private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
+        Alert alert = new Alert(tipo);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
+    }
+
+    //LIMPIAR EL FORMULARIO
+    private void limpiarFormulario() {
+        fecha.setValue(null);
+        empleado.getSelectionModel().clearSelection();
+        espacio.getSelectionModel().clearSelection();
+        lista.clear();
+        tabla.getItems().clear();
+    }
+
+
 }
