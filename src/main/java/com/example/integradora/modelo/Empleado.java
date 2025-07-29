@@ -7,7 +7,7 @@ public class Empleado {
     private String apellidoPaterno;
     private String apellidoMaterno;
     private int idPuesto;
-    private int idUnidadAdministrativa;
+    private int idUnidad;
     private int estado;
     private Puesto puesto;
     private UnidadAdministrativa unidad;
@@ -28,13 +28,13 @@ public class Empleado {
         this.unidad = unidad;
     }
 
-    public Empleado(String rfc, String nombre, String apellidoPaterno, String apellidoMaterno, int idPuesto, int idUnidadAdministrativa, int estado) {
+    public Empleado(String rfc, String nombre, String apellidoPaterno, String apellidoMaterno, int idPuesto, int idUnidad, int estado) {
         this.rfc = rfc;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.idPuesto = idPuesto;
-        this.idUnidadAdministrativa = idUnidadAdministrativa;
+        this.idUnidad = idUnidad;
         this.estado = estado;
     }
 
@@ -82,11 +82,11 @@ public class Empleado {
     }
 
     public int getIdUnidadAdministrativa() {
-        return idUnidadAdministrativa;
+        return idUnidad;
     }
 
-    public void setIdUnidadAdministrativa(int idUnidadAdministrativa) {
-        this.idUnidadAdministrativa = idUnidadAdministrativa;
+    public void setIdUnidadAdministrativa(int idUnidad) {
+        this.idUnidad = idUnidad;
     }
 
     public int getEstado() {

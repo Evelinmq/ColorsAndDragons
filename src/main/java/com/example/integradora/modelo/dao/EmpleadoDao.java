@@ -12,7 +12,7 @@ public class EmpleadoDao {
     public boolean createEmpleado(Empleado e) {
         try {
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "INSERT INTO empleado (rfc, nombre, apellido_paterno, apellido_materno, id_puesto, id_unidad_administrativa, estado) " +
+            String query = "INSERT INTO empleado (rfc, nombre, apellido_paterno, apellido_materno, id_puesto, id_unidad, estado) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, e.getRfc());
@@ -37,7 +37,7 @@ public class EmpleadoDao {
         try {
             Connection conn = OracleDatabaseConnectionManager.getConnection();
             String query = "UPDATE empleado SET nombre = ?, apellido_paterno = ?, apellido_materno = ?, " +
-                    "id_puesto = ?, id_unidad_administrativa = ?, estado = ? WHERE rfc = ?";
+                    "id_puesto = ?, id_unidad= ?, estado = ? WHERE rfc = ?";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, e.getNombre());
             ps.setString(2, e.getApellidoPaterno());
@@ -88,7 +88,7 @@ public class EmpleadoDao {
                 e.setApellidoPaterno(rs.getString("apellido_paterno"));
                 e.setApellidoMaterno(rs.getString("apellido_materno"));
                 e.setIdPuesto(rs.getInt("id_puesto"));
-                e.setIdUnidadAdministrativa(rs.getInt("id_unidad_administrativa"));
+                e.setIdUnidadAdministrativa(rs.getInt("id_unidad"));
                 e.setEstado(rs.getInt("estado"));
                 lista.add(e);
             }
