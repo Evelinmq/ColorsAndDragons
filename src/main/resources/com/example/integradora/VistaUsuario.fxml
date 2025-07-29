@@ -168,7 +168,7 @@
                                 </ProgressIndicator>
                                 <ComboBox fx:id="filtroEstado" nodeOrientation="LEFT_TO_RIGHT" prefHeight="43.0" prefWidth="201.0" promptText="  Filtrar" style="-fx-background-radius: 15; -fx-background-color: #ABBAE5;" />
                                 <TextField fx:id="textoBusquedaUsuario" prefHeight="43.0" prefWidth="250.0" promptText="Buscar..." />
-                                <Button fx:id="botonBusquedaUsuario" mnemonicParsing="false" prefHeight="42.0" prefWidth="68.0" style="-fx-background-color: C6CFE2;" text="🔎">
+                                <Button fx:id="botonBusquedaUsuario" mnemonicParsing="false" onAction="#buscarUsuario" prefHeight="42.0" prefWidth="68.0" style="-fx-background-color: C6CFE2;" text="🔎">
                                     <HBox.margin>
                                         <Insets right="40.0" />
                                     </HBox.margin>

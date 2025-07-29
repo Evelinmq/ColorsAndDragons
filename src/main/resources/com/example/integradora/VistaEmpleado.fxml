@@ -167,7 +167,7 @@
                            </HBox.margin>
                         </ProgressIndicator>
                         <TextField fx:id="textoBusquedaEmpleado" prefHeight="43.0" prefWidth="250.0" promptText="Buscar..." />
-                        <Button fx:id="botonBusquedaEmpleado" mnemonicParsing="false" prefHeight="42.0" prefWidth="68.0" style="-fx-background-color: C6CFE2;" text="🔎">
+                        <Button fx:id="botonBusquedaEmpleado" mnemonicParsing="false" onAction="#buscarEmpleado" prefHeight="42.0" prefWidth="68.0" style="-fx-background-color: C6CFE2;" text="🔎">
                            <HBox.margin>
                               <Insets right="40.0" />
                            </HBox.margin>
