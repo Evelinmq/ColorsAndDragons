@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #EFEFF0;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.integradora.controllers.RegistroResguardoController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #EFEFF0;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.integradora.controllers.UpdateResguardoController">
     <children>
         <HBox prefHeight="66.0" prefWidth="600.0">
             <children>
@@ -62,16 +62,16 @@
             <children>
                 <HBox>
                     <children>
-                        <ComboBox fx:id="comboBoxBusqueda" prefHeight="25.0" prefWidth="181.0" style="-fx-background-color: FFFFFF;">
+                        <ComboBox fx:id="comboBien" prefHeight="25.0" prefWidth="181.0" style="-fx-background-color: FFFFFF;">
                             <HBox.margin>
                                 <Insets left="10.0" />
                             </HBox.margin></ComboBox>
-                        <Button fx:id="buscar" mnemonicParsing="false" onAction="#getSeleccion" prefHeight="25.0" prefWidth="97.0" style="-fx-background-color: FFFFFF;" text="Buscar">
+                        <Button fx:id="buscar" mnemonicParsing="false" onAction="#agregarBien" prefHeight="25.0" prefWidth="97.0" style="-fx-background-color: FFFFFF;" text="Buscar">
                             <HBox.margin>
                                 <Insets left="20.0" />
                             </HBox.margin>
                         </Button>
-                        <Button fx:id="botonEliminar" disable="true" mnemonicParsing="false" onAction="#eliminarSeleccion" style="-fx-background-color: FFA0A0; -fx-background-radius: 10;">
+                        <Button fx:id="botonEliminar" disable="true" mnemonicParsing="false" onAction="#eliminarBienSeleccionado" style="-fx-background-color: FFA0A0; -fx-background-radius: 10;">
                             <HBox.margin>
                                 <Insets left="10.0" right="10.0" />
                             </HBox.margin>
@@ -95,7 +95,7 @@
                 </TableView>
                 <HBox prefHeight="54.0" prefWidth="374.0">
                     <children>
-                        <Button fx:id="cancelar" mnemonicParsing="false" onAction="#cancelarResguardo" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: B8B7C0; -fx-background-radius: 10;" text="Cancelar" textFill="#404463">
+                        <Button fx:id="cancelar" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: B8B7C0; -fx-background-radius: 10;" text="Cancelar" textFill="#404463">
                             <HBox.margin>
                                 <Insets bottom="10.0" left="170.0" right="10.0" top="10.0" />
                             </HBox.margin>
@@ -103,7 +103,7 @@
                                 <Font name="Tahoma" size="12.0" />
                             </font>
                         </Button>
-                        <Button fx:id="guardar" mnemonicParsing="false" onAction="#registrarResguardo" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #013AE4; -fx-background-radius: 10;" text="Guardar" textFill="WHITE">
+                        <Button fx:id="guardar" mnemonicParsing="false" onAction="#guardarCambios" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #013AE4; -fx-background-radius: 10;" text="Guardar" textFill="WHITE">
                             <HBox.margin>
                                 <Insets bottom="10.0" top="10.0" />
                             </HBox.margin>

@@ -95,22 +95,23 @@ public class ResguardoBienDao {
      */
 
     //AL NO TENER LA COLUMNA ESTADO EN RESGUARDO_BIEN SE OPTÓ POR HACER UN DELETE FÍSICO
-    public boolean deleteResguardoBien(int id) {
-        try {
-            Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "DELETE FROM RESGUARDO_BIEN WHERE ID_RESGUARDOBIEN = ?";
-            PreparedStatement ps = conn.prepareStatement(query);
-            ps.setInt(1, id);
-            if (ps.executeUpdate() > 0) {
-                conn.close();
-                return true;
-            }
-            conn.close();
+    public static boolean deleteResguardoBien(String codigoBien, int idResguardo) {
+        boolean exito = false;
+        String query = "DELETE FROM RESGUARDO_BIEN WHERE RESBIEN_CODIGO_BIEN = ? AND RESBIEN_RESGUID = ?";
+
+        try (Connection conn = OracleDatabaseConnectionManager.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setString(1, codigoBien);
+            ps.setInt(2, idResguardo);
+            ps.executeUpdate();
+            exito = true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+
+        return exito;
     }
+
 
 
     //CONSULTA PARA CARGAR LOS BIENES DEL RESGUARDO

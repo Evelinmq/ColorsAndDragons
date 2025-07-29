@@ -29,34 +29,25 @@ public class ResguardoDao {
     }
 
 
-    public boolean updateResguardo(int idResguardoViejo, Espacio m, Empleado e) {
-        try {
-            Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "UPDATE ESPACIO SET NOMBRE = ?, ESTADO = ?, ID_EDIFICIO = ? WHERE ID_ESPACIO = ?";
-            String queryDos = "UPDATE EMPLEADO SET NOMBRE = ?, APELLIDO_PATERNO = ?, APELLIDO_MATERNO = ?, ID_PUESTO = ?, ID_UNIDAD = ?, ESTADO = 1  WHERE RFC = ? ";
-            PreparedStatement ps = conn.prepareStatement(query);
-            PreparedStatement psdos = conn.prepareStatement(queryDos);
-            ps.setString(1, m.getNombre());
-            ps.setInt(2, m.getEstado());
-            ps.setInt(3, m.getEdificio().getId());
-            ps.setInt(4, idResguardoViejo);
-            psdos.setString(1, e.getNombre());
-            psdos.setString(2, e.getApellidoPaterno());
-            psdos.setString(3, e.getApellidoMaterno());
-            psdos.setInt(4, e.getIdPuesto());
-            psdos.setInt(5, e.getIdUnidadAdministrativa());
-            psdos.setInt(6, e.getEstado());
+    public boolean updateResguardo(int idResguardo, Date fecha, String rfcEmpleado, int idEspacio) {
+        String query = "UPDATE RESGUARDO SET FECHA = ?, RFC_EMPLEADO = ?, ESPACIO_ID = ? WHERE ID_RESGUARDO = ?";
 
-            if (ps.executeUpdate() > 0) {
-                conn.close();
-                return true;
-            }
-            conn.close();
-        } catch (SQLException exception) {
-            exception.printStackTrace();
+        try (Connection conn = OracleDatabaseConnectionManager.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setDate(1, fecha);
+            ps.setString(2, rfcEmpleado);
+            ps.setInt(3, idEspacio);
+            ps.setInt(4, idResguardo);
+
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
-        return false;
     }
+
 
     public boolean deleteResguardo(int id) {
         try {
