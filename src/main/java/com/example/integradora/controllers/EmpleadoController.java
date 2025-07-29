@@ -43,7 +43,7 @@ public class EmpleadoController implements Initializable {
     @FXML
     private AnchorPane padreEmpleado;
     @FXML
-    private Button resguardo, bienes, empleados, espacio, unidad, edificio, usuario;
+    private Button resguardo, bienes, empleados, espacio, unidad, edificio, usuario, puesto;
 
     @FXML
     private TextField textoBusquedaEmpleado;
@@ -253,7 +253,7 @@ public class EmpleadoController implements Initializable {
     @FXML protected void irUnidad() { cambiarVista("/com/example/integradora/VistaUnidadAdm.fxml"); }
     @FXML protected void irEdificio() { cambiarVista("/com/example/integradora/VistaEdificio.fxml"); }
     @FXML protected void irUsuario() { cambiarVista("/com/example/integradora/VistaUsuario.fxml"); }
-
+    @FXML protected void irPuesto() { cambiarVista("/com/example/integradora/VistaPuesto.fxml"); }
     private void cambiarVista(String rutaFXML) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(rutaFXML));

@@ -44,7 +44,7 @@ public class UsuarioController implements Initializable {
     @FXML
     private TableColumn<Usuario, String> tablaUsuarioContrasena;
     @FXML
-    private Button resguardo, bienes, empleados, espacio, unidad, edificio, usuario;
+    private Button resguardo, bienes, empleados, espacio, unidad, edificio, usuario, puesto;
 
     private UsuarioDao dao = new UsuarioDao();
     private List<Usuario> usuarios = new ArrayList<>();
@@ -392,6 +392,12 @@ public class UsuarioController implements Initializable {
     protected void irUsuario() {
         cambiarVista("/com/example/integradora/VistaUsuario.fxml", usuario);
     }
+
+    @FXML
+    protected void irPuesto() {
+        cambiarVista("/com/example/integradora/VistaPuesto.fxml", puesto);
+    }
+
 
     private void cambiarVista(String ruta, Button boton) {
         try {
