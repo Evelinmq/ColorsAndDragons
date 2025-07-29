@@ -14,7 +14,7 @@ public class ResguardoDao {
             Connection conn = OracleDatabaseConnectionManager.getConnection();
             String query = "INSERT INTO RESGUARDO(FECHA, ESTADO) VALUES(?, ?)";
             PreparedStatement ps = conn.prepareStatement(query);
-            ps.setInt(1, r.getId());
+            ps.setDate(1, Date.valueOf(r.getFecha()));
             ps.setInt(2, r.getEstado());
 
             if (ps.executeUpdate() > 0) {
@@ -84,7 +84,7 @@ public class ResguardoDao {
                     "FROM RESGUARDO r " +
                     "JOIN ESPACIO es ON r.ID_ESPACIO = es.ID_ESPACIO " +
                     "JOIN EDIFICIO ed ON es.ID_EDIFICIO = ed.ID_EDIFICIO " +
-                    "JOIN EMPLEADO em ON r.ID_EMPLEADO = em.RFC " +
+                    "JOIN EMPLEADO em ON r.RFC_EMPLEADO = em.RFC " +
                     "JOIN PUESTO pu ON em.ID_PUESTO = pu.ID_PUESTO " +
                     "JOIN UNIDAD_ADMINISTRATIVA ua ON em.ID_UNIDAD = ua.ID_UNIDAD " +
                     "WHERE r.ESTADO = ? " +
@@ -165,7 +165,7 @@ public class ResguardoDao {
                     "FROM RESGUARDO r " +
                     "JOIN ESPACIO es ON r.ID_ESPACIO = es.ID_ESPACIO " +
                     "JOIN EDIFICIO ed ON es.ID_EDIFICIO = ed.ID_EDIFICIO " +
-                    "JOIN EMPLEADO em ON r.ID_EMPLEADO = em.RFC " +
+                    "JOIN EMPLEADO em ON r.RFC_EMPLEADO = em.RFC " +
                     "JOIN PUESTO pu ON em.ID_PUESTO = pu.ID_PUESTO " +
                     "JOIN UNIDAD_ADMINISTRATIVA ua ON em.ID_UNIDAD = ua.ID_UNIDAD " +
                     "ORDER BY r.ID_RESGUARDO ASC";
@@ -265,7 +265,7 @@ public class ResguardoDao {
                     "FROM RESGUARDO r " +
                     "JOIN ESPACIO es ON r.ESPACIO_ID = es.ID_ESPACIO " +
                     "JOIN EDIFICIO ed ON es.ID_EDIFICIO = ed.ID_EDIFICIO " +
-                    "JOIN EMPLEADO em ON r.ID_EMPLEADO = em.RFC " +
+                    "JOIN EMPLEADO em ON r.RFC_EMPLEADO = em.RFC " +
                     "JOIN PUESTO pu ON em.ID_PUESTO = pu.ID_PUESTO " +
                     "JOIN UNIDAD_ADMINISTRATIVA ua ON em.ID_UNIDAD = ua.ID_UNIDAD " +
                     "WHERE LOWER(es.NOMBRE) LIKE ? " +
@@ -343,12 +343,12 @@ public class ResguardoDao {
         Resguardo resguardo = null;
         try {
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "SELECT r.ID_RESGUARDO, r.FECHA, r.EMPLEADO_RFC, r.ESPACIO_ID, " +
+            String query = "SELECT r.ID_RESGUARDO, r.FECHA, r.RFC_EMPLEADO, r.ESPACIO_ID, " +
                     "e.NOMBRE AS nombre_espacio, e.ESTADO AS estado_espacio, " +
                     "ed.ID_EDIFICIO, ed.NOMBRE AS nombre_edificio, ed.ESTADO AS estado_edificio, " +
                     "em.NOMBRE AS nombre_empleado, em.APELLIDO_PATERNO, em.APELLIDO_MATERNO " +
                     "FROM RESGUARDO r " +
-                    "JOIN EMPLEADO em ON r.EMPLEADO_RFC = em.RFC " +
+                    "JOIN EMPLEADO em ON r.RFC_EMPLEADO = em.RFC " +
                     "JOIN ESPACIO e ON r.ID_ESPACIO = e.ID_ESPACIO " +
                     "JOIN EDIFICIO ed ON e.ID_EDIFICIO = ed.ID_EDIFICIO " +
                     "WHERE r.ID_RESGUARDO = ?";
@@ -364,8 +364,8 @@ public class ResguardoDao {
 
                 // Empleado
                 Empleado empleado = new Empleado();
-                empleado.setRfc(rs.getString("EMPLEADO_RFC"));
-                empleado.setNombre(rs.getString("nombre_empleado"));
+                empleado.setRfc(rs.getString("RFC"));
+                empleado.setNombre(rs.getString("nombre"));
                 empleado.setApellidoPaterno(rs.getString("APELLIDO_PATERNO"));
                 empleado.setApellidoMaterno(rs.getString("APELLIDO_MATERNO"));
                 resguardo.setEmpleado(empleado);
@@ -396,7 +396,7 @@ public class ResguardoDao {
     public static int insertarResguardo(Resguardo resguardo) {
         int idGenerado = -1;
         try (Connection conn = OracleDatabaseConnectionManager.getConnection()) {
-            String sql = "INSERT INTO RESGUARDO (FECHA, RFC, ESPACIO_ID, ESTADO) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO RESGUARDO (FECHA, RFC_EMPLEADO, ESPACIO_ID, ESTADO) VALUES (?, ?, ?, ?)";
             PreparedStatement ps = conn.prepareStatement(sql, new String[] { "ID_RESGUARDO" });
 
             ps.setDate(1, Date.valueOf(resguardo.getFecha()));
@@ -419,37 +419,6 @@ public class ResguardoDao {
 
         return idGenerado;
     }
-
-    public int insertResguardo(Resguardo resguardo) {
-        int idGenerado = -1;
-
-        String query = "INSERT INTO RESGUARDO (FECHA, RFC_EMPLEADO, ESPACIO_ID, ESTADO) VALUES (?, ?, ?, ?)";
-
-        try (Connection conn = OracleDatabaseConnectionManager.getConnection();
-             PreparedStatement ps = conn.prepareStatement(query, new String[] { "ID_RESGUARDO" })) {
-
-            ps.setDate(1, Date.valueOf(resguardo.getFecha())); // java.sql.Date
-            ps.setString(2, resguardo.getEmpleado().getRfc());
-            ps.setInt(3, resguardo.getEspacio().getId());
-            ps.setInt(4, resguardo.getEstado());
-
-            int rowsInserted = ps.executeUpdate();
-
-            if (rowsInserted > 0) {
-                ResultSet rs = ps.getGeneratedKeys();
-                if (rs.next()) {
-                    idGenerado = rs.getInt(1); // Obtener ID generado por la secuencia
-                }
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return idGenerado;
-    }
-
-
 
 
 }
