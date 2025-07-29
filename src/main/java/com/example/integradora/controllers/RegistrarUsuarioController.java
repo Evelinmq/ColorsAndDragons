@@ -13,9 +13,9 @@ import javafx.event.ActionEvent;
 
 public class RegistrarUsuarioController {
 
-    @FXML private TextField txtCorreo;
-    @FXML private PasswordField txtContrasenia;
-    @FXML private ComboBox<String> txtRol;  // Cambiado de TextField a ComboBox
+    @FXML private TextField txfCorreo;
+    @FXML private TextField txfContrasena;
+    @FXML private ComboBox<String> cbRol;
     @FXML private Button btnGuardar;
     @FXML private Button btnCancelar;
 
@@ -39,9 +39,9 @@ public class RegistrarUsuarioController {
     private void guardarUsuario(ActionEvent event) {
         System.out.println("Guardando Usuario");
 
-        String correo = txtCorreo.getText().trim();
-        String contrasenia = txtContrasenia.getText().trim();
-        String rolSeleccionado = txtRol.getValue();
+        String correo = txfCorreo.getText().trim();
+        String contrasenia = txfContrasena.getText().trim();
+        String rolSeleccionado = cbRol.getValue();
 
         if (correo.isEmpty() || contrasenia.isEmpty() || rolSeleccionado == null || rolSeleccionado.isEmpty()) {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
@@ -97,7 +97,7 @@ public class RegistrarUsuarioController {
         if (stage != null) {
             stage.close();
         } else {
-            Stage currentStage = (Stage) txtCorreo.getScene().getWindow();
+            Stage currentStage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
             currentStage.close();
         }
     }

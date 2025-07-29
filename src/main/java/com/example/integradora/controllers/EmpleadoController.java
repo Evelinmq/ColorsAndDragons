@@ -120,7 +120,7 @@ public class EmpleadoController implements Initializable {
 
     private void abrirVentanaRegistro() {
         try {
-            FXMLLoader loader = new FXMLLoader(EmpleadoController.class.getResource("/com/example/integradora/RegistrarEmpleado.fxml"));
+            FXMLLoader loader = new FXMLLoader(EmpleadoController.class.getResource("/com/example/integradora/EditarEmpleados.fxml"));
             Parent root = loader.load();
 
             Scene escenaPrincipal = agregar.getScene();
@@ -179,15 +179,11 @@ public class EmpleadoController implements Initializable {
 
     private void recargarTabla() {
         List<Empleado> lista = dao.readEmpleados();
-        if(lista == null){
-            new Alert(Alert.AlertType.ERROR, "No se encontro el empleado").show();
-            return;
-        }
-        if (lista.isEmpty()) {
+        if(lista == null || lista.isEmpty()){
 
-            new Alert(Alert.AlertType.ERROR, "No se encontro el empleado").show();
             return;
         }
+
         ObservableList<Empleado> listaObservable = FXCollections.observableArrayList(lista);
 
         String filtro = filtroEstado.getSelectionModel().getSelectedItem();

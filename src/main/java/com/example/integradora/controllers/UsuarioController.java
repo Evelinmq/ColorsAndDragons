@@ -141,11 +141,11 @@ public class UsuarioController implements Initializable {
 
         recuperar.setOnAction(event -> {
             Usuario seleccionado = tablaUsuario.getSelectionModel().getSelectedItem();
-            if (seleccionado != null && seleccionado.getEstado() == 0) {
+            if (seleccionado != null) {
                 if (confirmarRegresar()) {
-                    seleccionado.setEstado(1);
-                    dao.updateUsuario(seleccionado.getCorreo(), seleccionado);
-                    recargarTabla();
+                    if (UsuarioDao.regresoUsuario(seleccionado.getCorreo())) {
+                        recargarTabla();
+                    }
                 }
             } else {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -264,6 +264,7 @@ public class UsuarioController implements Initializable {
         }
     }
 
+
     private boolean confirmarRegresar() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmar recuperación");
@@ -281,7 +282,6 @@ public class UsuarioController implements Initializable {
         Optional<ButtonType> resultado = alert.showAndWait();
         return resultado.isPresent() && resultado.get() == ButtonType.OK;
     }
-
 
     @FXML
     private void buscarUsuario(ActionEvent event) {

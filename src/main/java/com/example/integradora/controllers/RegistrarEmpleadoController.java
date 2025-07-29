@@ -1,20 +1,31 @@
 package com.example.integradora.controllers;
 
 import com.example.integradora.modelo.Empleado;
+import com.example.integradora.modelo.UnidadAdministrativa;
 import com.example.integradora.modelo.dao.EmpleadoDao;
+import com.example.integradora.modelo.dao.UnidadAdministrativaDao;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+
 public class RegistrarEmpleadoController {
 
-    @FXML public TextField txtNombre;
-    @FXML public TextField txtApellidoPaterno;
-    @FXML public TextField txtApellidoMaterno;
-    @FXML public TextField txtRfc;
+    @FXML public TextField txfNombre;
+    @FXML public TextField txfApellidoP;
+    @FXML public TextField txfApellidoM;
+    @FXML public TextField txfRfc;
+    @FXML public ComboBox <String> cbPuesto;
+    @FXML public ComboBox <String> cbUnidadAdministrativa;
     @FXML public Button btnCancelar;
     @FXML public Button btnGuardar;
 
@@ -30,6 +41,24 @@ public class RegistrarEmpleadoController {
 
     private Runnable onEmpleadoCreado;
 
+    public void initialize() {
+        var items = FXCollections.observableArrayList("Profesor de idiomas", "Profesor por hora", "Profesor por tiempo completo", "Coordinador decarrera");
+        cbPuesto.setItems(items);
+        cbUnidadAdministrativa.setItems(getNombreUnidadAdministrativa());
+    }
+
+    private ObservableList<String> getNombreUnidadAdministrativa(){
+        ArrayList<UnidadAdministrativa> auxliar = (ArrayList<UnidadAdministrativa>) UnidadAdministrativaDao.readTodosUnidades();
+        ObservableList<String> items = FXCollections.observableArrayList();
+        for(UnidadAdministrativa i: auxliar){
+            items.add(i.getNombre());
+
+        }
+
+        return items;
+    }
+
+
     public void setOnEmpleadoCreado(Runnable onEmpleadoCreado) {
         this.onEmpleadoCreado = onEmpleadoCreado;
     }
@@ -38,10 +67,11 @@ public class RegistrarEmpleadoController {
     private void guardarEmpleado(ActionEvent event) {
         System.out.println("Guardando Empleado");
 
-        String nombre = txtNombre.getText().trim();
-        String apellidoP = txtApellidoPaterno.getText().trim();
-        String apellidoM = txtApellidoMaterno.getText().trim();
-        String rfc = txtRfc.getText().trim();
+        String nombre = txfNombre.getText().trim();
+        String apellidoP = txfApellidoP.getText().trim();
+        String apellidoM = txfApellidoM.getText().trim();
+        String rfc = txfRfc.getText().trim();
+
 
         if (nombre.isEmpty() || apellidoP.isEmpty() || apellidoM.isEmpty() || rfc.isEmpty()) {
             Alert alerta = new Alert(Alert.AlertType.WARNING);

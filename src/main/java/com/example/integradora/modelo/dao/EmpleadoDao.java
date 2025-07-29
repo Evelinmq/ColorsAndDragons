@@ -3,10 +3,7 @@ package com.example.integradora.modelo.dao;
 import com.example.integradora.modelo.Empleado;
 import com.example.integradora.utils.OracleDatabaseConnectionManager;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -102,4 +99,102 @@ public class EmpleadoDao {
         }
         return lista;
     }
+
+    public List<Empleado> readEmpleadoEspecifico(String texto) {
+        List<Empleado> lista = new ArrayList<>();
+        try {
+            Connection conn = OracleDatabaseConnectionManager.getConnection();
+            String query = "SELECT * FROM EMPLEADO WHERE Rfc LIKE ? ORDER BY Rfc ASC";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, "%" + texto + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Empleado e = new Empleado();
+                e.setRfc(rs.getString("Rfc"));
+                e.setNombre(rs.getString("nombre"));
+                e.setApellidoPaterno(rs.getString("apellido_paterno"));
+                e.setApellidoMaterno(rs.getString("apellido_materno"));
+                e.setEstado(rs.getInt("estado"));
+                lista.add(e);
+            }
+            rs.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
+
+    public static List<Empleado> readTodosEmpleados() {
+        List<Empleado> empleados = new ArrayList<>();
+
+        String query = "SELECT RFC, NOMBRE, APELLIDO_PATERNO, APELLIDO_MATERNO, ESTADO FROM EMPLEADO ORDER BY RFC ASC";
+
+        try (Connection conn = OracleDatabaseConnectionManager.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            while (rs.next()) {
+                Empleado e = new Empleado();
+                e.setRfc(rs.getString("Rfc"));
+                e.setNombre(rs.getString("nombre"));
+                e.setApellidoPaterno(rs.getString("apellido_paterno"));
+                e.setApellidoMaterno(rs.getString("apellido_materno"));
+                e.setEstado(rs.getInt("estado"));
+                empleados.add(e);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al leer todos los empleados de la base de datos:");
+            e.printStackTrace();
+        }
+        return empleados;
+    }
+
+    public static boolean regresoEmpleado(String Rfc) {
+        try {
+            Connection conn = OracleDatabaseConnectionManager.getConnection();
+            String query = "UPDATE EMPLEADO SET estado=1 WHERE Rfc=? AND estado = 0";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, Rfc);
+            if (ps.executeUpdate() > 0) {
+                System.out.println("Empleado recuperado");
+                conn.close();
+                return true;
+            }
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public List<Empleado> readEmpleadoPorEstado(int estado) {
+        List<Empleado> lista = new ArrayList<>();
+        try {
+            Connection conn = OracleDatabaseConnectionManager.getConnection();
+            String query = "SELECT * FROM EMPLEADO WHERE estado = ? ORDER BY Rfc ASC";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, estado);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Empleado e = new Empleado();
+                e.setRfc(rs.getString("Rfc"));
+                e.setNombre(rs.getString("nombre"));
+                e.setApellidoPaterno(rs.getString("apellido_paterno"));
+                e.setApellidoMaterno(rs.getString("apellido_materno"));
+                e.setEstado(rs.getInt("estado"));
+                lista.add(e);
+            }
+            rs.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
+
+
+
+
+
 }
