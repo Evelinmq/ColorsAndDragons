@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
 import java.net.URL;
@@ -49,6 +50,9 @@ public class RegistroResguardoController  implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle){
 
         lista = new ArrayList<Bien>();
+
+        guardar.setOnAction(e -> guardarResguardo());
+        cancelar.setOnAction(e -> cerrarVentana());
 
         codigo.setCellValueFactory(new PropertyValueFactory<>("bien_codigo"));
         descripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
@@ -105,8 +109,6 @@ public class RegistroResguardoController  implements Initializable {
         cargarCombos();
 
     }
-
-
 
     public void getSeleccion(ActionEvent event){
         Bien seleccion = comboBoxBusqueda.getSelectionModel().getSelectedItem();
@@ -186,7 +188,7 @@ public class RegistroResguardoController  implements Initializable {
 
     //GUARDA EL RESGUARDO CON SUS RESPECTIVOS BIENES
     @FXML
-    public void guardarResguardo(ActionEvent event) {
+    private void guardarResguardo() {
         LocalDate fechaSeleccionada = fecha.getValue();
         Empleado emp = empleado.getValue();
         Espacio esp = espacio.getValue();
@@ -215,6 +217,10 @@ public class RegistroResguardoController  implements Initializable {
         }
     }
 
+    private void cerrarVentana() {
+        Stage ventana = (Stage) tabla.getScene().getWindow();
+        ventana.close();
+    }
 
     //ALERTA
     private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {

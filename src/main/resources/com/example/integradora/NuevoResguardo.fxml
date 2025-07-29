@@ -95,7 +95,7 @@
                 </TableView>
                 <HBox prefHeight="54.0" prefWidth="374.0">
                     <children>
-                        <Button fx:id="cancelar" mnemonicParsing="false" onAction="#cancelarResguardo" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: B8B7C0; -fx-background-radius: 10;" text="Cancelar" textFill="#404463">
+                        <Button fx:id="cancelar" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: B8B7C0; -fx-background-radius: 10;" text="Cancelar" textFill="#404463">
                             <HBox.margin>
                                 <Insets bottom="10.0" left="170.0" right="10.0" top="10.0" />
                             </HBox.margin>
@@ -103,7 +103,7 @@
                                 <Font name="Tahoma" size="12.0" />
                             </font>
                         </Button>
-                        <Button fx:id="guardar" mnemonicParsing="false" onAction="#registrarResguardo" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #013AE4; -fx-background-radius: 10;" text="Guardar" textFill="WHITE">
+                        <Button fx:id="guardar" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #013AE4; -fx-background-radius: 10;" text="Guardar" textFill="WHITE">
                             <HBox.margin>
                                 <Insets bottom="10.0" top="10.0" />
                             </HBox.margin>
