@@ -7,39 +7,22 @@ public class Empleado {
     private String apellidoPaterno;
     private String apellidoMaterno;
     private int idPuesto;
-    private int idUnidad;
+    private int idUnidadAdministrativa;
     private int estado;
     private Puesto puesto;
-    private UnidadAdministrativa unidad;
+    private UnidadAdministrativa unidadAdministrativa;
 
-
-    public Puesto getPuesto() {
-        return puesto;
+    public Empleado() {
     }
 
-    public void setPuesto(Puesto puesto) {
-        this.puesto = puesto;
-    }
-
-    public UnidadAdministrativa getUnidad() {
-        return unidad;
-    }
-
-    public void setUnidad(UnidadAdministrativa unidad) {
-        this.unidad = unidad;
-    }
-
-    public Empleado(String rfc, String nombre, String apellidoPaterno, String apellidoMaterno, int idPuesto, int idUnidad, int estado) {
+    public Empleado(String rfc, String nombre, String apellidoPaterno, String apellidoMaterno, int idPuesto, int idUnidadAdministrativa, int estado) {
         this.rfc = rfc;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.idPuesto = idPuesto;
-        this.idUnidad = idUnidad;
+        this.idUnidadAdministrativa = idUnidadAdministrativa;
         this.estado = estado;
-    }
-
-    public Empleado() {
     }
 
     public String getRfc() {
@@ -83,11 +66,11 @@ public class Empleado {
     }
 
     public int getIdUnidadAdministrativa() {
-        return idUnidad;
+        return idUnidadAdministrativa;
     }
 
-    public void setIdUnidadAdministrativa(int idUnidad) {
-        this.idUnidad = idUnidad;
+    public void setIdUnidadAdministrativa(int idUnidadAdministrativa) {
+        this.idUnidadAdministrativa = idUnidadAdministrativa;
     }
 
     public int getEstado() {
@@ -98,7 +81,34 @@ public class Empleado {
         this.estado = estado;
     }
 
-    public void setUnidadAdministrativa(UnidadAdministrativa unidadSeleccionada) {
+    public Puesto getPuesto() {
+        return puesto;
     }
 
+    public void setPuesto(Puesto puesto) {
+        this.puesto = puesto;
+    }
+
+    public UnidadAdministrativa getUnidadAdministrativa() {
+        return unidadAdministrativa;
+    }
+
+    public void setUnidadAdministrativa(UnidadAdministrativa unidadAdministrativa) {
+        this.unidadAdministrativa = unidadAdministrativa;
+    }
+
+    @Override
+    public String toString() {
+        return "Empleado{" +
+                "rfc='" + rfc + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", apellidoPaterno='" + apellidoPaterno + '\'' +
+                ", apellidoMaterno='" + apellidoMaterno + '\'' +
+                ", idPuesto=" + idPuesto +
+                ", idUnidadAdministrativa=" + idUnidadAdministrativa +
+                ", estado=" + estado +
+                ", puesto=" + (puesto != null ? puesto.getNombre() : "null") +
+                ", unidadAdministrativa=" + (unidadAdministrativa != null ? unidadAdministrativa.getNombre() : "null") +
+                '}';
+    }
 }

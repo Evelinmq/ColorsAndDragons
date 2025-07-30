@@ -117,8 +117,8 @@ public class UpdateEmpleadoController implements Initializable {
                         .ifPresent(p -> cbPuesto.getSelectionModel().select(p));
             }
 
-            if (empleadoEdicion.getUnidad() != null) {
-                cbUnidadAdministrativa.getSelectionModel().select(empleadoEdicion.getUnidad());
+            if (empleadoEdicion.getUnidadAdministrativa() != null) {
+                cbUnidadAdministrativa.getSelectionModel().select(empleadoEdicion.getUnidadAdministrativa());
             } else {
                 int idUnidadAdministrativaEmpleado = empleadoEdicion.getIdUnidadAdministrativa();
                 cbUnidadAdministrativa.getItems().stream()

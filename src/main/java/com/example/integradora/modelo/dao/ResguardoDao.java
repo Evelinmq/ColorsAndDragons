@@ -128,7 +128,7 @@ public class ResguardoDao {
                 empleado.setApellidoMaterno(rs.getString("APELLIDO_MATERNO"));
                 empleado.setEstado(rs.getInt("estado_empleado"));
                 empleado.setPuesto(puesto);
-                empleado.setUnidad(unidad);
+                empleado.setUnidadAdministrativa(unidad);
 
                 // Crear resguardo
                 Resguardo resguardo = new Resguardo();
@@ -207,7 +207,7 @@ public class ResguardoDao {
                 empleado.setApellidoMaterno(rs.getString("APELLIDO_MATERNO"));
                 empleado.setEstado(rs.getInt("estado_empleado"));
                 empleado.setPuesto(puesto);
-                empleado.setUnidad(unidad);
+                empleado.setUnidadAdministrativa(unidad);
 
                 // Resguardo
                 Resguardo resguardo = new Resguardo();
@@ -317,7 +317,7 @@ public class ResguardoDao {
                 empleado.setApellidoMaterno(rs.getString("APELLIDO_MATERNO"));
                 empleado.setEstado(rs.getInt("estado_empleado"));
                 empleado.setPuesto(puesto);
-                empleado.setUnidad(unidad);
+                empleado.setUnidadAdministrativa(unidad);
 
                 // Resguardo
                 Resguardo resguardo = new Resguardo();
