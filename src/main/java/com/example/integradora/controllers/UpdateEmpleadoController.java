@@ -88,9 +88,6 @@ public class UpdateEmpleadoController implements Initializable {
             e.printStackTrace();
         }
 
-        if (empleadoEdicion != null) {
-            llenarCampos();
-        }
 
         rfc.setEditable(false);
     }
@@ -98,38 +95,12 @@ public class UpdateEmpleadoController implements Initializable {
     public void setEmpleado(Empleado empleado) {
         this.empleadoEdicion = empleado;
         this.rfcViejo = empleado.getRfc();
-    }
 
-    private void llenarCampos() {
         if (empleadoEdicion != null) {
-            nombre.setText(empleadoEdicion.getNombre());
-            apellidoPaterno.setText(empleadoEdicion.getApellidoPaterno());
-            apellidoMaterno.setText(empleadoEdicion.getApellidoMaterno());
-            rfc.setText(empleadoEdicion.getRfc());
-
-
-            if (empleadoEdicion.getPuesto() != null) {
-                cbPuesto.getSelectionModel().select(empleadoEdicion.getPuesto());
-            } else {
-                cbPuesto.getItems().stream()
-                        .filter(p -> p.getId() == empleadoEdicion.getIdPuesto())
-                        .findFirst()
-                        .ifPresent(p -> cbPuesto.getSelectionModel().select(p));
-            }
-
-            if (empleadoEdicion.getUnidadAdministrativa() != null) {
-                cbUnidadAdministrativa.getSelectionModel().select(empleadoEdicion.getUnidadAdministrativa());
-            } else {
-                int idUnidadAdministrativaEmpleado = empleadoEdicion.getIdUnidadAdministrativa();
-                cbUnidadAdministrativa.getItems().stream()
-                        .filter(u -> u.getId() == idUnidadAdministrativaEmpleado)
-                        .findFirst()
-                        .ifPresent(u -> cbUnidadAdministrativa.getSelectionModel().select(u));
-            }
+            llenarCampos();
         }
+
     }
-
-
     @FXML
     public void updateEmpleado(ActionEvent event) {
         if (empleadoEdicion == null) {
@@ -168,6 +139,37 @@ public class UpdateEmpleadoController implements Initializable {
             showAlert(Alert.AlertType.ERROR, "Error", "No se pudo actualizar el empleado.");
         }
     }
+
+    private void llenarCampos() {
+        if (empleadoEdicion != null) {
+            nombre.setText(empleadoEdicion.getNombre());
+            apellidoPaterno.setText(empleadoEdicion.getApellidoPaterno());
+            apellidoMaterno.setText(empleadoEdicion.getApellidoMaterno());
+            rfc.setText(empleadoEdicion.getRfc());
+
+
+            if (empleadoEdicion.getPuesto() != null) {
+                cbPuesto.getSelectionModel().select(empleadoEdicion.getPuesto());
+            } else {
+                cbPuesto.getItems().stream()
+                        .filter(p -> p.getId() == empleadoEdicion.getIdPuesto())
+                        .findFirst()
+                        .ifPresent(p -> cbPuesto.getSelectionModel().select(p));
+            }
+
+            if (empleadoEdicion.getUnidadAdministrativa() != null) {
+                cbUnidadAdministrativa.getSelectionModel().select(empleadoEdicion.getUnidadAdministrativa());
+            } else {
+                int idUnidadAdministrativaEmpleado = empleadoEdicion.getIdUnidadAdministrativa();
+                cbUnidadAdministrativa.getItems().stream()
+                        .filter(u -> u.getId() == idUnidadAdministrativaEmpleado)
+                        .findFirst()
+                        .ifPresent(u -> cbUnidadAdministrativa.getSelectionModel().select(u));
+            }
+        }
+    }
+
+
 
     @FXML
     private void cerrarVentana(ActionEvent event) {

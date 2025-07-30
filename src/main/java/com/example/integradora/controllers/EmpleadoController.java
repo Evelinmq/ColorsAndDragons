@@ -148,7 +148,7 @@ public class EmpleadoController implements Initializable {
 
     private void abrirVentanaEdicionEmpleado(Empleado e) {
         try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/example/integradora/EditarEmpleado.fxml"));
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/example/integradora/EditarEmpleados.fxml"));
             Parent root = loader.load();
             UpdateEmpleadoController controller = loader.getController();
 
