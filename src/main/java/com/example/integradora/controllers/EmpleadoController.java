@@ -120,7 +120,7 @@ public class EmpleadoController implements Initializable {
 
     private void abrirVentanaRegistro() {
         try {
-            FXMLLoader loader = new FXMLLoader(EmpleadoController.class.getResource("/com/example/integradora/EditarEmpleados.fxml"));
+            FXMLLoader loader = new FXMLLoader(EmpleadoController.class.getResource("/com/example/integradora/RegistrarEmpleados.fxml"));
             Parent root = loader.load();
 
             Scene escenaPrincipal = agregar.getScene();
