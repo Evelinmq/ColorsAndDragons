@@ -46,6 +46,7 @@ public class UpdateEmpleadoController implements Initializable {
         this.onEmpleadoActualizado = onEmpleadoActualizado;
     }
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -138,6 +139,7 @@ public class UpdateEmpleadoController implements Initializable {
         } else {
             showAlert(Alert.AlertType.ERROR, "Error", "No se pudo actualizar el empleado.");
         }
+        cerrarVentana(event);
     }
 
     private void llenarCampos() {
