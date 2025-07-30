@@ -12,6 +12,7 @@ public class Empleado {
     private Puesto puesto;
     private UnidadAdministrativa unidad;
 
+
     public Puesto getPuesto() {
         return puesto;
     }
@@ -96,4 +97,8 @@ public class Empleado {
     public void setEstado(int estado) {
         this.estado = estado;
     }
+
+    public void setUnidadAdministrativa(UnidadAdministrativa unidadSeleccionada) {
+    }
+
 }

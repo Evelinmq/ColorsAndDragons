@@ -1,8 +1,10 @@
 package com.example.integradora.controllers;
 
 import com.example.integradora.modelo.Empleado;
+import com.example.integradora.modelo.Puesto;
 import com.example.integradora.modelo.UnidadAdministrativa;
 import com.example.integradora.modelo.dao.EmpleadoDao;
+import com.example.integradora.modelo.dao.PuestoDao;
 import com.example.integradora.modelo.dao.UnidadAdministrativaDao;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,9 +15,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
+import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class RegistrarEmpleadoController {
@@ -24,8 +30,8 @@ public class RegistrarEmpleadoController {
     @FXML public TextField txfApellidoP;
     @FXML public TextField txfApellidoM;
     @FXML public TextField txfRfc;
-    @FXML public ComboBox <String> cbPuesto;
-    @FXML public ComboBox <String> cbUnidadAdministrativa;
+    @FXML public ComboBox <Puesto> cbPuesto;
+    @FXML public ComboBox <UnidadAdministrativa> cbUnidadAdministrativa;
     @FXML public Button btnCancelar;
     @FXML public Button btnGuardar;
 
@@ -41,22 +47,46 @@ public class RegistrarEmpleadoController {
 
     private Runnable onEmpleadoCreado;
 
-    public void initialize() {
-        var items = FXCollections.observableArrayList("Profesor de idiomas", "Profesor por hora", "Profesor por tiempo completo", "Coordinador decarrera");
-        cbPuesto.setItems(items);
-        cbUnidadAdministrativa.setItems(getNombreUnidadAdministrativa());
+
+    public void initialize() throws IOException {
+        List<Puesto> puestos = PuestoDao.readTodosPuestos();
+        cbPuesto.setItems(FXCollections.observableArrayList(puestos));
+
+        cbPuesto.setConverter(new StringConverter<Puesto>() {
+            @Override
+            public String toString(Puesto puesto) {
+                return puesto != null ? puesto.getNombre() : "";
+            }
+
+            @Override
+            public Puesto fromString(String string) {
+                // No es estrictamente necesario para este caso de uso si no permites edición manual o búsqueda
+                return cbPuesto.getItems().stream()
+                        .filter(p -> p.getNombre().equals(string))
+                        .findFirst().orElse(null);
+            }
+        });
+
+
+        // Cargar Unidades Administrativas
+        List<UnidadAdministrativa> unidades = UnidadAdministrativaDao.readTodosUnidades(); // Usas este método, asumo que devuelve List<UnidadAdministrativa>
+        cbUnidadAdministrativa.setItems(FXCollections.observableArrayList(unidades));
+
+        cbUnidadAdministrativa.setConverter(new StringConverter<UnidadAdministrativa>() {
+            @Override
+            public String toString(UnidadAdministrativa unidad) {
+                return unidad != null ? unidad.getNombre() : "";
+            }
+
+            @Override
+            public UnidadAdministrativa fromString(String string) {
+                return cbUnidadAdministrativa.getItems().stream()
+                        .filter(u -> u.getNombre().equals(string))
+                        .findFirst().orElse(null);
+            }
+        });
     }
 
-    private ObservableList<String> getNombreUnidadAdministrativa(){
-        ArrayList<UnidadAdministrativa> auxliar = (ArrayList<UnidadAdministrativa>) UnidadAdministrativaDao.readTodosUnidades();
-        ObservableList<String> items = FXCollections.observableArrayList();
-        for(UnidadAdministrativa i: auxliar){
-            items.add(i.getNombre());
-
-        }
-
-        return items;
-    }
 
 
     public void setOnEmpleadoCreado(Runnable onEmpleadoCreado) {
@@ -72,6 +102,8 @@ public class RegistrarEmpleadoController {
         String apellidoM = txfApellidoM.getText().trim();
         String rfc = txfRfc.getText().trim();
 
+        Puesto puestoSeleccionado = cbPuesto.getSelectionModel().getSelectedItem();
+        UnidadAdministrativa unidadSeleccionada = cbUnidadAdministrativa.getSelectionModel().getSelectedItem();
 
         if (nombre.isEmpty() || apellidoP.isEmpty() || apellidoM.isEmpty() || rfc.isEmpty()) {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
@@ -87,7 +119,10 @@ public class RegistrarEmpleadoController {
         nuevo.setApellidoPaterno(apellidoP);
         nuevo.setApellidoMaterno(apellidoM);
         nuevo.setRfc(rfc);
-        nuevo.setEstado(1); // Activo por defecto
+        nuevo.setEstado(1);
+
+        nuevo.setIdPuesto(puestoSeleccionado.getId());
+        nuevo.setIdUnidadAdministrativa(unidadSeleccionada.getId());
 
         EmpleadoDao dao = new EmpleadoDao();
         boolean exito = dao.createEmpleado(nuevo);

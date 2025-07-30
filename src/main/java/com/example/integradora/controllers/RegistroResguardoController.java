@@ -4,10 +4,7 @@ import com.example.integradora.modelo.Bien;
 import com.example.integradora.modelo.Empleado;
 import com.example.integradora.modelo.Espacio;
 import com.example.integradora.modelo.Resguardo;
-import com.example.integradora.modelo.dao.ResguardoDao;
-import com.example.integradora.modelo.dao.ResguardoBienDao;
-import com.example.integradora.modelo.dao.EmpleadoDao;
-import com.example.integradora.modelo.dao.EspacioDao;
+import com.example.integradora.modelo.dao.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,8 +15,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,10 +45,14 @@ public class RegistroResguardoController  implements Initializable {
 
     ObservableList<Bien> opcionesTabla;
 
+    private ObservableList<Bien> bienesDisponibles;
+
+    private BienDao bienDao;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
-
-        lista = new ArrayList<Bien>();
+        bienDao = new BienDao();
+        lista = new ArrayList<>();
 
         guardar.setOnAction(e -> guardarResguardo());
         cancelar.setOnAction(e -> cerrarVentana());
@@ -106,6 +109,7 @@ public class RegistroResguardoController  implements Initializable {
             }
         });
 
+        cargarBienes();
         cargarCombos();
 
     }
@@ -137,6 +141,12 @@ public class RegistroResguardoController  implements Initializable {
 
         comboBox.setItems(filteredList);
         comboBox.show(); // Mantenerlo abierto mientras escribe
+    }
+
+    private void cargarBienes(){
+        List<Bien> todosLosBienes = bienDao.readBien();
+        bienesDisponibles = FXCollections.observableArrayList(todosLosBienes);
+        comboBoxBusqueda.setItems(bienesDisponibles);
     }
 
     @FXML

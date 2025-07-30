@@ -82,7 +82,7 @@ public class ResguardoDao {
                     "ua.ID_UNIDAD, ua.NOMBRE AS nombre_unidad, ua.ESTADO AS estado_unidad " +
 
                     "FROM RESGUARDO r " +
-                    "JOIN ESPACIO es ON r.ID_ESPACIO = es.ID_ESPACIO " +
+                    "JOIN ESPACIO es ON r.ESPACIO_ID = es.ID_ESPACIO " +
                     "JOIN EDIFICIO ed ON es.ID_EDIFICIO = ed.ID_EDIFICIO " +
                     "JOIN EMPLEADO em ON r.RFC_EMPLEADO = em.RFC " +
                     "JOIN PUESTO pu ON em.ID_PUESTO = pu.ID_PUESTO " +
