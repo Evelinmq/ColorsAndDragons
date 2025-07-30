@@ -1,81 +1,58 @@
 package com.example.integradora.modelo;
 
+import java.time.LocalDate;
+
 public class Directora {
 
     private int idResguardo;
-    private String codigoBien;
-    private int idEspacio;
-    private int idEdificio;
-    private String rfcEmpleado;
-    private int idUnidad;
-    private int idPuesto;
+    private LocalDate fecha;
+    private int estado;
+    private Empleado empleado;
+    private Espacio espacio;
 
-    public Directora() {
-    }
+    public Directora() {}
 
-    public Directora(int idResguardo, String codigoBien, int idEspacio, int idEdificio, String rfcEmpleado, int idUnidad, int idPuesto) {
+    public Directora(int idResguardo, LocalDate fecha, int estado, Empleado empleado, Espacio espacio) {
         this.idResguardo = idResguardo;
-        this.codigoBien = codigoBien;
-        this.idEspacio = idEspacio;
-        this.idEdificio = idEdificio;
-        this.rfcEmpleado = rfcEmpleado;
-        this.idUnidad = idUnidad;
-        this.idPuesto = idPuesto;
+        this.fecha = fecha;
+        this.estado = estado;
+        this.empleado = empleado;
+        this.espacio = espacio;
     }
 
-    public int getIdResguardo() {
-        return idResguardo;
-    }
+    public int getIdResguardo() { return idResguardo; }
+    public void setIdResguardo(int idResguardo) { this.idResguardo = idResguardo; }
 
-    public void setIdResguardo(int idResguardo) {
-        this.idResguardo = idResguardo;
-    }
+    public LocalDate getFecha() { return fecha; }
+    public void setFecha(LocalDate fecha) { this.fecha = fecha; }
 
-    public String getCodigoBien() {
-        return codigoBien;
-    }
+    public int getEstado() { return estado; }
+    public void setEstado(int estado) { this.estado = estado; }
 
-    public void setCodigoBien(String codigoBien) {
-        this.codigoBien = codigoBien;
-    }
+    public Empleado getEmpleado() { return empleado; }
+    public void setEmpleado(Empleado empleado) { this.empleado = empleado; }
 
-    public int getIdEspacio() {
-        return idEspacio;
-    }
+    public Espacio getEspacio() { return espacio; }
+    public void setEspacio(Espacio espacio) { this.espacio = espacio; }
 
-    public void setIdEspacio(int idEspacio) {
-        this.idEspacio = idEspacio;
-    }
-
-    public int getIdEdificio() {
-        return idEdificio;
-    }
-
-    public void setIdEdificio(int idEdificio) {
-        this.idEdificio = idEdificio;
+    public String getNombreEmpleadoCompleto() {
+        if (empleado == null) return "";
+        String ap1 = empleado.getApellidoPaterno() == null ? "" : empleado.getApellidoPaterno();
+        String ap2 = empleado.getApellidoMaterno() == null ? "" : empleado.getApellidoMaterno();
+        String nom = empleado.getNombre() == null ? "" : empleado.getNombre();
+        return (nom + " " + ap1 + " " + ap2).trim().replaceAll(" +", " ");
     }
 
     public String getRfcEmpleado() {
-        return rfcEmpleado;
+        return (empleado != null && empleado.getRfc() != null) ? empleado.getRfc() : "";
     }
 
-    public void setRfcEmpleado(String rfcEmpleado) {
-        this.rfcEmpleado = rfcEmpleado;
+    public String getNombreEspacio() {
+        return (espacio != null && espacio.getNombre() != null) ? espacio.getNombre() : "";
     }
 
-    public int getIdUnidad() {
-        return idUnidad;
-    }
-
-    public void setIdUnidad(int idUnidad) {
-        this.idUnidad = idUnidad;
-    }
-
-    public int getIdPuesto() {
-        return idPuesto;
-    }
-
-    public void setIdPuesto(int idPuesto) {
-        this.idPuesto = idPuesto;
+    public String getEstadoTexto() {
+        return estado == 1 ? "Activo" : "Inactivo";
     }
 }
+

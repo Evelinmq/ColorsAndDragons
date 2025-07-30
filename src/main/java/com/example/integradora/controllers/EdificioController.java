@@ -48,7 +48,7 @@ public class EdificioController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         tablaEdificio.setCellValueFactory(new PropertyValueFactory<>("nombre"));
 
-        comboEstado.getItems().addAll("Activos", "Inactivos", "Todos");
+        comboEstado.getItems().addAll("Activos", "Inactivos", "Ver todos");
         comboEstado.setValue("Activos");
         comboEstado.setOnAction(e -> filtrarPorEstado());
 
@@ -337,7 +337,7 @@ public class EdificioController implements Initializable {
             case "Inactivos":
                 lista = dao.readEdificioPorEstado(0);
                 break;
-            case "Todos":
+            case "Ver todos":
                 lista = dao.readTodosEdificios();
                 break;
         }
