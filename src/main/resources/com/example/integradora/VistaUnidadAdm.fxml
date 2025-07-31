@@ -8,8 +8,7 @@
 
 <AnchorPane fx:id="padreUnidad" style="-fx-background-color: ffffff;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.integradora.controllers.UnidadController">
     <children>
-        <HBox alignment="CENTER_LEFT" prefHeight="60.0" style="-fx-background-color: #0338D5;"
-              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <HBox alignment="CENTER_LEFT" prefHeight="60.0" style="-fx-background-color: #0338D5;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <ImageView fitHeight="39.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -161,14 +160,14 @@
                                         <Font name="Tahoma" size="20.0" />
                                     </font>
                                 </Button>
-                                <Region HBox.hgrow="ALWAYS" /> <ComboBox fx:id="filtroEstado" nodeOrientation="LEFT_TO_RIGHT" prefHeight="43.0" prefWidth="201.0" promptText="  Filtrar" style="-fx-background-radius: 15; -fx-background-color: #ABBAE5;" />
+                                <Region HBox.hgrow="ALWAYS" /> <ComboBox fx:id="filtroEstado" nodeOrientation="LEFT_TO_RIGHT" onAction="#filtrarPorEstado" prefHeight="43.0" prefWidth="201.0" promptText="  Filtrar" style="-fx-background-radius: 15; -fx-background-color: #ABBAE5;" />
                                 <ProgressIndicator fx:id="spinner" progress="0.0" visible="false">
                                     <HBox.margin>
                                         <Insets left="10.0" right="10.0" />
                                     </HBox.margin>
                                 </ProgressIndicator>
                                 <TextField fx:id="textoBusquedaUnidad" prefHeight="43.0" prefWidth="250.0" promptText="Buscar..." />
-                                <Button fx:id="botonBusquedaUnidad" mnemonicParsing="false" prefHeight="42.0" prefWidth="68.0" style="-fx-background-color: C6CFE2;" text="🔎" />
+                                <Button fx:id="botonBusquedaUnidad" mnemonicParsing="false" onAction="#buscarUnidad" prefHeight="42.0" prefWidth="68.0" style="-fx-background-color: C6CFE2;" text="🔎" />
                             </children>
                         </HBox>
                         <TableView fx:id="tablaUnidad" prefHeight="527.0" style="-fx-background-color: EFEFF0; -fx-background-radius: 20;" VBox.vgrow="ALWAYS">
