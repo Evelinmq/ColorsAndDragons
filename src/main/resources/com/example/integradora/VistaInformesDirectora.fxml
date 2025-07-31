@@ -97,7 +97,7 @@
                                     </HBox.margin>
                                 </ProgressIndicator>
                                 <TextField fx:id="textoBusqueda" prefHeight="43.0" prefWidth="200.0" promptText="Buscar..." />
-                                <Button fx:id="botonBuscar" mnemonicParsing="false" prefHeight="42.0" prefWidth="68.0" style="-fx-background-color: C6CFE2;" text="🔎" />
+                                <Button fx:id="botonBusqueda" mnemonicParsing="false" prefHeight="42.0" prefWidth="68.0" style="-fx-background-color: C6CFE2;" text="🔎" />
                             </children>
                         </HBox>
                         <TableView fx:id="tabla" prefHeight="370.0" prefWidth="1154.0" style="-fx-background-color: EFEFF0; -fx-background-radius: 20;" VBox.vgrow="ALWAYS">

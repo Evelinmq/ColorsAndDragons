@@ -6,6 +6,7 @@ module com.example.integradora {
     requires ojdbc8;
     requires java.desktop;
     requires net.sf.jasperreports.core;
+    requires jbcrypt;
 
     opens com.example.integradora to javafx.fxml;
     exports com.example.integradora;

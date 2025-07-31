@@ -2,6 +2,7 @@ package com.example.integradora.modelo.dao;
 
 import com.example.integradora.modelo.Usuario;
 import com.example.integradora.utils.OracleDatabaseConnectionManager;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -15,7 +16,8 @@ public class UsuarioDao {
             String query = "INSERT INTO usuario(correo, contrasenia, rol, rfc_empleado, estado) VALUES(?, ?, ?, ?, ?)";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, u.getCorreo());
-            ps.setString(2, u.getContrasena());
+            String hashedPassword = BCrypt.hashpw(u.getContrasena(), BCrypt.gensalt());
+            ps.setString(2,hashedPassword);
             ps.setString(3, u.getRol());
             ps.setString(4, u.getRfcEmpleado());
             ps.setInt(5, u.getEstado());
@@ -36,7 +38,8 @@ public class UsuarioDao {
             Connection conn = OracleDatabaseConnectionManager.getConnection();
             String query = "UPDATE usuario SET contrasenia = ?,rol=?, rfc_empleado = ?, estado = ? WHERE correo = ?";
             PreparedStatement ps = conn.prepareStatement(query);
-            ps.setString(1, u.getContrasena());
+            String newHashedPassword = BCrypt.hashpw(u.getContrasena(), BCrypt.gensalt());
+            ps.setString(1, newHashedPassword);
             ps.setString(2, u.getRol());
             ps.setString(3, u.getRfcEmpleado());
             ps.setInt(4, u.getEstado());
@@ -182,19 +185,26 @@ public class UsuarioDao {
     }
 
 
+    public Usuario Login(String correo) {
+        String query = "SELECT correo, contrasenia, rol FROM usuario WHERE correo = ?";
+        try (Connection conn = OracleDatabaseConnectionManager.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
 
+            ps.setString(1, correo);
+            ResultSet rs = ps.executeQuery();
 
-
-
-
-
-
-
-
-
-
-
-
-
+            if (rs.next()) {
+                Usuario u = new Usuario();
+                u.setCorreo(rs.getString("correo"));
+                u.setContrasena(rs.getString("contrasenia"));
+                u.setRol(rs.getString("rol"));
+                return u;
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al buscar usuario por correo para login: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 }

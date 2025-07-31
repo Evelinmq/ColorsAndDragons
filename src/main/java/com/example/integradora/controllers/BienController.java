@@ -329,7 +329,6 @@ public class BienController implements Initializable {
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaPuesto.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
-            //Sacar la stage desde un componente visual ya abieto
             Stage stage = (Stage) puesto.getScene().getWindow();
             stage.setScene(scene);
             stage.show();
@@ -343,7 +342,7 @@ public class BienController implements Initializable {
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaEspacio.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
-            //Sacar la stage desde un componente visual ya abieto
+
             Stage stage = (Stage) espacio.getScene().getWindow();
             stage.setScene(scene);
             stage.show();
@@ -355,9 +354,8 @@ public class BienController implements Initializable {
     public void Buscar (ActionEvent event){
 
 
-        botonBusqueda.setDisable(true);//deshabilitar el boton al recibir un click
-        //para darle chance a java que haga la busqueda
-        spinner.setVisible(true);//busca
+        botonBusqueda.setDisable(true);
+        spinner.setVisible(true);
 
         String texto = textoBusqueda.getText();
 
