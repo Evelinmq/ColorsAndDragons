@@ -68,7 +68,7 @@ public class BienvenidaController implements Initializable {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaEdificio.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             //Sacar la stage desde un componente visual ya abieto
-            Stage stage = (Stage) usuario.getScene().getWindow();
+            Stage stage = (Stage) edificio.getScene().getWindow();
             stage.setScene(scene);
             stage.show();
         }catch(IOException e){
