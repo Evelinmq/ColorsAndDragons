@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane style="-fx-background-color: fff;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="padreBienvenida" style="-fx-background-color: fff;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.integradora.controllers.BienvenidaController">
     <children>
         <HBox alignment="CENTER_LEFT" prefHeight="60.0" style="-fx-background-color: #0338D5;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -40,7 +40,7 @@
             <children>
                 <VBox prefWidth="350.0" HBox.hgrow="NEVER">
                     <children>
-                        <Button alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" prefHeight="54.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="         Resguardo" textFill="#404463">
+                        <Button fx:id="resguardo" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#irResguardo" prefHeight="54.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="         Resguardo" textFill="#404463">
                             <VBox.margin>
                                 <Insets top="80.0" />
                             </VBox.margin>
@@ -58,7 +58,7 @@
                                 </ImageView>
                             </graphic>
                         </Button>
-                        <Button alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" prefHeight="54.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="          Bienes" textFill="#404463">
+                        <Button fx:id="bienes" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#irBienes" prefHeight="54.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="          Bienes" textFill="#404463">
                             <VBox.margin>
                                 <Insets top="20.0" />
                             </VBox.margin>
@@ -73,7 +73,7 @@
                                 </ImageView>
                             </graphic>
                         </Button>
-                        <Button alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" prefHeight="54.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="           Empleados" textFill="#404463">
+                        <Button fx:id="empleados" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#irEmpleados" prefHeight="54.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="           Empleados" textFill="#404463">
                             <VBox.margin>
                                 <Insets top="20.0" />
                             </VBox.margin>
@@ -88,7 +88,7 @@
                                 </ImageView>
                             </graphic>
                         </Button>
-                        <Button alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" prefHeight="54.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="           Puesto" textFill="#404463">
+                        <Button fx:id="puesto" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#irPuesto" prefHeight="54.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="           Puesto" textFill="#404463">
                             <VBox.margin>
                                 <Insets top="20.0" />
                             </VBox.margin>
@@ -103,7 +103,7 @@
                                 </ImageView>
                             </graphic>
                         </Button>
-                        <Button alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" prefHeight="54.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="          Espacio" textFill="#404463">
+                        <Button fx:id="espacio" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#irEspacio" prefHeight="54.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="          Espacio" textFill="#404463">
                             <VBox.margin>
                                 <Insets top="20.0" />
                             </VBox.margin>
@@ -118,7 +118,7 @@
                                 </ImageView>
                             </graphic>
                         </Button>
-                        <Button alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" prefHeight="54.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="         U. Administrativa" textFill="#404463">
+                        <Button fx:id="unidad" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#irUnidad" prefHeight="54.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="         U. Administrativa" textFill="#404463">
                             <VBox.margin>
                                 <Insets top="20.0" />
                             </VBox.margin>
@@ -133,7 +133,7 @@
                                 </ImageView>
                             </graphic>
                         </Button>
-                        <Button alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" prefHeight="54.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="           Edificio" textFill="#404463">
+                        <Button fx:id="edificio" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#irEdificio" prefHeight="54.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="           Edificio" textFill="#404463">
                             <VBox.margin>
                                 <Insets top="20.0" />
                             </VBox.margin>
@@ -148,7 +148,7 @@
                                 </ImageView>
                             </graphic>
                         </Button>
-                        <Button alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" prefHeight="54.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="           Usuario" textFill="#404463">
+                        <Button fx:id="usuario" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#irUsuario" prefHeight="54.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="           Usuario" textFill="#404463">
                             <VBox.margin>
                                 <Insets bottom="20.0" top="20.0" />
                             </VBox.margin>
