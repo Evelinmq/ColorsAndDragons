@@ -101,30 +101,6 @@ public class EmpleadoDao {
         return lista;
     }
 
-    public List<Empleado> readEmpleadoEspecifico(String texto) {
-        List<Empleado> lista = new ArrayList<>();
-        try {
-            Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "SELECT * FROM EMPLEADO WHERE Rfc LIKE ? ORDER BY Rfc ASC";
-            PreparedStatement ps = conn.prepareStatement(query);
-            ps.setString(1, "%" + texto + "%");
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Empleado e = new Empleado();
-                e.setRfc(rs.getString("Rfc"));
-                e.setNombre(rs.getString("nombre"));
-                e.setApellidoPaterno(rs.getString("apellido_paterno"));
-                e.setApellidoMaterno(rs.getString("apellido_materno"));
-                e.setEstado(rs.getInt("estado"));
-                lista.add(e);
-            }
-            rs.close();
-            conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return lista;
-    }
 
     public static List<Empleado> readTodosEmpleados() {
         List<Empleado> empleados = new ArrayList<>();
@@ -168,34 +144,5 @@ public class EmpleadoDao {
         }
         return false;
     }
-
-    public List<Empleado> readEmpleadoPorEstado(int estado) {
-        List<Empleado> lista = new ArrayList<>();
-        try {
-            Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "SELECT * FROM EMPLEADO WHERE estado = ? ORDER BY Rfc ASC";
-            PreparedStatement ps = conn.prepareStatement(query);
-            ps.setInt(1, estado);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Empleado e = new Empleado();
-                e.setRfc(rs.getString("Rfc"));
-                e.setNombre(rs.getString("nombre"));
-                e.setApellidoPaterno(rs.getString("apellido_paterno"));
-                e.setApellidoMaterno(rs.getString("apellido_materno"));
-                e.setEstado(rs.getInt("estado"));
-                lista.add(e);
-            }
-            rs.close();
-            conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return lista;
-    }
-
-
-
-
 
 }

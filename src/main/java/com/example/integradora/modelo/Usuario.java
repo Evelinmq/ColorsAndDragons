@@ -5,17 +5,13 @@ public class Usuario {
     private String correo;
     private String contrasena;
     private String rfcEmpleado;
-    private int idUnidad;
-    private int idPuesto;
     private int estado;
     private String Rol;
 
-    public Usuario(String correo, String contrasena, String rfcEmpleado, int idUnidad, int idPuesto, int estado, String Rol) {
+    public Usuario(String correo, String contrasena, String rfcEmpleado, int estado, String Rol) {
         this.correo = correo;
         this.contrasena = contrasena;
         this.rfcEmpleado = rfcEmpleado;
-        this.idUnidad = idUnidad;
-        this.idPuesto = idPuesto;
         this.estado = estado;
         this.Rol = Rol;
     }
@@ -45,22 +41,6 @@ public class Usuario {
 
     public void setRfcEmpleado(String rfcEmpleado) {
         this.rfcEmpleado = rfcEmpleado;
-    }
-
-    public int getIdUnidad() {
-        return idUnidad;
-    }
-
-    public void setIdUnidad(int idUnidad) {
-        this.idUnidad = idUnidad;
-    }
-
-    public int getIdPuesto() {
-        return idPuesto;
-    }
-
-    public void setIdPuesto(int idPuesto) {
-        this.idPuesto = idPuesto;
     }
 
     public int getEstado() {

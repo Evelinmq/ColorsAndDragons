@@ -41,15 +41,15 @@ public class RegistrarUsuarioController {
     private Runnable onUsuarioCreado;
 
     public void initialize() {
-        var items = FXCollections.observableArrayList("Profesor", "administrador", "auxiliar");
+        var items = FXCollections.observableArrayList( "Administrador", "Visualizador");
         cbRol.setItems(items);
         cbEmpleado.setItems(getNombreEmpleado());
     }
 
     private ObservableList<String> getNombreEmpleado(){
-        ArrayList<Empleado> auxliar = (ArrayList<Empleado>) EmpleadoDao.readTodosEmpleados();
+        ArrayList<Empleado> Visualizador = (ArrayList<Empleado>) EmpleadoDao.readTodosEmpleados();
         ObservableList<String> items = FXCollections.observableArrayList();
-        for(Empleado i: auxliar){
+        for(Empleado i: Visualizador){
             items.add(i.getNombre());
 
         }
@@ -70,6 +70,9 @@ public class RegistrarUsuarioController {
         String contrasenia = txfContrasena.getText().trim();
         String rolSeleccionado = cbRol.getValue();
 
+
+        System.out.println("Valor del rol seleccionado: " + rolSeleccionado);
+
         if (correo.isEmpty() || contrasenia.isEmpty() || rolSeleccionado == null || rolSeleccionado.isEmpty()) {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
             alerta.setTitle("Campos Vacíos");
@@ -79,22 +82,11 @@ public class RegistrarUsuarioController {
             return;
         }
 
-        int rol;
-        try {
-            rol = Integer.parseInt(rolSeleccionado); // Suponiendo que en combo tienes valores numéricos como "1", "2"...
-        } catch (NumberFormatException e) {
-            Alert alerta = new Alert(Alert.AlertType.ERROR);
-            alerta.setTitle("Error de formato");
-            alerta.setHeaderText(null);
-            alerta.setContentText("El rol debe ser un número válido.");
-            alerta.showAndWait();
-            return;
-        }
 
         Usuario nuevo = new Usuario();
         nuevo.setCorreo(correo);
         nuevo.setContrasena(contrasenia);
-        nuevo.setRol(String.valueOf(rol));
+        nuevo.setRol(rolSeleccionado);
         nuevo.setEstado(1); // activo por defecto
 
         UsuarioDao dao = new UsuarioDao();

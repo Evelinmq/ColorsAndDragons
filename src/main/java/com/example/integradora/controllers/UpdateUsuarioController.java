@@ -46,8 +46,6 @@ public class UpdateUsuarioController implements Initializable {
         correo.setText(usuario.getCorreo());
         contrasena.setText(usuario.getContrasena());
         rfcEmpleado.setText(usuario.getRfcEmpleado());
-        idUnidad.setText(String.valueOf(usuario.getIdUnidad()));
-        idPuesto.setText(String.valueOf(usuario.getIdPuesto()));
         estado.setText(String.valueOf(usuario.getEstado()));
     }
 
@@ -59,16 +57,12 @@ public class UpdateUsuarioController implements Initializable {
         String nuevoCorreo = correo.getText();
         String nuevaContrasena = contrasena.getText();
         String nuevoRfc = rfcEmpleado.getText();
-        int nuevaUnidad = Integer.parseInt(idUnidad.getText());
-        int nuevoPuesto = Integer.parseInt(idPuesto.getText());
         int nuevoEstado = Integer.parseInt(estado.getText());
 
 
         usuario.setCorreo(nuevoCorreo);
         usuario.setContrasena(nuevaContrasena);
         usuario.setRfcEmpleado(nuevoRfc);
-        usuario.setIdUnidad(nuevaUnidad);
-        usuario.setIdPuesto(nuevoPuesto);
         usuario.setEstado(nuevoEstado);
 
 
