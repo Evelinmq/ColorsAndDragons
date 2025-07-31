@@ -57,12 +57,13 @@ public class EmpleadoDao {
         return false;
     }
 
+
     public static boolean deleteEmpleado(String rfc) {
         try {
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "DELETE FROM empleado WHERE rfc = ?";
+            String query = "UPDATE empleado SET estado = 0 WHERE rfc = ?";
             PreparedStatement ps = conn.prepareStatement(query);
-            ps.setString(1, rfc);
+            ps.setString(1,rfc);
             if (ps.executeUpdate() > 0) {
                 conn.close();
                 return true;

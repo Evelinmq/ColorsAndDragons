@@ -195,7 +195,7 @@
                   <Insets bottom="20.0" top="80.0" />
                </padding>
                <children>
-                  <Button fx:id="eliminarEmpleado" disable="true" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: FFA0A0; -fx-background-radius: 10;">
+                  <Button fx:id="eliminar" disable="true" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: FFA0A0; -fx-background-radius: 10;">
                      <graphic>
                         <ImageView fitHeight="26.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
                            <image>

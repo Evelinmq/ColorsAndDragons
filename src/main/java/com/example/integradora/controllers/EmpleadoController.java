@@ -1,7 +1,9 @@
 package com.example.integradora.controllers;
 
 import com.example.integradora.Main;
+import com.example.integradora.modelo.Bien;
 import com.example.integradora.modelo.Empleado;
+import com.example.integradora.modelo.dao.BienDao;
 import com.example.integradora.modelo.dao.EmpleadoDao;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -51,13 +53,14 @@ public class EmpleadoController implements Initializable {
     private ProgressIndicator spinner;
 
     @FXML
-    private Button botonBusquedaEmpleado, eliminarEmpleado, actualizarEmpleado, agregar, recuperar;
+    private Button botonBusquedaEmpleado, eliminar, actualizarEmpleado, agregar, recuperar;
     @FXML
     private ComboBox<String> filtroEstado;
 
     private List<Empleado> empleadosList = new ArrayList<>();
     private EmpleadoDao dao = new EmpleadoDao();
-    ObservableList<Empleado> opcionesTabla;
+    private ObservableList<Empleado> opcionesTabla;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -68,31 +71,104 @@ public class EmpleadoController implements Initializable {
         tablaEmpleadoPuesto.setCellValueFactory(new PropertyValueFactory<>("puesto"));
         tablaEmpleadoUnidadAdministrativa.setCellValueFactory(new PropertyValueFactory<>("unidadAdministrativa"));
 
+
+        tablaEmpleado.setItems(opcionesTabla);
         recargarTabla();
 
         actualizarEmpleado.setDisable(true);
-        eliminarEmpleado.setDisable(true);
-        recuperar.setDisable(true);
 
-        tablaEmpleado.getSelectionModel().selectedItemProperty().addListener((obs, old, newValue) -> {
+        tablaEmpleado.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             actualizarEmpleado.setDisable(newValue == null);
-            eliminarEmpleado.setDisable(newValue == null);
-            recuperar.setDisable(newValue == null || newValue.getEstado() != 0);
         });
 
-        tablaEmpleado.setOnMouseClicked(event -> {
-            if (event.getClickCount() == 2 && !tablaEmpleado.getSelectionModel().isEmpty()) {
-                abrirVentanaEdicionEmpleado(tablaEmpleado.getSelectionModel().getSelectedItem());
+
+        actualizarEmpleado.setOnAction(event -> {
+            Empleado seleccion = tablaEmpleado.getSelectionModel().getSelectedItem();
+            if (seleccion != null) {
+                abrirVentanaEdicionEmpleado(seleccion);
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Debes seleccionar un Empleado para editar");
+                alert.showAndWait();
             }
         });
+
+        tablaEmpleado.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            eliminar.setDisable(newValue == null);
+        });
+
+        //SELECCIONAR PARA ELIMINAR
+        eliminar.setOnAction(event -> {
+            Empleado seleccionado = tablaEmpleado.getSelectionModel().getSelectedItem();
+            if (seleccionado != null) {
+                if (eliminarEmpleado()) {
+                    if (EmpleadoDao.deleteEmpleado(seleccionado.getRfc())) {
+                        tablaEmpleado.getItems().remove(seleccionado);
+                        recargarTabla();
+                    }
+                }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Aviso");
+                alert.setHeaderText(null);
+                alert.setContentText("Debes seleccionar un empleado para eliminar");
+                alert.showAndWait();
+                recargarTabla();
+            }
+        });
+
+        tablaEmpleado.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null && newValue.getEstado() == 0) {
+                recuperar.setDisable(false);
+            } else {
+                recuperar.setDisable(true);
+            }
+        });
+
+
+        recuperar.setOnAction(event -> {
+            Empleado seleccionado = tablaEmpleado.getSelectionModel().getSelectedItem();
+            if (seleccionado != null) {
+                if (regresoEmpleado()) {
+                    if (EmpleadoDao.regresoEmpleado(seleccionado.getRfc())) {
+                        tablaEmpleado.getItems().remove(seleccionado);
+                        recargarTabla();
+                    }
+                }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Aviso");
+                alert.setHeaderText(null);
+                alert.setContentText("Debes seleccionar un Empleado");
+                alert.showAndWait();
+                recargarTabla();
+            }
+        });
+
+        List<Empleado> todosLosEmpleados = EmpleadoDao.readTodosEmpleados();
+
+        opcionesTabla = FXCollections.observableArrayList(todosLosEmpleados);
+        tablaEmpleado.setItems(opcionesTabla);
 
         ObservableList<String> estados = FXCollections.observableArrayList("Activos", "Inactivos", "VerTodos");
         filtroEstado.setItems(estados);
 
+        filtroEstado.setOnAction(click -> {
+            String estadoSeleccionado = filtroEstado.getSelectionModel().getSelectedItem();
+
+            if ("Inactivos".equals(estadoSeleccionado)) {
+                tablaEmpleado.setItems(opcionesTabla.filtered(empleado -> empleado.getEstado() == 0));
+            } else if ("Activos".equals(estadoSeleccionado)) {
+                tablaEmpleado.setItems(opcionesTabla.filtered(empleado -> empleado.getEstado() == 1));
+            } else if ("VerTodos".equals(estadoSeleccionado)) {
+                tablaEmpleado.setItems(opcionesTabla);
+            }
+        });
+
 
         agregar.setOnAction(event -> abrirVentanaRegistro());
         actualizarEmpleado.setOnAction(event -> abrirVentanaEdicionEmpleado(tablaEmpleado.getSelectionModel().getSelectedItem()));
-        eliminarEmpleado.setOnAction(event -> eliminarEmpleado());
+
 
 
         textoBusquedaEmpleado.textProperty().addListener((obs, old, newValue) -> {
@@ -100,23 +176,24 @@ public class EmpleadoController implements Initializable {
         });
     }
 
-    private void eliminarEmpleado() {
-        Empleado seleccionado = tablaEmpleado.getSelectionModel().getSelectedItem();
-        if (seleccionado != null && confirmarAccion("¿Deseas eliminar el empleado?")) {
-            if (EmpleadoDao.deleteEmpleado(seleccionado.getRfc())) {
-                recargarTabla();
-            }
-        }
+    private boolean eliminarEmpleado() {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmar eliminación");
+            alert.setHeaderText(null);
+            alert.setContentText("¿Deseas eliminar el registro?");
+            Optional<ButtonType> resultado = alert.showAndWait();
+            return resultado.isPresent() && resultado.get() == ButtonType.OK;
     }
 
-    private boolean confirmarAccion(String mensaje) {
+    private boolean regresoEmpleado() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmación");
+        alert.setTitle("Confirmar Regreso");
         alert.setHeaderText(null);
-        alert.setContentText(mensaje);
+        alert.setContentText("¿Deseas regresar el registro?");
         Optional<ButtonType> resultado = alert.showAndWait();
         return resultado.isPresent() && resultado.get() == ButtonType.OK;
     }
+
 
     private void abrirVentanaRegistro() {
         try {
