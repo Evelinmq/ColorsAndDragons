@@ -6,14 +6,14 @@ public class Usuario {
     private String contrasena;
     private String rfcEmpleado;
     private int estado;
-    private String Rol;
+    private String rol;
 
-    public Usuario(String correo, String contrasena, String rfcEmpleado, int estado, String Rol) {
+    public Usuario(String correo, String contrasena, String rfcEmpleado, int estado, String rol) {
         this.correo = correo;
         this.contrasena = contrasena;
         this.rfcEmpleado = rfcEmpleado;
         this.estado = estado;
-        this.Rol = Rol;
+        this.rol = rol;
     }
 
     public Usuario() {
@@ -52,10 +52,17 @@ public class Usuario {
     }
 
     public String getRol() {
-        return Rol;
+        return rol;
     }
 
     public void setRol(String rol) {
-        Rol = rol;
+        this.rol = rol;
     }
+
+    public String getRolDescripcion() {
+        if (rol == null || rol.isBlank()) return "Sin Rol";
+        return rol;
+    }
+
+
 }

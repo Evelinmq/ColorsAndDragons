@@ -85,6 +85,7 @@ public class UsuarioDao {
                 Usuario u = new Usuario();
                 u.setCorreo(rs.getString("correo"));
                 u.setContrasena(rs.getString("contrasenia"));
+                u.setRol(rs.getString("rol"));
                 u.setRfcEmpleado(rs.getString("rfc_empleado"));
                 u.setEstado(rs.getInt("estado"));
                 lista.add(u);
@@ -108,7 +109,8 @@ public class UsuarioDao {
             while (rs.next()) {
                 Usuario u = new Usuario();
                 u.setCorreo(rs.getString("correo"));
-                u.setContrasena(rs.getString("contrasena"));
+                u.setContrasena(rs.getString("contrasenia"));
+                u.setRol(rs.getString("rol"));
                 u.setEstado(rs.getInt("estado"));
                 lista.add(u);
             }
@@ -133,6 +135,7 @@ public class UsuarioDao {
                 Usuario u = new Usuario();
                 u.setCorreo(rs.getString("correo"));
                 u.setContrasena(rs.getString("contrasenia"));
+                u.setRol(rs.getString("rol"));
                 u.setEstado(rs.getInt("estado"));
                 usuarios.add(u);
             }
@@ -172,7 +175,8 @@ public class UsuarioDao {
             while (rs.next()) {
                 Usuario u = new Usuario();
                 u.setCorreo(rs.getString("correo"));
-                u.setContrasena(rs.getString("contrasena"));
+                u.setContrasena(rs.getString("contrasenia"));
+                u.setRol(rs.getString("rol"));
                 u.setEstado(rs.getInt("estado"));
                 lista.add(u);
             }
