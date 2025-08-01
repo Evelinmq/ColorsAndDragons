@@ -3,6 +3,7 @@ package com.example.integradora.controllers;
 import com.example.integradora.Main;
 import com.example.integradora.modelo.Bien;
 import com.example.integradora.modelo.Empleado;
+import com.example.integradora.modelo.Espacio;
 import com.example.integradora.modelo.dao.BienDao;
 import com.example.integradora.modelo.dao.EmpleadoDao;
 import javafx.collections.FXCollections;
@@ -68,8 +69,20 @@ public class EmpleadoController implements Initializable {
         tablaEmpleadoApellidoPaterno.setCellValueFactory(new PropertyValueFactory<>("apellidoPaterno"));
         tablaEmpleadoApellidoMaterno.setCellValueFactory(new PropertyValueFactory<>("apellidoMaterno"));
         tablaEmpleadoRFC.setCellValueFactory(new PropertyValueFactory<>("rfc"));
-        tablaEmpleadoPuesto.setCellValueFactory(new PropertyValueFactory<>("puesto"));
-        tablaEmpleadoUnidadAdministrativa.setCellValueFactory(new PropertyValueFactory<>("unidadAdministrativa"));
+        //tablaEmpleadoPuesto.setCellValueFactory(new PropertyValueFactory<>("puesto"));
+        tablaEmpleadoPuesto.setCellValueFactory(cellData -> {
+            Empleado empleado = cellData.getValue();
+            return new javafx.beans.property.SimpleStringProperty(
+                    empleado.getPuesto() != null ? empleado.getPuesto().getNombre() : ""
+            );
+        });
+        //tablaEmpleadoUnidadAdministrativa.setCellValueFactory(new PropertyValueFactory<>("unidadAdministrativa"));
+        tablaEmpleadoUnidadAdministrativa.setCellValueFactory(cellData -> {
+            Empleado empleado = cellData.getValue();
+            return new javafx.beans.property.SimpleStringProperty(
+                    empleado.getUnidadAdministrativa() != null ? empleado.getUnidadAdministrativa().getNombre() : ""
+            );
+        });
 
 
         tablaEmpleado.setItems(opcionesTabla);
