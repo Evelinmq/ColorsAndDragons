@@ -20,9 +20,9 @@
                                 <Font name="Tahoma" size="20.0" />
                             </font>
                             <graphic>
-                                <ImageView fitHeight="26.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@Images/Folder3.png" />
+                                        <Image url="@Images/Folder2.png" />
                                     </image>
                                     <viewport>
                                         <Rectangle2D />
