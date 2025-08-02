@@ -58,7 +58,7 @@
                                 </ImageView>
                             </graphic>
                         </Button>
-                        <Button alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" prefHeight="55.0" style="-fx-background-color: B2BCDB; -fx-background-radius: 15;" text="         Descargar todo" textFill="#0033cc">
+                        <Button fx:id="descargar" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#descargarResguardoPdf" prefHeight="55.0" style="-fx-background-color: B2BCDB; -fx-background-radius: 15;" text="         Descargar todo" textFill="#0033cc">
                             <font>
                                 <Font name="Tahoma" size="16.0" />
                             </font>

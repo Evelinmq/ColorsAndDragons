@@ -1,7 +1,9 @@
 package com.example.integradora.controllers;
 
 import com.example.integradora.modelo.Directora;
+import com.example.integradora.modelo.Resguardo;
 import com.example.integradora.modelo.dao.DirectoraDao;
+import com.example.integradora.utils.OracleDatabaseConnectionManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -10,9 +12,19 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.util.StringConverter;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
+import java.io.InputStream;
 import java.net.URL;
+import java.sql.Connection;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class DirectoraController implements Initializable {
@@ -22,6 +34,7 @@ public class DirectoraController implements Initializable {
     @FXML private TableColumn<Directora, String> fechaTabla;
     @FXML private TableColumn<Directora, String> empleadoTabla;
     @FXML private TableColumn<Directora, String> espacioTabla;
+    @FXML private Button descargar;
 
     @FXML private TextField textoBusqueda;
     @FXML private Button botonBusqueda;
@@ -127,6 +140,50 @@ public class DirectoraController implements Initializable {
             };
         });
     }
+
+    @FXML
+    private void descargarResguardoPdf() {
+        Directora seleccionado = tabla.getSelectionModel().getSelectedItem();
+
+        if (seleccionado == null) {
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setHeaderText(null);
+            alerta.setContentText("Debes seleccionar un resguardo para generar el PDF");
+            alerta.showAndWait();
+            return;
+        }
+
+        try {
+            // Cargar el archivo .jasper
+            InputStream input = getClass().getResourceAsStream("/Oracle-Test.jasper");
+            JasperReport reporte = (JasperReport) JRLoader.loadObject(input);
+
+            Connection conexion = OracleDatabaseConnectionManager.getConnection();
+
+            Map<String, Object> parametros = new HashMap<>();
+            parametros.put("ID_RESGUARDO", seleccionado.getIdResguardo());
+
+            // Llenar el reporte
+            JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, parametros, conexion);
+
+            // Exportar a PDF
+            String nombreArchivo = "resguardo_" + seleccionado.getIdResguardo() + ".pdf";
+            JasperExportManager.exportReportToPdfFile(jasperPrint, nombreArchivo);
+
+            Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+            alerta.setHeaderText(null);
+            alerta.setContentText("PDF generado correctamente: " + nombreArchivo);
+            alerta.showAndWait();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setHeaderText("Error al generar PDF");
+            error.setContentText(e.getMessage());
+            error.showAndWait();
+        }
+    }
+
 }
 
 
