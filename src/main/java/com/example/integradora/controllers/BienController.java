@@ -121,8 +121,12 @@ public class BienController implements Initializable {
         tablaBien.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null && newValue.getEstado() == 0) {
                 regresoBien.setDisable(false);
+                editarBien.setDisable(true);
+                borrarBien.setDisable(true);
             } else {
                 regresoBien.setDisable(true);
+                editarBien.setDisable(false);
+                borrarBien.setDisable(false);
             }
         });
 

@@ -70,19 +70,17 @@ public class UsuarioController implements Initializable {
 
         tablaUsuario.setOnMouseClicked(click -> {
             if (tablaUsuario.getSelectionModel().getSelectedItem() != null) {
-                eliminarUsuario.setDisable(false);
-            } else {
                 eliminarUsuario.setDisable(true);
+                actualizarUsuario.setDisable(true);
+                recuperar.setDisable(false);
+            } else {
+                eliminarUsuario.setDisable(false);
+                actualizarUsuario.setDisable(false);
+                recuperar.setDisable(true);
+
             }
         });
 
-        tablaUsuario.setOnMouseClicked(click -> {
-            if (tablaUsuario.getSelectionModel().getSelectedItem() != null) {
-                recuperar.setDisable(false);
-            } else {
-                recuperar.setDisable(true);
-            }
-        });
 
 
         opcionesTabla = FXCollections.observableArrayList(usuarios);

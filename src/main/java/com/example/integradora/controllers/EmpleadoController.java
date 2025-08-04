@@ -133,8 +133,12 @@ public class EmpleadoController implements Initializable {
         tablaEmpleado.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null && newValue.getEstado() == 0) {
                 recuperar.setDisable(false);
-            } else {
+                actualizarEmpleado.setDisable(true);
+                eliminar.setDisable(true);
+            } else {                         //aqui
                 recuperar.setDisable(true);
+                actualizarEmpleado.setDisable(false);
+                eliminar.setDisable(false);
             }
         });
 

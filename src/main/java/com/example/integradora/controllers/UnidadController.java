@@ -81,19 +81,15 @@ public class UnidadController implements Initializable {
 
         //Habilitar botón eliminar, editar, actualizar
         tablaUnidad.setOnMouseClicked(click -> {
-            if(tablaUnidad.getSelectionModel().getSelectedItem() != null) {
+            if(tablaUnidad.getSelectionModel().getSelectedItem() != null && tablaUnidad.getSelectionModel().getSelectedItem().getEstado() == 0) {
                 //Activa botón
-                eliminarUnidad.setDisable(false);
-
-            }else{
+                actualizarUnidad.setDisable(true);
                 eliminarUnidad.setDisable(true);
-            }
-        });
-
-        tablaUnidad.setOnMouseClicked(click -> {
-            if(tablaUnidad.getSelectionModel().getSelectedItem() != null) {
                 recuperar.setDisable(false);
+
             }else{
+                eliminarUnidad.setDisable(false);
+                actualizarUnidad.setDisable(false);
                 recuperar.setDisable(true);
             }
         });

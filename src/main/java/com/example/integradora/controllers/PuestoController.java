@@ -80,19 +80,15 @@ public class PuestoController implements Initializable {
 
         //Habilitar botón eliminar, editar, actualizar
         tablaPuesto.setOnMouseClicked(click -> {
-            if(tablaPuesto.getSelectionModel().getSelectedItem() != null) {
+            if(tablaPuesto.getSelectionModel().getSelectedItem() != null && tablaPuesto.getSelectionModel().getSelectedItem().getEstado() == 0) {
                 //Activa botón
-                eliminarPuesto.setDisable(false);
-
-            }else{
                 eliminarPuesto.setDisable(true);
-            }
-        });
-
-        tablaPuesto.setOnMouseClicked(click -> {
-            if(tablaPuesto.getSelectionModel().getSelectedItem() != null) {
+                actualizarPuesto.setDisable(true);
                 recuperar.setDisable(false);
+
             }else{
+                eliminarPuesto.setDisable(false);
+                actualizarPuesto.setDisable(false);
                 recuperar.setDisable(true);
             }
         });
