@@ -46,14 +46,14 @@
                         <Insets bottom="20.0" left="40.0" right="20.0" top="150.0" />
                     </padding>
                     <children>
-                        <Button alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" prefHeight="61.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 15;" text="         Resguardo" textFill="#404463">
+                        <Button alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" prefHeight="61.0" style="-fx-background-color: #2c55cf; -fx-background-radius: 15;" text="         Resguardo" textFill="WHITE">
                             <font>
                                 <Font name="Tahoma" size="20.0" />
                             </font>
                             <graphic>
                                 <ImageView fitHeight="41.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@Images/Folder.png" />
+                                        <Image url="@Images/Folder2.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
