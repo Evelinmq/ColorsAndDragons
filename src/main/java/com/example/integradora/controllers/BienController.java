@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -121,8 +122,12 @@ public class BienController implements Initializable {
         tablaBien.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null && newValue.getEstado() == 0) {
                 regresoBien.setDisable(false);
+                editarBien.setDisable(true);
+                borrarBien.setDisable(true);
             } else {
                 regresoBien.setDisable(true);
+                editarBien.setDisable(false);
+                borrarBien.setDisable(false);
             }
         });
 
@@ -389,9 +394,38 @@ public class BienController implements Initializable {
         thread.start();
 
     }
+    @FXML
+    private void cerrarSesion(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmación de Cierre de Sesión");
+        alert.setHeaderText("Estás a punto de cerrar la sesión.");
+        alert.setContentText("¿Estás seguro de que quieres cerrar la sesión?");
 
 
+        Optional<ButtonType> result = alert.showAndWait();
 
 
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            try {
 
+                FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/IniciarSesion.fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
+
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+
+                stage.setTitle("Iniciar Sesión");
+                stage.setScene(scene);
+                stage.show();
+
+            } catch (IOException e) {
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setTitle("Error de carga");
+                errorAlert.setHeaderText("Error al cargar la vista de inicio de sesión.");
+                errorAlert.setContentText("No se pudo cargar la vista de inicio de sesión");
+                errorAlert.showAndWait();
+                e.printStackTrace();
+            }
+        }
+    }
 }

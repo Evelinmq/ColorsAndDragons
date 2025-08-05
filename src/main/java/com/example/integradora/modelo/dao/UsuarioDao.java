@@ -59,7 +59,7 @@ public class UsuarioDao {
     public boolean deleteUsuario(String correo) {
         try {
             Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "DELETE FROM usuario WHERE correo = ?";
+            String query = "UPDATE USUARIO SET estado=0 WHERE CORREO=?";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, correo);
             if (ps.executeUpdate() > 0) {

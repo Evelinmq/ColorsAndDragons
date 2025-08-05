@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -71,17 +72,14 @@ public class UsuarioController implements Initializable {
 
         tablaUsuario.setOnMouseClicked(click -> {
             if (tablaUsuario.getSelectionModel().getSelectedItem() != null) {
-                eliminarUsuario.setDisable(false);
-            } else {
                 eliminarUsuario.setDisable(true);
-            }
-        });
-
-        tablaUsuario.setOnMouseClicked(click -> {
-            if (tablaUsuario.getSelectionModel().getSelectedItem() != null) {
+                actualizarUsuario.setDisable(true);
                 recuperar.setDisable(false);
             } else {
+                eliminarUsuario.setDisable(false);
+                actualizarUsuario.setDisable(false);
                 recuperar.setDisable(true);
+
             }
         });
 
@@ -186,13 +184,14 @@ public class UsuarioController implements Initializable {
 
     @FXML
     public void eliminarSeleccion() {
-        if(tablaUsuario.getSelectionModel().getSelectedItem() != null) {
+        if (tablaUsuario.getSelectionModel().getSelectedItem() != null) {
             Usuario seleccionado = tablaUsuario.getSelectionModel().getSelectedItem();
             tablaUsuario.getItems().remove(seleccionado);
         }
         tablaUsuario.getSelectionModel().clearSelection();
         eliminarUsuario.setDisable(true);
     }
+
     private void mostrarAlerta(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Aviso");
@@ -302,9 +301,15 @@ public class UsuarioController implements Initializable {
 
                     if (filtro != null) {
                         switch (filtro) {
-                            case "Activos": coincideEstado = u.getEstado() == 1; break;
-                            case "Inactivos": coincideEstado = u.getEstado() == 0; break;
-                            case "VerTodos": coincideEstado = true; break;
+                            case "Activos":
+                                coincideEstado = u.getEstado() == 1;
+                                break;
+                            case "Inactivos":
+                                coincideEstado = u.getEstado() == 0;
+                                break;
+                            case "VerTodos":
+                                coincideEstado = true;
+                                break;
                         }
                     }
 
@@ -409,6 +414,41 @@ public class UsuarioController implements Initializable {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void cerrarSesion(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmación de Cierre de Sesión");
+        alert.setHeaderText("Estás a punto de cerrar la sesión.");
+        alert.setContentText("¿Estás seguro de que quieres cerrar la sesión?");
+
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            try {
+
+                FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/IniciarSesion.fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
+
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+
+                stage.setTitle("Iniciar Sesión");
+                stage.setScene(scene);
+                stage.show();
+
+            } catch (IOException e) {
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setTitle("Error de carga");
+                errorAlert.setHeaderText("Error al cargar la vista de inicio de sesión.");
+                errorAlert.setContentText("No se pudo cargar la vista de inicio de sesión");
+                errorAlert.showAndWait();
+                e.printStackTrace();
+            }
         }
     }
 }
