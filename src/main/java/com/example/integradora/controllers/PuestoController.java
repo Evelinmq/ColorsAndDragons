@@ -75,8 +75,9 @@ public class PuestoController implements Initializable {
         recargarTabla();
 
         //Lista observable
-        ObservableList<Puesto> listaObservable = FXCollections.observableList(lista);
-        tablaPuesto.setItems(listaObservable);
+        //ObservableList<Puesto> listaObservable = FXCollections.observableList(lista);
+        //recargarTabla();
+        //tablaPuesto.setItems(listaObservable);
 
 
         //Habilitar botón eliminar, editar, actualizar
@@ -94,11 +95,8 @@ public class PuestoController implements Initializable {
             }
         });
 
-        //Comienza código búsqueda
         opcionesTabla = FXCollections.observableArrayList(puestos);
         tablaPuesto.setItems(opcionesTabla);
-
-        //Finaliza código búsqueda
 
         // Botón editar
         actualizarPuesto.setDisable(true);
@@ -178,24 +176,14 @@ public class PuestoController implements Initializable {
 
 
         puestos = FXCollections.observableArrayList(opcionesTabla);
-        tablaPuesto.setItems(listaObservable);
 
         // 4. Configurar el ComboBox
         ObservableList<String> estados = FXCollections.observableArrayList("Activos", "Inactivos", "VerTodos");
         filtroEstado.setItems(estados);
+        filtroEstado.getSelectionModel().select("VerTodos");
+        recargarTabla();
 
-        filtroEstado.setOnAction(click -> {
-            String estadoSeleccionado = filtroEstado.getSelectionModel().getSelectedItem();
-
-            if ("Inactivos".equals(estadoSeleccionado)) {
-                tablaPuesto.setItems(listaObservable.filtered(puesto -> puesto.getEstado() == 0));
-            } else if ("Activos".equals(estadoSeleccionado)) {
-                tablaPuesto.setItems(listaObservable.filtered(puesto -> puesto.getEstado() == 1));
-            } else if ("VerTodos".equals(estadoSeleccionado)) {
-                tablaPuesto.setItems(listaObservable);
-            }
-        });
-
+        filtroEstado.setOnAction(event -> recargarTabla());
 
         // Botón agregar
         agregar.setOnAction(event -> abrirVentanaRegistro());
@@ -209,15 +197,6 @@ public class PuestoController implements Initializable {
 
     }
 
-    @FXML
-    public void eliminarSeleccion() {
-        if (tablaPuesto.getSelectionModel().getSelectedItem() != null) {
-            Puesto seleccionado = tablaPuesto.getSelectionModel().getSelectedItem();
-            tablaPuesto.getItems().remove(seleccionado);
-        }
-        tablaPuesto.getSelectionModel().clearSelection();
-        eliminarPuesto.setDisable(true);
-    }
 
     private void mostrarAlerta(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -335,29 +314,6 @@ public class PuestoController implements Initializable {
         return resultado.isPresent() && resultado.get() == ButtonType.OK;
     }
 
-    @FXML
-    private void filtrarPorEstado() {
-        String opcion = filtroEstado.getValue();
-        List<Puesto> lista = new ArrayList<>();
-
-        switch (opcion) {
-            case "Activos":
-                lista = dao.readPuestoPorEstado(1);
-                break;
-            case "Inactivos":
-                lista = dao.readPuestoPorEstado(0);
-                break;
-            case "VerTodos":
-                lista = dao.readTodosPuestos();
-                break;
-        }
-
-        tablaPuesto.setItems(FXCollections.observableList(lista));
-        tablaPuesto.refresh();
-
-        // Deshabilitar botón de restaurar al cambiar el filtro
-        recuperar.setDisable(true);
-    }
 
 
     @FXML
