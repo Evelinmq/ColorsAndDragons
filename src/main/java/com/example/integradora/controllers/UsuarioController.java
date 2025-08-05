@@ -61,10 +61,9 @@ public class UsuarioController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         List<Usuario> lista = dao.readUsuario();
 
-
         tablaUsuarioCorreo.setCellValueFactory(new PropertyValueFactory<>("correo"));
         tablaUsuarioRol.setCellValueFactory(new PropertyValueFactory<>("rolDescripcion"));
-        tablaUsuarioContrasena.setCellValueFactory(new PropertyValueFactory<>("contrasena"));
+        tablaUsuarioContrasena.setCellValueFactory(new PropertyValueFactory<>("CONTRASENIA"));
         recargarTabla();
 
         ObservableList<Usuario> listaObservable = FXCollections.observableList(lista);
