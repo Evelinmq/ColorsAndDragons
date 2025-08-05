@@ -160,7 +160,7 @@
                                         <Font name="Tahoma" size="20.0" />
                                     </font>
                                 </Button>
-                                <Region HBox.hgrow="ALWAYS" /> <ComboBox fx:id="filtroEstado" nodeOrientation="LEFT_TO_RIGHT" onAction="#filtrarPorEstado" prefHeight="43.0" prefWidth="201.0" promptText="  Filtrar" style="-fx-background-radius: 15; -fx-background-color: #ABBAE5;" />
+                                <Region HBox.hgrow="ALWAYS" /> <ComboBox fx:id="filtroEstado" nodeOrientation="LEFT_TO_RIGHT" prefHeight="43.0" prefWidth="201.0" promptText="  Filtrar" style="-fx-background-radius: 15; -fx-background-color: #ABBAE5;" />
                                 <ProgressIndicator fx:id="spinner" progress="0.0" visible="false">
                                     <HBox.margin>
                                         <Insets left="10.0" right="10.0" />

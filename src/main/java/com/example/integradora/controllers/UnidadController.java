@@ -210,23 +210,6 @@ public class UnidadController implements Initializable {
 
     }
 
-    @FXML
-    public void eliminarSeleccion() {
-        if (tablaUnidad.getSelectionModel().getSelectedItem() != null) {
-            UnidadAdministrativa seleccionado = tablaUnidad.getSelectionModel().getSelectedItem();
-            tablaUnidad.getItems().remove(seleccionado);
-        }
-        tablaUnidad.getSelectionModel().clearSelection();
-        eliminarUnidad.setDisable(true);
-    }
-
-    private void mostrarAlerta(String mensaje) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Aviso");
-        alert.setHeaderText(null);
-        alert.setContentText(mensaje);
-        alert.showAndWait();
-    }
 
     private void abrirVentanaEdicionUnidad(UnidadAdministrativa u) {
         //Cargar nueva vista
@@ -301,22 +284,6 @@ public class UnidadController implements Initializable {
         }
     }
 
-    public void registrarUnidad(ActionEvent event) {
-        // Obtenemos la info del campo de texto
-        String unidadV = nombreUnidad.getText().trim();
-        if (unidadV.isEmpty()) return;
-
-        UnidadAdministrativa nuevo = new UnidadAdministrativa();
-        nuevo.setNombre(unidadV);
-        nuevo.setEstado(1); // activo
-
-        if (dao.createUnidad(nuevo)) {
-            System.out.println("Se insertó con éxito");
-        }
-
-        nombreUnidad.setText("");
-        recargarTabla();
-    }
 
     private boolean confirmarRegresar() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -334,28 +301,6 @@ public class UnidadController implements Initializable {
         alert.setContentText("¿Deseas eliminar el registro?");
         Optional<ButtonType> resultado = alert.showAndWait();
         return resultado.isPresent() && resultado.get() == ButtonType.OK;
-    }
-
-    @FXML
-    private void filtrarPorEstado() {
-        String opcion = filtroEstado.getValue();
-        List<UnidadAdministrativa> lista = new ArrayList<>();
-
-        switch (opcion) {
-            case "Activos":
-                lista = dao.readUnidadPorEstado(1);
-                break;
-            case "Inactivos":
-                lista = dao.readUnidadPorEstado(0);
-                break;
-            case "Ver todos":
-                lista = dao.readTodosUnidades();
-                break;
-        }
-
-        tablaUnidad.setItems(FXCollections.observableList(lista));
-        tablaUnidad.refresh();
-        recuperar.setDisable(true);
     }
 
     public void buscarUnidad(ActionEvent event) {
