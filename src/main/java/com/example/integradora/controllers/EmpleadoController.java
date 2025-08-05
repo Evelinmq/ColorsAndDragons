@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -187,19 +188,18 @@ public class EmpleadoController implements Initializable {
         actualizarEmpleado.setOnAction(event -> abrirVentanaEdicionEmpleado(tablaEmpleado.getSelectionModel().getSelectedItem()));
 
 
-
         textoBusquedaEmpleado.textProperty().addListener((obs, old, newValue) -> {
             if (newValue.trim().isEmpty()) recargarTabla();
         });
     }
 
     private boolean eliminarEmpleado() {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmar eliminación");
-            alert.setHeaderText(null);
-            alert.setContentText("¿Deseas eliminar el registro?");
-            Optional<ButtonType> resultado = alert.showAndWait();
-            return resultado.isPresent() && resultado.get() == ButtonType.OK;
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmar eliminación");
+        alert.setHeaderText(null);
+        alert.setContentText("¿Deseas eliminar el registro?");
+        Optional<ButtonType> resultado = alert.showAndWait();
+        return resultado.isPresent() && resultado.get() == ButtonType.OK;
     }
 
     private boolean regresoEmpleado() {
@@ -273,7 +273,7 @@ public class EmpleadoController implements Initializable {
 
     private void recargarTabla() {
         List<Empleado> lista = dao.readEmpleados();
-        if(lista == null || lista.isEmpty()){
+        if (lista == null || lista.isEmpty()) {
 
             return;
         }
@@ -340,14 +340,46 @@ public class EmpleadoController implements Initializable {
         new Thread(tarea).start();
     }
 
-    @FXML protected void irResguardo() { cambiarVista("/com/example/integradora/VistaResguardo.fxml"); }
-    @FXML protected void irBienes() { cambiarVista("/com/example/integradora/VistaBienes.fxml"); }
-    @FXML protected void irEmpleados() { cambiarVista("/com/example/integradora/VistaEmpleado.fxml"); }
-    @FXML protected void irEspacio() { cambiarVista("/com/example/integradora/VistaEspacio.fxml"); }
-    @FXML protected void irUnidad() { cambiarVista("/com/example/integradora/VistaUnidadAdm.fxml"); }
-    @FXML protected void irEdificio() { cambiarVista("/com/example/integradora/VistaEdificio.fxml"); }
-    @FXML protected void irUsuario() { cambiarVista("/com/example/integradora/VistaUsuario.fxml"); }
-    @FXML protected void irPuesto() { cambiarVista("/com/example/integradora/VistaPuesto.fxml"); }
+    @FXML
+    protected void irResguardo() {
+        cambiarVista("/com/example/integradora/VistaResguardo.fxml");
+    }
+
+    @FXML
+    protected void irBienes() {
+        cambiarVista("/com/example/integradora/VistaBienes.fxml");
+    }
+
+    @FXML
+    protected void irEmpleados() {
+        cambiarVista("/com/example/integradora/VistaEmpleado.fxml");
+    }
+
+    @FXML
+    protected void irEspacio() {
+        cambiarVista("/com/example/integradora/VistaEspacio.fxml");
+    }
+
+    @FXML
+    protected void irUnidad() {
+        cambiarVista("/com/example/integradora/VistaUnidadAdm.fxml");
+    }
+
+    @FXML
+    protected void irEdificio() {
+        cambiarVista("/com/example/integradora/VistaEdificio.fxml");
+    }
+
+    @FXML
+    protected void irUsuario() {
+        cambiarVista("/com/example/integradora/VistaUsuario.fxml");
+    }
+
+    @FXML
+    protected void irPuesto() {
+        cambiarVista("/com/example/integradora/VistaPuesto.fxml");
+    }
+
     private void cambiarVista(String rutaFXML) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(rutaFXML));
@@ -357,6 +389,41 @@ public class EmpleadoController implements Initializable {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void cerrarSesion(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmación de Cierre de Sesión");
+        alert.setHeaderText("Estás a punto de cerrar la sesión.");
+        alert.setContentText("¿Estás seguro de que quieres cerrar la sesión?");
+
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            try {
+
+                FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/IniciarSesion.fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
+
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+
+                stage.setTitle("Iniciar Sesión");
+                stage.setScene(scene);
+                stage.show();
+
+            } catch (IOException e) {
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setTitle("Error de carga");
+                errorAlert.setHeaderText("Error al cargar la vista de inicio de sesión.");
+                errorAlert.setContentText("No se pudo cargar la vista de inicio de sesión");
+                errorAlert.showAndWait();
+                e.printStackTrace();
+            }
         }
     }
 }

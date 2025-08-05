@@ -1,5 +1,6 @@
 package com.example.integradora.controllers;
 
+import com.example.integradora.Main;
 import com.example.integradora.modelo.Directora;
 import com.example.integradora.modelo.Resguardo;
 import com.example.integradora.modelo.dao.DirectoraDao;
@@ -8,9 +9,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -19,26 +25,37 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.sql.Connection;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class DirectoraController implements Initializable {
 
-    @FXML private TableView<Directora> tabla;
-    @FXML private TableColumn<Directora, Integer> numeroTabla;
-    @FXML private TableColumn<Directora, String> fechaTabla;
-    @FXML private TableColumn<Directora, String> empleadoTabla;
-    @FXML private TableColumn<Directora, String> espacioTabla;
-    @FXML private Button descargar;
+    @FXML
+    private TableView<Directora> tabla;
+    @FXML
+    private TableColumn<Directora, Integer> numeroTabla;
+    @FXML
+    private TableColumn<Directora, String> fechaTabla;
+    @FXML
+    private TableColumn<Directora, String> empleadoTabla;
+    @FXML
+    private TableColumn<Directora, String> espacioTabla;
+    @FXML
+    private Button descargar;
 
-    @FXML private TextField textoBusqueda;
-    @FXML private Button botonBusqueda;
-    @FXML private ComboBox<String> filtro;
+    @FXML
+    private TextField textoBusqueda;
+    @FXML
+    private Button botonBusqueda;
+    @FXML
+    private ComboBox<String> filtro;
 
     private final DateTimeFormatter DF = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
@@ -103,8 +120,15 @@ public class DirectoraController implements Initializable {
         ));
         filtro.setValue("Todos");
         filtro.setConverter(new StringConverter<>() {
-            @Override public String toString(String s) { return s; }
-            @Override public String fromString(String s) { return s; }
+            @Override
+            public String toString(String s) {
+                return s;
+            }
+
+            @Override
+            public String fromString(String s) {
+                return s;
+            }
         });
     }
 
@@ -128,7 +152,8 @@ public class DirectoraController implements Initializable {
                 case "RFC" -> d.getRfcEmpleado().toLowerCase().contains(q);
                 case "Empleado" -> d.getNombreEmpleadoCompleto().toLowerCase().contains(q);
                 case "Espacio" -> d.getNombreEspacio().toLowerCase().contains(q);
-                case "Estado" -> String.valueOf(d.getEstado()).contains(q) || d.getEstadoTexto().toLowerCase().contains(q);
+                case "Estado" ->
+                        String.valueOf(d.getEstado()).contains(q) || d.getEstadoTexto().toLowerCase().contains(q);
                 default ->  // Todos
                         d.getRfcEmpleado().toLowerCase().contains(q)
                                 || d.getNombreEmpleadoCompleto().toLowerCase().contains(q)
@@ -184,6 +209,41 @@ public class DirectoraController implements Initializable {
         }
     }
 
+    @FXML
+    private void cerrarSesion(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmación de Cierre de Sesión");
+        alert.setHeaderText("Estás a punto de cerrar la sesión.");
+        alert.setContentText("¿Estás seguro de que quieres cerrar la sesión?");
+
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            try {
+
+                FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/IniciarSesion.fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
+
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+
+                stage.setTitle("Iniciar Sesión");
+                stage.setScene(scene);
+                stage.show();
+
+            } catch (IOException e) {
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setTitle("Error de carga");
+                errorAlert.setHeaderText("Error al cargar la vista de inicio de sesión.");
+                errorAlert.setContentText("No se pudo cargar la vista de inicio de sesión");
+                errorAlert.showAndWait();
+                e.printStackTrace();
+            }
+        }
+
+    }
 }
 
 

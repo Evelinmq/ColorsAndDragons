@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -25,22 +26,32 @@ import java.util.*;
 
 public class EdificioController implements Initializable {
 
-    @FXML private TextField nombreEdificio;
-    @FXML private TableView<Edificio> tabla;
+    @FXML
+    private TextField nombreEdificio;
+    @FXML
+    private TableView<Edificio> tabla;
     @FXML
     private AnchorPane padreEdificio;
-    @FXML private TableColumn<Edificio, String> tablaEdificio;
-    @FXML private TextField textoBusqueda;
-    @FXML private Button botonBusqueda;
-    @FXML private Button editar;
-    @FXML private Button eliminar;
-    @FXML private Button agregar;
-    @FXML private Button regresoEdificio;
     @FXML
-    private Button bienes,resguardo, puesto, empleados, espacio, unidad, usuario;
+    private TableColumn<Edificio, String> tablaEdificio;
+    @FXML
+    private TextField textoBusqueda;
+    @FXML
+    private Button botonBusqueda;
+    @FXML
+    private Button editar;
+    @FXML
+    private Button eliminar;
+    @FXML
+    private Button agregar;
+    @FXML
+    private Button regresoEdificio;
+    @FXML
+    private Button bienes, resguardo, puesto, empleados, espacio, unidad, usuario;
     @FXML
     private ProgressIndicator spinner;
-    @FXML private ComboBox<String> comboEstado;
+    @FXML
+    private ComboBox<String> comboEstado;
 
     private final EdificioDao dao = new EdificioDao();
 
@@ -200,96 +211,97 @@ public class EdificioController implements Initializable {
         Optional<ButtonType> resultado = alert.showAndWait();
         return resultado.isPresent() && resultado.get() == ButtonType.OK;
     }
+
     @FXML
-    protected void irResguardo(){
-        try{
+    protected void irResguardo() {
+        try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaResguardo.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             Stage stage = (Stage) resguardo.getScene().getWindow();
             stage.setScene(scene);
             stage.show();
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @FXML
-    protected void irBienes(){
-        try{
+    protected void irBienes() {
+        try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaBienes.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             Stage stage = (Stage) bienes.getScene().getWindow();
             stage.setScene(scene);
             stage.show();
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @FXML
-    protected void irEmpleados(){
-        try{
+    protected void irEmpleados() {
+        try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaEmpleado.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             Stage stage = (Stage) empleados.getScene().getWindow();
             stage.setScene(scene);
             stage.show();
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @FXML
-    protected void irUsuario(){
-        try{
+    protected void irUsuario() {
+        try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaUsuario.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             //Sacar la stage desde un componente visual ya abieto
             Stage stage = (Stage) usuario.getScene().getWindow();
             stage.setScene(scene);
             stage.show();
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @FXML
-    protected void irUnidad(){
-        try{
+    protected void irUnidad() {
+        try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaUnidadAdm.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             Stage stage = (Stage) unidad.getScene().getWindow();
             stage.setScene(scene);
             stage.show();
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @FXML
-    protected void irPuesto(){
-        try{
+    protected void irPuesto() {
+        try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaPuesto.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             //Sacar la stage desde un componente visual ya abieto
             Stage stage = (Stage) puesto.getScene().getWindow();
             stage.setScene(scene);
             stage.show();
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @FXML
-    protected void irEspacio(){
-        try{
+    protected void irEspacio() {
+        try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaEspacio.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             //Sacar la stage desde un componente visual ya abieto
             Stage stage = (Stage) espacio.getScene().getWindow();
             stage.setScene(scene);
             stage.show();
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -347,6 +359,41 @@ public class EdificioController implements Initializable {
 
         // Deshabilitar botón de restaurar al cambiar el filtro
         regresoEdificio.setDisable(true);
+    }
+
+    @FXML
+    private void cerrarSesion(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmación de Cierre de Sesión");
+        alert.setHeaderText("Estás a punto de cerrar la sesión.");
+        alert.setContentText("¿Estás seguro de que quieres cerrar la sesión?");
+
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            try {
+
+                FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/IniciarSesion.fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
+
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+
+                stage.setTitle("Iniciar Sesión");
+                stage.setScene(scene);
+                stage.show();
+
+            } catch (IOException e) {
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setTitle("Error de carga");
+                errorAlert.setHeaderText("Error al cargar la vista de inicio de sesión.");
+                errorAlert.setContentText("No se pudo cargar la vista de inicio de sesión");
+                errorAlert.showAndWait();
+                e.printStackTrace();
+            }
+        }
     }
 }
 

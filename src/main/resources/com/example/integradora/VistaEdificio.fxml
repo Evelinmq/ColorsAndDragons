@@ -24,7 +24,7 @@
                     </HBox.margin>
                 </Label>
                 <Region HBox.hgrow="ALWAYS" />
-                <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #0338D5;">
+                <Button mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="32.0" prefWidth="39.0" style="-fx-background-color: #0338D5;">
                     <HBox.margin>
                         <Insets right="40.0" top="10.0" />
                     </HBox.margin>

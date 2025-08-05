@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -80,13 +81,13 @@ public class PuestoController implements Initializable {
 
         //Habilitar botón eliminar, editar, actualizar
         tablaPuesto.setOnMouseClicked(click -> {
-            if(tablaPuesto.getSelectionModel().getSelectedItem() != null && tablaPuesto.getSelectionModel().getSelectedItem().getEstado() == 0) {
+            if (tablaPuesto.getSelectionModel().getSelectedItem() != null && tablaPuesto.getSelectionModel().getSelectedItem().getEstado() == 0) {
                 //Activa botón
                 eliminarPuesto.setDisable(true);
                 actualizarPuesto.setDisable(true);
                 recuperar.setDisable(false);
 
-            }else{
+            } else {
                 eliminarPuesto.setDisable(false);
                 actualizarPuesto.setDisable(false);
                 recuperar.setDisable(true);
@@ -196,7 +197,7 @@ public class PuestoController implements Initializable {
         });
 
 
-    // Botón agregar
+        // Botón agregar
         agregar.setOnAction(event -> abrirVentanaRegistro());
 
 
@@ -210,7 +211,7 @@ public class PuestoController implements Initializable {
 
     @FXML
     public void eliminarSeleccion() {
-        if(tablaPuesto.getSelectionModel().getSelectedItem() != null) {
+        if (tablaPuesto.getSelectionModel().getSelectedItem() != null) {
             Puesto seleccionado = tablaPuesto.getSelectionModel().getSelectedItem();
             tablaPuesto.getItems().remove(seleccionado);
         }
@@ -226,9 +227,9 @@ public class PuestoController implements Initializable {
         alert.showAndWait();
     }
 
-    private void abrirVentanaEdicionPuesto(Puesto p){
+    private void abrirVentanaEdicionPuesto(Puesto p) {
         //Cargar nueva vista
-        try{
+        try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/example/integradora/EditarPuesto.fxml"));
             Parent root = loader.load();
             UpdatePuestoController controller = loader.getController();
@@ -256,7 +257,7 @@ public class PuestoController implements Initializable {
 
             stage.show();
             //stage.setOnHidden(e -> fondo.setEffect(null));
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setTitle("Error al abrir ventana");
@@ -316,7 +317,7 @@ public class PuestoController implements Initializable {
         recargarTabla();
     }
 
-    private boolean confirmarRegresar(){
+    private boolean confirmarRegresar() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmar regresar");
         alert.setHeaderText(null);
@@ -325,7 +326,7 @@ public class PuestoController implements Initializable {
         return resultado.isPresent() && resultado.get() == ButtonType.OK;
     }
 
-    private boolean confirmarEliminar(){
+    private boolean confirmarEliminar() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmar eliminación");
         alert.setHeaderText(null);
@@ -381,9 +382,15 @@ public class PuestoController implements Initializable {
 
                             if (filtro != null) {
                                 switch (filtro) {
-                                    case "Activos": coincideEstado = p.getEstado() == 1; break;
-                                    case "Inactivos": coincideEstado = p.getEstado() == 0; break;
-                                    case "VerTodos": coincideEstado = true; break;
+                                    case "Activos":
+                                        coincideEstado = p.getEstado() == 1;
+                                        break;
+                                    case "Inactivos":
+                                        coincideEstado = p.getEstado() == 0;
+                                        break;
+                                    case "VerTodos":
+                                        coincideEstado = true;
+                                        break;
                                 }
                             }
 
@@ -445,101 +452,136 @@ public class PuestoController implements Initializable {
 
     //Botones cambiar a vistas
     @FXML
-    protected void irResguardo(){
-        try{
+    protected void irResguardo() {
+        try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaResguardo.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             //Sacar la stage desde un componente visual ya abieto
             Stage stage = (Stage) resguardo.getScene().getWindow();
             stage.setScene(scene);
             stage.show();
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @FXML
-    protected void irBienes(){
-        try{
+    protected void irBienes() {
+        try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaBienes.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             //Sacar la stage desde un componente visual ya abieto
             Stage stage = (Stage) bienes.getScene().getWindow();
             stage.setScene(scene);
             stage.show();
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @FXML
-    protected void irEmpleados(){
-        try{
+    protected void irEmpleados() {
+        try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaEmpleado.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             //Sacar la stage desde un componente visual ya abieto
             Stage stage = (Stage) empleados.getScene().getWindow();
             stage.setScene(scene);
             stage.show();
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @FXML
-    protected void irEspacio(){
-        try{
+    protected void irEspacio() {
+        try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaEspacio.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             //Sacar la stage desde un componente visual ya abieto
             Stage stage = (Stage) espacio.getScene().getWindow();
             stage.setScene(scene);
             stage.show();
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @FXML
-    protected void irUnidad(){
-        try{
+    protected void irUnidad() {
+        try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaUnidadAdm.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             //Sacar la stage desde un componente visual ya abieto
             Stage stage = (Stage) unidad.getScene().getWindow();
             stage.setScene(scene);
             stage.show();
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @FXML
-    protected void irEdificio(){
-        try{
+    protected void irEdificio() {
+        try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaEdificio.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             //Sacar la stage desde un componente visual ya abieto
             Stage stage = (Stage) edificio.getScene().getWindow();
             stage.setScene(scene);
             stage.show();
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @FXML
-    protected void irUsuario(){
-        try{
+    protected void irUsuario() {
+        try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaUsuario.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             //Sacar la stage desde un componente visual ya abieto
             Stage stage = (Stage) usuario.getScene().getWindow();
             stage.setScene(scene);
             stage.show();
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    @FXML
+    private void cerrarSesion(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmación de Cierre de Sesión");
+        alert.setHeaderText("Estás a punto de cerrar la sesión.");
+        alert.setContentText("¿Estás seguro de que quieres cerrar la sesión?");
+
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            try {
+
+                FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/IniciarSesion.fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
+
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+
+                stage.setTitle("Iniciar Sesión");
+                stage.setScene(scene);
+                stage.show();
+
+            } catch (IOException e) {
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setTitle("Error de carga");
+                errorAlert.setHeaderText("Error al cargar la vista de inicio de sesión.");
+                errorAlert.setContentText("No se pudo cargar la vista de inicio de sesión");
+                errorAlert.showAndWait();
+                e.printStackTrace();
+            }
+        }
+
+    }
 }
