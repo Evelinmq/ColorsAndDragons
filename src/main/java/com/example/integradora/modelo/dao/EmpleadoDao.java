@@ -248,6 +248,18 @@ public class EmpleadoDao {
         return lista;
     }
 
+    public static List<Empleado> readEmpleadosActivosOInactivos() {
+        List<Empleado> todos = readEmpleados();
+        List<Empleado> filtrados = new ArrayList<>();
+        for (Empleado e : todos) {
+            if (e.getEstado() == 0 || e.getEstado() == 1) {
+                filtrados.add(e);
+            }
+        }
+        return filtrados;
+    }
+
+
     public List<Empleado> readEmpleadoEspecifico(String texto) {
         List<Empleado> lista = new ArrayList<>();
         try {

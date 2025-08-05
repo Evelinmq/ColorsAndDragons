@@ -111,7 +111,7 @@ public class DirectoraController implements Initializable {
                     private final Button btn = new Button("Descargar PDF");
 
                     {
-                        btn.setStyle("-fx-background-color: #0338D5; -fx-text-fill: white; -fx-background-radius: 10;");
+                        btn.setStyle("-fx-background-color: #B2BCDB; -fx-text-fill: #0033cc; -fx-background-radius: 15;");
                         btn.setOnAction((e) -> {
                             Directora data = getTableView().getItems().get(getIndex());
                             descargarPdfDesdeFila(data);

@@ -161,7 +161,7 @@ public class RegistroResguardoController  implements Initializable {
 
     //CARGAR EMPLEADO Y ESPACIO
     private void cargarCombos() {
-        List<Empleado> empleados = EmpleadoDao.readEmpleados();
+        List<Empleado> empleados = EmpleadoDao.readEmpleadosActivosOInactivos();
         List<Espacio> espacios = EspacioDao.readTodosEspacios();
 
         empleado.setItems(FXCollections.observableArrayList(empleados));
@@ -195,6 +195,7 @@ public class RegistroResguardoController  implements Initializable {
             }
         });
     }
+
 
     //GUARDA EL RESGUARDO CON SUS RESPECTIVOS BIENES
     @FXML
