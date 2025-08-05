@@ -63,7 +63,7 @@ public class UsuarioController implements Initializable {
 
         tablaUsuarioCorreo.setCellValueFactory(new PropertyValueFactory<>("correo"));
         tablaUsuarioRol.setCellValueFactory(new PropertyValueFactory<>("rolDescripcion"));
-        tablaUsuarioContrasena.setCellValueFactory(new PropertyValueFactory<>("CONTRASENIA"));
+        tablaUsuarioContrasena.setCellValueFactory(new PropertyValueFactory<>("contrasena"));
         recargarTabla();
 
         ObservableList<Usuario> listaObservable = FXCollections.observableList(lista);
