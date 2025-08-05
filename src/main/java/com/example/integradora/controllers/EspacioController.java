@@ -55,7 +55,7 @@ public class EspacioController implements Initializable {
         });
 
         comboEstado.getItems().addAll("Activos", "Inactivos", "Ver todos");
-        comboEstado.setValue("Activos");
+        comboEstado.setValue("Filtrar");
         comboEstado.setOnAction(e -> filtrarPorEstado());
 
         filtrarPorEstado();

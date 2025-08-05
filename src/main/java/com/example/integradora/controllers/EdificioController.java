@@ -49,7 +49,7 @@ public class EdificioController implements Initializable {
         tablaEdificio.setCellValueFactory(new PropertyValueFactory<>("nombre"));
 
         comboEstado.getItems().addAll("Activos", "Inactivos", "Ver todos");
-        comboEstado.setValue("Activos");
+        comboEstado.setValue("Filtrar");
         comboEstado.setOnAction(e -> filtrarPorEstado());
 
         filtrarPorEstado();
