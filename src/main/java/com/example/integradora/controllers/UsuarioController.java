@@ -132,8 +132,14 @@ public class UsuarioController implements Initializable {
         tablaUsuario.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null && newValue.getEstado() == 0) {
                 recuperar.setDisable(false);
+                eliminarUsuario.setDisable(true);
+                actualizarUsuario.setDisable(true);
+
             } else {
                 recuperar.setDisable(true);
+                eliminarUsuario.setDisable(false);
+                actualizarUsuario.setDisable(false);
+
             }
         });
 
