@@ -334,7 +334,7 @@ public class UnidadController implements Initializable {
                                     case "Inactivos":
                                         coincideEstado = p.getEstado() == 0;
                                         break;
-                                    case "Ver Todos":
+                                    case "Ver todos":
                                         coincideEstado = true;
                                         break;
                                 }
@@ -384,7 +384,7 @@ public class UnidadController implements Initializable {
                 case "Inactivos":
                     tablaUnidad.setItems(listaObservable.filtered(u -> u.getEstado() == 0));
                     break;
-                case "VerTodos":
+                case "Ver todos":
                     tablaUnidad.setItems(listaObservable);
                     break;
                 default:

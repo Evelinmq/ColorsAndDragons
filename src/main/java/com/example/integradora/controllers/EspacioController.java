@@ -65,8 +65,8 @@ public class EspacioController implements Initializable {
             );
         });
 
-        comboEstado.getItems().addAll("Activos", "Inactivos", "Ver Todos");
-        comboEstado.setValue("Ver Todos");
+        comboEstado.getItems().addAll("Activos", "Inactivos", "Ver todos");
+        comboEstado.setValue("Ver todos");
         comboEstado.setOnAction(e -> filtrarPorEstado());
 
         filtrarPorEstado();
@@ -354,7 +354,7 @@ public class EspacioController implements Initializable {
             case "Inactivos":
                 lista = dao.readEspacioPorEstado(0);
                 break;
-            case "Ver Todos":
+            case "Ver todos":
                 lista = dao.readTodosEspacios();
                 break;
         }

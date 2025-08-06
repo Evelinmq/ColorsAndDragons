@@ -190,7 +190,7 @@
                                     </font>
                                 </Button>
                                 <Region HBox.hgrow="ALWAYS" />
-                                <ComboBox fx:id="filtro" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="100.0" promptText=" Ver Todos" style="-fx-background-radius: 10; -fx-background-color: #ABBAE5;" />
+                                <ComboBox fx:id="filtro" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="100.0" promptText=" Ver todos" style="-fx-background-radius: 10; -fx-background-color: #ABBAE5;" />
                         <ProgressIndicator fx:id="spinner" progress="0.0" visible="false" />
                                 <TextField fx:id="buscador" prefHeight="30.0" prefWidth="150.0" promptText="Buscar..." />
                                 <Button fx:id="botonBuscar" mnemonicParsing="false" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: C6CFE2;" text="🔎" />

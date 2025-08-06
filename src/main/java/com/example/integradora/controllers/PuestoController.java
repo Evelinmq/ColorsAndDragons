@@ -336,7 +336,7 @@ public class PuestoController implements Initializable {
                                     case "Inactivos":
                                         coincideEstado = p.getEstado() == 0;
                                         break;
-                                    case "VerTodos":
+                                    case "Ver todos":
                                         coincideEstado = true;
                                         break;
                                 }
@@ -384,7 +384,7 @@ public class PuestoController implements Initializable {
                 case "Inactivos":
                     tablaPuesto.setItems(listaObservable.filtered(p -> p.getEstado() == 0));
                     break;
-                case "VerTodos":
+                case "Ver todos":
                     tablaPuesto.setItems(listaObservable);
                     break;
                 default:
