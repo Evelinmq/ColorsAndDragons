@@ -184,13 +184,13 @@
                     <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="510.0" spacing="10.0">
                             <children>
-                                <Button fx:id="agregar" mnemonicParsing="false"  prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #3366FF; -fx-background-radius: 10;" text="+ Agregar" textFill="WHITE">
+                                <Button fx:id="agregar" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #3366FF; -fx-background-radius: 10;" text="+ Agregar" textFill="WHITE">
                                     <font>
                                         <Font name="Tahoma" size="14.0" />
                                     </font>
                                 </Button>
                                 <Region HBox.hgrow="ALWAYS" />
-                                <ComboBox fx:id="filtroEstado" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="100.0" promptText="  Filtrar" style="-fx-background-radius: 10; -fx-background-color: #ABBAE5;" />
+                                <ComboBox fx:id="filtroEstado" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="100.0" promptText=" Ver Todos" style="-fx-background-radius: 10; -fx-background-color: #ABBAE5;" />
                                 <ProgressIndicator fx:id="spinner" progress="0.0" visible="false" />
                                 <TextField fx:id="textoBusquedaUsuario" prefHeight="30.0" prefWidth="150.0" promptText="Buscar..." />
                                 <Button fx:id="botonBusquedaUsuario" mnemonicParsing="false" onAction="#buscarUsuario" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: C6CFE2;" text="🔎" />

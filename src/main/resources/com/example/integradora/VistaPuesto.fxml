@@ -102,7 +102,7 @@
                                 <Insets bottom="10.0" />
                             </VBox.margin>
                         </Button>
-                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false"  prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #2c55cf; -fx-background-radius: 10;" text="  Puesto" textFill="WHITE">
+                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #2c55cf; -fx-background-radius: 10;" text="  Puesto" textFill="WHITE">
                             <graphic>
                                 <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
@@ -190,7 +190,7 @@
                                     </font>
                                 </Button>
                                 <Region HBox.hgrow="ALWAYS" />
-                                <ComboBox fx:id="filtroEstado" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="100.0" promptText="  Filtrar" style="-fx-background-radius: 10; -fx-background-color: #ABBAE5;" />
+                                <ComboBox fx:id="filtroEstado" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="100.0" promptText=" Ver Todos" style="-fx-background-radius: 10; -fx-background-color: #ABBAE5;" />
                                 <ProgressIndicator fx:id="spinner" progress="0.0" visible="false" />
                                 <TextField fx:id="textoBusquedaPuesto" prefHeight="30.0" prefWidth="150.0" promptText="Buscar..." />
                                 <Button fx:id="botonBusquedaPuesto" mnemonicParsing="false" onAction="#buscarPuesto" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: C6CFE2;" text="🔎" />
