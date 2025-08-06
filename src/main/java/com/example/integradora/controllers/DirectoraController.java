@@ -16,16 +16,19 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.util.JRLoader;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -183,7 +186,7 @@ public class DirectoraController implements Initializable {
         if (seleccionado == null) return;
 
         try {
-            InputStream input = getClass().getResourceAsStream("/Oracle-Test.jasper");
+            InputStream input = getClass().getResourceAsStream("/com/example/integradora/jasper/Resguardo.jasper");
             JasperReport reporte = (JasperReport) JRLoader.loadObject(input);
 
             Connection conexion = OracleDatabaseConnectionManager.getConnection();
@@ -210,17 +213,63 @@ public class DirectoraController implements Initializable {
 
     @FXML
     private void descargarResguardoPdf() {
-        Directora seleccionado = tabla.getSelectionModel().getSelectedItem();
+        ObservableList<Directora> seleccionados = tabla.getSelectionModel().getSelectedItems();
 
-        if (seleccionado == null) {
+        if (seleccionados == null || seleccionados.isEmpty()) {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
             alerta.setHeaderText(null);
-            alerta.setContentText("Debes seleccionar un resguardo para generar el PDF");
+            alerta.setContentText("Debes seleccionar al menos un resguardo para generar el PDF");
             alerta.showAndWait();
             return;
         }
+        descargarMultiplesPdf(seleccionados);
+    }
 
-        descargarPdfDesdeFila(seleccionado);
+    private void descargarMultiplesPdf(ObservableList<Directora> seleccionados) {
+        DirectoryChooser dirChooser = new DirectoryChooser();
+        dirChooser.setTitle("Seleccionar carpeta para guardar PDFs");
+        File carpetaDestino = dirChooser.showDialog(null);
+
+        if (carpetaDestino == null) {
+            return;
+        }
+        for (Directora resguardo : seleccionados) {
+            descargarPdfEnCarpeta(resguardo, carpetaDestino.getAbsolutePath());
+        }
+        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+        alerta.setHeaderText(null);
+        alerta.setContentText("Se han generado todos los PDFs correctamente en la carpeta seleccionada.");
+        alerta.showAndWait();
+    }
+
+    private void descargarPdfEnCarpeta(Directora seleccionado, String rutaDestino) {
+
+        try {
+            // Carga la plantilla del reporte
+            InputStream input = getClass().getResourceAsStream("/com/example/integradora/jasper/Resguardo.jasper");
+            JasperReport reporte = (JasperReport) JRLoader.loadObject(input);
+
+            Connection conexion = OracleDatabaseConnectionManager.getConnection();
+            Map<String, Object> parametros = new HashMap<>();
+            parametros.put("ID_RESGUARDO", seleccionado.getIdResguardo());
+
+            // Llena el reporte con los datos
+            JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, parametros, conexion);
+
+            // Genera el nombre del archivo y la ruta completa
+            String nombreArchivo = "resguardo_" + seleccionado.getIdResguardo() + ".pdf";
+            String rutaCompleta = rutaDestino + File.separator + nombreArchivo;
+
+            // Exporta el reporte a la ruta seleccionada por el usuario
+            JasperExportManager.exportReportToPdfFile(jasperPrint, rutaCompleta);
+
+        } catch (Exception e) {
+        e.printStackTrace();
+        Alert error = new Alert(Alert.AlertType.ERROR);
+        error.setHeaderText("Error al generar PDF");
+        error.setContentText(e.getMessage());
+        error.showAndWait();
+        }
     }
 
     @FXML
