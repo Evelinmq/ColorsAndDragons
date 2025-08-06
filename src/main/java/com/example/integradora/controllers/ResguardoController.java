@@ -266,7 +266,7 @@ public class ResguardoController implements Initializable {
 
         try {
             // Cargar el archivo .jasper
-            InputStream input = getClass().getResourceAsStream("/Oracle-Test.jasper");
+            InputStream input = getClass().getResourceAsStream("/com/example/integradora/jasper/Resguardo.jasper");
             JasperReport reporte = (JasperReport) JRLoader.loadObject(input);
 
             Connection conexion = OracleDatabaseConnectionManager.getConnection();
