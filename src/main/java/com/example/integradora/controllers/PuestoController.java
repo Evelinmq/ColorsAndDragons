@@ -171,9 +171,9 @@ public class PuestoController implements Initializable {
         puestos = FXCollections.observableArrayList(opcionesTabla);
 
         // 4. Configurar el ComboBox
-        ObservableList<String> estados = FXCollections.observableArrayList("Activos", "Inactivos", "VerTodos");
+        ObservableList<String> estados = FXCollections.observableArrayList("Activos", "Inactivos", "Ver todos");
         filtroEstado.setItems(estados);
-        filtroEstado.getSelectionModel().select("VerTodos");
+        filtroEstado.getSelectionModel().select("Ver todos");
         recargarTabla();
 
         filtroEstado.setOnAction(event -> recargarTabla());
