@@ -71,14 +71,7 @@ public class PuestoController implements Initializable {
 
         //Configuración columa
         tablaPuestoNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        //tablaPuesto.setItems(FXCollections.observableList(lista));
         recargarTabla();
-
-        //Lista observable
-        //ObservableList<Puesto> listaObservable = FXCollections.observableList(lista);
-        //recargarTabla();
-        //tablaPuesto.setItems(listaObservable);
-
 
         //Habilitar botón eliminar, editar, actualizar
         tablaPuesto.setOnMouseClicked(click -> {
@@ -196,7 +189,6 @@ public class PuestoController implements Initializable {
         });
 
     }
-
 
     private void mostrarAlerta(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.WARNING);

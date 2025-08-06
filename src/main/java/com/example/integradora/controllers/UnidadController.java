@@ -1,6 +1,7 @@
 package com.example.integradora.controllers;
 
 import com.example.integradora.Main;
+import com.example.integradora.modelo.Puesto;
 import com.example.integradora.modelo.UnidadAdministrativa;
 import com.example.integradora.modelo.dao.UnidadAdministrativaDao;
 import javafx.collections.FXCollections;
@@ -69,16 +70,9 @@ public class UnidadController implements Initializable {
         // 1. Acceder a la BD
         List<UnidadAdministrativa> lista = dao.readUnidad();
 
-
         //Configuración columa
         tablaUnidadNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        //tablaPuesto.setItems(FXCollections.observableList(lista));
         recargarTabla();
-
-        //Lista observable
-        ObservableList<UnidadAdministrativa> listaObservable = FXCollections.observableList(lista);
-        tablaUnidad.setItems(listaObservable);
-
 
         //Habilitar botón eliminar, editar, actualizar
         tablaUnidad.setOnMouseClicked(click -> {
@@ -176,27 +170,14 @@ public class UnidadController implements Initializable {
 
 
         unidades = FXCollections.observableArrayList(opcionesTabla);
-        tablaUnidad.setItems(listaObservable);
 
         // 4. Configurar el ComboBox
         ObservableList<String> estados = FXCollections.observableArrayList("Activos", "Inactivos", "VerTodos");
         filtroEstado.setItems(estados);
+        filtroEstado.getSelectionModel().select("VerTodos");
+        recargarTabla();
 
-        filtroEstado.setOnAction(click -> {
-            String estadoSeleccionado = filtroEstado.getSelectionModel().getSelectedItem();
-
-            if ("Inactivos".equals(estadoSeleccionado)) {
-                recargarTabla();
-                tablaUnidad.setItems(listaObservable.filtered(unidadAdministrativa -> unidadAdministrativa.getEstado() == 0));
-            } else if ("Activos".equals(estadoSeleccionado)) {
-                recargarTabla();
-                tablaUnidad.setItems(listaObservable.filtered(unidadAdministrativa -> unidadAdministrativa.getEstado() == 1));
-            } else if ("VerTodos".equals(estadoSeleccionado)) {
-                recargarTabla();
-                tablaUnidad.setItems(listaObservable);
-            }
-        });
-
+        filtroEstado.setOnAction(event -> recargarTabla());
 
         // Botón agregar
         agregar.setOnAction(event -> abrirVentanaRegistro());
@@ -210,6 +191,13 @@ public class UnidadController implements Initializable {
 
     }
 
+    private void mostrarAlerta(String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Aviso");
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
+    }
 
     private void abrirVentanaEdicionUnidad(UnidadAdministrativa u) {
         //Cargar nueva vista
@@ -269,7 +257,6 @@ public class UnidadController implements Initializable {
             stage.initOwner(escenaPrincipal.getWindow());
             stage.show();
 
-
             RegistrarUnidadController controller = loader.getController();
             controller.setStage(stage);
             controller.setOnUnidadCreado(() -> {
@@ -284,6 +271,22 @@ public class UnidadController implements Initializable {
         }
     }
 
+    public void registrarUnidad(ActionEvent event) {
+        // Obtenemos la info del campo de texto
+        String unidadV = nombreUnidad.getText().trim();
+        if (unidadV.isEmpty()) return;
+
+        UnidadAdministrativa nuevo = new UnidadAdministrativa();
+        nuevo.setNombre(unidadV);
+        nuevo.setEstado(1); // activo
+
+        if (dao.createUnidad(nuevo)) {
+            System.out.println("Se insertó con éxito");
+        }
+
+        nombreUnidad.setText("");
+        recargarTabla();
+    }
 
     private boolean confirmarRegresar() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -303,38 +306,69 @@ public class UnidadController implements Initializable {
         return resultado.isPresent() && resultado.get() == ButtonType.OK;
     }
 
-    public void buscarUnidad(ActionEvent event) {
+    @FXML
+    private void buscarUnidad(ActionEvent event) {
+        // Desactiva el botón y muestra el spinner
         botonBusquedaUnidad.setDisable(true);
         spinner.setVisible(true);
-        String texto = textoBusquedaUnidad.getText().trim();
+
+        // Captura texto de búsqueda
+        String texto = textoBusquedaUnidad.getText().trim().toLowerCase();
         String filtro = filtroEstado.getSelectionModel().getSelectedItem();
 
-        Task<List<UnidadAdministrativa>> cargarBusqueda = new Task<>() {
+        // Simula búsqueda en segundo plano
+        Task<List<UnidadAdministrativa>> tareaBusqueda = new Task<>() {
             @Override
             protected List<UnidadAdministrativa> call() {
-                return dao.readUnidadEspecifico(texto);
+                List<UnidadAdministrativa> lista = dao.readUnidad();
+                return lista.stream()
+                        .filter(p -> {
+                            boolean coincideTexto = p.getNombre().toLowerCase().contains(texto);
+                            boolean coincideEstado = true;
+
+                            if (filtro != null) {
+                                switch (filtro) {
+                                    case "Activos":
+                                        coincideEstado = p.getEstado() == 1;
+                                        break;
+                                    case "Inactivos":
+                                        coincideEstado = p.getEstado() == 0;
+                                        break;
+                                    case "VerTodos":
+                                        coincideEstado = true;
+                                        break;
+                                }
+                            }
+
+                            return coincideTexto && coincideEstado;
+                        })
+                        .toList();
+            }
+
+            @Override
+            protected void succeeded() {
+                List<UnidadAdministrativa> resultado = getValue();
+                tablaUnidad.setItems(FXCollections.observableArrayList(resultado));
+                tablaUnidad.refresh();
+
+                spinner.setVisible(false);
+                botonBusquedaUnidad.setDisable(false);
+            }
+
+            @Override
+            protected void failed() {
+                spinner.setVisible(false);
+                botonBusquedaUnidad.setDisable(false);
             }
         };
 
-        cargarBusqueda.setOnFailed(workerStateEvent -> {
-            botonBusquedaUnidad.setDisable(false);
-            spinner.setVisible(false);
-            System.err.println("Error: " + cargarBusqueda.getException());
-        });
-
-        cargarBusqueda.setOnSucceeded(workerStateEvent -> {
-            botonBusquedaUnidad.setDisable(false);
-            spinner.setVisible(false);
-            List<UnidadAdministrativa> lista = cargarBusqueda.getValue();
-            ObservableList<UnidadAdministrativa> listaObservable = FXCollections.observableList(lista);
-            tablaUnidad.setItems(listaObservable);
-            tablaUnidad.refresh();
-        });
-
-        Thread thread = new Thread(cargarBusqueda);
-        thread.setDaemon(true);
-        thread.start();
+        Thread hilo = new Thread(tareaBusqueda);
+        hilo.setDaemon(true);
+        hilo.start();
     }
+
+
+
 
     private void recargarTabla() {
         List<UnidadAdministrativa> lista = dao.readUnidad();
