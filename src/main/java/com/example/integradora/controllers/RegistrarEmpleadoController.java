@@ -49,7 +49,7 @@ public class RegistrarEmpleadoController {
 
 
     public void initialize() throws IOException {
-        List<Puesto> puestos = PuestoDao.readTodosPuestos();
+        List<Puesto> puestos = PuestoDao.readPuestosActivos();
         cbPuesto.setItems(FXCollections.observableArrayList(puestos));
 
         cbPuesto.setConverter(new StringConverter<Puesto>() {
@@ -69,7 +69,7 @@ public class RegistrarEmpleadoController {
 
 
         // Cargar Unidades Administrativas
-        List<UnidadAdministrativa> unidades = UnidadAdministrativaDao.readTodosUnidades(); // Usas este método, asumo que devuelve List<UnidadAdministrativa>
+        List<UnidadAdministrativa> unidades = UnidadAdministrativaDao.readUnidadesActivas(); // Usas este método, asumo que devuelve List<UnidadAdministrativa>
         cbUnidadAdministrativa.setItems(FXCollections.observableArrayList(unidades));
 
         cbUnidadAdministrativa.setConverter(new StringConverter<UnidadAdministrativa>() {

@@ -50,7 +50,7 @@ public class UpdateEmpleadoController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        List<Puesto> puestos = PuestoDao.readTodosPuestos();
+        List<Puesto> puestos = PuestoDao.readPuestosActivos();
         cbPuesto.setItems(javafx.collections.FXCollections.observableArrayList(puestos));
         cbPuesto.setConverter(new StringConverter<Puesto>() {
             @Override
@@ -69,7 +69,7 @@ public class UpdateEmpleadoController implements Initializable {
 
         try {
 
-            List<UnidadAdministrativa> unidades = UnidadAdministrativaDao.readTodosUnidades();
+            List<UnidadAdministrativa> unidades = UnidadAdministrativaDao.readUnidadesActivas();
             cbUnidadAdministrativa.setItems(javafx.collections.FXCollections.observableArrayList(unidades));
             cbUnidadAdministrativa.setConverter(new StringConverter<UnidadAdministrativa>() {
                 @Override

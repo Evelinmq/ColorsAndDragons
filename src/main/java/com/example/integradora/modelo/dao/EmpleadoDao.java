@@ -248,17 +248,52 @@ public class EmpleadoDao {
         return lista;
     }
 
-    public static List<Empleado> readEmpleadosActivosOInactivos() {
-        List<Empleado> todos = readEmpleados();
-        List<Empleado> filtrados = new ArrayList<>();
-        for (Empleado e : todos) {
-            if (e.getEstado() == 0 || e.getEstado() == 1) {
-                filtrados.add(e);
-            }
-        }
-        return filtrados;
-    }
+    public static List<Empleado> readEmpleadosActivos() {
+        List<Empleado> lista = new ArrayList<>();
+        try {
+            Connection conn = OracleDatabaseConnectionManager.getConnection();
+            String query = "SELECT " +
+                    "em.RFC, em.NOMBRE AS nombre_empleado, em.APELLIDO_PATERNO, em.APELLIDO_MATERNO, em.ESTADO AS estado_empleado, " +
+                    "pu.ID_PUESTO, pu.NOMBRE AS nombre_puesto, " +
+                    "ua.ID_UNIDAD, ua.NOMBRE AS nombre_unidad " +
+                    "FROM EMPLEADO em " +
+                    "JOIN PUESTO pu ON em.ID_PUESTO = pu.ID_PUESTO " +
+                    "JOIN UNIDAD_ADMINISTRATIVA ua ON em.ID_UNIDAD = ua.ID_UNIDAD " +
+                    "WHERE em.ESTADO = 1";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
 
+            while (rs.next()) {
+
+                Puesto puesto = new Puesto();
+                puesto.setId(rs.getInt("ID_PUESTO"));
+                puesto.setNombre(rs.getString("nombre_puesto"));
+
+
+                UnidadAdministrativa unidad = new UnidadAdministrativa();
+                unidad.setId(rs.getInt("ID_UNIDAD"));
+                unidad.setNombre(rs.getString("nombre_unidad"));
+
+
+                Empleado empleado = new Empleado();
+                empleado.setRfc(rs.getString("RFC"));
+                empleado.setNombre(rs.getString("nombre_empleado"));
+                empleado.setApellidoPaterno(rs.getString("APELLIDO_PATERNO"));
+                empleado.setApellidoMaterno(rs.getString("APELLIDO_MATERNO"));
+                empleado.setEstado(rs.getInt("estado_empleado"));
+                empleado.setPuesto(puesto);
+                empleado.setUnidadAdministrativa(unidad);
+
+                lista.add(empleado);
+            }
+
+            rs.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
 
     public List<Empleado> readEmpleadoEspecifico(String texto) {
         List<Empleado> lista = new ArrayList<>();

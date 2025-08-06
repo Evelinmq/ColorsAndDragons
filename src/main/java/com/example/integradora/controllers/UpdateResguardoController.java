@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
 import java.net.URL;
 import java.sql.Date;
@@ -153,8 +154,47 @@ public class UpdateResguardoController implements Initializable {
 
 
     private void cargarCombos() {
-        comboEmpleado.setItems(FXCollections.observableArrayList(EmpleadoDao.readEmpleados()));
-        comboEspacio.setItems(FXCollections.observableArrayList(EspacioDao.readTodosEspacios()));
+        List<Empleado> empleados = EmpleadoDao.readEmpleadosActivos();
+        List<Espacio> espacios = EspacioDao.readEspaciosActivos();
+
+        comboEmpleado.setItems(FXCollections.observableArrayList(empleados));
+        comboEspacio.setItems(FXCollections.observableArrayList(espacios));
+
+        comboEmpleado.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(Empleado object) {
+                if (object == null) {
+                    return "";
+                } else {
+                    return object.getNombre() + " " + object.getApellidoPaterno() + " " + object.getApellidoMaterno();
+                }
+            }
+
+            @Override
+            public Empleado fromString(String string) {
+                return comboEmpleado.getItems().stream()
+                        .filter(e -> (e.getNombre() + " " + e.getApellidoPaterno() + " " + e.getApellidoMaterno()).equals(string))
+                        .findFirst().orElse(null);
+            }
+        });
+
+        comboEspacio.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(Espacio object) {
+                if (object == null) {
+                    return "";
+                } else {
+                    return object.getNombre();
+                }
+            }
+
+            @Override
+            public Espacio fromString(String string) {
+                return comboEspacio.getItems().stream()
+                        .filter(e -> e.getNombre().equals(string))
+                        .findFirst().orElse(null);
+            }
+        });
     }
 
     private void cargarComboBienesDisponibles() {

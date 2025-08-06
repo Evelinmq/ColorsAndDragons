@@ -161,8 +161,8 @@ public class RegistroResguardoController  implements Initializable {
 
     //CARGAR EMPLEADO Y ESPACIO
     private void cargarCombos() {
-        List<Empleado> empleados = EmpleadoDao.readEmpleadosActivosOInactivos();
-        List<Espacio> espacios = EspacioDao.readTodosEspacios();
+        List<Empleado> empleados = EmpleadoDao.readEmpleadosActivos();
+        List<Espacio> espacios = EspacioDao.readEspaciosActivos();
 
         empleado.setItems(FXCollections.observableArrayList(empleados));
         espacio.setItems(FXCollections.observableArrayList(espacios));
@@ -170,13 +170,17 @@ public class RegistroResguardoController  implements Initializable {
         empleado.setConverter(new StringConverter<>() {
             @Override
             public String toString(Empleado object) {
-                return (object == null) ? "" : object.getNombre();
+                if (object == null) {
+                    return "";
+                } else {
+                    return object.getNombre() + " " + object.getApellidoPaterno() + " " + object.getApellidoMaterno();
+                }
             }
 
             @Override
             public Empleado fromString(String string) {
                 return empleado.getItems().stream()
-                        .filter(e -> e.getNombre().equals(string))
+                        .filter(e -> (e.getNombre() + " " + e.getApellidoPaterno() + " " + e.getApellidoMaterno()).equals(string))
                         .findFirst().orElse(null);
             }
         });
@@ -184,7 +188,11 @@ public class RegistroResguardoController  implements Initializable {
         espacio.setConverter(new StringConverter<>() {
             @Override
             public String toString(Espacio object) {
-                return (object == null) ? "" : object.getNombre();
+                if (object == null) {
+                    return "";
+                } else {
+                    return object.getNombre();
+                }
             }
 
             @Override

@@ -176,4 +176,26 @@ public class UnidadAdministrativaDao {
         return lista;
     }
 
+    public static List<UnidadAdministrativa> readUnidadesActivas() {
+        List<UnidadAdministrativa> unidades = new ArrayList<>();
+        try {
+            Connection conn = OracleDatabaseConnectionManager.getConnection();
+            String query = "SELECT ID_UNIDAD, NOMBRE, ESTADO FROM UNIDAD_ADMINISTRATIVA WHERE ESTADO = 1";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                UnidadAdministrativa unidad = new UnidadAdministrativa();
+                unidad.setId(rs.getInt("ID_UNIDAD"));
+                unidad.setNombre(rs.getString("NOMBRE"));
+                unidad.setEstado(rs.getInt("ESTADO"));
+                unidades.add(unidad);
+            }
+            rs.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return unidades;
+    }
+
 }

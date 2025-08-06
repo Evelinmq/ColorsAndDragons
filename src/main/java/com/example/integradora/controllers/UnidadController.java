@@ -334,7 +334,7 @@ public class UnidadController implements Initializable {
                                     case "Inactivos":
                                         coincideEstado = p.getEstado() == 0;
                                         break;
-                                    case "VerTodos":
+                                    case "Ver Todos":
                                         coincideEstado = true;
                                         break;
                                 }

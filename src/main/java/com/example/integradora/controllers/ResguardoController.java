@@ -46,7 +46,7 @@ public class ResguardoController implements Initializable {
     @FXML
     private TableColumn<Resguardo, Integer> numero;
     @FXML
-    private Spinner spinner;
+    private ProgressIndicator spinner;
     @FXML
     private ComboBox filtro;
     @FXML
@@ -108,8 +108,8 @@ public class ResguardoController implements Initializable {
     }
 
     private void configurarFiltro() {
-        filtro.getItems().addAll("Activos", "Inactivos", "VerTodo");
-        filtro.setValue("Activos");
+        filtro.getItems().addAll("Activos", "Inactivos", "Ver Todos");
+        filtro.setValue("Ver Todos");
         filtro.setOnAction(e -> cargarResguardosPorEstado());
     }
 
@@ -126,7 +126,7 @@ public class ResguardoController implements Initializable {
             case "Inactivos":
                 lista = dao.readResguardoPorEstado(0);
                 break;
-            case "VerTodo":
+            case "Ver Todos":
                 lista = dao.readTodosResguardos();
                 break;
         }

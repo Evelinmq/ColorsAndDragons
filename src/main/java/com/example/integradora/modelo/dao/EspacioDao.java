@@ -189,6 +189,28 @@ public class EspacioDao {
         return lista;
     }
 
+    public static List<Espacio> readEspaciosActivos() {
+        List<Espacio> lista = new ArrayList<>();
+        try {
+            Connection conn = OracleDatabaseConnectionManager.getConnection();
+            String query = "SELECT ID_ESPACIO, NOMBRE FROM ESPACIO WHERE ESTADO = 1 ORDER BY NOMBRE ASC";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Espacio espacio = new Espacio();
+                espacio.setId(rs.getInt("ID_ESPACIO"));
+                espacio.setNombre(rs.getString("NOMBRE"));
+                lista.add(espacio);
+            }
+            rs.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
+
 }
 
 

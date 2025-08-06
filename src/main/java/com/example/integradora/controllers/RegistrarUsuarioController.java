@@ -47,7 +47,7 @@ public class RegistrarUsuarioController {
     }
 
     private ObservableList<String> getNombreEmpleado(){
-        ArrayList<Empleado> Visualizador = (ArrayList<Empleado>) EmpleadoDao.readTodosEmpleados();
+        ArrayList<Empleado> Visualizador = (ArrayList<Empleado>) EmpleadoDao.readEmpleadosActivos();
         ObservableList<String> items = FXCollections.observableArrayList();
         for(Empleado i: Visualizador){
             items.add(i.getNombre());

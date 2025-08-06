@@ -5,6 +5,7 @@ import com.example.integradora.modelo.dao.UsuarioDao;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -21,11 +22,9 @@ public class UpdateUsuarioController implements Initializable {
     @FXML
     private TextField rfcEmpleado;
     @FXML
-    private TextField idUnidad;
-    @FXML
-    private TextField idPuesto;
-    @FXML
     private TextField estado;
+    @FXML
+    private ComboBox<String> cbEmpleado;
 
 
     private Usuario usuario;

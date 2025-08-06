@@ -179,4 +179,26 @@ public class PuestoDao {
         return lista;
     }
 
+    public static List<Puesto> readPuestosActivos() {
+        List<Puesto> puestos = new ArrayList<>();
+        try {
+            Connection conn = OracleDatabaseConnectionManager.getConnection();
+            String query = "SELECT ID_PUESTO, NOMBRE, ESTADO FROM PUESTO WHERE ESTADO = 1";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Puesto puesto = new Puesto();
+                puesto.setId(rs.getInt("ID_PUESTO"));
+                puesto.setNombre(rs.getString("NOMBRE"));
+                puesto.setEstado(rs.getInt("ESTADO"));
+                puestos.add(puesto);
+            }
+            rs.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return puestos;
+    }
+
 }
