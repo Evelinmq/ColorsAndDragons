@@ -69,20 +69,6 @@ public class UsuarioController implements Initializable {
         ObservableList<Usuario> listaObservable = FXCollections.observableList(lista);
         tablaUsuario.setItems(listaObservable);
 
-        tablaUsuario.setOnMouseClicked(click -> {
-            if (tablaUsuario.getSelectionModel().getSelectedItem() != null) {
-                eliminarUsuario.setDisable(true);
-                actualizarUsuario.setDisable(true);
-                recuperar.setDisable(false);
-            } else {
-                eliminarUsuario.setDisable(false);
-                actualizarUsuario.setDisable(false);
-                recuperar.setDisable(true);
-
-            }
-        });
-
-
         opcionesTabla = FXCollections.observableArrayList(usuarios);
         tablaUsuario.setItems(opcionesTabla);
 
