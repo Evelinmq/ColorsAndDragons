@@ -1,52 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="mainAnchorPane" style="-fx-background-color: EFEFF0;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.integradora.controllers.InicioSesionController">
+<AnchorPane fx:id="mainAnchorPane" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #EFEFF0;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.integradora.controllers.InicioSesionController">
    <children>
-      <ImageView fitHeight="845.0" fitWidth="716.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <image>
-            <Image url="@Images/loginimagen.png" />
-         </image>
-      </ImageView>
-
-      <VBox fx:id="loginFormVBox" alignment="CENTER" prefWidth="500.0" spacing="30" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <AnchorPane.leftAnchor>716.0</AnchorPane.leftAnchor>
-         <minWidth>500.0</minWidth>
-
-         <Label styleClass="Poppins-SemiBold" text="BIENVENIDO" textFill="#404463">
-            <font>
-               <Font name="Tahoma" size="49.0" />
-            </font>
-         </Label>
-         <Label styleClass="subtitle-text" text="Inicia sesión en tu cuenta" textFill="#404463" />
-
-         <VBox alignment="CENTER_LEFT" maxWidth="400.0" spacing="10" styleClass="input-group">
-            <Label styleClass="input-label" text="Correo" textFill="#404463">
+      <VBox prefHeight="600.0" prefWidth="400.0">
+         <children>
+            <ImageView fitHeight="603.0" fitWidth="360.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/descarga.png" />
+               </image>
+            </ImageView>
+         </children>
+      </VBox>
+      <VBox fx:id="loginFormVBox" alignment="CENTER" prefHeight="603.0" prefWidth="422.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label text="BIENVENIDO" textFill="#404463">
                <font>
-                  <Font name="Tahoma" size="12.0" />
+                  <Font name="Tahoma" size="36.0" />
                </font>
             </Label>
-            <TextField fx:id="correos" maxWidth="Infinity" prefHeight="50.0" promptText="example@utez.edu.mx" style="-fx-background-color: fff; -fx-background-radius: 10;" styleClass="text-input" />
-         </VBox>
-
-         <VBox alignment="CENTER_LEFT" maxWidth="400.0" spacing="10" styleClass="input-group">
-            <Label styleClass="input-label" text="Contraseña" textFill="#404463">
+            <Label text="Inicia sesión en tu cuenta" textFill="#404463" />
+            <VBox alignment="CENTER_LEFT" maxWidth="350.0" spacing="5.0">
+               <children>
+                  <Label text="Correo" textFill="#404463">
+                     <font>
+                        <Font name="Tahoma" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="correos" maxWidth="Infinity" prefHeight="40.0" promptText="example@utez.edu.mx" style="-fx-background-color: #ffffff; -fx-background-radius: 10;" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" maxWidth="350.0" spacing="5.0">
+               <children>
+                  <Label text="Contraseña" textFill="#404463">
+                     <font>
+                        <Font name="Tahoma" size="12.0" />
+                     </font>
+                  </Label>
+                  <PasswordField fx:id="contrasena" maxWidth="Infinity" prefHeight="40.0" promptText="********" style="-fx-background-color: #ffffff; -fx-background-radius: 10;" />
+               </children>
+            </VBox>
+            <Button maxWidth="350.0" onAction="#inicioSesion" prefHeight="50.0" style="-fx-background-color: #013AE4; -fx-background-radius: 10;" text="Iniciar sesión" textFill="WHITE">
                <font>
-                  <Font name="Tahoma" size="12.0" />
+                  <Font name="Tahoma" size="16.0" />
                </font>
-            </Label>
-            <PasswordField fx:id="contrasena" maxWidth="Infinity" prefHeight="50.0" promptText="********" style="-fx-background-color: ffff; -fx-background-radius: 10;" styleClass="text-input" />
-         </VBox>
-
-         <Button maxWidth="400.0" onAction="#inicioSesion" prefHeight="60.0" style="-fx-background-color: #013AE4; -fx-background-radius: 10;" styleClass="sign-in-button" text="Iniciar sesión" textFill="WHITE">
-            <font>
-               <Font name="Tahoma" size="18.0" />
-            </font>
-         </Button>
+            </Button>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="30.0" top="20.0" />
+         </padding>
       </VBox>
    </children>
 </AnchorPane>
