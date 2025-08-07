@@ -17,6 +17,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class UpdateResguardoController implements Initializable {
     @FXML
@@ -38,23 +39,30 @@ public class UpdateResguardoController implements Initializable {
     @FXML
     private Button guardar, cancelar, botonEliminar;
 
-
     private Resguardo resguardo;
 
     private final ResguardoDao resguardoDao = new ResguardoDao();
+    private final ResguardoBienDao resguardoBienDao = new ResguardoBienDao();
+    private final BienDao bienDao = new BienDao();
+
+    private List<Bien> bienesOriginales;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         cargarCombos();
         configurarColumnas();
+        // Cargar bienes disponibles solo una vez
         cargarComboBienesDisponibles();
+    }
+
+    public void setResguardo(Resguardo resguardo) {
+        this.resguardo = resguardo;
+        // La carga de datos debe hacerse después de que el resguardo ha sido establecido
         if (resguardo != null) {
             cargarDatosResguardo();
             cargarBienes(resguardo.getId());
         }
     }
-
-    private List<Bien> bienesOriginales;
 
     private void configurarColumnas() {
         codigo.setCellValueFactory(new PropertyValueFactory<>("bien_codigo"));
@@ -66,6 +74,7 @@ public class UpdateResguardoController implements Initializable {
 
     private void cargarDatosResguardo() {
         datePickerFecha.setValue(resguardo.getFecha());
+        // Ajuste en la selección de combo box
         comboEmpleado.getSelectionModel().select(resguardo.getEmpleado());
         comboEspacio.getSelectionModel().select(resguardo.getEspacio());
     }
@@ -73,53 +82,65 @@ public class UpdateResguardoController implements Initializable {
     @FXML
     private void guardarCambios() {
         if (resguardo == null) {
-            mostrarAlerta(Alert.AlertType.ERROR, "ERROR", "No existe un resguardo");
+            mostrarAlerta(Alert.AlertType.ERROR, "ERROR", "No existe un resguardo para actualizar.");
             return;
         }
 
-        // Obtener nuevos valores del formulario
         LocalDate nuevaFecha = datePickerFecha.getValue();
         Empleado nuevoEmpleado = comboEmpleado.getValue();
         Espacio nuevoEspacio = comboEspacio.getValue();
 
         if (nuevaFecha == null || nuevoEmpleado == null || nuevoEspacio == null) {
-            mostrarAlerta(Alert.AlertType.ERROR, "ERROR", "Faltan datos por llenar");
+            mostrarAlerta(Alert.AlertType.ERROR, "ERROR", "Faltan datos por llenar.");
             return;
         }
 
         int idResguardo = resguardo.getId();
         List<Bien> bienesActuales = new ArrayList<>(tablaBienes.getItems());
 
-        // Actualizar en base de datos
+        // Actualizar el resguardo principal
         Date fechaSQL = Date.valueOf(nuevaFecha);
-        boolean exito = resguardoDao.updateResguardo(
+        boolean exitoUpdateResguardo = resguardoDao.updateResguardo(
                 idResguardo,
                 fechaSQL,
                 nuevoEmpleado.getRfc(),
                 nuevoEspacio.getId()
         );
 
-        if (!exito) {
+        if (!exitoUpdateResguardo) {
             mostrarAlerta(Alert.AlertType.ERROR, "ERROR", "Ocurrió un problema al actualizar el resguardo.");
             return;
         }
 
-        // Actualizar objeto en memoria
-        resguardo.setFecha(nuevaFecha);
-        resguardo.setEmpleado(nuevoEmpleado);
-        resguardo.setEspacio(nuevoEspacio);
+        // 1. Identificar bienes a eliminar y a agregar
+        List<Bien> bienesEliminados = bienesOriginales.stream()
+                .filter(b -> !bienesActuales.contains(b))
+                .collect(Collectors.toList());
 
-        // Actualizar bienes
-        for (Bien bien : bienesOriginales) {
-            if (!bienesActuales.contains(bien)) {
-                ResguardoBienDao.deleteResguardoBien(bien.getBien_codigo(), idResguardo);
-            }
+        List<Bien> bienesAgregados = bienesActuales.stream()
+                .filter(b -> !bienesOriginales.contains(b))
+                .collect(Collectors.toList());
+
+        // 2. Eliminar bienes
+        for (Bien bien : bienesEliminados) {
+            ResguardoBienDao.deleteResguardoBien(bien.getBien_codigo(), idResguardo);
         }
 
-        for (Bien bien : bienesActuales) {
-            if (!bienesOriginales.contains(bien)) {
-                ResguardoBienDao.insertarResguardoBien(idResguardo, bien.getBien_codigo());
+        // 3. Agregar nuevos bienes
+        if (!bienesAgregados.isEmpty()) {
+            List<ResguardoBien> nuevosResguardoBienes = new ArrayList<>();
+            for (Bien bien : bienesAgregados) {
+                ResguardoBien rb = new ResguardoBien();
+                rb.setResguardo(resguardo);
+                rb.setBien(bien);
+                rb.setEspacio(nuevoEspacio);
+                rb.setEdificio(nuevoEspacio.getEdificio());
+                rb.setEmpleado(nuevoEmpleado);
+                rb.setUnidad(nuevoEmpleado.getUnidadAdministrativa());
+                rb.setPuesto(nuevoEmpleado.getPuesto());
+                nuevosResguardoBienes.add(rb);
             }
+            resguardoBienDao.insertarResguardoBien(nuevosResguardoBienes);
         }
 
         mostrarAlerta(Alert.AlertType.INFORMATION, "ÉXITO", "Se actualizó el resguardo correctamente.");
@@ -133,7 +154,7 @@ public class UpdateResguardoController implements Initializable {
         if (bienSeleccionado != null && !tablaBienes.getItems().contains(bienSeleccionado)) {
             tablaBienes.getItems().add(bienSeleccionado);
         } else {
-            mostrarAlerta(Alert.AlertType.WARNING, "ERROR", "El bien ya existe en la tabla o es nulo");
+            mostrarAlerta(Alert.AlertType.WARNING, "ADVERTENCIA", "El bien ya existe en la tabla o no ha seleccionado uno.");
         }
     }
 
@@ -143,15 +164,9 @@ public class UpdateResguardoController implements Initializable {
         if (seleccionado != null) {
             tablaBienes.getItems().remove(seleccionado);
         } else {
-            mostrarAlerta(Alert.AlertType.WARNING, "ERROR", "Debes seleccionar un bien para eliminar");
+            mostrarAlerta(Alert.AlertType.WARNING, "ADVERTENCIA", "Debes seleccionar un bien para eliminar.");
         }
     }
-
-
-    public void setResguardo(Resguardo resguardo) {
-        this.resguardo = resguardo;
-    }
-
 
     private void cargarCombos() {
         List<Empleado> empleados = EmpleadoDao.readEmpleadosActivos();
@@ -163,11 +178,8 @@ public class UpdateResguardoController implements Initializable {
         comboEmpleado.setConverter(new StringConverter<>() {
             @Override
             public String toString(Empleado object) {
-                if (object == null) {
-                    return "";
-                } else {
-                    return object.getNombre() + " " + object.getApellidoPaterno() + " " + object.getApellidoMaterno();
-                }
+                if (object == null) return "";
+                return object.getNombre() + " " + object.getApellidoPaterno() + " " + object.getApellidoMaterno();
             }
 
             @Override
@@ -181,11 +193,8 @@ public class UpdateResguardoController implements Initializable {
         comboEspacio.setConverter(new StringConverter<>() {
             @Override
             public String toString(Espacio object) {
-                if (object == null) {
-                    return "";
-                } else {
-                    return object.getNombre();
-                }
+                if (object == null) return "";
+                return object.getNombre();
             }
 
             @Override
@@ -198,17 +207,17 @@ public class UpdateResguardoController implements Initializable {
     }
 
     private void cargarComboBienesDisponibles() {
-        List<Bien> bienes = BienDao.readTodosBienes();
+        List<Bien> bienes = bienDao.readTodosBienes();
         comboBien.setItems(FXCollections.observableArrayList(bienes));
     }
 
     private void cargarBienes(int idResguardo) {
         List<Bien> bienes = ResguardoBienDao.obtenerBienesPorResguardo(idResguardo);
-        bienesOriginales = new ArrayList<>(bienes); // Guardar copia de los bienes para luego comparar con los nuevos
+        bienesOriginales = new ArrayList<>(bienes);
         tablaBienes.setItems(FXCollections.observableArrayList(bienes));
     }
 
-
+    @FXML
     private void cerrarVentana() {
         Stage ventana = (Stage) tablaBienes.getScene().getWindow();
         ventana.close();

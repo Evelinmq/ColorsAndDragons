@@ -191,20 +191,34 @@ public class EspacioDao {
 
     public static List<Espacio> readEspaciosActivos() {
         List<Espacio> lista = new ArrayList<>();
-        try {
-            Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "SELECT ID_ESPACIO, NOMBRE FROM ESPACIO WHERE ESTADO = 1 ORDER BY NOMBRE ASC";
-            PreparedStatement ps = conn.prepareStatement(query);
-            ResultSet rs = ps.executeQuery();
+        // Consulta SQL corregida para incluir los datos del Edificio
+        String query = "SELECT e.ID_ESPACIO, e.NOMBRE AS nombre_espacio, e.ESTADO AS estado_espacio, " +
+                "ed.ID_EDIFICIO, ed.NOMBRE AS nombre_edificio, ed.ESTADO AS estado_edificio " +
+                "FROM ESPACIO e " +
+                "JOIN EDIFICIO ed ON e.ID_EDIFICIO = ed.ID_EDIFICIO " +
+                "WHERE e.ESTADO = 1 ORDER BY e.NOMBRE ASC";
+
+        // Usando try-with-resources para asegurar el cierre de la conexión y recursos
+        try (Connection conn = OracleDatabaseConnectionManager.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
+                // Crear el objeto Edificio
+                Edificio edificio = new Edificio();
+                edificio.setId(rs.getInt("ID_EDIFICIO"));
+                edificio.setNombre(rs.getString("nombre_edificio"));
+                edificio.setEstado(rs.getInt("estado_edificio"));
+
+                // Crear el objeto Espacio y asociarle el Edificio
                 Espacio espacio = new Espacio();
                 espacio.setId(rs.getInt("ID_ESPACIO"));
-                espacio.setNombre(rs.getString("NOMBRE"));
+                espacio.setNombre(rs.getString("nombre_espacio"));
+                espacio.setEstado(rs.getInt("estado_espacio"));
+                espacio.setEdificio(edificio); // ⭐ Clave para solucionar el NullPointerException
+
                 lista.add(espacio);
             }
-            rs.close();
-            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -5,6 +5,10 @@ import com.example.integradora.modelo.Empleado;
 import com.example.integradora.modelo.Espacio;
 import com.example.integradora.modelo.Resguardo;
 import com.example.integradora.modelo.dao.*;
+import com.example.integradora.modelo.Edificio;
+import com.example.integradora.modelo.Puesto;
+import com.example.integradora.modelo.ResguardoBien;
+import com.example.integradora.modelo.UnidadAdministrativa;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -70,7 +74,7 @@ public class RegistroResguardoController  implements Initializable {
         comboBoxBusqueda.setConverter(new StringConverter<Bien>() {
             @Override
             public String toString(Bien bien) {
-                return (bien == null) ? "" : bien.getBien_codigo(); // Lo que se muestra al usuario
+                return (bien == null) ? "" : bien.getBien_codigo();
             }
 
             @Override
@@ -80,30 +84,26 @@ public class RegistroResguardoController  implements Initializable {
                         return b;
                     }
                 }
-                return null; // Si no se encuentra uno, no lo convierte
+                return null;
             }
         });
 
 
         comboBoxBusqueda.setItems(opcionesTabla);
-        comboBoxBusqueda.setEditable(true); // Activa el campo de búsqueda
+        comboBoxBusqueda.setEditable(true);
 
-        // Búsqueda en tiempo real (opcional para filtrado más avanzado)
         comboBoxBusqueda.getEditor().textProperty().addListener((obs, oldVal, newVal) -> {
             final TextField editor = comboBoxBusqueda.getEditor();
             final String selected = String.valueOf(comboBoxBusqueda.getSelectionModel().getSelectedItem());
 
-            // Si el usuario está escribiendo, filtra opciones
             if (selected == null || !selected.equals(editor.getText())) {
-                filterComboBoxItems(comboBoxBusqueda, opcionesTabla, newVal);
+                filterComboBoxItems(comboBoxBusqueda, bienesDisponibles, newVal); // Cambiado a bienesDisponibles
             }
         });
 
         tabla.setOnMouseClicked(click -> {
             if (tabla.getSelectionModel().getSelectedItem() != null) {
-                //activar el boton de borrado
                 botonEliminar.setDisable(false);
-
             }else{
                 botonEliminar.setDisable(true);
             }
@@ -117,30 +117,30 @@ public class RegistroResguardoController  implements Initializable {
     public void getSeleccion(ActionEvent event){
         Bien seleccion = comboBoxBusqueda.getSelectionModel().getSelectedItem();
         if(seleccion != null && seleccion.getEstado() == 1){
-            lista.add(seleccion);
+            if(!lista.contains(seleccion)) { // Evita que se dupliquen los datos
+                lista.add(seleccion);
+            }
         }
-
-        opcionesTabla = FXCollections.observableArrayList(lista);
-        tabla.setItems(opcionesTabla);
+        opcionesTabla.setAll(lista);
         tabla.refresh();
 
-        for (Bien bien : lista){
-            System.out.println(bien);
-        }
-
+        comboBoxBusqueda.setItems(bienesDisponibles);
     }
 
     private void filterComboBoxItems(ComboBox<Bien> comboBox, ObservableList<Bien> originalItems, String filter) {
-        ObservableList<Bien> filteredList = FXCollections.observableArrayList();
+        if(filter == null || filter.isEmpty()){
+            comboBox.setItems(originalItems);
+            return;
+        }
 
+        ObservableList<Bien> filteredList = FXCollections.observableArrayList();
         for (Bien item : originalItems) {
             if (item.getBien_codigo().toLowerCase().contains(filter.toLowerCase())) {
                 filteredList.add(item);
             }
         }
-
         comboBox.setItems(filteredList);
-        comboBox.show(); // Mantenerlo abierto mientras escribe
+        comboBox.show();
     }
 
     private void cargarBienes(){
@@ -151,15 +151,15 @@ public class RegistroResguardoController  implements Initializable {
 
     @FXML
     public void eliminarSeleccion(){
-        if (tabla.getSelectionModel().getSelectedItem() != null) {
-            Bien seleccionado = tabla.getSelectionModel().getSelectedItem();
-            tabla.getItems().remove(seleccionado);
+        Bien seleccionado = tabla.getSelectionModel().getSelectedItem();
+        if (seleccionado != null) {
+            lista.remove(seleccionado);
+            opcionesTabla.setAll(lista);
         }
         tabla.getSelectionModel().clearSelection();
         botonEliminar.setDisable(true);
     }
 
-    //CARGAR EMPLEADO Y ESPACIO
     private void cargarCombos() {
         List<Empleado> empleados = EmpleadoDao.readEmpleadosActivos();
         List<Espacio> espacios = EspacioDao.readEspaciosActivos();
@@ -204,8 +204,6 @@ public class RegistroResguardoController  implements Initializable {
         });
     }
 
-
-    //GUARDA EL RESGUARDO CON SUS RESPECTIVOS BIENES
     @FXML
     private void guardarResguardo() {
         LocalDate fechaSeleccionada = fecha.getValue();
@@ -217,20 +215,43 @@ public class RegistroResguardoController  implements Initializable {
             return;
         }
 
-        Resguardo nuevo = new Resguardo();
-        nuevo.setFecha(Date.valueOf(fechaSeleccionada).toLocalDate());
-        nuevo.setEmpleado(emp);
-        nuevo.setEspacio(esp);
-        nuevo.setEstado(1); // Está activo
+        Resguardo nuevoResguardo = new Resguardo();
+        nuevoResguardo.setFecha(Date.valueOf(fechaSeleccionada).toLocalDate());
+        nuevoResguardo.setEmpleado(emp);
+        nuevoResguardo.setEspacio(esp);
+        nuevoResguardo.setEstado(1);
 
-        int idGenerado = ResguardoDao.insertarResguardo(nuevo); // regresa ID generado
+        int idGenerado = ResguardoDao.insertarResguardo(nuevoResguardo);
 
         if (idGenerado > 0) {
+            nuevoResguardo.setId(idGenerado);
+
+            List<ResguardoBien> listaResguardoBien = new ArrayList<>();
+            Edificio edificio = esp.getEdificio();
+            UnidadAdministrativa unidad = emp.getUnidadAdministrativa();
+            Puesto puesto = emp.getPuesto();
+
             for (Bien bien : lista) {
-                ResguardoBienDao.insertarResguardoBien(idGenerado, bien.getBien_codigo());
+                ResguardoBien rb = new ResguardoBien();
+                rb.setResguardo(nuevoResguardo);
+                rb.setBien(bien);
+                rb.setEspacio(esp);
+                rb.setEdificio(edificio);
+                rb.setEmpleado(emp);
+                rb.setUnidad(unidad);
+                rb.setPuesto(puesto);
+
+                listaResguardoBien.add(rb);
             }
-            mostrarAlerta(Alert.AlertType.INFORMATION,"Éxito", "Resguardo registrado correctamente.");
-            limpiarFormulario();
+
+            ResguardoBienDao resguardoBienDao = new ResguardoBienDao();
+            if (resguardoBienDao.insertarResguardoBien(listaResguardoBien)) {
+                mostrarAlerta(Alert.AlertType.INFORMATION,"Éxito", "Resguardo registrado correctamente.");
+                limpiarFormulario();
+            } else {
+                mostrarAlerta(Alert.AlertType.ERROR,"ERROR", "Se registró el resguardo, pero no se pudieron registrar los bienes.");
+            }
+
         } else {
             mostrarAlerta(Alert.AlertType.ERROR,"ERROR", "No se pudo registrar el resguardo.");
         }
@@ -241,7 +262,6 @@ public class RegistroResguardoController  implements Initializable {
         ventana.close();
     }
 
-    //ALERTA
     private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
         Alert alert = new Alert(tipo);
         alert.setTitle(titulo);
@@ -250,14 +270,13 @@ public class RegistroResguardoController  implements Initializable {
         alert.showAndWait();
     }
 
-    //LIMPIAR EL FORMULARIO
     private void limpiarFormulario() {
         fecha.setValue(null);
         empleado.getSelectionModel().clearSelection();
         espacio.getSelectionModel().clearSelection();
         lista.clear();
         tabla.getItems().clear();
+        cargarBienes();
     }
-
 
 }

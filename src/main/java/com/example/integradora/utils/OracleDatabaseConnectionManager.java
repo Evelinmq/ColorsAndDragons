@@ -9,7 +9,7 @@ import java.util.Properties;
 
 public class OracleDatabaseConnectionManager {
 
-    private static final String WALLET = "C:/Users/Noceq/Downloads/Wallet_IntegradoraInventario";
+    private static final String WALLET = "C:/Users/HP/Downloads/Wallet_IntegradoraInventario";
     private static final String DB_NAME = "IntegradoraInventario_high";
     private static final String DB_URL = "jdbc:oracle:thin:@" + DB_NAME + "?TNS_ADMIN=" + WALLET;
     private static final String DB_USER = "ADMIN";
