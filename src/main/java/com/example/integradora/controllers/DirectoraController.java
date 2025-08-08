@@ -8,7 +8,6 @@ import com.example.integradora.utils.OracleDatabaseConnectionManager;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -57,6 +56,7 @@ public class DirectoraController implements Initializable {
     private ObservableList<Resguardo> masterData = FXCollections.observableArrayList(ResguardoDao.readTodosResguardos());
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        tabla.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         configurarTabla();
         masterData = FXCollections.observableArrayList(ResguardoDao.readTodosResguardos());
         tabla.setItems(masterData);
@@ -197,6 +197,66 @@ public class DirectoraController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
         alert.showAndWait();
+    }
+
+    @FXML
+    protected void descargaTodos(ActionEvent event) {
+        ObservableList<Resguardo> seleccionados = tabla.getSelectionModel().getSelectedItems();
+
+        if (seleccionados.isEmpty()) {
+            mostrarAlerta("Error de informe", "Debes seleccionar uno o más resguardos para descargar los informes.");
+            return;
+        }
+
+        Task<Void> generarReportesTask = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+
+                for (Resguardo seleccionado : seleccionados) {
+                    if (seleccionado.getEstado() != 1) {
+                        System.out.println("Saltando resguardo con ID " + seleccionado.getId() + " porque su estado no es activo.");
+                        continue;
+                    }
+
+                    InputStream input = getClass().getResourceAsStream("/RESGUARDO.jasper");
+                    if (input == null) {
+                        throw new IOException("No se pudo encontrar el archivo del informe");
+                    }
+                    JasperReport reporte = (JasperReport) JRLoader.loadObject(input);
+
+                    Connection conexion = OracleDatabaseConnectionManager.getConnection();
+                    if (conexion == null || conexion.isClosed()) {
+                        throw new Exception("No se pudo establecer la conexión a la base de datos.");
+                    }
+
+                    Map<String, Object> parametros = new HashMap<>();
+                    parametros.put("NOMBRE_ESPACIO", seleccionado.getEspacio().getNombre());
+                    parametros.put("FECHA_RESGUARDO", seleccionado.getFecha());
+
+                    JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, parametros, conexion);
+
+                    JasperViewer.viewReport(jasperPrint, false);
+
+                }
+
+                return null;
+            }
+        };
+
+        generarReportesTask.setOnSucceeded(e -> {
+            mostrarAlerta("Informes generados", "Se han generado los informes de los resguardos seleccionados.");
+        });
+
+        generarReportesTask.setOnFailed(e -> {
+            Throwable exception = generarReportesTask.getException();
+            System.err.println("Error al generar informes: " + exception.getMessage());
+            exception.printStackTrace();
+            mostrarAlerta("Error al generar informes", "Ocurrió un error al generar los informes: " + exception.getMessage());
+        });
+
+        Thread thread = new Thread(generarReportesTask);
+        thread.setDaemon(true);
+        thread.start();
     }
     @FXML
     private void cerrarSesion(ActionEvent event) {
