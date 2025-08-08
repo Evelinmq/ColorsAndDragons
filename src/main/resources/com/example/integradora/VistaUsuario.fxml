@@ -198,9 +198,8 @@
                         </HBox>
                         <TableView fx:id="tablaUsuario" prefHeight="480.0" prefWidth="510.0" style="-fx-background-color: EFEFF0; -fx-background-radius: 10;">
                             <columns>
-                                <TableColumn fx:id="tablaUsuarioCorreo" prefWidth="170.0" style="-fx-background-color: E0E1E1;" text="Correo" />
-                                <TableColumn fx:id="tablaUsuarioContrasena" prefWidth="170.0" style="-fx-background-color: E0E1E1;" text="Contraseña" />
-                                <TableColumn fx:id="tablaUsuarioRol" prefWidth="170.0" style="-fx-background-color: E0E1E1;" text="Rol" />
+                                <TableColumn fx:id="tablaUsuarioCorreo" prefWidth="279.0" style="-fx-background-color: E0E1E1;" text="Correo" />
+                                <TableColumn fx:id="tablaUsuarioRol" prefWidth="230.0" style="-fx-background-color: E0E1E1;" text="Rol" />
                             </columns>
                             <VBox.margin>
                                 <Insets top="10.0" />

@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class RegistrarUsuarioController {
 
     @FXML private TextField txfCorreo;
-    @FXML private TextField txfContrasena;
+    @FXML private PasswordField txfContrasena;
     @FXML private ComboBox<String> cbRol;
     @FXML private ComboBox<String>cbEmpleado;
     @FXML private Button btnGuardar;

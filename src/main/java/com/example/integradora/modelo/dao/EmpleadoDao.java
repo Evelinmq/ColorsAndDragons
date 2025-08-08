@@ -295,61 +295,7 @@ public class EmpleadoDao {
         return lista;
     }
 
-    public List<Empleado> readEmpleadoEspecifico(String texto) {
-        List<Empleado> lista = new ArrayList<>();
-        try {
-            Connection conn = OracleDatabaseConnectionManager.getConnection();
-            String query = "SELECT e.RFC, e.NOMBRE, e.APELLIDO_PATERNO, e.APELLIDO_MATERNO, e.ESTADO, " +
-                    "p.ID_PUESTO, p.NOMBRE AS nombre_puesto, p.ESTADO AS estado_puesto, " +
-                    "u.ID_UNIDAD, u.NOMBRE AS nombre_unidad, u.ESTADO AS estado_unidad " +
-                    "FROM EMPLEADO e " +
-                    "LEFT JOIN PUESTO p ON e.ID_PUESTO = p.ID_PUESTO " +
-                    "LEFT JOIN UNIDAD_ADMINISTRATIVA u ON e.ID_UNIDAD = u.ID_UNIDAD " +
-                    "WHERE LOWER(e.NOMBRE) LIKE ? OR LOWER(e.APELLIDO_PATERNO) LIKE ? " +
-                    "OR LOWER(e.APELLIDO_MATERNO) LIKE ? OR LOWER(p.NOMBRE) LIKE ? " +
-                    "OR LOWER(u.NOMBRE) LIKE ? " +
-                    "ORDER BY e.RFC ASC";
 
-            PreparedStatement ps = conn.prepareStatement(query);
-            String search = "%" + texto.toLowerCase() + "%";
-            for (int i = 1; i <= 5; i++) {
-                ps.setString(i, search);
-            }
-
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                // Crear objeto PUESTO
-                Puesto puesto = new Puesto();
-                puesto.setId(rs.getInt("ID_PUESTO"));
-                puesto.setNombre(rs.getString("nombre_puesto"));
-                puesto.setEstado(rs.getInt("estado_puesto"));
-
-                // Crear objeto UNIDAD ADMINISTRATIVA
-                UnidadAdministrativa unidad = new UnidadAdministrativa();
-                unidad.setId(rs.getInt("ID_UNIDAD"));
-                unidad.setNombre(rs.getString("nombre_unidad"));
-                unidad.setEstado(rs.getInt("estado_unidad"));
-
-                // Crear objeto EMPLEADO
-                Empleado empleado = new Empleado();
-                empleado.setRfc(rs.getString("RFC"));
-                empleado.setNombre(rs.getString("NOMBRE"));
-                empleado.setApellidoPaterno(rs.getString("APELLIDO_PATERNO"));
-                empleado.setApellidoMaterno(rs.getString("APELLIDO_MATERNO"));
-                empleado.setEstado(rs.getInt("ESTADO"));
-                empleado.setPuesto(puesto);
-                empleado.setUnidadAdministrativa(unidad);
-
-                lista.add(empleado);
-            }
-
-            rs.close();
-            conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return lista;
-    }
 
 
 

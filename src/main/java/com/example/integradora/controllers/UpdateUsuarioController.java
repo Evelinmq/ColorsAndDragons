@@ -8,10 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
@@ -25,7 +22,7 @@ public class UpdateUsuarioController implements Initializable {
     @FXML
     private TextField correo;
     @FXML
-    private TextField contrasena;
+    private PasswordField contrasena;
     @FXML
     private ComboBox<String> cbRol;
     @FXML
