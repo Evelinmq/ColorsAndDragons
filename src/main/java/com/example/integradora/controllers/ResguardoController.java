@@ -20,7 +20,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.BoxBlur;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -38,7 +37,7 @@ public class ResguardoController implements Initializable {
     @FXML
     private Button puesto, bienes, empleados, espacio, unidad, edificio, usuario;
     @FXML
-    private Button agregar, eliminar, editar, recuperar, descargar, botonBuscar;
+    private Button agregar, eliminar, editar, recuperar, descarga, botonBuscar;
     @FXML
     private TableView<Resguardo> tablaResguardo;
     @FXML
@@ -65,6 +64,7 @@ public class ResguardoController implements Initializable {
             editar.setDisable(!haySeleccion || newSelection.getEstado() == 0);
             eliminar.setDisable(!haySeleccion || newSelection.getEstado() == 0);
             recuperar.setDisable(!haySeleccion || newSelection.getEstado() != 0);
+            descarga.setDisable(!haySeleccion || (newSelection != null && newSelection.getEstado() != 1));
         });
 
         editar.setOnAction(e -> {
@@ -219,6 +219,7 @@ public class ResguardoController implements Initializable {
         return resultado.isPresent() && resultado.get() == ButtonType.OK;
     }
 
+
     @FXML
     private void buscar(ActionEvent event) {
         botonBuscar.setDisable(true);
@@ -250,53 +251,6 @@ public class ResguardoController implements Initializable {
         Thread thread = new Thread(cargarBusqueda);
         thread.setDaemon(true);
         thread.start();
-    }
-
-    @FXML
-    private void descargarResguardoPdf() {
-        Resguardo seleccionado = tablaResguardo.getSelectionModel().getSelectedItem();
-
-        if (seleccionado == null) {
-            Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setHeaderText(null);
-            alerta.setContentText("Debes seleccionar un resguardo para generar el PDF");
-            alerta.showAndWait();
-            return;
-        }
-
-        try {
-            // Cargar el archivo .jasper
-            InputStream input = getClass().getResourceAsStream("/com/example/integradora/jasper/Resguardo.jasper");
-            JasperReport reporte = (JasperReport) JRLoader.loadObject(input);
-
-            Connection conexion = OracleDatabaseConnectionManager.getConnection();
-
-            // Parámetros a pasar al .jasper
-            Map<String, Object> parametros = new HashMap<>();
-            parametros.put("ID_RESGUARDO", seleccionado.getId()); // ID del resguardo seleccionado
-
-            // Llenar el reporte
-            JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, parametros, conexion);
-
-            // Mostrar vista previa
-            JasperViewer.viewReport(jasperPrint, false);
-
-            // Exportar a PDF
-            String nombreArchivo = "resguardo_" + seleccionado.getId() + ".pdf";
-            JasperExportManager.exportReportToPdfFile(jasperPrint, nombreArchivo);
-
-            Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-            alerta.setHeaderText(null);
-            alerta.setContentText("PDF generado correctamente: " + nombreArchivo);
-            alerta.showAndWait();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            Alert error = new Alert(Alert.AlertType.ERROR);
-            error.setHeaderText("Error al generar PDF");
-            error.setContentText(e.getMessage());
-            error.showAndWait();
-        }
     }
 
 
@@ -428,5 +382,66 @@ public class ResguardoController implements Initializable {
             }
         }
 
+    }
+
+    @FXML
+    protected void descarga(ActionEvent event) {
+        Resguardo seleccionado = tablaResguardo.getSelectionModel().getSelectedItem();
+        if (seleccionado == null) {
+            mostrarAlerta("Error de informe", "Debes seleccionar un resguardo para poder descargar el informe.");
+            return;
+        }
+
+
+        Task<Void> generarReporteTask = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+
+                InputStream input = getClass().getResourceAsStream("/RESGUARDO.jasper");
+                if (input == null) {
+                    throw new IOException("No se pudo encontrar el archivo del informe");
+                }
+                JasperReport reporte = (JasperReport) JRLoader.loadObject(input);
+
+                Connection conexion = OracleDatabaseConnectionManager.getConnection();
+                if (conexion == null || conexion.isClosed()) {
+                    throw new Exception("No se pudo establecer la conexión a la base de datos.");
+                }
+
+                Map<String, Object> parametros = new HashMap<>();
+
+                parametros.put("NOMBRE_ESPACIO", seleccionado.getEspacio().getNombre());
+                parametros.put("FECHA_RESGUARDO", seleccionado.getFecha());
+
+                JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, parametros, conexion);
+
+                JasperViewer.viewReport(jasperPrint, false);
+
+                return null;
+            }
+        };
+
+        generarReporteTask.setOnSucceeded(e -> {
+            mostrarAlerta("Informe generado", "El informe del resguardo se ha generado exitosamente.");
+        });
+
+        generarReporteTask.setOnFailed(e -> {
+            Throwable exception = generarReporteTask.getException();
+            System.err.println("Error al generar el informe: " + exception.getMessage());
+            exception.printStackTrace();
+            mostrarAlerta("Error al generar informe", "Ocurrió un error al generar el informe: " + exception.getMessage());
+        });
+
+        Thread thread = new Thread(generarReporteTask);
+        thread.setDaemon(true);
+        thread.start();
+    }
+
+    private void mostrarAlerta(String titulo, String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
     }
 }

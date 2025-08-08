@@ -1,13 +1,15 @@
 package com.example.integradora.controllers;
 
 import com.example.integradora.Main;
-import com.example.integradora.modelo.Directora;
+import com.example.integradora.modelo.Resguardo;
 import com.example.integradora.modelo.dao.DirectoraDao;
+import com.example.integradora.modelo.dao.ResguardoDao;
 import com.example.integradora.utils.OracleDatabaseConnectionManager;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,262 +18,186 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
-import javafx.util.Callback;
-import javafx.util.StringConverter;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.SQLException;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
+
 
 public class DirectoraController implements Initializable {
 
     @FXML
-    private TableView<Directora> tabla;
+    private TableView<Resguardo> tabla;
     @FXML
-    private TableColumn<Directora, Integer> numeroTabla;
+    private TableColumn<Resguardo, Integer> numeroTabla;
     @FXML
-    private TableColumn<Directora, String> fechaTabla;
+    private TableColumn<Resguardo, String> fechaTabla;
     @FXML
-    private TableColumn<Directora, String> empleadoTabla;
+    private TableColumn<Resguardo, String> empleadoTabla;
     @FXML
-    private TableColumn<Directora, String> espacioTabla;
-    @FXML
-    private TableColumn<Directora, Void> espacioAccion;
+    private TableColumn<Resguardo, String> espacioTabla;
 
     @FXML
-    private Button descargar;
+    private Button descarga;
     @FXML
     private TextField textoBusqueda;
     @FXML
-    private Button botonBusqueda;
+    private Button botonBuscar;
+    @FXML
+    private ProgressIndicator spinner;
     @FXML
     private ComboBox<String> filtro;
 
-    private final DateTimeFormatter DF = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    private ObservableList<Directora> masterData;
-
+    private ObservableList<Resguardo> masterData = FXCollections.observableArrayList(ResguardoDao.readTodosResguardos());
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL location, ResourceBundle resources) {
         configurarTabla();
+        masterData = FXCollections.observableArrayList(ResguardoDao.readTodosResguardos());
+        tabla.setItems(masterData);
+
         configurarFiltro();
-        cargarDatos();
 
-        FilteredList<Directora> filtered = new FilteredList<>(masterData, d -> true);
-
-        textoBusqueda.textProperty().addListener((obs, old, val) -> {
-            aplicarPredicado(filtered, val, filtro.getValue());
+        tabla.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            boolean haySeleccion = newSelection != null;
+            descarga.setDisable(!haySeleccion || (newSelection != null && newSelection.getEstado() != 1));
         });
 
-        filtro.valueProperty().addListener((obs, old, val) -> {
-            aplicarPredicado(filtered, textoBusqueda.getText(), val);
-        });
-
-        botonBusqueda.setOnAction(e -> {
-            String f = filtro.getValue();
-            String t = textoBusqueda.getText();
-            var resultados = new DirectoraDao().search(f, t);
-            masterData.setAll(resultados);
-        });
-
-        SortedList<Directora> sorted = new SortedList<>(filtered);
-        sorted.comparatorProperty().bind(tabla.comparatorProperty());
-        tabla.setItems(sorted);
-    }
-
-    private void configurarTabla() {
-        numeroTabla.setCellValueFactory(c -> new javafx.beans.property.SimpleObjectProperty<>(c.getValue().getIdResguardo()));
-
-        fechaTabla.setCellValueFactory(c -> {
-            String s = (c.getValue().getFecha() == null) ? "" : c.getValue().getFecha().format(DF);
-            return new javafx.beans.property.SimpleStringProperty(s);
-        });
-
-        empleadoTabla.setCellValueFactory(c -> {
-            String s = c.getValue().getNombreEmpleadoCompleto();
-            if (s.isBlank()) s = c.getValue().getRfcEmpleado();
-            return new javafx.beans.property.SimpleStringProperty(s);
-        });
-
-        espacioTabla.setCellValueFactory(c -> new javafx.beans.property.SimpleStringProperty(c.getValue().getNombreEspacio()));
-
-        agregarBotonDescargar();
-    }
-
-    private void agregarBotonDescargar() {
-        Callback<TableColumn<Directora, Void>, TableCell<Directora, Void>> cellFactory = new Callback<>() {
-            @Override
-            public TableCell<Directora, Void> call(final TableColumn<Directora, Void> param) {
-                return new TableCell<>() {
-                    private final Button btn = new Button("Descargar PDF");
-
-                    {
-                        btn.setStyle("-fx-background-color: #B2BCDB; -fx-text-fill: #0033cc; -fx-background-radius: 15;");
-                        btn.setOnAction((e) -> {
-                            Directora data = getTableView().getItems().get(getIndex());
-                            descargarPdfDesdeFila(data);
-                        });
-                    }
-
-                    @Override
-                    public void updateItem(Void item, boolean empty) {
-                        super.updateItem(item, empty);
-                        setGraphic(empty ? null : btn);
-                    }
-                };
-            }
-        };
-
-        espacioAccion.setCellFactory(cellFactory);
+        botonBuscar.setOnAction(this::buscar);
     }
 
     private void configurarFiltro() {
-        filtro.setItems(FXCollections.observableArrayList("Todos", "ID", "Fecha", "RFC", "Empleado", "Espacio", "Estado"));
-        filtro.setValue("Todos");
-        filtro.setConverter(new StringConverter<>() {
-            @Override
-            public String toString(String s) {
-                return s;
-            }
+        filtro.getItems().addAll("Ver todos", "Activos", "Inactivos");
+        filtro.setValue("Ver todos");
 
-            @Override
-            public String fromString(String s) {
-                return s;
-            }
+        filtro.valueProperty().addListener((obs, oldVal, newVal) -> {
+            cargarResguardosPorEstado(newVal);
         });
     }
 
-    private void cargarDatos() {
-        masterData = FXCollections.observableArrayList(new DirectoraDao().readDirectora());
+    private void configurarTabla() {
+        numeroTabla.setCellValueFactory(new PropertyValueFactory<>("id"));
+        fechaTabla.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFecha().toString()));
+        empleadoTabla.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEmpleado().getNombre()));
+        espacioTabla.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEspacio().getNombre()));
     }
 
-    private void aplicarPredicado(FilteredList<Directora> filtered, String texto, String filtroActual) {
-        String q = (texto == null) ? "" : texto.trim().toLowerCase();
-
-        filtered.setPredicate(d -> {
-            if (q.isEmpty()) return true;
-
-            return switch (filtroActual) {
-                case "ID" -> String.valueOf(d.getIdResguardo()).contains(q);
-                case "Fecha" -> {
-                    String f = (d.getFecha() == null) ? "" : d.getFecha().format(DF).toLowerCase();
-                    yield f.contains(q);
-                }
-                case "RFC" -> d.getRfcEmpleado().toLowerCase().contains(q);
-                case "Empleado" -> d.getNombreEmpleadoCompleto().toLowerCase().contains(q);
-                case "Espacio" -> d.getNombreEspacio().toLowerCase().contains(q);
-                case "Estado" ->
-                        String.valueOf(d.getEstado()).contains(q) || d.getEstadoTexto().toLowerCase().contains(q);
-                default ->
-                        d.getRfcEmpleado().toLowerCase().contains(q)
-                                || d.getNombreEmpleadoCompleto().toLowerCase().contains(q)
-                                || d.getNombreEspacio().toLowerCase().contains(q)
-                                || String.valueOf(d.getIdResguardo()).contains(q)
-                                || String.valueOf(d.getEstado()).contains(q)
-                                || d.getEstadoTexto().toLowerCase().contains(q)
-                                || ((d.getFecha() != null) && d.getFecha().format(DF).toLowerCase().contains(q));
-            };
-        });
-    }
-
-    private void descargarPdfDesdeFila(Directora seleccionado) {
-        if (seleccionado == null) return;
-
-        try {
-            InputStream input = getClass().getResourceAsStream("/com/example/integradora/jasper/Resguardo.jasper");
-            JasperReport reporte = (JasperReport) JRLoader.loadObject(input);
-
-            Connection conexion = OracleDatabaseConnectionManager.getConnection();
-            Map<String, Object> parametros = new HashMap<>();
-            parametros.put("ID_RESGUARDO", seleccionado.getIdResguardo());
-
-            JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, parametros, conexion);
-            String nombreArchivo = "resguardo_" + seleccionado.getIdResguardo() + ".pdf";
-            JasperExportManager.exportReportToPdfFile(jasperPrint, nombreArchivo);
-
-            Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-            alerta.setHeaderText(null);
-            alerta.setContentText("PDF generado correctamente: " + nombreArchivo);
-            alerta.showAndWait();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            Alert error = new Alert(Alert.AlertType.ERROR);
-            error.setHeaderText("Error al generar PDF");
-            error.setContentText(e.getMessage());
-            error.showAndWait();
+    private void cargarResguardosPorEstado(String opcion) {
+        List<Resguardo> lista = new ArrayList<>();
+        switch (opcion) {
+            case "Activos":
+                lista = DirectoraDao.readDirectoraPorEstado(1);
+                break;
+            case "Inactivos":
+                lista = DirectoraDao.readDirectoraPorEstado(0);
+                break;
+            case "Ver todos":
+                lista = ResguardoDao.readTodosResguardos();
+                break;
         }
+        tabla.setItems(FXCollections.observableList(lista));
+        tabla.refresh();
     }
 
     @FXML
-    private void descargarResguardoPdf() {
-        ObservableList<Directora> seleccionados = tabla.getSelectionModel().getSelectedItems();
+    private void buscar(ActionEvent event) {
+        botonBuscar.setDisable(true);
+        spinner.setVisible(true);
 
-        if (seleccionados == null || seleccionados.isEmpty()) {
-            Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setHeaderText(null);
-            alerta.setContentText("Debes seleccionar al menos un resguardo para generar el PDF");
-            alerta.showAndWait();
+        String texto = textoBusqueda.getText().trim();
+
+        Task<List<Resguardo>> cargarBusqueda = new Task<>() {
+            @Override
+            protected List<Resguardo> call() throws Exception {
+                return ResguardoDao.readResguardoEspecifico(texto);
+            }
+        };
+
+        cargarBusqueda.setOnFailed(workerStateEvent -> {
+            botonBuscar.setDisable(false);
+            spinner.setVisible(false);
+            System.err.println("Error: " + cargarBusqueda.getException());
+            mostrarAlerta("Error de búsqueda", "Ocurrió un error al realizar la búsqueda: " + cargarBusqueda.getException().getMessage());
+        });
+
+        cargarBusqueda.setOnSucceeded(workerStateEvent -> {
+            botonBuscar.setDisable(false);
+            spinner.setVisible(false);
+            List<Resguardo> lista = cargarBusqueda.getValue();
+            tabla.setItems(FXCollections.observableList(lista));
+            tabla.refresh();
+        });
+
+        Thread thread = new Thread(cargarBusqueda);
+        thread.setDaemon(true);
+        thread.start();
+    }
+
+    @FXML
+    protected void descarga(ActionEvent event) {
+        Resguardo seleccionado = tabla.getSelectionModel().getSelectedItem();
+        if (seleccionado == null) {
+            mostrarAlerta("Error de informe", "Debes seleccionar un resguardo para poder descargar el informe.");
             return;
         }
-        descargarMultiplesPdf(seleccionados);
+
+
+        Task<Void> generarReporteTask = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+
+                InputStream input = getClass().getResourceAsStream("/RESGUARDO.jasper");
+                if (input == null) {
+                    throw new IOException("No se pudo encontrar el archivo del informe");
+                }
+                JasperReport reporte = (JasperReport) JRLoader.loadObject(input);
+
+                Connection conexion = OracleDatabaseConnectionManager.getConnection();
+                if (conexion == null || conexion.isClosed()) {
+                    throw new Exception("No se pudo establecer la conexión a la base de datos.");
+                }
+
+                Map<String, Object> parametros = new HashMap<>();
+
+                parametros.put("NOMBRE_ESPACIO", seleccionado.getEspacio().getNombre());
+                parametros.put("FECHA_RESGUARDO", seleccionado.getFecha());
+
+                JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, parametros, conexion);
+
+                JasperViewer.viewReport(jasperPrint, false);
+
+                return null;
+            }
+        };
+
+        generarReporteTask.setOnSucceeded(e -> {
+            mostrarAlerta("Informe generado", "El informe del resguardo se ha generado exitosamente.");
+        });
+
+        generarReporteTask.setOnFailed(e -> {
+            Throwable exception = generarReporteTask.getException();
+            System.err.println("Error al generar el informe: " + exception.getMessage());
+            exception.printStackTrace();
+            mostrarAlerta("Error al generar informe", "Ocurrió un error al generar el informe: " + exception.getMessage());
+        });
+
+        Thread thread = new Thread(generarReporteTask);
+        thread.setDaemon(true);
+        thread.start();
     }
 
-    private void descargarMultiplesPdf(ObservableList<Directora> seleccionados) {
-        DirectoryChooser dirChooser = new DirectoryChooser();
-        dirChooser.setTitle("Seleccionar carpeta para guardar PDFs");
-        File carpetaDestino = dirChooser.showDialog(null);
-
-        if (carpetaDestino == null) {
-            return;
-        }
-        for (Directora resguardo : seleccionados) {
-            descargarPdfEnCarpeta(resguardo, carpetaDestino.getAbsolutePath());
-        }
-        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-        alerta.setHeaderText(null);
-        alerta.setContentText("Se han generado todos los PDFs correctamente en la carpeta seleccionada.");
-        alerta.showAndWait();
+    private void mostrarAlerta(String titulo, String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
     }
-
-    private void descargarPdfEnCarpeta(Directora seleccionado, String rutaDestino) {
-
-        try {
-            // Carga la plantilla del reporte
-            InputStream input = getClass().getResourceAsStream("/com/example/integradora/jasper/Resguardo.jasper");
-            JasperReport reporte = (JasperReport) JRLoader.loadObject(input);
-
-            Connection conexion = OracleDatabaseConnectionManager.getConnection();
-            Map<String, Object> parametros = new HashMap<>();
-            parametros.put("ID_RESGUARDO", seleccionado.getIdResguardo());
-
-            // Llena el reporte con los datos
-            JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, parametros, conexion);
-
-            // Genera el nombre del archivo y la ruta completa
-            String nombreArchivo = "resguardo_" + seleccionado.getIdResguardo() + ".pdf";
-            String rutaCompleta = rutaDestino + File.separator + nombreArchivo;
-
-            // Exporta el reporte a la ruta seleccionada por el usuario
-            JasperExportManager.exportReportToPdfFile(jasperPrint, rutaCompleta);
-
-        } catch (Exception e) {
-        e.printStackTrace();
-        Alert error = new Alert(Alert.AlertType.ERROR);
-        error.setHeaderText("Error al generar PDF");
-        error.setContentText(e.getMessage());
-        error.showAndWait();
-        }
-    }
-
     @FXML
     private void cerrarSesion(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

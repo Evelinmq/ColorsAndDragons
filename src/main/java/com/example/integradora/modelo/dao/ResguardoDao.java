@@ -137,7 +137,7 @@ public class ResguardoDao {
         return lista;
     }
 
-    public List<Resguardo> readTodosResguardos() {
+    public static List<Resguardo> readTodosResguardos() {
         List<Resguardo> lista = new ArrayList<>();
         String query = "SELECT " +
                 "r.ID_RESGUARDO, r.FECHA, r.ESTADO AS estado_resguardo, " +
@@ -219,7 +219,7 @@ public class ResguardoDao {
         }
     }
 
-    public List<Resguardo> readResguardoEspecifico(String texto) {
+    public static List<Resguardo> readResguardoEspecifico(String texto) {
         List<Resguardo> lista = new ArrayList<>();
         String query = "SELECT " +
                 "r.ID_RESGUARDO, r.FECHA, r.ESTADO AS estado_resguardo, " +
