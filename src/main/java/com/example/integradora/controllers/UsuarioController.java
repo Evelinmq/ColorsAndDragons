@@ -42,8 +42,7 @@ public class UsuarioController implements Initializable {
     private TableColumn<Usuario, String> tablaUsuarioCorreo;
     @FXML
     private TableColumn<Usuario, String> tablaUsuarioRol;
-    @FXML
-    private TableColumn<Usuario, String> tablaUsuarioContrasena;
+
     @FXML
     private Button resguardo, bienes, empleados, espacio, unidad, edificio, usuario, puesto;
 
@@ -63,7 +62,6 @@ public class UsuarioController implements Initializable {
 
         tablaUsuarioCorreo.setCellValueFactory(new PropertyValueFactory<>("correo"));
         tablaUsuarioRol.setCellValueFactory(new PropertyValueFactory<>("rolDescripcion"));
-        tablaUsuarioContrasena.setCellValueFactory(new PropertyValueFactory<>("contrasena"));
         recargarTabla();
 
         ObservableList<Usuario> listaObservable = FXCollections.observableList(lista);
