@@ -219,7 +219,7 @@ public class UpdateResguardoController implements Initializable {
 
     @FXML
     private void cerrarVentana() {
-        Stage ventana = (Stage) tablaBienes.getScene().getWindow();
+        Stage ventana = (Stage) cancelar.getScene().getWindow();
         ventana.close();
     }
 
