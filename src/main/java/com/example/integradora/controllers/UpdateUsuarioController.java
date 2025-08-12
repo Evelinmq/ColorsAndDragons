@@ -43,26 +43,7 @@ public class UpdateUsuarioController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        List<Empleado> empleados = EmpleadoDao.readEmpleadosActivos();
-        cbEmpleado.setItems(FXCollections.observableArrayList(empleados));
 
-        cbEmpleado.setConverter(new StringConverter<Empleado>() {
-            @Override
-            public String toString(Empleado empleado) {
-                if (empleado == null) {
-                    return "";
-                } else {
-                    return empleado.getNombre() + " " + empleado.getApellidoPaterno() + " " + empleado.getApellidoMaterno();
-                }
-            }
-
-            @Override
-            public Empleado fromString(String string) {
-                return cbEmpleado.getItems().stream()
-                        .filter(e -> (e.getNombre() + " " + e.getApellidoPaterno() + " " + e.getApellidoMaterno()).equals(string))
-                        .findFirst().orElse(null);
-            }
-        });
 
 
         List<String> roles = new ArrayList<>();
@@ -77,10 +58,25 @@ public class UpdateUsuarioController implements Initializable {
         this.usuario = usuario;
         this.correoViejo = usuario.getCorreo();
 
-
         correo.setText(usuario.getCorreo());
         contrasena.setText(usuario.getContrasena());
 
+        List<Empleado> empleadosActivos = EmpleadoDao.readEmpleadosActivos();
+        cbEmpleado.setItems(FXCollections.observableArrayList(empleadosActivos));
+
+        cbEmpleado.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(Empleado empleado) {
+                if (empleado == null) return "";
+                return empleado.getNombre() + " " + empleado.getApellidoPaterno() + " " + empleado.getApellidoMaterno();
+            }
+            @Override
+            public Empleado fromString(String string) {
+                return cbEmpleado.getItems().stream()
+                        .filter(e -> (e.getNombre() + " " + e.getApellidoPaterno() + " " + e.getApellidoMaterno()).equals(string))
+                        .findFirst().orElse(null);
+            }
+        });
 
         if (usuario.getRfcEmpleado() != null) {
             cbEmpleado.getItems().stream()
@@ -93,7 +89,6 @@ public class UpdateUsuarioController implements Initializable {
         if (usuario.getRol() != null) {
             cbRol.getSelectionModel().select(usuario.getRol());
         }
-
     }
 
     @FXML

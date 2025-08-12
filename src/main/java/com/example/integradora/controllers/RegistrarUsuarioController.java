@@ -16,15 +16,17 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
+import javafx.util.StringConverter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RegistrarUsuarioController {
 
     @FXML private TextField txfCorreo;
     @FXML private PasswordField txfContrasena;
     @FXML private ComboBox<String> cbRol;
-    @FXML private ComboBox<String>cbEmpleado;
+    @FXML private ComboBox<Empleado> cbEmpleado;
     @FXML private Button btnGuardar;
     @FXML private Button btnCancelar;
 
@@ -41,21 +43,29 @@ public class RegistrarUsuarioController {
     private Runnable onUsuarioCreado;
 
     public void initialize() {
-        var items = FXCollections.observableArrayList( "Administrador", "Visualizador");
-        cbRol.setItems(items);
-        cbEmpleado.setItems(getNombreEmpleado());
+        var roles = FXCollections.observableArrayList("Administrador", "Visualizador");
+        cbRol.setItems(roles);
+
+        List<Empleado> empleados = EmpleadoDao.readEmpleadosActivos();
+        cbEmpleado.setItems(FXCollections.observableArrayList(empleados));
+
+        cbEmpleado.setConverter(new StringConverter<Empleado>() {
+            @Override
+            public String toString(Empleado empleado) {
+                if (empleado == null) return "";
+                return empleado.getNombre() + " " + empleado.getApellidoPaterno() + " " + empleado.getApellidoMaterno();
+            }
+
+            @Override
+            public Empleado fromString(String string) {
+                return cbEmpleado.getItems().stream()
+                        .filter(e -> (e.getNombre() + " " + e.getApellidoPaterno() + " " + e.getApellidoMaterno()).equals(string))
+                        .findFirst().orElse(null);
+            }
+        });
     }
 
-    private ObservableList<String> getNombreEmpleado(){
-        ArrayList<Empleado> Visualizador = (ArrayList<Empleado>) EmpleadoDao.readEmpleadosActivos();
-        ObservableList<String> items = FXCollections.observableArrayList();
-        for(Empleado i: Visualizador){
-            items.add(i.getNombre());
 
-        }
-
-        return items;
-    }
 
 
     public void setOnUsuarioCreado(Runnable onUsuarioCreado) {
