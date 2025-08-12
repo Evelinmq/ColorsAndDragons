@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -270,8 +271,10 @@ public class DirectoraController implements Initializable {
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/IniciarSesion.fxml"));
-                Scene scene = new Scene(fxmlLoader.load());
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                Parent newRoot = fxmlLoader.load();
+                Stage stage = (Stage) descarga.getScene().getWindow();
+                Scene scene = stage.getScene();
+                scene.setRoot(newRoot);
                 stage.setTitle("Iniciar Sesión");
                 stage.setScene(scene);
                 stage.show();

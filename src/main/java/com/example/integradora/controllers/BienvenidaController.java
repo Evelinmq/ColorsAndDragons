@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -34,8 +35,10 @@ public class BienvenidaController implements Initializable {
     protected void irResguardo() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaResguardo.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
+            Parent newRoot = fxmlLoader.load();
             Stage stage = (Stage) resguardo.getScene().getWindow();
+            Scene scene = stage.getScene();
+            scene.setRoot(newRoot);
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
@@ -47,8 +50,10 @@ public class BienvenidaController implements Initializable {
     protected void irBienes() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaBienes.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
+            Parent newRoot = fxmlLoader.load();
             Stage stage = (Stage) bienes.getScene().getWindow();
+            Scene scene = stage.getScene();
+            scene.setRoot(newRoot);
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
@@ -60,8 +65,10 @@ public class BienvenidaController implements Initializable {
     protected void irEmpleados() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaEmpleado.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
+            Parent newRoot = fxmlLoader.load();
             Stage stage = (Stage) empleados.getScene().getWindow();
+            Scene scene = stage.getScene();
+            scene.setRoot(newRoot);
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
@@ -73,9 +80,10 @@ public class BienvenidaController implements Initializable {
     protected void irEdificio() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaEdificio.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
-            //Sacar la stage desde un componente visual ya abieto
+            Parent newRoot = fxmlLoader.load();
             Stage stage = (Stage) edificio.getScene().getWindow();
+            Scene scene = stage.getScene();
+            scene.setRoot(newRoot);
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
@@ -87,9 +95,10 @@ public class BienvenidaController implements Initializable {
     protected void irUsuario() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaUsuario.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
-            //Sacar la stage desde un componente visual ya abieto
+            Parent newRoot = fxmlLoader.load();
             Stage stage = (Stage) usuario.getScene().getWindow();
+            Scene scene = stage.getScene();
+            scene.setRoot(newRoot);
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
@@ -101,8 +110,10 @@ public class BienvenidaController implements Initializable {
     protected void irUnidad() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaUnidadAdm.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
+            Parent newRoot = fxmlLoader.load();
             Stage stage = (Stage) unidad.getScene().getWindow();
+            Scene scene = stage.getScene();
+            scene.setRoot(newRoot);
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
@@ -114,9 +125,10 @@ public class BienvenidaController implements Initializable {
     protected void irPuesto() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaPuesto.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
-            //Sacar la stage desde un componente visual ya abieto
+            Parent newRoot = fxmlLoader.load();
             Stage stage = (Stage) puesto.getScene().getWindow();
+            Scene scene = stage.getScene();
+            scene.setRoot(newRoot);
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
@@ -128,9 +140,10 @@ public class BienvenidaController implements Initializable {
     protected void irEspacio() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaEspacio.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
-            //Sacar la stage desde un componente visual ya abieto
+            Parent newRoot = fxmlLoader.load();
             Stage stage = (Stage) espacio.getScene().getWindow();
+            Scene scene = stage.getScene();
+            scene.setRoot(newRoot);
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
@@ -153,9 +166,11 @@ public class BienvenidaController implements Initializable {
             try {
 
                 FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/IniciarSesion.fxml"));
-                Scene scene = new Scene(fxmlLoader.load());
+                Parent newRoot = fxmlLoader.load();
+                Stage stage = (Stage) usuario.getScene().getWindow();
+                Scene scene = stage.getScene();
+                scene.setRoot(newRoot);
 
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
 
                 stage.setTitle("Iniciar Sesión");

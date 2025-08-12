@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="mainAnchorPane" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #EFEFF0;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.integradora.controllers.InicioSesionController">
+<HBox alignment="CENTER" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #EFEFF0;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.integradora.controllers.InicioSesionController">
    <children>
-      <VBox prefHeight="600.0" prefWidth="400.0">
+      <VBox alignment="CENTER" HBox.hgrow="ALWAYS" prefHeight="600.0" prefWidth="400.0">
          <children>
             <ImageView fitHeight="603.0" fitWidth="360.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -17,7 +17,7 @@
             </ImageView>
          </children>
       </VBox>
-      <VBox fx:id="loginFormVBox" alignment="CENTER" prefHeight="603.0" prefWidth="422.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox fx:id="loginFormVBox" alignment="CENTER" HBox.hgrow="ALWAYS" prefHeight="603.0" prefWidth="422.0" spacing="20.0">
          <children>
             <Label text="BIENVENIDO" textFill="#404463">
                <font>
@@ -56,4 +56,4 @@
          </padding>
       </VBox>
    </children>
-</AnchorPane>
+</HBox>

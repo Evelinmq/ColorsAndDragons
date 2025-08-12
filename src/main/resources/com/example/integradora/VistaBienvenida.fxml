@@ -6,195 +6,157 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="padreBienvenida" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.integradora.controllers.BienvenidaController">
-    <children>
-        <HBox prefHeight="50.0" prefWidth="800.0">
+<BorderPane style="-fx-background-color: ffffff;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.integradora.controllers.BienvenidaController">
+
+    <top>
+        <VBox>
             <children>
-                <ImageView fitHeight="47.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@Images/rectangulo.png" />
-                    </image>
-                </ImageView>
-            </children>
-        </HBox>
-        <HBox alignment="CENTER_LEFT" prefHeight="34.0" prefWidth="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <children>
-                <ImageView fitHeight="29.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@Images/Icono.png" />
-                    </image>
-                    <HBox.margin>
-                        <Insets left="20.0" />
-                    </HBox.margin>
-                </ImageView>
-                <Label prefHeight="16.0" prefWidth="165.0" text="SISTEMA DE INVENTARIO" textFill="WHITE">
-                    <HBox.margin>
-                        <Insets left="10.0" />
-                    </HBox.margin>
-                    <font>
-                        <Font name="Tahoma" size="11.0" />
-                    </font>
-                </Label>
-                <Button mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #0338D5;">
-                    <graphic>
-                        <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                <HBox alignment="CENTER_LEFT" prefHeight="50.0" style="-fx-background-color: #0338D5;">
+                    <children>
+                        <ImageView fitHeight="29.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@Images/Icon.png" />
+                                <Image url="@Images/Icono.png" />
+                            </image>
+                            <HBox.margin>
+                                <Insets left="20.0" />
+                            </HBox.margin>
+                        </ImageView>
+                        <Label text="SISTEMA DE INVENTARIO" textFill="WHITE">
+                            <font>
+                                <Font name="Tahoma" size="14.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets left="10.0" />
+                            </HBox.margin>
+                        </Label>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Button mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #0338D5;">
+                            <graphic>
+                                <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@Images/Icon.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                            <HBox.margin>
+                                <Insets right="20.0" />
+                            </HBox.margin>
+                        </Button>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </top>
+
+    <left>
+        <VBox alignment="TOP_CENTER" prefWidth="200.0" spacing="10.0" style="-fx-background-color: fff;">
+            <padding>
+                <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
+            </padding>
+            <children>
+                <Button fx:id="resguardo" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irResguardo" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 10;" text="  Resguardo" textFill="#404463">
+                    <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@Images/Folder.png" />
                             </image>
                         </ImageView>
                     </graphic>
-                    <HBox.margin>
-                        <Insets left="520.0" />
-                    </HBox.margin>
+                    <VBox.margin>
+                        <Insets top="50.0" />
+                    </VBox.margin>
                 </Button>
-            </children>
-        </HBox>
-
-        <HBox layoutY="41.0" prefHeight="559.0" prefWidth="800.0">
-            <children>
-                <VBox alignment="TOP_CENTER" prefHeight="550.0" prefWidth="200.0" spacing="10.0">
-                    <padding>
-                        <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
-                    </padding>
-                    <children>
-                        <Button fx:id="resguardo" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irResguardo" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 10;" text="  Resguardo" textFill="#404463">
-                            <graphic>
-                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@Images/Folder.png" />
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                            <font>
-                                <Font name="Tahoma" size="14.0" />
-                            </font>
-                            <VBox.margin>
-                                <Insets bottom="10.0" top="50.0" />
-                            </VBox.margin>
-                        </Button>
-                        <Button fx:id="bienes" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irBienes" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 10;" text="  Bienes" textFill="#404463">
-                            <graphic>
-                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@Images/Bienes.png" />
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                            <font>
-                                <Font name="Tahoma" size="14.0" />
-                            </font>
-                            <VBox.margin>
-                                <Insets bottom="10.0" />
-                            </VBox.margin>
-                        </Button>
-                        <Button fx:id="empleados" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irEmpleados" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 10;" text="  Empleados" textFill="#404463">
-                            <graphic>
-                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@Images/Empleado.png" />
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                            <font>
-                                <Font name="Tahoma" size="14.0" />
-                            </font>
-                            <VBox.margin>
-                                <Insets bottom="10.0" />
-                            </VBox.margin>
-                        </Button>
-                        <Button fx:id="puesto" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irPuesto" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 10;" text="  Puesto" textFill="#404463">
-                            <graphic>
-                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@Images/Puesto.png" />
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                            <font>
-                                <Font name="Tahoma" size="14.0" />
-                            </font>
-                            <VBox.margin>
-                                <Insets bottom="10.0" />
-                            </VBox.margin>
-                        </Button>
-                        <Button fx:id="espacio" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irEspacio" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 10;" text="  Espacio" textFill="#404463">
-                            <graphic>
-                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@Images/Espacio.png" />
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                            <font>
-                                <Font name="Tahoma" size="14.0" />
-                            </font>
-                            <VBox.margin>
-                                <Insets bottom="10.0" />
-                            </VBox.margin>
-                        </Button>
-                        <Button fx:id="unidad" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irUnidad" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 10;" text="  U. Administrativa" textFill="#404463">
-                            <graphic>
-                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@Images/Unidad.png" />
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                            <font>
-                                <Font name="Tahoma" size="14.0" />
-                            </font>
-                            <VBox.margin>
-                                <Insets bottom="10.0" />
-                            </VBox.margin>
-                        </Button>
-                        <Button fx:id="edificio" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irEdificio" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 10;" text="  Edificio" textFill="#404463">
-                            <graphic>
-                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@Images/Edificio.png" />
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                            <font>
-                                <Font name="Tahoma" size="14.0" />
-                            </font>
-                            <VBox.margin>
-                                <Insets bottom="10.0" />
-                            </VBox.margin>
-                        </Button>
-                        <Button fx:id="usuario" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irUsuario" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 10;" text="  Usuario" textFill="#404463">
-                            <graphic>
-                                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@Images/Usuario.png" />
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                            <font>
-                                <Font name="Tahoma" size="14.0" />
-                            </font>
-                        </Button>
-                    </children>
-                </VBox>
-
-                <VBox alignment="CENTER" prefHeight="559.0" prefWidth="600.0">
-                    <children>
-                        <Label fx:id="Inicio" text="Bienvenido al Sistema de Inventario" textFill="#404463">
-                            <font>
-                                <Font name="Tahoma" size="24.0" />
-                            </font>
-                            <VBox.margin>
-                                <Insets bottom="20.0" />
-                            </VBox.margin>
-                        </Label>
-                        <ImageView fitHeight="300.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+                <Region VBox.vgrow="ALWAYS" />
+                <Button fx:id="bienes" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irBienes" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 10;" text="  Bienes" textFill="#404463">
+                    <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@Images/Bienvenida.png" />
+                                <Image url="@Images/Bienes.png" />
                             </image>
                         </ImageView>
-                    </children>
-                </VBox>
+                    </graphic>
+                </Button>
+                <Region VBox.vgrow="ALWAYS" />
+                <Button fx:id="empleados" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irEmpleados" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 10;" text="  Empleados" textFill="#404463">
+                    <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@Images/Empleado.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Region VBox.vgrow="ALWAYS" />
+                <Button fx:id="puesto" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irPuesto" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 10;" text="  Puesto" textFill="#404463">
+                    <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@Images/Puesto.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Region VBox.vgrow="ALWAYS" />
+                <Button fx:id="espacio" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irEspacio" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 10;" text="  Espacio" textFill="#404463">
+                    <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@Images/Espacio.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Region VBox.vgrow="ALWAYS" />
+                <Button fx:id="unidad" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irUnidad" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 10;" text="  U. Administrativa" textFill="#404463">
+                    <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@Images/Unidad.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Region VBox.vgrow="ALWAYS" />
+                <Button fx:id="edificio" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irEdificio" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 10;" text="  Edificio" textFill="#404463">
+                    <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@Images/Edificio.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Region VBox.vgrow="ALWAYS" />
+                <Button fx:id="usuario" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irUsuario" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 10;" text="  Usuario" textFill="#404463">
+                    <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@Images/Usuario.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
             </children>
-        </HBox>
-    </children>
-</AnchorPane>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox alignment="CENTER" prefHeight="559.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <children>
+                <Label fx:id="Inicio" text="Bienvenido al Sistema de Inventario" textFill="#404463">
+                    <font>
+                        <Font name="Tahoma" size="24.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="20.0" />
+                    </VBox.margin>
+                </Label>
+                <ImageView fitHeight="300.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@Images/Bienvenida.png" />
+                    </image>
+                </ImageView>
+            </children>
+        </VBox>
+    </center>
+</BorderPane>

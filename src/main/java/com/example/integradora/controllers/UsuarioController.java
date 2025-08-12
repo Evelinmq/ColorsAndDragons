@@ -398,8 +398,10 @@ public class UsuarioController implements Initializable {
     private void cambiarVista(String ruta, Button boton) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(ruta));
-            Scene scene = new Scene(fxmlLoader.load());
-            Stage stage = (Stage) boton.getScene().getWindow();
+            Parent newRoot = fxmlLoader.load();
+            Stage stage = (Stage) usuario.getScene().getWindow();
+            Scene scene = stage.getScene();
+            scene.setRoot(newRoot);
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
@@ -422,9 +424,10 @@ public class UsuarioController implements Initializable {
             try {
 
                 FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/IniciarSesion.fxml"));
-                Scene scene = new Scene(fxmlLoader.load());
-
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                Parent newRoot = fxmlLoader.load();
+                Stage stage = (Stage) usuario.getScene().getWindow();
+                Scene scene = stage.getScene();
+                scene.setRoot(newRoot);
 
 
                 stage.setTitle("Iniciar Sesión");

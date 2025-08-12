@@ -383,8 +383,10 @@ public class EmpleadoController implements Initializable {
     private void cambiarVista(String rutaFXML) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(rutaFXML));
-            Scene scene = new Scene(fxmlLoader.load());
-            Stage stage = (Stage) usuario.getScene().getWindow();
+            Parent newRoot = fxmlLoader.load();
+            Stage stage = (Stage) empleados.getScene().getWindow();
+            Scene scene = stage.getScene();
+            scene.setRoot(newRoot);
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
@@ -407,9 +409,10 @@ public class EmpleadoController implements Initializable {
             try {
 
                 FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/IniciarSesion.fxml"));
-                Scene scene = new Scene(fxmlLoader.load());
-
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                Parent newRoot = fxmlLoader.load();
+                Stage stage = (Stage) usuario.getScene().getWindow();
+                Scene scene = stage.getScene();
+                scene.setRoot(newRoot);
 
 
                 stage.setTitle("Iniciar Sesión");
