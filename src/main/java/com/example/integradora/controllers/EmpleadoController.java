@@ -217,6 +217,9 @@ public class EmpleadoController implements Initializable {
             FXMLLoader loader = new FXMLLoader(EmpleadoController.class.getResource("/com/example/integradora/RegistrarEmpleado.fxml"));
             Parent root = loader.load();
 
+            Scene nuevaEscena = new Scene(root);
+            nuevaEscena.getStylesheets().add(Main.class.getResource("/com/example/integradora/styles/styles.css").toExternalForm());
+
             Scene escenaPrincipal = agregar.getScene();
             Parent fondo = escenaPrincipal.getRoot();
             fondo.setEffect(new BoxBlur(10, 10, 3));
@@ -224,7 +227,7 @@ public class EmpleadoController implements Initializable {
             Stage stage = new Stage();
             stage.initModality(Modality.WINDOW_MODAL);
             stage.setOnHidden(e -> recargarTabla());
-            stage.setScene(new Scene(root));
+            stage.setScene(nuevaEscena);
             stage.setTitle("Registrar Empleado");
             stage.initOwner(escenaPrincipal.getWindow());
             stage.show();
@@ -250,13 +253,16 @@ public class EmpleadoController implements Initializable {
                 controller.setEmpleado(e);
             }
 
+            Scene nuevaEscena = new Scene(root);
+            nuevaEscena.getStylesheets().add(Main.class.getResource("/com/example/integradora/styles/styles.css").toExternalForm());
+
             Scene escenaPrincipal = agregar.getScene();
             Parent fondo = escenaPrincipal.getRoot();
             fondo.setEffect(new BoxBlur(10, 10, 3));
 
             Stage stage = new Stage();
             stage.initModality(Modality.WINDOW_MODAL);
-            stage.setScene(new Scene(root));
+            stage.setScene(nuevaEscena);
             stage.setTitle("Editar Empleado");
             stage.initOwner(escenaPrincipal.getWindow());
 

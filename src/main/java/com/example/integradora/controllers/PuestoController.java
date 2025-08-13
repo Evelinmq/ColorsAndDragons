@@ -209,6 +209,9 @@ public class PuestoController implements Initializable {
                 controller.setPuesto(p); // Llama al setPuesto del controlador de edición
             }
 
+            Scene nuevaEscena = new Scene(root);
+            nuevaEscena.getStylesheets().add(Main.class.getResource("/com/example/integradora/styles/styles.css").toExternalForm());
+
             // Efecto blur al fondo
             Scene escenaPrincipal = agregar.getScene();
             Parent fondo = escenaPrincipal.getRoot();
@@ -216,7 +219,7 @@ public class PuestoController implements Initializable {
 
             Stage stage = new Stage();
             stage.initModality(Modality.WINDOW_MODAL);
-            stage.setScene(new Scene(root));
+            stage.setScene(nuevaEscena);
             stage.setTitle("Editar Puesto");
             stage.initOwner(escenaPrincipal.getWindow());
             //stage.show();
@@ -243,6 +246,9 @@ public class PuestoController implements Initializable {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/example/integradora/RegistrarPuesto.fxml"));
             Parent root = loader.load();
 
+            Scene nuevaEscena = new Scene(root);
+            nuevaEscena.getStylesheets().add(Main.class.getResource("/com/example/integradora/styles/styles.css").toExternalForm());
+
             // Efecto blur al fondo
             Scene escenaPrincipal = agregar.getScene();
             Parent fondo = escenaPrincipal.getRoot();
@@ -251,7 +257,7 @@ public class PuestoController implements Initializable {
             Stage stage = new Stage();
             stage.initModality(Modality.WINDOW_MODAL);
             stage.setOnHidden(e -> recargarTabla());
-            stage.setScene(new Scene(root));
+            stage.setScene(nuevaEscena);
             stage.setTitle("Registrar Puesto");
             stage.initOwner(escenaPrincipal.getWindow());
             stage.show();
