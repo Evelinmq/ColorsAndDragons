@@ -1,6 +1,7 @@
 package com.example.integradora.controllers;
 
 import com.example.integradora.Main;
+import com.example.integradora.modelo.Edificio;
 import com.example.integradora.modelo.Puesto;
 import com.example.integradora.modelo.dao.PuestoDao;
 import javafx.collections.FXCollections;
@@ -508,6 +509,30 @@ public class PuestoController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void filtrarPorEstado() {
+        String opcion = filtroEstado.getValue();
+        List<Puesto> lista = new ArrayList<>();
+
+        switch (opcion) {
+            case "Activos":
+                lista = dao.readPuestoPorEstado(1);
+                break;
+            case "Inactivos":
+                lista = dao.readPuestoPorEstado(0);
+                break;
+            case "Ver todos":
+                lista = dao.readTodosPuestos();
+                break;
+        }
+
+        tablaPuesto.setItems(FXCollections.observableList(lista));
+        tablaPuesto.refresh();
+
+        // Deshabilitar botón de restaurar al cambiar el filtro
+        recuperar.setDisable(true);
     }
 
     @FXML
