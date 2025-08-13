@@ -45,18 +45,32 @@ public class EspacioController implements Initializable {
     @FXML
     private Button agregar;
     @FXML
-    private Button bienes, resguardo, puesto, empleados, unidad, edificio, usuario;
+    private Button bienes, resguardo, puesto, empleados, unidad, edificio, usuario, espacio;
     @FXML
     private ProgressIndicator spinner;
     @FXML
     private Button regresoEspacio;
     @FXML
     private ComboBox<String> comboEstado;
+    private List<Button> menuButtons;
 
     private final EspacioDao dao = new EspacioDao();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        menuButtons = new ArrayList<>();
+        menuButtons.add(resguardo);
+        menuButtons.add(unidad);
+        menuButtons.add(empleados);
+        menuButtons.add(puesto);
+        menuButtons.add(espacio);
+        menuButtons.add(edificio);
+        menuButtons.add(usuario);
+        menuButtons.add(bienes);
+
+        espacio.getStyleClass().add("menu-button-selected");
+
         tablaEspacio.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         tablaEdificio.setCellValueFactory(cellData -> {
             Espacio espacio = cellData.getValue();
@@ -131,6 +145,12 @@ public class EspacioController implements Initializable {
         agregar.setOnAction(event -> abrirVentanaRegistro());
 
         botonBusqueda.setOnAction(this::buscar);
+    }
+
+    private void resetAllButtons() {
+        for (Button button : menuButtons) {
+            button.getStyleClass().remove("menu-button-selected");
+        }
     }
 
     private void abrirVentanaEdicion(Espacio espacio) {
@@ -223,6 +243,8 @@ public class EspacioController implements Initializable {
 
     @FXML
     protected void irResguardo() {
+        resetAllButtons();
+        resguardo.getStyleClass().add("menu-button-selected");
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaResguardo.fxml"));
             Parent newRoot = fxmlLoader.load();
@@ -238,6 +260,8 @@ public class EspacioController implements Initializable {
 
     @FXML
     protected void irBienes() {
+        resetAllButtons();
+        bienes.getStyleClass().add("menu-button-selected");
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaBienes.fxml"));
             Parent newRoot = fxmlLoader.load();
@@ -253,6 +277,8 @@ public class EspacioController implements Initializable {
 
     @FXML
     protected void irEmpleados() {
+        resetAllButtons();
+        empleados.getStyleClass().add("menu-button-selected");
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaEmpleado.fxml"));
             Parent newRoot = fxmlLoader.load();
@@ -268,6 +294,8 @@ public class EspacioController implements Initializable {
 
     @FXML
     protected void irUsuario() {
+        resetAllButtons();
+        usuario.getStyleClass().add("menu-button-selected");
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaUsuario.fxml"));
             Parent newRoot = fxmlLoader.load();
@@ -283,6 +311,8 @@ public class EspacioController implements Initializable {
 
     @FXML
     protected void irUnidad() {
+        resetAllButtons();
+        unidad.getStyleClass().add("menu-button-selected");
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaUnidadAdm.fxml"));
             Parent newRoot = fxmlLoader.load();
@@ -298,6 +328,8 @@ public class EspacioController implements Initializable {
 
     @FXML
     protected void irPuesto() {
+        resetAllButtons();
+        puesto.getStyleClass().add("menu-button-selected");
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaPuesto.fxml"));
             Parent newRoot = fxmlLoader.load();
@@ -313,6 +345,8 @@ public class EspacioController implements Initializable {
 
     @FXML
     protected void irEdificio() {
+        resetAllButtons();
+        edificio.getStyleClass().add("menu-button-selected");
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaEdificio.fxml"));
             Parent newRoot = fxmlLoader.load();

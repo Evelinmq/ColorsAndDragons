@@ -16,6 +16,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -26,13 +28,19 @@ public class BienvenidaController implements Initializable {
     @FXML
     private Button bienes, resguardo, puesto, empleados, espacio, edificio, unidad, usuario;
 
+    private List<Button> menuButtons;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+
     }
+
+
 
     @FXML
     protected void irResguardo() {
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaResguardo.fxml"));
             Parent newRoot = fxmlLoader.load();
@@ -48,6 +56,7 @@ public class BienvenidaController implements Initializable {
 
     @FXML
     protected void irBienes() {
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaBienes.fxml"));
             Parent newRoot = fxmlLoader.load();
@@ -63,6 +72,7 @@ public class BienvenidaController implements Initializable {
 
     @FXML
     protected void irEmpleados() {
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaEmpleado.fxml"));
             Parent newRoot = fxmlLoader.load();
@@ -78,6 +88,7 @@ public class BienvenidaController implements Initializable {
 
     @FXML
     protected void irEdificio() {
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaEdificio.fxml"));
             Parent newRoot = fxmlLoader.load();
@@ -93,6 +104,7 @@ public class BienvenidaController implements Initializable {
 
     @FXML
     protected void irUsuario() {
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaUsuario.fxml"));
             Parent newRoot = fxmlLoader.load();
@@ -108,6 +120,7 @@ public class BienvenidaController implements Initializable {
 
     @FXML
     protected void irUnidad() {
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaUnidadAdm.fxml"));
             Parent newRoot = fxmlLoader.load();
@@ -123,6 +136,7 @@ public class BienvenidaController implements Initializable {
 
     @FXML
     protected void irPuesto() {
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaPuesto.fxml"));
             Parent newRoot = fxmlLoader.load();
@@ -138,6 +152,7 @@ public class BienvenidaController implements Initializable {
 
     @FXML
     protected void irEspacio() {
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaEspacio.fxml"));
             Parent newRoot = fxmlLoader.load();

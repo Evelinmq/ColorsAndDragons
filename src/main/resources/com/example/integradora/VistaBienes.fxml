@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane fx:id="padreBien" style="-fx-background-color: ffffff;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.integradora.controllers.BienController">
+<BorderPane fx:id="padreBien" style="-fx-background-color: ffffff;" stylesheets="@botones.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.integradora.controllers.BienController">
 
     <top>
         <VBox>
@@ -54,7 +54,7 @@
                 <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
             </padding>
             <children>
-                <Button fx:id="resguardo" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irResguardo" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 10;" text="  Resguardo" textFill="#404463">
+                <Button fx:id="resguardo" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irResguardo" prefHeight="40.0" prefWidth="180.0" styleClass="menu-button" text="  Resguardo" textFill="#404463">
                     <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -70,7 +70,7 @@
                     </VBox.margin>
                 </Button>
                 <Region VBox.vgrow="ALWAYS" />
-                <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #2c55cf; -fx-background-radius: 10;" text="  Bienes" textFill="WHITE">
+                <Button fx:id="bienes" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0"  text="  Bienes" textFill="WHITE">
                     <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -83,7 +83,7 @@
                     </font>
                 </Button>
                 <Region VBox.vgrow="ALWAYS" />
-                <Button fx:id="empleados" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irEmpleados" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 10;" text="  Empleados" textFill="#404463">
+                <Button fx:id="empleados" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irEmpleados" prefHeight="40.0" prefWidth="180.0" styleClass="menu-button" text="  Empleados" textFill="#404463">
                     <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -96,7 +96,7 @@
                     </font>
                 </Button>
                 <Region VBox.vgrow="ALWAYS" />
-                <Button fx:id="puesto" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irPuesto" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 10;" text="  Puesto" textFill="#404463">
+                <Button fx:id="puesto" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irPuesto" prefHeight="40.0" prefWidth="180.0" styleClass="menu-button" text="  Puesto" textFill="#404463">
                     <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -109,7 +109,7 @@
                     </font>
                 </Button>
                 <Region VBox.vgrow="ALWAYS" />
-                <Button fx:id="espacio" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irEspacio" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 10;" text="  Espacio" textFill="#404463">
+                <Button fx:id="espacio" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irEspacio" prefHeight="40.0" prefWidth="180.0" styleClass="menu-button" text="  Espacio" textFill="#404463">
                     <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -122,7 +122,7 @@
                     </font>
                 </Button>
                 <Region VBox.vgrow="ALWAYS" />
-                <Button fx:id="unidad" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irUnidad" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 10;" text="  U. Administrativa" textFill="#404463">
+                <Button fx:id="unidad" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irUnidad" prefHeight="40.0" prefWidth="180.0" styleClass="menu-button" text="  U. Administrativa" textFill="#404463">
                     <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -135,7 +135,7 @@
                     </font>
                 </Button>
                 <Region VBox.vgrow="ALWAYS" />
-                <Button fx:id="edificio" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irEdificio" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 10;" text="  Edificio" textFill="#404463">
+                <Button fx:id="edificio" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irEdificio" prefHeight="40.0" prefWidth="180.0" styleClass="menu-button" text="  Edificio" textFill="#404463">
                     <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -148,7 +148,7 @@
                     </font>
                 </Button>
                 <Region VBox.vgrow="ALWAYS" />
-                <Button fx:id="usuario" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irUsuario" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 10;" text="  Usuario" textFill="#404463">
+                <Button fx:id="usuario" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irUsuario" prefHeight="40.0" prefWidth="180.0" styleClass="menu-button" text="  Usuario" textFill="#404463">
                     <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                             <image>

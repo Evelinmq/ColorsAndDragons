@@ -49,6 +49,7 @@ public class UsuarioController implements Initializable {
     private UsuarioDao dao = new UsuarioDao();
     private List<Usuario> usuarios = new ArrayList<>();
     ObservableList<Usuario> opcionesTabla;
+    private List<Button> menuButtons;
 
     private Stage dialogStage;
 
@@ -58,6 +59,19 @@ public class UsuarioController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        menuButtons = new ArrayList<>();
+        menuButtons.add(resguardo);
+        menuButtons.add(unidad);
+        menuButtons.add(empleados);
+        menuButtons.add(espacio);
+        menuButtons.add(puesto);
+        menuButtons.add(edificio);
+        menuButtons.add(usuario);
+        menuButtons.add(bienes);
+
+        usuario.getStyleClass().add("menu-button-selected");
+
         List<Usuario> lista = dao.readUsuario();
 
         tablaUsuarioCorreo.setCellValueFactory(new PropertyValueFactory<>("correo"));
@@ -188,6 +202,12 @@ public class UsuarioController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
         alert.showAndWait();
+    }
+
+    private void resetAllButtons() {
+        for (Button button : menuButtons) {
+            button.getStyleClass().remove("menu-button-selected");
+        }
     }
 
 
@@ -364,42 +384,50 @@ public class UsuarioController implements Initializable {
 
     @FXML
     protected void irResguardo() {
-        cambiarVista("/com/example/integradora/VistaResguardo.fxml", resguardo);
+        resetAllButtons();
+        resguardo.getStyleClass().add("menu-button-selected"); cambiarVista("/com/example/integradora/VistaResguardo.fxml", resguardo);
     }
 
     @FXML
     protected void irBienes() {
-        cambiarVista("/com/example/integradora/VistaBienes.fxml", bienes);
+        resetAllButtons();
+        bienes.getStyleClass().add("menu-button-selected");cambiarVista("/com/example/integradora/VistaBienes.fxml", bienes);
     }
 
     @FXML
     protected void irEmpleados() {
-        cambiarVista("/com/example/integradora/VistaEmpleado.fxml", empleados);
+        resetAllButtons();
+        empleados.getStyleClass().add("menu-button-selected"); cambiarVista("/com/example/integradora/VistaEmpleado.fxml", empleados);
     }
 
     @FXML
     protected void irEspacio() {
-        cambiarVista("/com/example/integradora/VistaEspacio.fxml", espacio);
+        resetAllButtons();
+        espacio.getStyleClass().add("menu-button-selected");cambiarVista("/com/example/integradora/VistaEspacio.fxml", espacio);
     }
 
     @FXML
     protected void irUnidad() {
-        cambiarVista("/com/example/integradora/VistaUnidadAdm.fxml", unidad);
+        resetAllButtons();
+        unidad.getStyleClass().add("menu-button-selected");cambiarVista("/com/example/integradora/VistaUnidadAdm.fxml", unidad);
     }
 
     @FXML
     protected void irEdificio() {
-        cambiarVista("/com/example/integradora/VistaEdificio.fxml", edificio);
+        resetAllButtons();
+        edificio.getStyleClass().add("menu-button-selected");cambiarVista("/com/example/integradora/VistaEdificio.fxml", edificio);
     }
 
     @FXML
     protected void irUsuario() {
-        cambiarVista("/com/example/integradora/VistaUsuario.fxml", usuario);
+        resetAllButtons();
+        usuario.getStyleClass().add("menu-button-selected");cambiarVista("/com/example/integradora/VistaUsuario.fxml", usuario);
     }
 
     @FXML
     protected void irPuesto() {
-        cambiarVista("/com/example/integradora/VistaPuesto.fxml", puesto);
+        resetAllButtons();
+        puesto.getStyleClass().add("menu-button-selected");cambiarVista("/com/example/integradora/VistaPuesto.fxml", puesto);
     }
 
 

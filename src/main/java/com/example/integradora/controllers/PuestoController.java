@@ -40,7 +40,7 @@ public class PuestoController implements Initializable {
     @FXML
     private AnchorPane padrePuesto;
     @FXML
-    private Button resguardo, bienes, empleados, espacio, unidad, edificio, usuario;
+    private Button resguardo, bienes, empleados, espacio, unidad, edificio, usuario,puesto;
 
     @FXML
     private TextField textoBusquedaPuesto;
@@ -57,6 +57,7 @@ public class PuestoController implements Initializable {
     private PuestoDao dao = new PuestoDao();
 
     ObservableList<Puesto> opcionesTabla;
+    private List<Button> menuButtons;
 
     private Stage dialogStage;
 
@@ -66,6 +67,19 @@ public class PuestoController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resourceBundle) {
+
+        menuButtons = new ArrayList<>();
+        menuButtons.add(resguardo);
+        menuButtons.add(unidad);
+        menuButtons.add(empleados);
+        menuButtons.add(espacio);
+        menuButtons.add(puesto);
+        menuButtons.add(edificio);
+        menuButtons.add(usuario);
+        menuButtons.add(bienes);
+
+        puesto.getStyleClass().add("menu-button-selected");
+
         // 1. Acceder a la BD
         List<Puesto> lista = dao.readPuesto();
 
@@ -189,6 +203,12 @@ public class PuestoController implements Initializable {
             }
         });
 
+    }
+
+    private void resetAllButtons() {
+        for (Button button : menuButtons) {
+            button.getStyleClass().remove("menu-button-selected");
+        }
     }
 
     private void mostrarAlerta(String mensaje) {
@@ -408,6 +428,8 @@ public class PuestoController implements Initializable {
     //Botones cambiar a vistas
     @FXML
     protected void irResguardo() {
+        resetAllButtons();
+        resguardo.getStyleClass().add("menu-button-selected");
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaResguardo.fxml"));
             Parent newRoot = fxmlLoader.load();
@@ -423,6 +445,8 @@ public class PuestoController implements Initializable {
 
     @FXML
     protected void irBienes() {
+        resetAllButtons();
+        bienes.getStyleClass().add("menu-button-selected");
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaBienes.fxml"));
             Parent newRoot = fxmlLoader.load();
@@ -438,6 +462,8 @@ public class PuestoController implements Initializable {
 
     @FXML
     protected void irEmpleados() {
+        resetAllButtons();
+        empleados.getStyleClass().add("menu-button-selected");
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaEmpleado.fxml"));
             Parent newRoot = fxmlLoader.load();
@@ -453,6 +479,8 @@ public class PuestoController implements Initializable {
 
     @FXML
     protected void irEspacio() {
+        resetAllButtons();
+        espacio.getStyleClass().add("menu-button-selected");
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaEspacio.fxml"));
             Parent newRoot = fxmlLoader.load();
@@ -468,6 +496,8 @@ public class PuestoController implements Initializable {
 
     @FXML
     protected void irUnidad() {
+        resetAllButtons();
+        unidad.getStyleClass().add("menu-button-selected");
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaUnidadAdm.fxml"));
             Parent newRoot = fxmlLoader.load();
@@ -483,6 +513,8 @@ public class PuestoController implements Initializable {
 
     @FXML
     protected void irEdificio() {
+        resetAllButtons();
+        edificio.getStyleClass().add("menu-button-selected");
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaEdificio.fxml"));
             Parent newRoot = fxmlLoader.load();
@@ -498,6 +530,8 @@ public class PuestoController implements Initializable {
 
     @FXML
     protected void irUsuario() {
+        resetAllButtons();
+        usuario.getStyleClass().add("menu-button-selected");
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaUsuario.fxml"));
             Parent newRoot = fxmlLoader.load();

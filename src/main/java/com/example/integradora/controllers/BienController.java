@@ -23,6 +23,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -43,7 +44,7 @@ public class BienController implements Initializable {
     private TableView<Bien> tablaBien;
 
     @FXML
-    private Button resguardo, puesto, empleados, espacio, unidad, edificio, usuario;
+    private Button resguardo, puesto, empleados, espacio, unidad, edificio, usuario, bienes;
 
     @FXML
     private ProgressIndicator spinner;
@@ -53,6 +54,7 @@ public class BienController implements Initializable {
     private TextField textoBusqueda;
 
     @FXML private ComboBox<String> filtroEstado;
+    private List<Button> menuButtons;
 
 
     private Stage dialogStage;
@@ -64,6 +66,17 @@ public class BienController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        menuButtons = new ArrayList<>();
+        menuButtons.add(resguardo);
+        menuButtons.add(unidad);
+        menuButtons.add(empleados);
+        menuButtons.add(puesto);
+        menuButtons.add(espacio);
+        menuButtons.add(edificio);
+        menuButtons.add(usuario);
+
+        bienes.getStyleClass().add("menu-button-selected");
+
 
         listaBienesObservable = FXCollections.observableArrayList();
 
@@ -176,6 +189,12 @@ public class BienController implements Initializable {
 
     }
 
+    private void resetAllButtons() {
+        for (Button button : menuButtons) {
+            button.getStyleClass().remove("menu-button-selected");
+        }
+    }
+
     @FXML
     protected void abrirVentanaRegistro() {
         try {
@@ -273,6 +292,8 @@ public class BienController implements Initializable {
 
     @FXML
     protected void irResguardo(){
+        resetAllButtons();
+        resguardo.getStyleClass().add("menu-button-selected");
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaResguardo.fxml"));
             Parent newRoot = fxmlLoader.load();
@@ -288,6 +309,8 @@ public class BienController implements Initializable {
 
     @FXML
     protected void irEmpleados(){
+        resetAllButtons();
+        empleados.getStyleClass().add("menu-button-selected");
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaEmpleado.fxml"));
             Parent newRoot = fxmlLoader.load();
@@ -303,6 +326,8 @@ public class BienController implements Initializable {
 
     @FXML
     protected void irEdificio(){
+        resetAllButtons();
+        edificio.getStyleClass().add("menu-button-selected");
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaEdificio.fxml"));
             Parent newRoot = fxmlLoader.load();
@@ -318,6 +343,8 @@ public class BienController implements Initializable {
 
     @FXML
     protected void irUsuario(){
+        resetAllButtons();
+        usuario.getStyleClass().add("menu-button-selected");
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaUsuario.fxml"));
             Parent newRoot = fxmlLoader.load();
@@ -333,6 +360,8 @@ public class BienController implements Initializable {
 
     @FXML
     protected void irUnidad(){
+        resetAllButtons();
+        unidad.getStyleClass().add("menu-button-selected");
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaUnidadAdm.fxml"));
             Parent newRoot = fxmlLoader.load();
@@ -348,6 +377,8 @@ public class BienController implements Initializable {
 
     @FXML
     protected void irPuesto(){
+        resetAllButtons();
+        puesto.getStyleClass().add("menu-button-selected");
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaPuesto.fxml"));
             Parent newRoot = fxmlLoader.load();
@@ -363,6 +394,8 @@ public class BienController implements Initializable {
 
     @FXML
     protected void irEspacio(){
+        resetAllButtons();
+        espacio.getStyleClass().add("menu-button-selected");
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaEspacio.fxml"));
             Parent newRoot = fxmlLoader.load();
