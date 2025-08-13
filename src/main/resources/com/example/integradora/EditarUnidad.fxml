@@ -9,21 +9,21 @@
     <children>
         <Button fx:id="btnCancelar" layoutX="220.0" layoutY="277.0" mnemonicParsing="false" onAction="#cerrarVentana" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #B8B7C0; -fx-background-radius: 10;" text="Cancelar">
             <font>
-                <Font name="Tahoma" size="12.0" />
+                <Font name="Roboto Light" size="12.0" />
             </font>
         </Button>
 
         <Button fx:id="btnGuardar" layoutX="320.0" layoutY="277.0" mnemonicParsing="false" onAction="#guardarUnidad" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #013AE4; -fx-background-radius: 10;" text="Guardar" textFill="WHITE">
             <font>
-                <Font name="Tahoma" size="12.0" />
+                <Font name="Roboto Light" size="12.0" />
             </font>
         </Button>
 
         <HBox layoutX="-2.0" layoutY="6.0" prefHeight="59.0" prefWidth="439.0">
             <children>
-                <Label text="Editar Unidad Administrativa" textFill="#404463">
+                <Label text="Editar unidad administrativa" textFill="#404463">
                     <font>
-                        <Font name="Tahoma" size="22.0" />
+                        <Font name="Roboto Light" size="22.0" />
                     </font>
                     <HBox.margin>
                         <Insets left="85.0" top="20.0" />
@@ -38,10 +38,10 @@
                     <children>
                         <Label text="Unidad Administrativa" textFill="#404463">
                             <font>
-                                <Font name="Tahoma" size="12.0" />
+                                <Font name="Roboto Light" size="12.0" />
                             </font>
                             <VBox.margin>
-                                <Insets top="20.0" />
+                                <Insets left="3.0" top="20.0" />
                             </VBox.margin>
                         </Label>
 

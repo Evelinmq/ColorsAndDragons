@@ -11,7 +11,7 @@
          <children>
             <Label text="Registrar empleado" textFill="#404463">
                <font>
-                  <Font name="Tahoma" size="22.0" />
+                  <Font name="Roboto Light" size="22.0" />
                </font>
                <HBox.margin>
                   <Insets left="220.0" top="15.0" />
@@ -21,17 +21,17 @@
       </HBox>
       <Button fx:id="btnGuardar" layoutX="500.0" layoutY="420.0" mnemonicParsing="false" onAction="#guardarEmpleado" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #013AE4; -fx-background-radius: 10;" text="Guardar" textFill="WHITE">
          <font>
-            <Font name="Tahoma" size="12.0" />
+            <Font name="Roboto Light" size="12.0" />
          </font></Button>
       <Button fx:id="btnCancelar" layoutX="400.0" layoutY="420.0" mnemonicParsing="false" onAction="#cerrarVentana" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: B8B7C0; -fx-background-radius: 10;" text="Cancelar" textFill="#404463">
          <font>
-            <Font name="Tahoma" size="12.0" />
+            <Font name="Roboto Light" size="12.0" />
          </font></Button>
       <VBox layoutX="180.0" layoutY="60.0" prefHeight="353.0" prefWidth="304.0">
          <children>
             <Label text="Nombre" textFill="#404463">
                <font>
-                  <Font name="Tahoma" size="11.0" />
+                  <Font name="Roboto Light" size="11.0" />
                </font>
                <VBox.margin>
                   <Insets bottom="5.0" />
@@ -42,7 +42,7 @@
                   <Insets top="5.0" />
                </VBox.margin>
                <font>
-                  <Font name="Tahoma" size="11.0" />
+                  <Font name="Roboto Light" size="11.0" />
                </font>
                <padding>
                   <Insets top="5.0" />
@@ -57,7 +57,7 @@
                   <Insets bottom="5.0" top="5.0" />
                </padding>
                <font>
-                  <Font name="Tahoma" size="11.0" />
+                  <Font name="Roboto Light" size="11.0" />
                </font></Label>
             <TextField fx:id="txfApellidoM" prefHeight="30.0" style="-fx-background-color: fff; -fx-background-radius: 5;">
                <VBox.margin>
@@ -68,7 +68,7 @@
                   <Insets top="5.0" />
                </padding>
                <font>
-                  <Font name="Tahoma" size="11.0" />
+                  <Font name="Roboto Light" size="11.0" />
                </font></Label>
             <TextField fx:id="txfRfc" prefHeight="30.0" style="-fx-background-color: fff; -fx-background-radius: 5;">
                <VBox.margin>
@@ -79,7 +79,7 @@
                   <Insets top="5.0" />
                </padding>
                <font>
-                  <Font name="Tahoma" size="11.0" />
+                  <Font name="Roboto Light" size="11.0" />
                </font></Label>
             <ComboBox fx:id="cbPuesto" prefHeight="31.0" prefWidth="304.0" style="-fx-background-color: ffff; -fx-background-radius: 5;" />
             <Label text="Unidad Administrativa" textFill="#404463">
@@ -87,7 +87,7 @@
                   <Insets top="5.0" />
                </padding>
                <font>
-                  <Font name="Tahoma" size="11.0" />
+                  <Font name="Roboto Light" size="11.0" />
                </font>
                <VBox.margin>
                   <Insets top="5.0" />

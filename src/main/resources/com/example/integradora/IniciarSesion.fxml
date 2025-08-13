@@ -8,7 +8,7 @@
 
 <HBox alignment="CENTER" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #EFEFF0;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.integradora.controllers.InicioSesionController">
    <children>
-      <VBox alignment="CENTER" HBox.hgrow="ALWAYS" prefHeight="600.0" prefWidth="400.0">
+      <VBox alignment="CENTER" prefHeight="600.0" prefWidth="400.0" HBox.hgrow="ALWAYS">
          <children>
             <ImageView fitHeight="603.0" fitWidth="360.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -17,19 +17,22 @@
             </ImageView>
          </children>
       </VBox>
-      <VBox fx:id="loginFormVBox" alignment="CENTER" HBox.hgrow="ALWAYS" prefHeight="603.0" prefWidth="422.0" spacing="20.0">
+      <VBox fx:id="loginFormVBox" alignment="CENTER" prefHeight="603.0" prefWidth="422.0" spacing="20.0" HBox.hgrow="ALWAYS">
          <children>
             <Label text="BIENVENIDO" textFill="#404463">
                <font>
                   <Font name="Tahoma" size="36.0" />
                </font>
             </Label>
-            <Label text="Inicia sesión en tu cuenta" textFill="#404463" />
+            <Label text="Inicia sesión en tu cuenta" textFill="#404463">
+               <font>
+                  <Font name="Roboto Light" size="12.0" />
+               </font></Label>
             <VBox alignment="CENTER_LEFT" maxWidth="350.0" spacing="5.0">
                <children>
                   <Label text="Correo" textFill="#404463">
                      <font>
-                        <Font name="Tahoma" size="12.0" />
+                        <Font name="Roboto Light" size="12.0" />
                      </font>
                   </Label>
                   <TextField fx:id="correos" maxWidth="Infinity" prefHeight="40.0" promptText="example@utez.edu.mx" style="-fx-background-color: #ffffff; -fx-background-radius: 10;" />
@@ -39,7 +42,7 @@
                <children>
                   <Label text="Contraseña" textFill="#404463">
                      <font>
-                        <Font name="Tahoma" size="12.0" />
+                        <Font name="Roboto Light" size="12.0" />
                      </font>
                   </Label>
                   <PasswordField fx:id="contrasena" maxWidth="Infinity" prefHeight="40.0" promptText="********" style="-fx-background-color: #ffffff; -fx-background-radius: 10;" />
@@ -47,7 +50,7 @@
             </VBox>
             <Button maxWidth="350.0" onAction="#inicioSesion" prefHeight="50.0" style="-fx-background-color: #013AE4; -fx-background-radius: 10;" text="Iniciar sesión" textFill="WHITE">
                <font>
-                  <Font name="Tahoma" size="16.0" />
+                  <Font name="Roboto Light" size="16.0" />
                </font>
             </Button>
          </children>

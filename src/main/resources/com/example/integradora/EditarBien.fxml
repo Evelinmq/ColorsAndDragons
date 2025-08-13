@@ -11,7 +11,7 @@
          <children>
             <Label text="Editar bien" textFill="#404463">
                <font>
-                  <Font name="Tahoma" size="22.0" />
+                  <Font name="Roboto Light" size="22.0" />
                </font>
                <HBox.margin>
                   <Insets left="230.0" top="20.0" />
@@ -25,7 +25,7 @@
                   <Insets bottom="5.0" left="20.0" top="50.0" />
                </VBox.margin>
                <font>
-                  <Font name="Tahoma" size="12.0" />
+                  <Font name="Roboto Light" size="12.0" />
                </font></Label>
             <TextField fx:id="editarCodigo" style="-fx-background-color: fff;">
                <VBox.margin>
@@ -39,7 +39,7 @@
                   <Insets bottom="5.0" left="20.0" />
                </VBox.margin>
                <font>
-                  <Font name="Tahoma" size="12.0" />
+                  <Font name="Roboto Light" size="12.0" />
                </font></Label>
             <TextField fx:id="editarDescripcion" prefHeight="48.0" prefWidth="270.0" style="-fx-background-color: fff;">
                <VBox.margin>
@@ -53,7 +53,7 @@
                   <Insets bottom="5.0" left="20.0" />
                </VBox.margin>
                }               <font>
-               <Font name="Tahoma" size="12.0" />
+               <Font name="Roboto Light" size="12.0" />
             </font></Label>
             <TextField fx:id="editarSerie" style="-fx-background-color: fff;">
                <VBox.margin>
@@ -67,7 +67,7 @@
                   <Insets left="20.0" top="50.0" />
                </VBox.margin>
                <font>
-                  <Font name="Tahoma" size="12.0" />
+                  <Font name="Roboto Light" size="12.0" />
                </font>
             </Label>
             <TextField fx:id="editarMarca" style="-fx-background-color: fff;">
@@ -82,7 +82,7 @@
                   <Insets bottom="5.0" left="20.0" top="15.0" />
                </VBox.margin>
                <font>
-                  <Font name="Tahoma" size="12.0" />
+                  <Font name="Roboto Light" size="12.0" />
                </font></Label>
             <TextField fx:id="editarModelo" style="-fx-background-color: fff;">
                <VBox.margin>
@@ -95,7 +95,7 @@
                         <Insets left="70.0" right="10.0" top="140.0" />
                      </HBox.margin>
                      <font>
-                        <Font name="Tahoma" size="12.0" />
+                        <Font name="Roboto Light" size="12.0" />
                      </font>
                   </Button>
                   <Button mnemonicParsing="false" onAction="#editarBien" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #013AE4; -fx-background-radius: 10;" text="Guardar" textFill="WHITE">
@@ -103,7 +103,7 @@
                         <Insets top="140.0" />
                      </HBox.margin>
                      <font>
-                        <Font name="Tahoma" size="12.0" />
+                        <Font name="Roboto Light" size="12.0" />
                      </font></Button>
                </children></HBox>
          </children>
