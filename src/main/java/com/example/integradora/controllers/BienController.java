@@ -180,7 +180,10 @@ public class BienController implements Initializable {
     protected void abrirVentanaRegistro() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/integradora/NuevoBien.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
+            Parent root = fxmlLoader.load();
+
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(Main.class.getResource("/com/example/integradora/styles/styles.css").toExternalForm());
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setTitle("Registro Bien");
@@ -222,7 +225,10 @@ public class BienController implements Initializable {
     protected void abrirVentanaEdicion(Bien b) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/integradora/EditarBien.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
+            Parent root = fxmlLoader.load();
+
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(Main.class.getResource("/com/example/integradora/styles/styles.css").toExternalForm());
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setTitle("Editar Bien");
