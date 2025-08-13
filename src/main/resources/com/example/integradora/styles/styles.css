@@ -1,0 +1,26 @@
+.text-field {
+    -fx-border-color: #fff; /* Un color de borde blanco por defecto */
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+}
+
+.text-field:focused {
+    -fx-border-color: #007bff; /* Color azul cuando el TextField está seleccionado */
+    -fx-border-width: 2px; /* Borde más grueso para resaltar*/
+    -fx-border-radius: 5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 123, 255, 0.4), 8, 0, 0, 0); /* Sombra*/
+}
+
+/* Estilo por defecto del ComboBox */
+.combo-box {
+    -fx-border-color: #fff; /* Borde blanco */
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+}
+
+.combo-box:focused {
+    -fx-border-color: #007bff; /* Borde azul */
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 123, 255, 0.4), 8, 0, 0, 0);
+}

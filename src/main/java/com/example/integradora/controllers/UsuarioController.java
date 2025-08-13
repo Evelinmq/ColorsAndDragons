@@ -200,13 +200,17 @@ public class UsuarioController implements Initializable {
                 controller.setUsuario(u);
             }
 
+            Scene nuevaEscena = new Scene(root);
+            nuevaEscena.getStylesheets().add(Main.class.getResource("/com/example/integradora/styles/styles.css").toExternalForm());
+
             Scene escenaPrincipal = agregar.getScene();
             Parent fondo = escenaPrincipal.getRoot();
             fondo.setEffect(new BoxBlur(10, 10, 3));
 
             Stage stage = new Stage();
             stage.initModality(Modality.WINDOW_MODAL);
-            stage.setScene(new Scene(root));
+            //stage.setScene(new Scene(root));
+            stage.setScene(nuevaEscena);
             stage.setTitle("Editar Usuario");
             stage.initOwner(escenaPrincipal.getWindow());
 
@@ -231,6 +235,9 @@ public class UsuarioController implements Initializable {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/example/integradora/RegistrarUsuario.fxml"));
             Parent root = loader.load();
 
+            Scene nuevaEscena = new Scene(root);
+            nuevaEscena.getStylesheets().add(Main.class.getResource("/com/example/integradora/styles/styles.css").toExternalForm());
+
             Scene escenaPrincipal = agregar.getScene();
             Parent fondo = escenaPrincipal.getRoot();
             fondo.setEffect(new BoxBlur(10, 10, 3));
@@ -238,7 +245,8 @@ public class UsuarioController implements Initializable {
             Stage stage = new Stage();
             stage.initModality(Modality.WINDOW_MODAL);
             stage.setOnHidden(e -> recargarTabla());
-            stage.setScene(new Scene(root));
+            //stage.setScene(new Scene(root));
+            stage.setScene(nuevaEscena);
             stage.setTitle("Registrar Usuario");
             stage.initOwner(escenaPrincipal.getWindow());
             stage.show();

@@ -65,7 +65,7 @@
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin></Label>
-                        <TextField fx:id="txfCorreo" prefHeight="25.0" prefWidth="266.0" style="-fx-background-color: fff; -fx-background-radius: 5;">
+                        <TextField fx:id="txfCorreo" prefHeight="25.0" prefWidth="266.0" promptText="example@utez.edu.mx" style="-fx-background-color: fff; -fx-background-radius: 5;">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin></TextField>
@@ -76,7 +76,7 @@
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin></Label>
-                  <PasswordField fx:id="txfContrasena" style="-fx-background-color: FFF; -fx-background-radius: 5;" />
+                  <PasswordField fx:id="txfContrasena" promptText="********" style="-fx-background-color: FFF; -fx-background-radius: 5;" />
                         <Label text="Rol" textFill="#404463">
                             <font>
                                 <Font name="Tahoma" size="12.0" />
