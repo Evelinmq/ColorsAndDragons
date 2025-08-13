@@ -11,7 +11,7 @@
          <children>
             <Label text="Registrar espacio" textFill="#404463">
                <font>
-                  <Font name="Tahoma" size="22.0" />
+                  <Font name="Roboto Light" size="22.0" />
                </font>
                <HBox.margin>
                   <Insets left="220.0" top="25.0" />
@@ -22,26 +22,26 @@
 
       <Label layoutX="121.0" layoutY="80.0" text="Selecciona el edificio" textFill="#404463">
          <font>
-            <Font name="Tahoma" size="12.0" />
+            <Font name="Roboto Light" size="12.0" />
          </font>
       </Label>
       <ComboBox fx:id="comboEdificio" layoutX="121.0" layoutY="114.0" prefHeight="36.0" prefWidth="360.0" style="-fx-background-color: fff; -fx-background-radius: 5;" />
 
       <Label layoutX="121.0" layoutY="207.0" text="Escribe el nombre del espacio" textFill="#404463">
          <font>
-            <Font name="Tahoma" size="12.0" />
+            <Font name="Roboto Light" size="12.0" />
          </font>
       </Label>
       <TextField fx:id="nombreEspacio" layoutX="120.0" layoutY="240.0" prefHeight="36.0" prefWidth="360.0" style="-fx-background-color: fff; -fx-background-radius: 5;" />
 
       <Button fx:id="btnGuardar" layoutX="453.0" layoutY="334.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #013AE4; -fx-background-radius: 10;" text="Guardar" textFill="WHITE">
          <font>
-            <Font name="Tahoma" size="12.0" />
+            <Font name="Roboto Light" size="12.0" />
          </font>
       </Button>
       <Button fx:id="btnCancelar" layoutX="341.0" layoutY="334.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: B8B7C0; -fx-background-radius: 10;" text="Cancelar" textFill="#404463">
          <font>
-            <Font name="Tahoma" size="12.0" />
+            <Font name="Roboto Light" size="12.0" />
          </font>
       </Button>
    </children>

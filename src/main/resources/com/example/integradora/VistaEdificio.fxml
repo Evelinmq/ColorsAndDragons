@@ -170,7 +170,7 @@
                 <children>
                     <HBox alignment="CENTER_RIGHT" spacing="10.0">
                         <children>
-                            <Button fx:id="agregar" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #3366FF; -fx-background-radius: 10;" text="+ Agregar" textFill="WHITE">
+                            <Button fx:id="agregar" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" styleClass="add-button" text="+ Agregar" textFill="WHITE">
                                 <font>
                                     <Font name="Roboto Light" size="14.0" />
                                 </font>
