@@ -210,6 +210,9 @@ public class UnidadController implements Initializable {
                 controller.setUnidadAdministrativa(u); // Llama al setUnidadAdministrativa del controlador de edición
             }
 
+            Scene nuevaEscena = new Scene(root);
+            nuevaEscena.getStylesheets().add(Main.class.getResource("/com/example/integradora/styles/styles.css").toExternalForm());
+
             // Efecto blur al fondo
             Scene escenaPrincipal = agregar.getScene();
             Parent fondo = escenaPrincipal.getRoot();
@@ -217,7 +220,7 @@ public class UnidadController implements Initializable {
 
             Stage stage = new Stage();
             stage.initModality(Modality.WINDOW_MODAL);
-            stage.setScene(new Scene(root));
+            stage.setScene(nuevaEscena);
             stage.setTitle("Editar Unidad Administrativa");
             stage.initOwner(escenaPrincipal.getWindow());
             //stage.show();
@@ -244,6 +247,9 @@ public class UnidadController implements Initializable {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/example/integradora/RegistrarUnidad.fxml"));
             Parent root = loader.load();
 
+            Scene nuevaEscena = new Scene(root);
+            nuevaEscena.getStylesheets().add(Main.class.getResource("/com/example/integradora/styles/styles.css").toExternalForm());
+
             // Efecto blur al fondo
             Scene escenaPrincipal = agregar.getScene();
             Parent fondo = escenaPrincipal.getRoot();
@@ -252,7 +258,7 @@ public class UnidadController implements Initializable {
             Stage stage = new Stage();
             stage.initModality(Modality.WINDOW_MODAL);
             stage.setOnHidden(e -> recargarTabla());
-            stage.setScene(new Scene(root));
+            stage.setScene(nuevaEscena);
             stage.setTitle("Registrar Unidad Administrativa");
             stage.initOwner(escenaPrincipal.getWindow());
             stage.show();

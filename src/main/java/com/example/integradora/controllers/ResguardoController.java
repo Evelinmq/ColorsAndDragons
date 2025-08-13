@@ -150,12 +150,15 @@ public class ResguardoController implements Initializable {
             UpdateResguardoController controller = loader.getController();
             controller.setResguardo(resguardo);
 
+            Scene nuevaEscena = new Scene(root);
+            nuevaEscena.getStylesheets().add(Main.class.getResource("/com/example/integradora/styles/styles.css").toExternalForm());
+
             Scene escenaPrincipal = editar.getScene();
             Parent fondo = escenaPrincipal.getRoot();
             fondo.setEffect(new BoxBlur(10, 10, 3));
 
             Stage stage = new Stage();
-            stage.setScene(new Scene(root));
+            stage.setScene(nuevaEscena);
             stage.setTitle("Editar Resguardo");
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(escenaPrincipal.getWindow());
@@ -177,12 +180,15 @@ public class ResguardoController implements Initializable {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("NuevoResguardo.fxml"));
             Parent root = loader.load();
 
+            Scene nuevaEscena = new Scene(root);
+            nuevaEscena.getStylesheets().add(Main.class.getResource("/com/example/integradora/styles/styles.css").toExternalForm());
+
             Scene escenaPrincipal = agregar.getScene();
             Parent fondo = escenaPrincipal.getRoot();
             fondo.setEffect(new BoxBlur(10, 10, 3));
 
             Stage stage = new Stage();
-            stage.setScene(new Scene(root));
+            stage.setScene(nuevaEscena);
             stage.setTitle("Registrar Resguardo");
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(escenaPrincipal.getWindow());
