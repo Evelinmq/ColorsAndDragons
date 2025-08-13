@@ -201,7 +201,7 @@
                     <Insets bottom="10.0" top="20.0" />
                 </padding>
                 <children>
-                    <Button fx:id="eliminar" disable="true" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: FFA0A0; -fx-background-radius: 10;">
+                    <Button fx:id="eliminar" disable="true" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="update-button">
                         <graphic>
                             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
@@ -213,7 +213,7 @@
                             <Insets top="150.0" />
                         </VBox.margin>
                     </Button>
-                    <Button fx:id="editar" disable="true" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: A8D095; -fx-background-radius: 10;">
+                    <Button fx:id="editar" disable="true" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="regreso-button">
                         <graphic>
                             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                 <image>

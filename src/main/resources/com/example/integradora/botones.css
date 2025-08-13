@@ -51,7 +51,7 @@
 
 /* Efecto al pasar el ratón sobre el botón */
 .add-button:hover {
-    -fx-background-color: #4C82FF; /* Un azul un poco más claro */
+    -fx-background-color: #2B53CB; /* Un azul un poco más claro */
     -fx-scale-x: 1.02;
     -fx-scale-y: 1.02;
 }
@@ -64,6 +64,171 @@
 }
 
 
+
+
+/* Estilo para el botón de búsqueda */
+.search-button {
+    -fx-background-color: #C6CFE2;
+    -fx-background-radius: 5;
+    -fx-text-fill: #404463; /* Color de texto oscuro para que se vea el emoji */
+    -fx-cursor: hand;
+
+    /* Define la animación para el cambio de color y escala */
+    -fx-transition: -fx-background-color 0.2s ease, -fx-scale-x 0.2s ease, -fx-scale-y 0.2s ease;
+}
+
+/* Efecto al pasar el ratón sobre el botón */
+.search-button:hover {
+    -fx-background-color: #98A3C5; /* Un tono de gris ligeramente más oscuro */
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+/* Efecto al presionar el botón */
+.search-button:pressed {
+    -fx-background-color: #98A3C5; /* Un tono de gris más oscuro */
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+}
+
+
+
+/* Estilo para el botón de "Eliminar" */
+.delete-button {
+    -fx-background-color: #FFA0A0; /* El color rojo base */
+    -fx-background-radius: 10;
+    -fx-text-fill: #404463;
+    -fx-cursor: hand;
+
+    /* Define la animación para el cambio de color y escala */
+    -fx-transition: -fx-background-color 0.2s ease, -fx-scale-x 0.2s ease, -fx-scale-y 0.2s ease;
+}
+
+/* Efecto al pasar el ratón sobre el botón (solo si no está deshabilitado) */
+.delete-button:hover {
+    -fx-background-color: #FF8383; /* Un rojo más claro */
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+/* Efecto al presionar el botón (solo si no está deshabilitado) */
+.delete-button:pressed {
+    -fx-background-color: #FF8383; /* Un rojo más oscuro */
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+}
+
+/* Estilo para cuando el botón está deshabilitado */
+.delete-button:disabled {
+    -fx-background-color: #FFC0C0; /* Un gris para indicar que no se puede usar */
+    -fx-opacity: 0.6; /* Lo hace un poco transparente */
+    -fx-cursor: default;
+}
+
+
+/* Estilo para el botón de "Editar" */
+.update-button {
+    -fx-background-color: #A8D095; /* El color rojo base */
+    -fx-background-radius: 10;
+    -fx-text-fill: #404463;
+    -fx-cursor: hand;
+
+    /* Define la animación para el cambio de color y escala */
+    -fx-transition: -fx-background-color 0.2s ease, -fx-scale-x 0.2s ease, -fx-scale-y 0.2s ease;
+}
+
+/* Efecto al pasar el ratón sobre el botón (solo si no está deshabilitado) */
+.update-button:hover {
+    -fx-background-color: #9AC385; /* Un rojo más claro */
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+/* Efecto al presionar el botón (solo si no está deshabilitado) */
+.update-button:pressed {
+    -fx-background-color: #9AC385; /* Un rojo más oscuro */
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+}
+
+/* Estilo para cuando el botón está deshabilitado */
+.update-button:disabled {
+    -fx-background-color: #BFDCB0; /* Un gris para indicar que no se puede usar */
+    -fx-opacity: 0.6; /* Lo hace un poco transparente */
+    -fx-cursor: default;
+}
+
+
+
+
+
+/* Estilo para el botón de "regreso" */
+.regreso-button {
+    -fx-background-color: #0033CC; /* El color rojo base */
+    -fx-background-radius: 10;
+    -fx-text-fill: #404463;
+    -fx-cursor: hand;
+
+    /* Define la animación para el cambio de color y escala */
+    -fx-transition: -fx-background-color 0.2s ease, -fx-scale-x 0.2s ease, -fx-scale-y 0.2s ease;
+}
+
+/* Efecto al pasar el ratón sobre el botón (solo si no está deshabilitado) */
+.regreso-button:hover {
+    -fx-background-color: #022796; /* Un rojo más claro */
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+/* Efecto al presionar el botón (solo si no está deshabilitado) */
+.regreso-button:pressed {
+    -fx-background-color: #022796; /* Un rojo más oscuro */
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+}
+
+/* Estilo para cuando el botón está deshabilitado */
+.regreso-button:disabled {
+    -fx-background-color: #2053ED; /* Un gris para indicar que no se puede usar */
+    -fx-opacity: 0.6; /* Lo hace un poco transparente */
+    -fx-cursor: default;
+}
+
+
+
+
+
+/* Estilo para el botón de "descarga" */
+.descarga-button {
+    -fx-background-color: #557EF8; /* El color rojo base */
+    -fx-background-radius: 10;
+    -fx-text-fill: #404463;
+    -fx-cursor: hand;
+
+    /* Define la animación para el cambio de color y escala */
+    -fx-transition: -fx-background-color 0.2s ease, -fx-scale-x 0.2s ease, -fx-scale-y 0.2s ease;
+}
+
+/* Efecto al pasar el ratón sobre el botón (solo si no está deshabilitado) */
+.descarga-button:hover {
+    -fx-background-color: #3C6DFF; /* Un rojo más claro */
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+/* Efecto al presionar el botón (solo si no está deshabilitado) */
+.descarga-button:pressed {
+    -fx-background-color: #3C6DFF; /* Un rojo más oscuro */
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+}
+
+/* Estilo para cuando el botón está deshabilitado */
+.descarga-button:disabled {
+    -fx-background-color: #7396FF; /* Un gris para indicar que no se puede usar */
+    -fx-opacity: 0.6; /* Lo hace un poco transparente */
+    -fx-cursor: default;
+}
 
 
 
