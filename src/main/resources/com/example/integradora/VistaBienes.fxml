@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane style="-fx-background-color: ffffff;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.integradora.controllers.BienController">
+<BorderPane fx:id="padreBien" style="-fx-background-color: ffffff;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.integradora.controllers.BienController">
 
     <top>
         <VBox>
@@ -190,11 +190,11 @@
                     </HBox>
                     <TableView fx:id="tablaBien" style="-fx-background-color: #EFEFF0; -fx-background-radius: 10;" VBox.vgrow="ALWAYS">
                         <columns>
-                            <TableColumn fx:id="tablaCodigo" prefWidth="100.0" text="Codigo" style="-fx-background-color: #EFEFF0;" />
-                            <TableColumn fx:id="tablaDescripcion" prefWidth="110.0" text="Descripción" style="-fx-background-color: #EFEFF0;" />
-                            <TableColumn fx:id="tablaMarca" prefWidth="90.0" text="Marca" style="-fx-background-color: #EFEFF0;" />
-                            <TableColumn fx:id="tablaModelo" prefWidth="110.0" text="Modelo" style="-fx-background-color: #EFEFF0;" />
-                            <TableColumn fx:id="tablaSerie" prefWidth="100.0" text="No.Serie" style="-fx-background-color: #EFEFF0;" />
+                            <TableColumn fx:id="tablaCodigo" prefWidth="100.0" style="-fx-background-color: #EFEFF0;" text="Codigo" />
+                            <TableColumn fx:id="tablaDescripcion" prefWidth="110.0" style="-fx-background-color: #EFEFF0;" text="Descripción" />
+                            <TableColumn fx:id="tablaMarca" prefWidth="90.0" style="-fx-background-color: #EFEFF0;" text="Marca" />
+                            <TableColumn fx:id="tablaModelo" prefWidth="110.0" style="-fx-background-color: #EFEFF0;" text="Modelo" />
+                            <TableColumn fx:id="tablaSerie" prefWidth="100.0" style="-fx-background-color: #EFEFF0;" text="No.Serie" />
                         </columns>
                         <columnResizePolicy>
                             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

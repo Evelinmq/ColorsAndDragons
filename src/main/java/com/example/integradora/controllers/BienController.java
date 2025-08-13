@@ -17,6 +17,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -29,7 +30,7 @@ import java.util.ResourceBundle;
 public class BienController implements Initializable {
 
     @FXML
-    private AnchorPane padreBien;
+    private BorderPane padreBien;
 
     @FXML
     private Button editarBien, borrarBien, regresoBien;
