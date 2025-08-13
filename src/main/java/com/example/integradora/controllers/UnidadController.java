@@ -462,7 +462,7 @@ public class UnidadController implements Initializable {
     @FXML
     protected void irPuesto() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/Vistapuesto.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/integradora/VistaPuesto.fxml"));
             Parent newRoot = fxmlLoader.load();
             Stage stage = (Stage) puesto.getScene().getWindow();
             Scene scene = stage.getScene();

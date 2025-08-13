@@ -23,7 +23,7 @@
                         </ImageView>
                         <Label text="SISTEMA DE INVENTARIO" textFill="WHITE">
                             <font>
-                                <Font name="Tahoma" size="14.0" />
+                                <Font name="Roboto Light" size="11.0" />
                             </font>
                             <HBox.margin>
                                 <Insets left="10.0" />
@@ -62,6 +62,9 @@
                             </image>
                         </ImageView>
                     </graphic>
+                    <font>
+                        <Font name="Roboto Light" size="12.0" />
+                    </font>
                     <VBox.margin>
                         <Insets top="50.0" />
                     </VBox.margin>
@@ -75,6 +78,9 @@
                             </image>
                         </ImageView>
                     </graphic>
+                    <font>
+                        <Font name="Roboto Light" size="12.0" />
+                    </font>
                 </Button>
                 <Region VBox.vgrow="ALWAYS" />
                 <Button fx:id="empleados" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irEmpleados" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 10;" text="  Empleados" textFill="#404463">
@@ -85,6 +91,9 @@
                             </image>
                         </ImageView>
                     </graphic>
+                    <font>
+                        <Font name="Roboto Light" size="12.0" />
+                    </font>
                 </Button>
                 <Region VBox.vgrow="ALWAYS" />
                 <Button fx:id="puesto" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irPuesto" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 10;" text="  Puesto" textFill="#404463">
@@ -95,6 +104,9 @@
                             </image>
                         </ImageView>
                     </graphic>
+                    <font>
+                        <Font name="Roboto Light" size="12.0" />
+                    </font>
                 </Button>
                 <Region VBox.vgrow="ALWAYS" />
                 <Button fx:id="espacio" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irEspacio" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 10;" text="  Espacio" textFill="#404463">
@@ -105,6 +117,9 @@
                             </image>
                         </ImageView>
                     </graphic>
+                    <font>
+                        <Font name="Roboto Light" size="12.0" />
+                    </font>
                 </Button>
                 <Region VBox.vgrow="ALWAYS" />
                 <Button fx:id="unidad" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irUnidad" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 10;" text="  U. Administrativa" textFill="#404463">
@@ -115,6 +130,9 @@
                             </image>
                         </ImageView>
                     </graphic>
+                    <font>
+                        <Font name="Roboto Light" size="12.0" />
+                    </font>
                 </Button>
                 <Region VBox.vgrow="ALWAYS" />
                 <Button fx:id="edificio" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irEdificio" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 10;" text="  Edificio" textFill="#404463">
@@ -125,6 +143,9 @@
                             </image>
                         </ImageView>
                     </graphic>
+                    <font>
+                        <Font name="Roboto Light" size="12.0" />
+                    </font>
                 </Button>
                 <Region VBox.vgrow="ALWAYS" />
                 <Button fx:id="usuario" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irUsuario" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #F5F7FA; -fx-background-radius: 10;" text="  Usuario" textFill="#404463">
@@ -135,6 +156,9 @@
                             </image>
                         </ImageView>
                     </graphic>
+                    <font>
+                        <Font name="Roboto Light" size="12.0" />
+                    </font>
                 </Button>
             </children>
         </VBox>
