@@ -16,7 +16,7 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(".fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800, 600);
         scene.getStylesheets().add(Main.class.getResource("/com/example/integradora/styles/styles.css").toExternalForm());
-        stage.setTitle("Hello!");
+        stage.setTitle("SISTEMA DE INVENTARIO");
         stage.setScene(scene);
         stage.show();
     }
