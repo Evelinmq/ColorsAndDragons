@@ -1,5 +1,6 @@
 package com.example.integradora.controllers;
 
+import com.example.integradora.checker.EmailValidator;
 import com.example.integradora.modelo.Empleado;
 import com.example.integradora.modelo.UnidadAdministrativa;
 import com.example.integradora.modelo.Usuario;
@@ -92,6 +93,14 @@ public class RegistrarUsuarioController {
             return;
         }
 
+        if (!EmailValidator.isValidEmail(correo)) {
+            Alert alerta = new Alert(Alert.AlertType.ERROR);
+            alerta.setTitle("Error de Validación");
+            alerta.setHeaderText(null);
+            alerta.setContentText("El formato del correo electrónico es inválido");
+            alerta.showAndWait();
+            return;
+        }
 
         Usuario nuevo = new Usuario();
         nuevo.setCorreo(correo);

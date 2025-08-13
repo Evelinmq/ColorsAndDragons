@@ -1,5 +1,6 @@
 package com.example.integradora.controllers;
 
+import com.example.integradora.checker.EmailValidator;
 import com.example.integradora.modelo.Empleado;
 import com.example.integradora.modelo.Usuario;
 import com.example.integradora.modelo.dao.EmpleadoDao;
@@ -104,6 +105,15 @@ public class UpdateUsuarioController implements Initializable {
         if (nuevoCorreo.isEmpty() || nuevaContrasena.isEmpty() || empleadoSeleccionado == null || rolSeleccionado == null) {
             mostrarAlerta(Alert.AlertType.WARNING, "Campos Incompletos", "Por favor, llena todos los campos y selecciona las opciones.");
             return;
+        }
+
+        if (!EmailValidator.isValidEmail(nuevoCorreo)) {
+            Alert alerta = new Alert(Alert.AlertType.ERROR);
+            alerta.setTitle("Error de Validación");
+            alerta.setHeaderText(null);
+            alerta.setContentText("El formato del correo electrónico es inválido");
+            alerta.showAndWait();
+            return; // Detiene el proceso si el correo no es válido
         }
 
 
