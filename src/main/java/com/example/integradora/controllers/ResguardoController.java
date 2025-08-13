@@ -16,6 +16,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.BoxBlur;
 import javafx.stage.Modality;
@@ -26,11 +28,15 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.sql.Connection;
 import java.util.*;
+import java.util.List;
 
 public class ResguardoController implements Initializable {
 
@@ -409,7 +415,7 @@ public class ResguardoController implements Initializable {
             @Override
             protected Void call() throws Exception {
 
-                InputStream input = getClass().getResourceAsStream("/RESGUARDO.jasper");
+                InputStream input = getClass().getResourceAsStream("/Resguardo.jasper");
                 if (input == null) {
                     throw new IOException("No se pudo encontrar el archivo del informe");
                 }
@@ -419,11 +425,13 @@ public class ResguardoController implements Initializable {
                 if (conexion == null || conexion.isClosed()) {
                     throw new Exception("No se pudo establecer la conexión a la base de datos.");
                 }
-
+                Image logo = ImageIO.read(new File("src/main/resources/com/example/integradora/jasper/UtezLogo.png"));
+                //Image logo = ImageIO.read(getClass().getResourceAsStream("/UtezLogo.png"));
                 Map<String, Object> parametros = new HashMap<>();
 
                 parametros.put("NOMBRE_ESPACIO", seleccionado.getEspacio().getNombre());
                 parametros.put("FECHA_RESGUARDO", seleccionado.getFecha());
+                parametros.put("logo", logo);
 
                 JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, parametros, conexion);
 
