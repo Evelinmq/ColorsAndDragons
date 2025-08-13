@@ -1,41 +1,66 @@
 .menu-button {
-    /* Color de fondo normal */
     -fx-background-color: #F5F7FA;
-    /* Color de texto normal */
     -fx-text-fill: #404463;
     -fx-background-radius: 10;
     -fx-font-family: "Roboto Light";
     -fx-font-size: 12px;
     -fx-padding: 10px 20px;
 
-    /* Define la animación para los cambios de fondo y escala */
     -fx-transition: -fx-background-color 0.2s ease, -fx-scale-x 0.2s ease, -fx-scale-y 0.2s ease;
 }
 
-/* Efecto al pasar el ratón sobre los botones del menú */
+
 .menu-button:hover {
-    -fx-background-color: #E0E4E9; /* Un color ligeramente más oscuro */
-    -fx-scale-x: 1.02; /* Aumenta un poco el tamaño */
+    -fx-background-color: #E0E4E9;
+    -fx-scale-x: 1.02;
     -fx-scale-y: 1.02;
     -fx-cursor: hand;
 }
 
-/* Efecto al presionar un botón del menú */
+
 .menu-button:pressed {
-    -fx-background-color: #E0E4E9; /* Un color más oscuro para simular el clic */
+    -fx-background-color: #E0E4E9;
     -fx-scale-x: 0.98;
     -fx-scale-y: 0.98;
 }
 
-/* ---------------------------------------------------------------------------------- */
-/* ESTILO PARA EL BOTÓN SELECCIONADO (la clase que hace que se vea azul) */
+
 .menu-button-selected {
-    -fx-background-color: #0338D5; /* El tono azul que deseas */
-    -fx-text-fill: white;          /* Texto en blanco para contraste */
+    -fx-background-color: #0338D5;
+    -fx-text-fill: white;
     -fx-background-radius: 10;
     -fx-font-family: "Roboto Light";
     -fx-font-size: 12px;
     -fx-padding: 10px 20px;
+}
+
+
+
+/* Estilo para el botón de "Agregar" */
+.add-button {
+    -fx-background-color: #3366FF;
+    -fx-background-radius: 10;
+    -fx-text-fill: WHITE;
+    -fx-font-family: "Roboto Light";
+    -fx-font-size: 14.0;
+    -fx-cursor: hand;
+
+    /* Define la animación para el cambio de color y escala */
+    -fx-transition: -fx-background-color 0.2s ease, -fx-scale-x 0.2s ease, -fx-scale-y 0.2s ease;
+}
+
+/* Efecto al pasar el ratón sobre el botón */
+.add-button:hover {
+    -fx-background-color: #4C82FF; /* Un azul un poco más claro */
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+/* Efecto al presionar el botón */
+.add-button:pressed {
+    -fx-background-color: #2652C7; /* Un azul más oscuro */
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
 }
 
 
