@@ -19,7 +19,7 @@ public class UpdateEspacioController implements Initializable {
 
     @FXML private TextField nombreEsp;
     @FXML private ComboBox<Edificio> comboEdificio;
-    @FXML private Button cancelar;
+    @FXML private Button btnCancelar;
     @FXML private Button btnGuardar;
 
     private Espacio espacio;
@@ -31,7 +31,7 @@ public class UpdateEspacioController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         btnGuardar.setOnAction(this::updateEspacio);
-        cancelar.setOnAction(e -> cerrarVentana());
+        btnCancelar.setOnAction(e -> cerrarVentana());
         cargarEdificios();
     }
 

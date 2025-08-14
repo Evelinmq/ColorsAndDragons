@@ -37,7 +37,7 @@ public class UpdateResguardoController implements Initializable {
     @FXML
     private TableColumn<Bien, String> codigo, descripcion, marca, modelo, serie;
     @FXML
-    private Button btnGuardar, cancelar, botonEliminar;
+    private Button btnGuardar, btnCancelar, botonEliminar;
 
     private Resguardo resguardo;
 
@@ -219,7 +219,7 @@ public class UpdateResguardoController implements Initializable {
 
     @FXML
     private void cerrarVentana() {
-        Stage ventana = (Stage) cancelar.getScene().getWindow();
+        Stage ventana = (Stage) btnCancelar.getScene().getWindow();
         ventana.close();
     }
 

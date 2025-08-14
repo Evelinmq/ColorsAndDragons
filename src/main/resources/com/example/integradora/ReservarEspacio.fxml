@@ -38,7 +38,7 @@
             <Font name="Roboto Light" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="btnCancelar" layoutX="341.0" layoutY="334.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: B8B7C0; -fx-background-radius: 10;" text="Cancelar" textFill="#404463">
+      <Button fx:id="btnCancelar" layoutX="341.0" layoutY="334.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="90.0" stylesheets="@botones.css" text="Cancelar" textFill="#404463">
          <font>
             <Font name="Roboto Light" size="12.0" />
          </font>

@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
 public class UpdateEdificioController implements Initializable {
 
     @FXML private TextField nombreEdi;
-    @FXML private Button cancelar;
+    @FXML private Button btnCancelar;
     @FXML private Button btnGuardar;
 
     private Edificio edificio;
@@ -25,7 +25,7 @@ public class UpdateEdificioController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         btnGuardar.setOnAction(this::updateEdificio);
-        cancelar.setOnAction(e -> cerrarVentana());
+        btnCancelar.setOnAction(e -> cerrarVentana());
     }
 
     public void setEdificio(Edificio edificio) {
