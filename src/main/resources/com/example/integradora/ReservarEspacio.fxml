@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: EFEFF0;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.integradora.controllers.RegistrarEspacioController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: EFEFF0;"  stylesheets="@botones.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.integradora.controllers.RegistrarEspacioController" >
    <children>
       <HBox prefHeight="100.0" prefWidth="607.0">
          <children>
@@ -33,8 +33,7 @@
          </font>
       </Label>
       <TextField fx:id="nombreEspacio" layoutX="120.0" layoutY="240.0" prefHeight="36.0" prefWidth="360.0" style="-fx-background-color: fff; -fx-background-radius: 5;" />
-
-      <Button fx:id="btnGuardar" layoutX="453.0" layoutY="334.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #013AE4; -fx-background-radius: 10;" text="Guardar" textFill="WHITE">
+      <Button fx:id="btnGuardar" stylesheets="botones.css" layoutX="453.0" layoutY="334.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="90.0" styleClass="save-button" text="Guardar" textFill="WHITE">
          <font>
             <Font name="Roboto Light" size="12.0" />
          </font>

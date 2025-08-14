@@ -19,7 +19,7 @@
                 </Label>
             </children>
         </HBox>
-        <Button fx:id="updateEmpleado" layoutX="500.0" layoutY="420.0" onAction="#updateEmpleado" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #013AE4; -fx-background-radius: 10;" text="Guardar" textFill="WHITE">
+        <Button fx:id="btnGuardar" layoutX="500.0" layoutY="420.0" onAction="#updateEmpleado" prefHeight="30.0" prefWidth="90.0" stylesheets="@botones.css" text="Guardar" textFill="WHITE">
             <font>
                 <Font name="Roboto Light" size="12.0" />
             </font></Button>

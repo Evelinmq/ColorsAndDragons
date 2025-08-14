@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #EFEFF0;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.integradora.controllers.RegistroBienController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #EFEFF0;" stylesheets="botones.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.integradora.controllers.RegistroBienController">
    <children>
       <HBox prefHeight="77.0" prefWidth="600.0">
          <children>
@@ -98,7 +98,7 @@
                         <Font name="Roboto Light" size="12.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#registrarBien" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #013AE4; -fx-background-radius: 10;" text="Guardar" textFill="WHITE">
+                  <Button fx:id="btnGuardar" mnemonicParsing="false" onAction="#registrarBien" prefHeight="30.0" prefWidth="90.0" stylesheets="@botones.css" text="Guardar" textFill="WHITE">
                      <HBox.margin>
                         <Insets top="140.0" />
                      </HBox.margin>

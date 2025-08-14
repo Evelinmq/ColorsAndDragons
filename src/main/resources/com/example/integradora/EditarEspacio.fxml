@@ -34,7 +34,7 @@
         </Label>
         <TextField fx:id="nombreEsp" layoutX="120.0" layoutY="240.0" prefHeight="36.0" prefWidth="360.0" style="-fx-background-color: fff; -fx-background-radius: 5;" />
 
-        <Button fx:id="guardar" layoutX="453.0" layoutY="334.0" mnemonicParsing="false" onAction="#updateEspacio" prefHeight="33.0" prefWidth="90.0" style="-fx-background-color: #013AE4; -fx-background-radius: 10;" text="Guardar" textFill="WHITE">
+        <Button fx:id="btnGuardar" layoutX="453.0" layoutY="334.0" mnemonicParsing="false" onAction="#updateEspacio" prefHeight="33.0" prefWidth="90.0" stylesheets="@botones.css" text="Guardar" textFill="WHITE">
             <font>
                 <Font name="Tahoma" size="12.0" />
             </font>

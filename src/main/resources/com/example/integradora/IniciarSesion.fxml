@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<HBox alignment="CENTER" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #EFEFF0;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.integradora.controllers.InicioSesionController">
+<HBox alignment="CENTER" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #EFEFF0;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.integradora.controllers.InicioSesionController" stylesheets="botones.css">
    <children>
       <VBox alignment="CENTER" prefHeight="600.0" prefWidth="400.0" HBox.hgrow="ALWAYS">
          <children>
@@ -48,7 +48,7 @@
                   <PasswordField fx:id="contrasena" maxWidth="Infinity" prefHeight="40.0" promptText="********" style="-fx-background-color: #ffffff; -fx-background-radius: 10;" />
                </children>
             </VBox>
-            <Button maxWidth="350.0" onAction="#inicioSesion" prefHeight="50.0" style="-fx-background-color: #013AE4; -fx-background-radius: 10;" text="Iniciar sesión" textFill="WHITE">
+            <Button maxWidth="350.0" onAction="#inicioSesion" prefHeight="50.0" styleClass="login-button"  text="Iniciar sesión" textFill="WHITE">
                <font>
                   <Font name="Roboto Light" size="16.0" />
                </font>

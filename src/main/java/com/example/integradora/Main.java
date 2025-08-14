@@ -13,7 +13,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(".fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("VistaInformesDirectora.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800, 600);
         scene.getStylesheets().add(Main.class.getResource("/com/example/integradora/styles/styles.css").toExternalForm());
         stage.setTitle("SISTEMA DE INVENTARIO");
