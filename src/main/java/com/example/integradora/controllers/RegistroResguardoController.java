@@ -33,7 +33,7 @@ public class RegistroResguardoController  implements Initializable {
     @FXML
     private ComboBox<Bien> comboBoxBusqueda;
     @FXML
-    private Button buscar, botonEliminar, cancelar, guardar;
+    private Button buscar, botonEliminar, cancelar, btnGuardar;
     @FXML
     private TableView<Bien> tabla;
     @FXML
@@ -58,7 +58,7 @@ public class RegistroResguardoController  implements Initializable {
         bienDao = new BienDao();
         lista = new ArrayList<>();
 
-        guardar.setOnAction(e -> guardarResguardo());
+        btnGuardar.setOnAction(e -> guardarResguardo());
         cancelar.setOnAction(e -> cerrarVentana());
 
         codigo.setCellValueFactory(new PropertyValueFactory<>("bien_codigo"));

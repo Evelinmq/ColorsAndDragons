@@ -17,14 +17,14 @@ public class UpdateEdificioController implements Initializable {
 
     @FXML private TextField nombreEdi;
     @FXML private Button cancelar;
-    @FXML private Button guardar;
+    @FXML private Button btnGuardar;
 
     private Edificio edificio;
     private int idViejo;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        guardar.setOnAction(this::updateEdificio);
+        btnGuardar.setOnAction(this::updateEdificio);
         cancelar.setOnAction(e -> cerrarVentana());
     }
 

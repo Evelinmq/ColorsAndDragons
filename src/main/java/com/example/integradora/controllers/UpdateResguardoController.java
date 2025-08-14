@@ -37,7 +37,7 @@ public class UpdateResguardoController implements Initializable {
     @FXML
     private TableColumn<Bien, String> codigo, descripcion, marca, modelo, serie;
     @FXML
-    private Button guardar, cancelar, botonEliminar;
+    private Button btnGuardar, cancelar, botonEliminar;
 
     private Resguardo resguardo;
 
