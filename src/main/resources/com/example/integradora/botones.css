@@ -304,32 +304,6 @@
 }
 
 
-/* Estilo para el botón de "Iniciar sesión" */
-.login-button {
-    -fx-background-color: #013AE4; /* El tono azul base */
-    -fx-background-radius: 10;
-    -fx-text-fill: WHITE;          /* Texto en blanco */
-    -fx-font-size: 14.0;
-    -fx-cursor: hand;
-
-    /* Define la animación para el cambio de color y escala */
-    -fx-transition: -fx-background-color 0.2s ease, -fx-scale-x 0.2s ease, -fx-scale-y 0.2s ease;
-}
-
-/* Efecto al pasar el ratón sobre el botón */
-.login-button:hover {
-    -fx-background-color: #0132B4; /* Un tono de azul un poco más oscuro */
-    -fx-scale-x: 1.02;
-    -fx-scale-y: 1.02;
-}
-
-/* Efecto al presionar el botón */
-.login-button:pressed {
-    -fx-background-color: #012891; /* Un tono de azul más oscuro para simular el clic */
-    -fx-scale-x: 0.98;
-    -fx-scale-y: 0.98;
-}
-
 
 
 
@@ -387,6 +361,43 @@
 /* Efecto al presionar el botón */
 #btnCancelar:pressed {
     -fx-background-color: #9C9B9F; /* Un tono de gris más oscuro para simular el clic */
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* Estilo para el botón de "Iniciar sesión" usando su ID */
+#loginButton {
+    -fx-background-color: #013AE4; /* El tono azul base */
+    -fx-background-radius: 10;
+    -fx-text-fill: WHITE;          /* Texto en blanco */
+    -fx-font-size: 14.0;
+    -fx-cursor: hand;
+
+    /* Define la animación para el cambio de color y escala */
+    -fx-transition: -fx-background-color 0.2s ease, -fx-scale-x 0.2s ease, -fx-scale-y 0.2s ease;
+}
+
+/* Efecto al pasar el ratón sobre el botón */
+#loginButton:hover {
+    -fx-background-color: #0132B4; /* Un tono de azul un poco más oscuro */
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+/* Efecto al presionar el botón */
+#loginButton:pressed {
+    -fx-background-color: #012891; /* Un tono de azul más oscuro para simular el clic */
     -fx-scale-x: 0.98;
     -fx-scale-y: 0.98;
 }
