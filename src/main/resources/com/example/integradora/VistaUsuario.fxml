@@ -191,7 +191,6 @@
                     <TableView fx:id="tablaUsuario" style="-fx-background-color: #EFEFF0;" VBox.vgrow="ALWAYS">
                         <columns>
                             <TableColumn fx:id="tablaUsuarioCorreo" prefWidth="170.0" text="Correo" style="-fx-background-color: #EFEFF0;"/>
-                            <TableColumn fx:id="tablaUsuarioContrasena" prefWidth="170.0" text="Contraseña" style="-fx-background-color: #EFEFF0;"/>
                             <TableColumn fx:id="tablaUsuarioRol" prefWidth="170.0" text="Rol" style="-fx-background-color: #EFEFF0;"/>
                         </columns>
                         <columnResizePolicy>
