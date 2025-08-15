@@ -49,12 +49,12 @@
     </top>
 
     <left>
-        <VBox alignment="TOP_CENTER" prefWidth="200.0" spacing="10.0" style="-fx-background-color: fff;">
+        <VBox alignment="TOP_CENTER" prefWidth="250.0" spacing="15.0" style="-fx-background-color: fff;">
             <padding>
                 <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
             </padding>
             <children>
-                <Button fx:id="resguardo" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #2c55cf; -fx-background-radius: 10;" text="  Resguardo" textFill="WHITE">
+                <Button fx:id="resguardo" alignment="BASELINE_LEFT" mnemonicParsing="false" maxWidth="Infinity" prefHeight="50.0" style="-fx-background-color: #2c55cf; -fx-background-radius: 10;" text="  Resguardo" textFill="WHITE">
                     <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -70,7 +70,7 @@
                     </VBox.margin>
                 </Button>
                 <Region VBox.vgrow="ALWAYS" />
-                <Button fx:id="bienes" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irBienes" prefHeight="40.0" prefWidth="180.0" styleClass="menu-button" text="  Bienes" textFill="#404463">
+                <Button fx:id="bienes" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irBienes" maxWidth="Infinity" prefHeight="50.0" styleClass="menu-button" text="  Bienes" textFill="#404463">
                     <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -83,7 +83,7 @@
                     </font>
                 </Button>
                 <Region VBox.vgrow="ALWAYS" />
-                <Button fx:id="empleados" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irEmpleados" prefHeight="40.0" prefWidth="180.0" styleClass="menu-button" text="  Empleados" textFill="#404463">
+                <Button fx:id="empleados" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irEmpleados" maxWidth="Infinity" prefHeight="50.0" styleClass="menu-button" text="  Empleados" textFill="#404463">
                     <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -96,7 +96,7 @@
                     </font>
                 </Button>
                 <Region VBox.vgrow="ALWAYS" />
-                <Button fx:id="puesto" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irPuesto" prefHeight="40.0" prefWidth="180.0" styleClass="menu-button" text="  Puesto" textFill="#404463">
+                <Button fx:id="puesto" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irPuesto" maxWidth="Infinity" prefHeight="50.0" styleClass="menu-button" text="  Puesto" textFill="#404463">
                     <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -109,7 +109,7 @@
                     </font>
                 </Button>
                 <Region VBox.vgrow="ALWAYS" />
-                <Button fx:id="espacio" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irEspacio" prefHeight="40.0" prefWidth="180.0" styleClass="menu-button" text="  Espacio" textFill="#404463">
+                <Button fx:id="espacio" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irEspacio" maxWidth="Infinity" prefHeight="50.0" styleClass="menu-button" text="  Espacio" textFill="#404463">
                     <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -122,7 +122,7 @@
                     </font>
                 </Button>
                 <Region VBox.vgrow="ALWAYS" />
-                <Button fx:id="unidad" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irUnidad" prefHeight="40.0" prefWidth="180.0" styleClass="menu-button" text="  U. Administrativa" textFill="#404463">
+                <Button fx:id="unidad" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irUnidad" maxWidth="Infinity" prefHeight="50.0" styleClass="menu-button" text="  U. Administrativa" textFill="#404463">
                     <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -135,7 +135,7 @@
                     </font>
                 </Button>
                 <Region VBox.vgrow="ALWAYS" />
-                <Button fx:id="edificio" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irEdificio" prefHeight="40.0" prefWidth="180.0" styleClass="menu-button" text="  Edificio" textFill="#404463">
+                <Button fx:id="edificio" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irEdificio" maxWidth="Infinity" prefHeight="50.0" styleClass="menu-button" text="  Edificio" textFill="#404463">
                     <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -148,7 +148,7 @@
                     </font>
                 </Button>
                 <Region VBox.vgrow="ALWAYS" />
-                <Button fx:id="usuario" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irUsuario" prefHeight="40.0" prefWidth="180.0" styleClass="menu-button" text="  Usuario" textFill="#404463">
+                <Button fx:id="usuario" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irUsuario" maxWidth="Infinity" prefHeight="50.0" styleClass="menu-button" text="  Usuario" textFill="#404463">
                     <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -182,9 +182,9 @@
                             <ComboBox fx:id="filtro" prefHeight="30.0" prefWidth="100.0" promptText="Ver todos" style="-fx-background-radius: 10; -fx-background-color: #ABBAE5;" />
                             <ProgressIndicator fx:id="spinner" progress="0.0" visible="false" />
                             <TextField fx:id="buscador" prefHeight="30.0" prefWidth="150.0" promptText="Buscar...">
-                        <font>
-                           <Font name="Roboto Light" size="11.0" />
-                        </font></TextField>
+                                <font>
+                                    <Font name="Roboto Light" size="11.0" />
+                                </font></TextField>
                             <Button fx:id="botonBuscar" mnemonicParsing="false" onAction="#buscar" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: C6CFE2;" text="🔎" />
                         </children>
                     </HBox>

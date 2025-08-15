@@ -148,7 +148,7 @@
                     </font>
                 </Button>
                 <Region VBox.vgrow="ALWAYS" />
-                <Button fx:id="usuario" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irUsuario" maxWidth="Infinity" prefHeight="50.0" style="-fx-background-color: #2c55cf; -fx-background-radius: 10;" text="  Usuario" textFill="WHITE">
+                <Button fx:id="usuario" alignment="BASELINE_LEFT" mnemonicParsing="false" style="-fx-background-color: #2c55cf; -fx-background-radius: 10;" text="  Usuario" textFill="WHITE" maxWidth="Infinity" prefHeight="50.0">
                     <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                             <image>
