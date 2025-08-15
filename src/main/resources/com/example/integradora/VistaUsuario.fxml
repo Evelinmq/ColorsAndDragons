@@ -49,12 +49,12 @@
     </top>
 
     <left>
-        <VBox alignment="TOP_CENTER" prefWidth="200.0" spacing="10.0" style="-fx-background-color: fff;">
+        <VBox alignment="TOP_CENTER" prefWidth="250.0" spacing="15.0" style="-fx-background-color: fff;">
             <padding>
                 <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
             </padding>
             <children>
-                <Button fx:id="resguardo" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irResguardo" prefHeight="40.0" prefWidth="180.0" styleClass="menu-button" text="  Resguardo" textFill="#404463">
+                <Button fx:id="resguardo" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irResguardo" styleClass="menu-button" text="  Resguardo" textFill="#404463" maxWidth="Infinity" prefHeight="50.0">
                     <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -65,12 +65,12 @@
                     <VBox.margin>
                         <Insets top="50.0" />
                     </VBox.margin>
-               <font>
-                  <Font name="Roboto Light" size="12.0" />
-               </font>
+                    <font>
+                        <Font name="Roboto Light" size="12.0" />
+                    </font>
                 </Button>
                 <Region VBox.vgrow="ALWAYS" />
-                <Button fx:id="bienes" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irBienes" prefHeight="40.0" prefWidth="180.0" styleClass="menu-button" text="  Bienes" textFill="#404463">
+                <Button fx:id="bienes" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irBienes" styleClass="menu-button" text="  Bienes" textFill="#404463" maxWidth="Infinity" prefHeight="50.0">
                     <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -78,12 +78,12 @@
                             </image>
                         </ImageView>
                     </graphic>
-               <font>
-                  <Font name="Roboto Light" size="12.0" />
-               </font>
+                    <font>
+                        <Font name="Roboto Light" size="12.0" />
+                    </font>
                 </Button>
                 <Region VBox.vgrow="ALWAYS" />
-                <Button fx:id="empleados" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irEmpleados" prefHeight="40.0" prefWidth="180.0" styleClass="menu-button" text="  Empleados" textFill="#404463">
+                <Button fx:id="empleados" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irEmpleados" styleClass="menu-button" text="  Empleados" textFill="#404463" maxWidth="Infinity" prefHeight="50.0">
                     <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -91,12 +91,12 @@
                             </image>
                         </ImageView>
                     </graphic>
-               <font>
-                  <Font name="Roboto Light" size="12.0" />
-               </font>
+                    <font>
+                        <Font name="Roboto Light" size="12.0" />
+                    </font>
                 </Button>
                 <Region VBox.vgrow="ALWAYS" />
-                <Button fx:id="puesto" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irPuesto" prefHeight="40.0" prefWidth="180.0" styleClass="menu-button" text="  Puesto" textFill="#404463">
+                <Button fx:id="puesto" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irPuesto" styleClass="menu-button" text="  Puesto" textFill="#404463" maxWidth="Infinity" prefHeight="50.0">
                     <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -109,7 +109,7 @@
                     </font>
                 </Button>
                 <Region VBox.vgrow="ALWAYS" />
-                <Button fx:id="espacio" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irEspacio" prefHeight="40.0" prefWidth="180.0" styleClass="menu-button" text="  Espacio" textFill="#404463">
+                <Button fx:id="espacio" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irEspacio" styleClass="menu-button" text="  Espacio" textFill="#404463" maxWidth="Infinity" prefHeight="50.0">
                     <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -122,7 +122,7 @@
                     </font>
                 </Button>
                 <Region VBox.vgrow="ALWAYS" />
-                <Button fx:id="unidad" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irUnidad" prefHeight="40.0" prefWidth="180.0" styleClass="menu-button" text="  U. Administrativa" textFill="#404463">
+                <Button fx:id="unidad" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irUnidad" styleClass="menu-button" text="  U. Administrativa" textFill="#404463" maxWidth="Infinity" prefHeight="50.0">
                     <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -135,7 +135,7 @@
                     </font>
                 </Button>
                 <Region VBox.vgrow="ALWAYS" />
-                <Button fx:id="edificio" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irEdificio" prefHeight="40.0" prefWidth="180.0" styleClass="menu-button" text="  Edificio" textFill="#404463">
+                <Button fx:id="edificio" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irEdificio" styleClass="menu-button" text="  Edificio" textFill="#404463" maxWidth="Infinity" prefHeight="50.0">
                     <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -148,7 +148,7 @@
                     </font>
                 </Button>
                 <Region VBox.vgrow="ALWAYS" />
-                <Button fx:id="usuario" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #2c55cf; -fx-background-radius: 10;" text="  Usuario" textFill="WHITE">
+                <Button fx:id="usuario" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#irUsuario" maxWidth="Infinity" prefHeight="50.0" style="-fx-background-color: #2c55cf; -fx-background-radius: 10;" text="  Usuario" textFill="WHITE">
                     <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -182,9 +182,9 @@
                             <ComboBox fx:id="filtroEstado" prefHeight="30.0" prefWidth="100.0" promptText="Ver todos" style="-fx-background-radius: 10; -fx-background-color: #ABBAE5;" />
                             <ProgressIndicator fx:id="spinner" progress="0.0" visible="false" />
                             <TextField fx:id="textoBusquedaUsuario" prefHeight="30.0" prefWidth="150.0" promptText="Buscar...">
-                        <font>
-                           <Font name="Roboto Thin" size="11.0" />
-                        </font></TextField>
+                                <font>
+                                    <Font name="Roboto Thin" size="11.0" />
+                                </font></TextField>
                             <Button fx:id="botonBusquedaUsuario" mnemonicParsing="false" onAction="#buscarUsuario" prefHeight="30.0" prefWidth="40.0" styleClass="search-button" text="🔎" />
                         </children>
                     </HBox>
