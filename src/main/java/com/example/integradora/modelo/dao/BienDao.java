@@ -8,7 +8,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BienDao {
+    public List<Bien>  readBienActivo(){
 
+        String query = "SELECT * FROM BIEN WHERE ESTADO = 1 ORDER BY bien_codigo ASC";
+        List<Bien> bienes = new ArrayList<Bien>();
+
+        try{
+            Connection conn = OracleDatabaseConnectionManager.getConnection();
+            PreparedStatement ps = conn.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()){
+                Bien b = new Bien();
+                b.setBien_codigo(rs.getString("bien_codigo"));
+                b.setDescripcion(rs.getString("Descripcion"));
+                b.setMarca(rs.getString("Marca"));
+                b.setModelo(rs.getString("Modelo"));
+                b.setSerie(rs.getString("Serie"));
+                b.setEstado(rs.getInt("Estado"));
+                bienes.add (b);
+
+            }
+            rs.close();
+            conn.close();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return bienes;
+    }
     public boolean bienCreate(Bien b) {
 
         String query = "INSERT INTO bien( bien_codigo, descripcion, marca, modelo, Serie, estado) VALUES (?,?,?,?,?,?)";
@@ -64,6 +91,7 @@ public class BienDao {
         }
         return bienes;
     }
+
 
     public boolean updateBien(String codigoViejo, Bien b) {
         try {

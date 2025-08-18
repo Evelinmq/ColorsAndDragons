@@ -144,7 +144,7 @@ public class RegistroResguardoController  implements Initializable {
     }
 
     private void cargarBienes(){
-        List<Bien> todosLosBienes = bienDao.readBien();
+        List<Bien> todosLosBienes = bienDao.readBienActivo();
         bienesDisponibles = FXCollections.observableArrayList(todosLosBienes);
         comboBoxBusqueda.setItems(bienesDisponibles);
     }
