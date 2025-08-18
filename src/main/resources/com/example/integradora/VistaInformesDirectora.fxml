@@ -69,7 +69,7 @@
                         <Font name="Roboto Light" size="12.0" />
                     </font>
                 </Button>
-                <Button fx:id="descarga" disable="true" maxWidth="Infinity" mnemonicParsing="false" onAction="#descarga" prefHeight="50.0" styleClass="download-selected-button" text="   Descargar seleccionado       " textAlignment="CENTER" textFill="#0033cc">
+                <Button fx:id="descarga" disable="true" maxWidth="Infinity" mnemonicParsing="false" onAction="#descarga" prefHeight="50.0" styleClass="download-selected-button" text="   Visualizar seleccionado       " textAlignment="CENTER" textFill="#0033cc">
                     <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -82,7 +82,7 @@
                     </font>
                 </Button>
                 <Region VBox.vgrow="ALWAYS" />
-                <Button fx:id="descargar" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#descargaTodos" prefHeight="50.0" styleClass="download-button" text="  Descargar todo" textFill="#0033cc">
+                <Button fx:id="descargar" alignment="BASELINE_LEFT" maxWidth="Infinity" mnemonicParsing="false" onAction="#descargaTodos" prefHeight="50.0" styleClass="download-button" text="  Visualizar todo" textFill="#0033cc">
                     <font>
                         <Font name="Roboto Light" size="12.0" />
                     </font>
